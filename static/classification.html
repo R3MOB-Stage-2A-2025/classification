@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Classification des publications</title>
+    <script src="static/classification.js" defer></script>
+    <link type="text/css" rel="stylesheet" href="static/classification.css" />
+</head>
+<body>
+    <h1>Classification des publications</h1>
+    <div id="data">
+    <form id="classificationForm">
+        <textarea id="textInput" rows="10" cols="50" placeholder="Entrez l'abstract ici (en anglais)..."></textarea><br><br>
+        <button type="button" onclick="classifyText()">Valider</button>
+    </form>
+    </div>
+    <div id="result">
+        <!-- Les résultats seront affichés ici -->
+    </div>
+</body>
+</html>
