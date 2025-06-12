@@ -36,32 +36,6 @@ ps aux | grep app.py
 kill -9 <app.py pid>
 ```
 
-## Architecture du code
-
-├── app.py     # Fichier permettant d'éxecuter l'outil de classification
-|
-├── data     ## Répertoire contenant les données nécessaires à la classification
-│   ├── data.json
-│   └── themes_keywords.json
-|
-├── functions.py     # Fichier contenant les fonctions utilitaires pour la classification
-|
-├── README.md
-|
-├── results     ## Répertoire stockant les fichiers produits par l'éxecution des tests
-│   ├── classification_results.json
-│   ├── comparison_results.json
-│   └── theme_summary.json
-|
-├── start_classification.sh     # Script pour démarrer facilement l'outil de classification
-|
-├── static      ## Répertoire contenant les fichiers front-end de l'outil de classification
-│   ├── classification.css
-│   ├── classification.html
-│   └── classification.js
-|
-└── tests.py    # Fichier permettant d'éxecuter les tests
-
 ## Lancer l'outils de classification
 
 Pour lancer l'outil de classification, suivez les étapes ci-dessous :
