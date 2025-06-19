@@ -22,13 +22,6 @@ cd classification/backend/
 python Server.py
 ```
 
-If there is the error ``port 5000 already used``, just do:
-
-```bash
-ps aux | grep app.py
-kill -9 <app.py pid>
-```
-
 ## Lancer les tests 
 
 Pour lancer les tests de performance de l'outil de classification, suivez les étapes ci-dessous :
