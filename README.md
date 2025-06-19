@@ -55,6 +55,8 @@ cd classification/
 python app.py
 ```
 
+4. Aller sur ``http://localhost:5011``.
+
 ## Lancer les tests 
 
 Pour lancer les tests de performance de l'outil de classification, suivez les étapes ci-dessous :
