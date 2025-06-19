@@ -22,12 +22,6 @@ app.config['SECRET_KEY'] = BACKEND_SECRETKEY
 CORS(app, resources={r"/*": { "origins": "*" }})
 socketio = SocketIO(app, cors_allowed_origins="*")
 
-# TODO: this route is only used to test.
-@app.route('/')
-def index():
-    return send_from_directory('static', 'classification.html')
-# </TODO>
-
 @socketio.on("connect")
 def connected():
     """event listener when client connects to the classification module"""
