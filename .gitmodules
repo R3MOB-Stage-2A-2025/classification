@@ -1,0 +1,3 @@
+[submodule "parsing"]
+	path = parsing
+	url = git@github.com:R3MOB-Stage-2A-2025/parsing.git
