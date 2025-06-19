@@ -1,7 +1,10 @@
 import json
 import spacy
 import nltk
+
+# This one is searching in the `nltk_data/` dir.
 from nltk.corpus import stopwords, wordnet
+
 from nltk.stem import WordNetLemmatizer
 from sklearn.feature_extraction.text import TfidfVectorizer
 

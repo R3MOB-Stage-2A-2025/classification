@@ -1,3 +1,5 @@
+//import { socket } from './socket';
+
 // Fonction pour classifier le texte
 async function classifyText() {
 
