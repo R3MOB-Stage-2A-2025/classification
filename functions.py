@@ -25,7 +25,7 @@ nltk.download(info_or_id='stopwords', download_dir=NLTK_DIRECTORY)
 nlp = spacy.load(SPACY_MODEL)
 
 # Charger les fichiers JSON
-def load_json(file_path):
+def load_json(file_path: str) -> str:
     with open(file_path, 'r') as f:
         return json.load(f)
 

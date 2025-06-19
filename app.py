@@ -14,7 +14,7 @@ BACKEND_SECRETKEY: str = os.getenv("BACKEND_SECRETKEY")
 # Retrieve keywords.
 from functions import classify_abstract_combined, load_json
 
-themes_keywords = load_json('data/themes_keywords.json')
+themes_keywords: str = load_json('data/themes_keywords.json')
 # </Retrieve keywords>
 
 app = Flask(__name__)
@@ -22,19 +22,11 @@ app.config['SECRET_KEY'] = BACKEND_SECRETKEY
 CORS(app, resources={r"/*": { "origins": "*" }})
 socketio = SocketIO(app, cors_allowed_origins="*")
 
-@app.route('/classify', methods=['POST'])
-def classify() -> Response:
-    data = request.json
-    abstract_text = data.get('text', '')
-
-    # Classification
-    themes = classify_abstract_combined(abstract_text, themes_keywords)
-
-    return jsonify({'themes': themes})
-
+# TODO: this route is only used to test.
 @app.route('/')
 def index():
     return send_from_directory('static', 'classification.html')
+# </TODO>
 
 @socketio.on("connect")
 def connected():
@@ -45,6 +37,19 @@ def connected():
 def handle_message(data):
     """event listener when client types a message"""
     print("data from the front end: ", str(data))
+
+@socketio.on('classification')
+def handle_classify(data) -> None:
+    print(f"Classification query received: {query}")
+
+    abstract_text: str = data.get(key='text', default='')
+    themes: list[str] = classify_abstract_combined(abstract_text, themes_keywords)
+
+    # debug.
+    print(f'Themes found: {themes}')
+    # </debug>
+
+    emit("classification_results", jsonify({ 'themes': themes }), to=request.sid)
 
 @socketio.on("disconnect")
 def disconnected():
