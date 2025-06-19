@@ -5,7 +5,7 @@ La méthode utilisée repose sur une recherche de mots-clés dans l'abstract (en
 
 ## Starting the Flask server
 
-Use it for **python3.13**:
+1. Use it for **python3.13**:
 
 ```bash
 cd classification/backend/
@@ -15,11 +15,20 @@ pip install -r requirements.txt
 python -m spacy download en_core_web_lg
 ```
 
-Then do in another terminal:
+2. Then do in another terminal:
 
 ```bash
 cd classification/backend/
 python Server.py
+```
+
+3. Tests only, use the frontend:
+
+```bash
+# Open another terminal and do this:
+cd frontend/
+npm install
+npm run dev
 ```
 
 ## Lancer les tests 

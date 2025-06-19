@@ -65,7 +65,7 @@ function App() {
 
             <div id="result">
                 {error && <p>{error}</p>}
-                {results && results.length > 0 ? (
+                {results && results.length > 0 && (
                     <>
                         <h2>Thèmes scentifiques associés :</h2>
                         <ul>
@@ -74,9 +74,7 @@ function App() {
                             ))}
                         </ul>
                     </>
-                ) : results && results.length === 0 ? (
-                    <p>Aucun thème associé trouvé.</p>
-                ) : null}
+                )}
             </div>
         </div>
     );
