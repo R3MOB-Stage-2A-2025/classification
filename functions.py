@@ -5,18 +5,26 @@ from nltk.corpus import stopwords, wordnet
 from nltk.stem import WordNetLemmatizer
 from sklearn.feature_extraction.text import TfidfVectorizer
 
-nltk.download('punkt_tab')
-nltk.download('wordnet')
-nltk.download('stopwords')
+# Retrieve environment variables.
+import os
+from dotenv import load_dotenv, dotenv_values
+
+load_dotenv()
+NLTK_DIRECTORY: str = os.getenv("NLTK_DIRECTORY")
+SPACY_MODEL: str = os.getenv("SPACY_MODEL")
+# </Retrieve environment variables>
+
+nltk.download(info_or_id='punkt_tab', download_dir=NLTK_DIRECTORY)
+nltk.download(info_or_id='wordnet', download_dir=NLTK_DIRECTORY)
+nltk.download(info_or_id='stopwords', download_dir=NLTK_DIRECTORY)
 
 # Charger un modèle de spaCy
-nlp = spacy.load('en_core_web_lg')
+nlp = spacy.load(SPACY_MODEL)
 
 # Charger les fichiers JSON
 def load_json(file_path):
     with open(file_path, 'r') as f:
         return json.load(f)
-
 
 
 ### FONCTIONS DE PRETRAITEMENTS ###
@@ -260,3 +268,4 @@ def get_all_metrics(tp, fp, fn, tn):
         global_accuracy = 0.0
 
     return global_precision, global_recall, global_f1, global_accuracy
+
