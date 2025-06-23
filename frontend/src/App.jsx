@@ -23,8 +23,23 @@ function App() {
             setResults(JSON.parse(data.themes));
         });
 
+        socket.on("json_classification_results", (data) => {
+            setLoading(false);
+            setError(null);
+            setResults(JSON.parse(data.themes));
+        });
+
+        socket.on("json_classification_error", (data) => {
+            setLoading(false);
+            setResults(false);
+            setError(data.error || "JSON could not be imported.");
+        });
+
         return () => {
             socket.off("classification_results");
+            socket.off("classification_error");
+            socket.off("json_classification_results");
+            socket.off("json_classification_error");
         };
     }, []);
 
@@ -40,6 +55,27 @@ function App() {
     const handleKeyDown = (e) => {
         if (e.key === "Enter")
             classifyText();
+    };
+
+    const handleJsonUpload = (event) => {
+        const file = event.target.files[0];
+        if (!file) return;
+
+        const reader = new FileReader();
+
+        reader.onload = (e) => {
+            try {
+                const jsonContent = JSON.parse(e.target.result);
+                setLoading(true);
+                setError(null);
+                setResults(false);
+                socket.emit("json_classification", JSON.stringify(jsonContent));
+            } catch (err) {
+                setError("JSON is invalid.");
+            }
+        };
+
+        reader.readAsText(file);
     };
 
     return (
@@ -60,9 +96,20 @@ function App() {
                     />
                     <button type="button" onClick={classifyText}>Valider</button>
                 </form>
-
             </div>
-
+            <div>
+                <label htmlFor="jsonUpload">
+                    <strong>Importer une publication JSON :</strong>
+                </label>
+                <input
+                    type="file"
+                    id="jsonUpload"
+                    accept=".json"
+                    onChange={handleJsonUpload}
+                    disabled={loading}
+                    style={{ marginLeft: '1rem' }}
+                />
+            </div>
             <div id="result">
                 {error && <p>{error}</p>}
                 {results && results.length > 0 && (
