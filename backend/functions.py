@@ -7,6 +7,7 @@ from nltk.corpus import stopwords, wordnet
 
 from nltk.stem import WordNetLemmatizer
 from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.metrics.pairwise import cosine_similarity
 
 # Retrieve environment variables.
 import os
@@ -154,7 +155,7 @@ def classify_abstract_TF_IDF(abstract_text, themes_keywords):
 
 
 # Combination des techniques TF-IDF et d'embeddings
-def classify_abstract_combined(abstract_text, themes_keywords):
+def classify_abstract_combined(abstract_text, themes_keywords) -> list[str]:
     # Prétraiter l'abstract
     abstract_text = ' '.join(preprocess_text(abstract_text))
 
@@ -188,6 +189,27 @@ def classify_abstract_combined(abstract_text, themes_keywords):
 
     return abstract_themes
 
+# Similarity Cosine
+def classify_cosine_similarity(abstract_text: list[str], themes_keywords):
+    abstract_themes = classify_abstract_combined(abstract_text, themes_keywords)
+
+    # Get the TF-IDF vector for the first item (index 0)
+    vector1: str = abstract_themes[0]
+
+    # Get the TF-IDF vector for all items except the first item
+    vectors: str = abstract_themes[1:]
+
+    cosim = cosine_similarity(vector1, vectors)
+    cosim = pd.DataFrame(cosim) # Not 1D array dataframe.
+    cosim = cosim.values.flatten() # 1D array dataframe.
+
+    # Convert the results into a dataframe.
+    #df_cosim = pd.DataFrame(cosim, columns=['COSIM'])
+    #df_cosim = pd.concat([df_tfidf, df_cosim], axis=1)
+
+    print(cosim)
+    return cosim #df_cosim
+# </Similarity Cosine>
 
 
 ### FONCTIONS DE GESTION DE METRIQUES ###

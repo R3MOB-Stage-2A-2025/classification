@@ -12,8 +12,27 @@ BACKEND_PORT: int = int(os.getenv("BACKEND_PORT"))
 BACKEND_SECRETKEY: str = os.getenv("BACKEND_SECRETKEY")
 # </Retrieve environment variables>
 
+# Retrieve functions from the parsing module.
+import sys
+import os
+
+dir_path_current: str = os.path.dirname(os.path.abspath(__file__))
+os.chdir('..')
+
+dir_path: str = os.path.dirname(
+    os.path.abspath("parsing/python/json/JsonParserCrossref.py")
+)
+sys.path.append(dir_path)
+
+from JsonParserCrossref import JsonParserCrossref
+
+os.chdir(dir_path_current)
+# </Retrieve functions from the parsing module>
+
 # Retrieve keywords.
-from functions import classify_abstract_combined, load_json
+from functions import load_json
+from functions import classify_abstract_combined
+from functions import classify_cosine_similarity
 
 themes_keywords: str = load_json('data/themes_keywords.json')
 # </Retrieve keywords>
@@ -34,7 +53,7 @@ def handle_message(data):
     print("data from the front end: ", str(data))
 
 @socketio.on('classification')
-def handle_classify(data) -> None:
+def handle_classify(data: str) -> None:
     print(f"Classification query received: {data}")
 
     themes: str = json.dumps(
@@ -49,6 +68,29 @@ def handle_classify(data) -> None:
         emit("classification_error", { 'error': 'No themes found' }, to=request.sid)
     else:
         emit("classification_results", { 'themes': themes }, to=request.sid)
+
+@socketio.on('json_classification')
+def handle_classify(data: str) -> None:
+    print(f"JSON Classification query received: {data}")
+
+    data_parsed: str = JsonParserCrossref(data).classify_me()
+
+    # debug.
+    print(data_parsed)
+    # </debug>
+
+    themes: str = json.dumps(
+        classify_abstract_combined(data_parsed, themes_keywords)
+    )
+
+    # debug.
+    print(f'Themes found: {themes}')
+    # </debug>
+
+    if themes == "[]":
+        emit("json_classification_error", { 'error': 'No themes found' }, to=request.sid)
+    else:
+        emit("json_classification_results", { 'themes': themes }, to=request.sid)
 
 @socketio.on("disconnect")
 def disconnected():
