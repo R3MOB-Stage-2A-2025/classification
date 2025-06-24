@@ -5,12 +5,10 @@ from functions import load_json
 from functions import update_metrics_for_theme, get_all_metrics, get_metrics_for_each_theme
 
 from functions import classify_abstract_by_keywords
-from functions import classify_abstract_by_spaCy
 from functions import classify_abstract_TF_IDF
-from functions import classify_abstract_combined
 
 # Choix de la fonction de classification à tester
-fonction_tested = classify_abstract_combined
+fonction_tested = classify_abstract_by_keywords
 
 # Chargement des données
 data = load_json('data/data.json')

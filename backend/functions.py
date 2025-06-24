@@ -1,11 +1,12 @@
 import json
+import re
 import spacy
-import nltk
 
+import nltk
 # This one is searching in the `nltk_data/` dir.
 from nltk.corpus import stopwords, wordnet
 
-from nltk.stem import WordNetLemmatizer
+from nltk.stem import PorterStemmer
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 
@@ -33,25 +34,51 @@ def load_json(file_path: str) -> str:
 ## INPUT NORMALIZATION FUNCTIONS
 ##############################################################################
 
-def preprocess_text(text: str) -> list[str]:
+
+def preprocess_text(text: str) -> dict[str, list[str | list[str]]]:
     """
             !!! Works only for English text. !!!
 
-    :return: the tokenized text without stopwords like "and",
-    and without ponctuation.
+    1. lowercase the text.
+    2. remove punctuation and noise.
+    3. remove white spaces.
+    4. tokenize by word.
+    5. remove stop words like "and".
+    6. stemming: transform each token/word into its base form.
+
+    :return: something like a dataframe.
     """
+    # Cleaning and normalizing the text.
+    lowercased_text: str = text.lower()
+    remove_punctuation: str = re.sub(r'[^\w\s]', '', lowercased_text)
+    remove_white_space: str = remove_punctuation.strip()
+
+    # Tokenization.
+    tokenized_text = nltk.word_tokenize(remove_white_space)
+
     # `set()` builds an unordered collection of unique elements.
     stop_words: set[str] = set(stopwords.words('english'))
-    tokens_nltk = nltk.word_tokenize(text.lower())
 
-    # Remove stopwords from the text.
-    lemmatizer = WordNetLemmatizer()
-    tokens: list[str] = [
-        lemmatizer.lemmatize(token) for token in tokens_nltk \
-            if token.isalpha() and token not in stop_words
-    ]
+    # Remove stopwords from the text i.e irrelevant words like "and".
+    stop_words_removed: list[str] = list(set([
+        word for word in tokenized_text \
+        if word not in stop_words
+    ]))
 
-    return tokens
+    # Stemming.
+    ps = PorterStemmer()
+    stemmed_text: list[str] = set(list(ps.stem(word) for word in stop_words_removed))
+
+    dataframe = {
+        'DOCUMENT': [text],
+        'LOWERCASE' : [lowercased_text],
+        'CLEANING': [remove_white_space],
+        'TOKENIZATION': [tokenized_text],
+        'STOP-WORDS': [stop_words_removed],
+        'STEMMING': [stemmed_text]
+    }
+
+    return dataframe
 
 
 def get_synonyms(word: str) -> set[str]:
@@ -142,96 +169,47 @@ def expand_and_preprocess_keywords(themes_keywords: dict[str, str]) -> dict[str,
 ## CLASSIFICATION FUNCTIONS
 ##############################################################################
 
+def is_keyword_in_processed_text(keyword: str, processed_text: list[str]) -> bool:
+    """
+    dataframe['STEMMING'] i.e `processed_text` could be like that:
+
+    [['energi', 'effici', 'remain', 'key', 'issu', 'wireless', 'sensor',
+    'network', 'dutycycl', 'mechan', 'acquir', 'much', 'interest', 'due']]
+
+    The words are not well written.
+    """
+    for elt in processed_text:
+        if elt == keyword.lower():
+            return True
+    return False
+
 def classify_abstract_by_keywords(text: str, themes_keywords: dict[str, str]) -> list[str]:
-    tokenized_text: list[str] = preprocess_text(text)
+    dataframe = preprocess_text(text)
+    processed_text: list[str] = dataframe['STEMMING'][0]
+
     themes_keywords = expand_and_preprocess_keywords(themes_keywords)
     abstract_themes: list[str] = []
 
     for theme, keywords in themes_keywords.items():
         for keyword in keywords:
-            if keyword.lower() in tokenized_text:
+            if is_keyword_in_processed_text(keyword, processed_text):
                 abstract_themes.append(theme)
                 break
 
     return abstract_themes
 
-
-def classify_abstract_TF_IDF(abstract_text, themes_keywords) -> list[str]:
-    abstract_text = ' '.join(preprocess_text(abstract_text))
-    themes_keywords = expand_and_preprocess_keywords(themes_keywords)
+def classify_abstract_TF_IDF(text: str, themes_keywords: dict[str, str]) -> list[str]:
+    dataframe = preprocess_text(text)
+    stemming: str = ' '.join(dataframe['STEMMING'][0])
 
     vectorizer = TfidfVectorizer()
-    abstract_tfidf = vectorizer.fit_transform([abstract_text])
-    abstract_themes = []
-    for theme, keywords in themes_keywords.items():
-        theme_tfidf = vectorizer.transform(keywords)
-        similarity = (abstract_tfidf * theme_tfidf.T).toarray()
+    tfidf_matrix = vectorizer.fit_transform(stemming)
 
-        # TODO: To use Cosine similarity, we need every themes.
-        #if similarity.max() > 0.15: # CHANGEME
-            #abstract_themes.append(theme)
-        # </TODO>
-
-    return abstract_themes
-
-
-def classify_abstract_by_spaCy(abstract_text, themes_keywords: dict[str, str]):
-    abstract_text = ' '.join(preprocess_text(abstract_text))
-    themes_keywords = expand_and_preprocess_keywords(themes_keywords)
-
-    doc = nlp(abstract_text)
-    abstract_themes = []
-    for theme, keywords in themes_keywords.items():
-        for keyword in keywords:
-            keyword_vec = nlp(keyword)
-
-            # TODO: To use Cosine similarity, we need every themes.
-            #if doc.similarity(keyword_vec) > 0.85: # CHANGEME
-                #abstract_themes.append(theme)
-                #break
-            # </TODO>
-
-    return abstract_themes
-
-
-# Combination des techniques TF-IDF et d'embeddings
-def classify_abstract_combined(abstract_text, themes_keywords) -> list[str]:
-    # Prétraiter l'abstract
-    abstract_text = ' '.join(preprocess_text(abstract_text))
-
-    # Prétraiter et Étendre les mots-clés avec des synonymes
-    themes_keywords = expand_and_preprocess_keywords(themes_keywords)
-
-    # Représentation TF-IDF
-    vectorizer = TfidfVectorizer()
-    all_keywords = [keyword for keywords in themes_keywords.values() for keyword in keywords]
-    vectorizer.fit(all_keywords + [abstract_text])
-    abstract_tfidf = vectorizer.transform([abstract_text])
-
-    abstract_themes = []
-
-    for theme, keywords in themes_keywords.items():
-        theme_tfidf = vectorizer.transform(keywords)
-        tfidf_similarity = (abstract_tfidf * theme_tfidf.T).toarray().max()
-
-        # Représentation SpaCy (embeddings)
-        doc = nlp(abstract_text)
-        theme_similarity = 0
-        for keyword in keywords:
-            keyword_vec = nlp(keyword)
-            theme_similarity = max(theme_similarity, doc.similarity(keyword_vec))
-
-        # Combiner les similarités
-        combined_similarity = (tfidf_similarity + theme_similarity) / 2
-
-        if combined_similarity > 0.45:  # CHANGEME
-            abstract_themes.append(theme)
-
-    return abstract_themes
+    feature_names = vectorizer.get_feature_names_out()
 
 # Similarity Cosine
 def classify_cosine_similarity(abstract_text: list[str], themes_keywords):
-    abstract_themes = classify_abstract_combined(abstract_text, themes_keywords)
+    abstract_themes = classify_abstract_TF_IDF(abstract_text, themes_keywords)
 
     # Get the TF-IDF vector for the first item (index 0)
     vector1: str = abstract_themes[0]
