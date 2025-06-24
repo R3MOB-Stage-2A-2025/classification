@@ -22,135 +22,175 @@ nltk.download(info_or_id='punkt_tab', download_dir=NLTK_DIRECTORY)
 nltk.download(info_or_id='wordnet', download_dir=NLTK_DIRECTORY)
 nltk.download(info_or_id='stopwords', download_dir=NLTK_DIRECTORY)
 
-# Charger un modèle de spaCy
 nlp = spacy.load(SPACY_MODEL)
 
-# Charger les fichiers JSON
 def load_json(file_path: str) -> str:
     with open(file_path, 'r') as f:
         return json.load(f)
 
 
-### FONCTIONS DE PRETRAITEMENTS ###
+##############################################################################
+## INPUT NORMALIZATION FUNCTIONS
+##############################################################################
 
+def preprocess_text(text: str) -> list[str]:
+    """
+            !!! Works only for English text. !!!
 
-# Prétraitement du texte avec lemmatisation et suppression des stop-words
-def preprocess_text(text):
-    
-    # Charger les stopwords en anglais
-    stop_words = set(stopwords.words('english'))
-    
-    # Tokeniser le texte
-    tokens = nltk.word_tokenize(text.lower())
-    
-    # Lemmatiser chaque mot et retirer les stopwords
+    :return: the tokenized text without stopwords like "and",
+    and without ponctuation.
+    """
+    # `set()` builds an unordered collection of unique elements.
+    stop_words: set[str] = set(stopwords.words('english'))
+    tokens_nltk = nltk.word_tokenize(text.lower())
+
+    # Remove stopwords from the text.
     lemmatizer = WordNetLemmatizer()
-    tokens = [lemmatizer.lemmatize(token) for token in tokens if token.isalpha() and token not in stop_words]
-    
+    tokens: list[str] = [
+        lemmatizer.lemmatize(token) for token in tokens_nltk \
+            if token.isalpha() and token not in stop_words
+    ]
+
     return tokens
 
 
-# Prétraitement des mots-clés
-def preprocess_keywords(keywords):
-    lemmatizer = WordNetLemmatizer()
-    return {lemmatizer.lemmatize(keyword) for keyword in keywords}
+def get_synonyms(word: str) -> set[str]:
+    """
+    :return: The synonyms of the given word, using *WordNet*.
+    `word` is in the resulting set. However, all the words are
+    in lowercase.
 
+    - Example of execution:
 
-# Fonction pour obtenir les synonymes d'un mot (WordNet)
-def get_synonyms(word):
-    synonyms = set()
+    word: Law
+    result: {
+        'law_of_nature', 'police_force', 'police', 'law',
+        'jurisprudence', 'constabulary', 'natural_law',
+        'legal_philosophy', 'practice_of_law'
+    }
+    """
+    synonyms: set[str] = set()
     for syn in wordnet.synsets(word):
         for lemma in syn.lemmas():
             synonyms.add(lemma.name())
+
     return synonyms
 
 
-# Extension des mots-clés avec des synonymes
-def expand_keywords_with_synonyms(expanded_keywords, theme, keywords):
-    for keyword in keywords:
-        expanded_keywords[theme].update(get_synonyms(keyword))
-    return expanded_keywords
+def expand_keywords_with_synonyms(unique_keywords: dict[str, set[str]]):
+    """
+    Example of execution:
+
+    Input:
+    {
+        'Sciences juridiques, Règlementations et Assurances':
+        {
+            'Compliance', 'Maritime law', 'Environmental law',
+            'Legal framework', 'Contract', 'Public liability',
+            'Liability', 'Insurance policy', 'Insurance', 'Law',
+            'Risk management', 'Legislation', 'Policy', 'Regulation'
+        }
+    }
+
+    Output:
+    {
+        'Sciences juridiques, Règlementations et Assurances':
+        {
+            'Compliance', 'constabulary', 'jurisprudence', 'regulating',
+            'undertake', 'contract_bridge', 'cut', 'obligingness',
+            'deference', 'sign', 'Legal framework', 'natural_law',
+            'compliancy', 'Liability', 'contract', 'abbreviate',
+            'sign_up', 'Policy', 'foreshorten', 'conformity', 'constrict',
+            'regulation', 'statute_law', 'insurance_policy', 'get',
+            'Environmental law', 'Contract', 'liability', 'condense',
+            'abridge', 'legislating', 'complaisance', 'press', 'sign_on',
+            'abidance', 'take', 'declaration', 'rule', 'financial_obligation',
+            'legal_philosophy', 'squeeze', 'regularization', 'indebtedness',
+            'conformation', 'insurance', 'practice_of_law', 'indemnity',
+            'compact', 'Insurance policy', 'shorten', 'reduce',
+            'Insurance', 'concentrate', 'compress', 'narrow', 'shrink',
+            'Legislation', 'Regulation', 'compliance', 'Maritime law',
+            'police', 'Public liability', 'regularisation', 'legislation',
+            'Law', 'police_force', 'submission', 'policy', 'law_of_nature',
+            'ordinance', 'law', 'lawmaking', 'Risk management'
+        }
+    }
+    """
+    expanded_keywords_with_synonyms: dict[str, set[str]] = {}
+
+    for theme in unique_keywords:
+        for keyword in unique_keywords[theme]:
+            if theme not in expanded_keywords_with_synonyms:
+                expanded_keywords_with_synonyms[theme] = get_synonyms(keyword)
+            else:
+                expanded_keywords_with_synonyms[theme].update(get_synonyms(keyword))
+
+    return expanded_keywords_with_synonyms
 
 
-# Prétraitement et Extension des mots-clés avec des synonymes
-def expand_and_preprocess_keywords(themes_keywords):
-    
-    expanded_keywords = {}
-    
-    for theme, keywords in themes_keywords.items():
+def expand_and_preprocess_keywords(themes_keywords: dict[str, str]) -> dict[str, set[str]]:
+    # `set()` builds an unordered collection of unique elements.
+    unique_keywords: dict[str, set[str]] = {
+        theme: set(keywords) \
+        for theme, keywords in themes_keywords.items()
+    }
 
-        # Prétraiter les mots-clés
-        keywords = preprocess_keywords(keywords)
-        
-        expanded_keywords[theme] = set(keywords)
-        
-        # Etendre les mots-clés avec des synonymes
-        """ expanded_keywords = expand_keywords_with_synonyms(expanded_keywords, theme, keywords) """
-    
-    return expanded_keywords
+    return expand_keywords_with_synonyms(unique_keywords)
 
 
+##############################################################################
+## CLASSIFICATION FUNCTIONS
+##############################################################################
 
-### FONCTIONS DE CLASSIFICATION ###
-
-
-# Fonction pour classifier un abstract selon les mots-clés 
-def classify_abstract(abstract_text, themes_keywords):
-    
-    # Prétraiter l'abstract
-    abstract_text = preprocess_text(abstract_text)
-    
-    # Prétraiter et Étendre les mots-clés avec des synonymes
+def classify_abstract_by_keywords(text: str, themes_keywords: dict[str, str]) -> list[str]:
+    tokenized_text: list[str] = preprocess_text(text)
     themes_keywords = expand_and_preprocess_keywords(themes_keywords)
-    
-    abstract_themes = []
-    
+    abstract_themes: list[str] = []
+
     for theme, keywords in themes_keywords.items():
         for keyword in keywords:
-            if keyword.lower() in abstract_text:
+            if keyword.lower() in tokenized_text:
                 abstract_themes.append(theme)
                 break
-    
-    return abstract_themes 
 
-
-# Vectorisations de l'abstract avec SpaCy (modèle d'embeddings)
-def classify_abstract_by_spaCy(abstract_text, themes_keywords):
-    
-    # Prétraiter l'abstract
-    abstract_text = ' '.join(preprocess_text(abstract_text))
-    
-    # Prétraiter et Étendre les mots-clés avec des synonymes
-    themes_keywords = expand_and_preprocess_keywords(themes_keywords)
-    
-    doc = nlp(abstract_text)
-    abstract_themes = []
-    for theme, keywords in themes_keywords.items():
-        for keyword in keywords:
-            keyword_vec = nlp(keyword)
-            if doc.similarity(keyword_vec) > 0.85: # Seuil à ajuster
-                abstract_themes.append(theme)
-                break
     return abstract_themes
 
 
-# Créer une représentation TF-IDF de l'abstract
-def classify_abstract_TF_IDF(abstract_text, themes_keywords):
-    
-    # Prétraiter l'abstract
+def classify_abstract_TF_IDF(abstract_text, themes_keywords) -> list[str]:
     abstract_text = ' '.join(preprocess_text(abstract_text))
-    
-    # Prétraiter et Étendre les mots-clés avec des synonymes
     themes_keywords = expand_and_preprocess_keywords(themes_keywords)
-    
+
     vectorizer = TfidfVectorizer()
     abstract_tfidf = vectorizer.fit_transform([abstract_text])
     abstract_themes = []
     for theme, keywords in themes_keywords.items():
         theme_tfidf = vectorizer.transform(keywords)
         similarity = (abstract_tfidf * theme_tfidf.T).toarray()
-        if similarity.max() > 0.15: # Seuil à ajuster
-            abstract_themes.append(theme)
+
+        # TODO: To use Cosine similarity, we need every themes.
+        #if similarity.max() > 0.15: # CHANGEME
+            #abstract_themes.append(theme)
+        # </TODO>
+
+    return abstract_themes
+
+
+def classify_abstract_by_spaCy(abstract_text, themes_keywords: dict[str, str]):
+    abstract_text = ' '.join(preprocess_text(abstract_text))
+    themes_keywords = expand_and_preprocess_keywords(themes_keywords)
+
+    doc = nlp(abstract_text)
+    abstract_themes = []
+    for theme, keywords in themes_keywords.items():
+        for keyword in keywords:
+            keyword_vec = nlp(keyword)
+
+            # TODO: To use Cosine similarity, we need every themes.
+            #if doc.similarity(keyword_vec) > 0.85: # CHANGEME
+                #abstract_themes.append(theme)
+                #break
+            # </TODO>
+
     return abstract_themes
 
 
@@ -184,7 +224,7 @@ def classify_abstract_combined(abstract_text, themes_keywords) -> list[str]:
         # Combiner les similarités
         combined_similarity = (tfidf_similarity + theme_similarity) / 2
 
-        if combined_similarity > 0.45:  # Seuil à ajuster
+        if combined_similarity > 0.45:  # CHANGEME
             abstract_themes.append(theme)
 
     return abstract_themes
@@ -202,6 +242,8 @@ def classify_cosine_similarity(abstract_text: list[str], themes_keywords):
     cosim = cosine_similarity(vector1, vectors)
     cosim = pd.DataFrame(cosim) # Not 1D array dataframe.
     cosim = cosim.values.flatten() # 1D array dataframe.
+    print("EHOH")
+    print(cosim)
 
     # Convert the results into a dataframe.
     #df_cosim = pd.DataFrame(cosim, columns=['COSIM'])
@@ -212,10 +254,10 @@ def classify_cosine_similarity(abstract_text: list[str], themes_keywords):
 # </Similarity Cosine>
 
 
-### FONCTIONS DE GESTION DE METRIQUES ###
+##############################################################################
+## METRIC FUNCTIONS
+##############################################################################
 
-
-# Fonction pour mettre à jour les compteurs (TP, FP, FN, TN)
 def update_metrics_for_theme(theme, true_themes, classified_themes, tp, fp, fn, tn):
     if theme in true_themes and theme in classified_themes:
         tp[theme] += 1
@@ -227,7 +269,6 @@ def update_metrics_for_theme(theme, true_themes, classified_themes, tp, fp, fn, 
         tn[theme] += 1
 
 
-# Fonction pour obtenir les métriques par thème : précision, rappel, F1 et exactitude
 def get_metrics_for_each_theme(tp, fp, fn, tn, theme_counts, theme_correct_count):
     precisions = {}
     recalls = {}
@@ -239,17 +280,17 @@ def get_metrics_for_each_theme(tp, fp, fn, tn, theme_counts, theme_correct_count
             precision = tp[theme] / (tp[theme] + fp[theme])
         else:
             precision = 0.0
-            
+
         if tp[theme] + fn[theme] > 0:
             recall = tp[theme] / (tp[theme] + fn[theme])
         else:
             recall = 0.0
-            
+
         if precision + recall > 0:
             f1 = 2 * (precision * recall) / (precision + recall)
         else:
             f1 = 0.0
-        
+
         if theme_counts[theme] > 0:
             accuracy = theme_correct_count[theme] / theme_counts[theme]
         else:
@@ -263,30 +304,29 @@ def get_metrics_for_each_theme(tp, fp, fn, tn, theme_counts, theme_correct_count
     return precisions, recalls, f1_scores, accuracies
 
 
-# Fonction pour obtenir les métriques globales : précision, rappel, F1 et exactitude
 def get_all_metrics(tp, fp, fn, tn):
     all_tp = sum(tp.values())
     all_fp = sum(fp.values())
     all_fn = sum(fn.values())
     all_tn = sum(tn.values())
-    
+
     total_predictions = all_tp + all_fp + all_fn + all_tn
 
     if all_tp + all_fp > 0:
         global_precision = all_tp / (all_tp + all_fp)
     else:
         global_precision = 0.0
-        
+
     if all_tp + all_fn > 0:
         global_recall = all_tp / (all_tp + all_fn)
     else:
         global_recall = 0.0
-        
+
     if global_precision + global_recall > 0:
         global_f1 = 2 * (global_precision * global_recall) / (global_precision + global_recall)
     else:
         global_f1 = 0.0
-    
+
     if total_predictions > 0:
         global_accuracy = (all_tp + all_tn) / total_predictions
     else:

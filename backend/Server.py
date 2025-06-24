@@ -31,8 +31,9 @@ os.chdir(dir_path_current)
 
 # Retrieve keywords.
 from functions import load_json
-from functions import classify_abstract_combined
-from functions import classify_cosine_similarity
+from functions import classify_abstract_by_keywords
+#from functions import classify_abstract_combined
+#from functions import classify_cosine_similarity
 
 themes_keywords: str = load_json('data/themes_keywords.json')
 # </Retrieve keywords>
@@ -57,7 +58,7 @@ def handle_classify(data: str) -> None:
     print(f"Classification query received: {data}")
 
     themes: str = json.dumps(
-        classify_abstract_combined(data, themes_keywords)
+        classify_abstract_by_keywords(data, themes_keywords)
     )
 
     # debug.
@@ -70,7 +71,7 @@ def handle_classify(data: str) -> None:
         emit("classification_results", { 'themes': themes }, to=request.sid)
 
 @socketio.on('json_classification')
-def handle_classify(data: str) -> None:
+def handle_json_classify(data: str) -> None:
     print(f"JSON Classification query received: {data}")
 
     data_parsed: str = JsonParserCrossref(data).classify_me()
@@ -79,9 +80,12 @@ def handle_classify(data: str) -> None:
     print(data_parsed)
     # </debug>
 
+    #try:
     themes: str = json.dumps(
-        classify_abstract_combined(data_parsed, themes_keywords)
+        classify_abstract_by_keywords(data_parsed, themes_keywords)
     )
+    #except:
+        #emit("json_classification_error", { 'error': 'Impossible to classify' }, to=request.sid)
 
     # debug.
     print(f'Themes found: {themes}')

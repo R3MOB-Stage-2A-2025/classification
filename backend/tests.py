@@ -4,7 +4,7 @@ import os
 from functions import load_json
 from functions import update_metrics_for_theme, get_all_metrics, get_metrics_for_each_theme
 
-from functions import classify_abstract
+from functions import classify_abstract_by_keywords
 from functions import classify_abstract_by_spaCy
 from functions import classify_abstract_TF_IDF
 from functions import classify_abstract_combined

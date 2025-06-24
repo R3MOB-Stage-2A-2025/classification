@@ -3,3 +3,4 @@
 *.env
 *nltk_data
 *.venv
+*results

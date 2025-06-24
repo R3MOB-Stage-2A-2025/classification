@@ -1,7 +1,18 @@
 # Publication Classification Tool
 
-Cet outil permet de classifier les publications selon les 10 thèmes scientifiques définis par le réseau.
-La méthode utilisée repose sur une recherche de mots-clés dans l'abstract (en anglais) de chaque publication, afin de les classer automatiquement dans la catégorie appropriée.
+This tool is a *keyword* analysis based on *TF-IDF* and *Similarity Cosine*.
+
+It permits to classify a text among the themes that you can found in
+`classification/bakcend/data/themes_keywords.json`.
+
+## Parsing module
+
+You will need to clone the *parsing module* using this command:
+
+```bash
+cd classification/
+git submodule update --init --recursive
+```
 
 ## Starting the Flask server
 
@@ -31,34 +42,26 @@ npm install
 npm run dev
 ```
 
-## Lancer les tests 
+## Launch the classification tests
 
-Pour lancer les tests de performance de l'outil de classification, suivez les étapes ci-dessous :
-
-1. Ouvrir votre terminal
-
-2. Naviguer vers le répertoire du code en utilisant la commande :
+You can do this:
 
 ```bash
 cd classification/backend
-```
-
-3. Exécuter les tests :
-
-```bash
 # (.venv) $
 python tests.py
 ```
 
-## Observer les resultats des tests
+### Result observations
 
-Après avoir lancer les tests de performance, les fichiers suivants sont créés dans le repertoire results/ : 
+In the repertory `classification/backend/results`, you will find:
 
-- classification_results.json contient les résultats détaillés de la classification pour chaque publication. Pour chaque abstract, sont affichés : les thèmes réels attribués à la publication, et ceux trouvés par l'outil de classification.
+- **classification_results.json**: the details for each tested publication.
 
-- comparaison_results.json contient les métriques de performance (precision, recall, accuracy, f1-scores) pour chaque thème scientifique utilisé dans la classification.
+- **comparaison_results.json**: the metrics like *precision*, *accuracy*,
+*recall* and *F1 scores*.
 
-- theme_summary.json contient le nombre total de publications, assignées à chaque thème, testés et le nombre de classification parfaitement correctes (i.e. l'ensemble des thémes trouvés correspond exactement à l'ensemble de thème réels) pour chaque thème.
+- **theme_summary.json** the total numbers of publications for each themes.
 
 ### EOF
 
