@@ -6,32 +6,60 @@ import { socket } from './socket';
 
 function App() {
     const [input, setInput] = useState('');
-    const [results, setResults] = useState(null);
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
+
+    // ----------------------------------------------------------------------
+    // Retrieve the Challenges, Themes, Scientific Themes and Mobility Types.
+    // ----------------------------------------------------------------------
+
+    // Challenge i.e "Enjeu".
+    const [challenges, setChallenges] = useState(null);
+    // Themes.
+    const [themes, setThemes] = useState(null);
+    // Scientific themes.
+    const [scientificThemes, setScientificThemes] = useState(null);
+    // Mobility Types.
+    const [mobilityTypes, setMobilityTypes] = useState(null);
+
+    const setVariablesToFalse = () => {
+        setChallenges(false);
+        setThemes(false);
+        setScientificThemes(false);
+        setMobilityTypes(false);
+    };
+
+    const setVariablesToData = (data) => {
+        setChallenges(JSON.parse(data.challenges));
+        setThemes(JSON.parse(data.themes));
+        setScientificThemes(JSON.parse(data.scientificThemes));
+        setMobilityTypes(JSON.parse(data.mobilityTypes));
+    };
+
+    // ----------------------------------------------------------------------
 
     useEffect(() => {
         socket.on("classification_error", (data) => {
             setError(data.error || "Unknown Error detected.");
             setLoading(false);
-            setResults(false);
+            setVariablesToFalse();
         });
 
         socket.on("classification_results", (data) => {
             setLoading(false);
             setError(null);
-            setResults(JSON.parse(data.themes));
+            setVariablesToData(data);
         });
 
         socket.on("json_classification_results", (data) => {
             setLoading(false);
             setError(null);
-            setResults(JSON.parse(data.themes));
+            setVariablesToData(data);
         });
 
         socket.on("json_classification_error", (data) => {
             setLoading(false);
-            setResults(false);
+            setVariablesToFalse();
             setError(data.error || "JSON could not be imported.");
         });
 
@@ -45,7 +73,7 @@ function App() {
 
     const classifyText = () => {
         if (!loading) {
-            setResults(false);
+            setVariablesToFalse();
             setLoading(true);
             setError(false);
             socket.emit("classification", input);
@@ -56,6 +84,10 @@ function App() {
         if (e.key === "Enter")
             classifyText();
     };
+
+    // ----------------------------------------------------------------------
+    // JSON Upload.
+    // ----------------------------------------------------------------------
 
     const handleJsonUpload = (event) => {
         const file = event.target.files[0];
@@ -68,7 +100,7 @@ function App() {
                 const jsonContent = JSON.parse(e.target.result);
                 setLoading(true);
                 setError(null);
-                setResults(false);
+                setVariablesToFalse();
                 socket.emit("json_classification", JSON.stringify(jsonContent));
             } catch (err) {
                 setError("JSON is invalid.");
@@ -77,6 +109,8 @@ function App() {
 
         reader.readAsText(file);
     };
+
+    // ----------------------------------------------------------------------
 
     return (
         <div>
@@ -110,14 +144,49 @@ function App() {
                     style={{ marginLeft: '1rem' }}
                 />
             </div>
+
             <div id="result">
                 {error && <p>{error}</p>}
-                {results && results.length > 0 && (
+
+                {challenges && challenges.length > 0 && (
+                    <>
+                        <h2>Enjeux associés :</h2>
+                        <ul>
+                            {challenges.map((challenge, index) => (
+                                <li key={index}>{challenge}</li>
+                            ))}
+                        </ul>
+                    </>
+                )}
+
+                {themes && themes.length > 0 && (
+                    <>
+                        <h2>Thèmes associés :</h2>
+                        <ul>
+                            {themes.map((theme, index) => (
+                                <li key={index}>{theme}</li>
+                            ))}
+                        </ul>
+                    </>
+                )}
+
+                {scientificThemes && scientificThemes.length > 0 && (
                     <>
                         <h2>Thèmes scentifiques associés :</h2>
                         <ul>
-                            {results.map((theme, index) => (
+                            {scientificThemes.map((theme, index) => (
                                 <li key={index}>{theme}</li>
+                            ))}
+                        </ul>
+                    </>
+                )}
+
+                {mobilityTypes && mobilityTypes.length > 0 && (
+                    <>
+                        <h2>Types de mobilité associés :</h2>
+                        <ul>
+                            {mobilityTypes.map((type, index) => (
+                                <li key={index}>{type}</li>
                             ))}
                         </ul>
                     </>

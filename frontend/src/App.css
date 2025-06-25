@@ -50,7 +50,7 @@ button:hover {
 }
 
 #result li {
-    margin: 0.5rem 0;
+    margin: -1rem; /* This thing is ugly but I don't like *CSS*. */
     font-weight: bold;
     color: #444;
 }
