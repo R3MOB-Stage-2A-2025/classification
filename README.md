@@ -3,6 +3,32 @@
 The goal is to classify a text which is a concatenation of the *abstract*,
 the *title* and some other *metadata* of a given scientific publication.
 
+Example of a text to classify using the following format
+``[title][container-title][reference1-article][reference1-journal]abstract``:
+
+```
+[ Context-Aware Broadcast in Duty-Cycled Wireless Sensor Networks ]
+[ Sensor Technology ]
+[ An energy-efficient MAC protocol for wireless sensor networks. ]
+[ Proceedings of the IEEE ]
+As the energy efficiency remains a key issue in wireless sensor networks,
+duty-cycled mechanisms acquired much interest due to their ability to reduce
+energy consumption by allowing sensor nodes to switch to the sleeping state
+whenever possible. The challenging task is to authorize a sensor node to
+adopt a duty-cycle mode without inflicting any negative impact on the
+performance of the network. A context-aware paradigm allows sensors to adapt
+their functional behavior according to the context in order to enhance
+network performances. In this context, the authors propose an enhanced
+version the Efficient Context-Aware Multi-hop Broadcasting (E-ECAB) protocol,
+which combines the advantages of context awareness by considering a multi
+criteria and duty-cycle technique in order to optimize resources usage and
+satisfy the application requirements. Simulation results show that E-ECAB
+achieves a significant improvement in term of throughput and end-to-end delay
+without sacrificing energy efficiency.
+```
+
+A reference is a publication that has been cited by the current publication.
+
 ### Current model
 
 Model based on [***sentence transformers***](https://github.com/UKPLab/sentence-transformers)
