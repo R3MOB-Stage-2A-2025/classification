@@ -1,7 +1,5 @@
 # Publication Classification Tool
 
-This tool is a *keyword* analysis based on *TF-IDF* and *Similarity Cosine*.
-
 The goal is to classify a text which is a concatenation of the *abstract*,
 the *title* and some other *metadata* of a given scientific publication.
 
