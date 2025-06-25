@@ -7,8 +7,6 @@ import nltk
 from nltk.corpus import stopwords, wordnet
 
 from nltk.stem import PorterStemmer
-from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.metrics.pairwise import cosine_similarity
 
 # Retrieve environment variables.
 import os
@@ -16,23 +14,70 @@ from dotenv import load_dotenv, dotenv_values
 
 load_dotenv()
 NLTK_DIRECTORY: str = os.getenv("NLTK_DIRECTORY")
-SPACY_MODEL: str = os.getenv("SPACY_MODEL")
 # </Retrieve environment variables>
 
-nltk.download(info_or_id='punkt_tab', download_dir=NLTK_DIRECTORY)
+# Download *nltk* tools.
 nltk.download(info_or_id='wordnet', download_dir=NLTK_DIRECTORY)
 nltk.download(info_or_id='stopwords', download_dir=NLTK_DIRECTORY)
+# </Download *nltk* tools>
 
-nlp = spacy.load(SPACY_MODEL)
+# Transformers
+from sentence_transformers import SentenceTransformer, util
+import numpy as np
+
+model = SentenceTransformer('all-MiniLM-L6-v2')
+# </Transformers>
 
 def load_json(file_path: str) -> str:
     with open(file_path, 'r') as f:
         return json.load(f)
 
+##############################################################################
+## CLASSIFY WITHOUT A DATASET
+##############################################################################
 
-##############################################################################
-## INPUT NORMALIZATION FUNCTIONS
-##############################################################################
+def unsupervised_cosine_similarity(text: str, themes_keywords: dict[str, list]) -> list[str]:
+    """
+    If you worry about the "-" in the `np.sort()` or `np.argsort()`,
+    it is just to get a *descending order*.
+    In fact, all the scores are negatives. The strongest match is the
+    highest score given its absolute value.
+    """
+    themes: list[str] = list(themes_keywords.keys())
+
+    # This one will be given to the model. It enhances, using keywords.
+    enhanced_themes: list[str] = []
+    for theme, keywords in themes_keywords.items():
+        concatenation: str = '[ ' + theme + ' ] ' +  ' '.join(keywords)
+        enhanced_themes.append(concatenation)
+
+    theme_embeddings = model.encode(enhanced_themes)
+
+    # Publication text is a concatenation of the title, the abstract and
+    # sometimes extra metadata.
+    publication_text: str = text
+    publication_embedding = model.encode(publication_text)
+
+    # Compute similarities.
+    cosine_scores = util.cos_sim(publication_embedding, theme_embeddings)[0]
+
+    # Here, I set up the max number of themes.
+    # For something like a "thematique scientifique", let's consider max=3.
+    top_indices: list[float] = np.argsort(-cosine_scores)[:3].tolist()
+
+    # Then, if there is a score gap, let's remove the last or the 2 last ones.
+    top_scores: list[float] = np.sort(-cosine_scores)[:3].tolist()
+
+    for i in range(len(top_scores) - 1, 0, -1):
+        if abs(top_scores[i] - top_scores[0]) > 0.08:
+            top_indices.pop(i)
+
+    top_themes: list[str] = [themes[i] for i in top_indices]
+    return top_themes
+
+###############################################################################
+### INPUT NORMALIZATION FUNCTIONS
+###############################################################################
 
 
 def preprocess_text(text: str) -> dict[str, list[str | list[str]]]:
@@ -165,9 +210,9 @@ def expand_and_preprocess_keywords(themes_keywords: dict[str, str]) -> dict[str,
     return expand_keywords_with_synonyms(unique_keywords)
 
 
-##############################################################################
-## CLASSIFICATION FUNCTIONS
-##############################################################################
+###############################################################################
+### CLASSIFY BY KEYWORDS
+###############################################################################
 
 def is_keyword_in_processed_text(keyword: str, processed_text: list[str]) -> bool:
     """
@@ -198,117 +243,4 @@ def classify_abstract_by_keywords(text: str, themes_keywords: dict[str, str]) ->
 
     return abstract_themes
 
-def classify_abstract_TF_IDF(text: str, themes_keywords: dict[str, str]) -> list[str]:
-    dataframe = preprocess_text(text)
-    stemming: str = ' '.join(dataframe['STEMMING'][0])
-
-    vectorizer = TfidfVectorizer()
-    tfidf_matrix = vectorizer.fit_transform(stemming)
-
-    feature_names = vectorizer.get_feature_names_out()
-
-# Similarity Cosine
-def classify_cosine_similarity(abstract_text: list[str], themes_keywords):
-    abstract_themes = classify_abstract_TF_IDF(abstract_text, themes_keywords)
-
-    # Get the TF-IDF vector for the first item (index 0)
-    vector1: str = abstract_themes[0]
-
-    # Get the TF-IDF vector for all items except the first item
-    vectors: str = abstract_themes[1:]
-
-    cosim = cosine_similarity(vector1, vectors)
-    cosim = pd.DataFrame(cosim) # Not 1D array dataframe.
-    cosim = cosim.values.flatten() # 1D array dataframe.
-    print("EHOH")
-    print(cosim)
-
-    # Convert the results into a dataframe.
-    #df_cosim = pd.DataFrame(cosim, columns=['COSIM'])
-    #df_cosim = pd.concat([df_tfidf, df_cosim], axis=1)
-
-    print(cosim)
-    return cosim #df_cosim
-# </Similarity Cosine>
-
-
-##############################################################################
-## METRIC FUNCTIONS
-##############################################################################
-
-def update_metrics_for_theme(theme, true_themes, classified_themes, tp, fp, fn, tn):
-    if theme in true_themes and theme in classified_themes:
-        tp[theme] += 1
-    elif theme in true_themes and theme not in classified_themes:
-        fn[theme] += 1
-    elif theme not in true_themes and theme in classified_themes:
-        fp[theme] += 1
-    else:
-        tn[theme] += 1
-
-
-def get_metrics_for_each_theme(tp, fp, fn, tn, theme_counts, theme_correct_count):
-    precisions = {}
-    recalls = {}
-    f1_scores = {}
-    accuracies = {}
-
-    for theme in tp.keys():
-        if tp[theme] + fp[theme] > 0:
-            precision = tp[theme] / (tp[theme] + fp[theme])
-        else:
-            precision = 0.0
-
-        if tp[theme] + fn[theme] > 0:
-            recall = tp[theme] / (tp[theme] + fn[theme])
-        else:
-            recall = 0.0
-
-        if precision + recall > 0:
-            f1 = 2 * (precision * recall) / (precision + recall)
-        else:
-            f1 = 0.0
-
-        if theme_counts[theme] > 0:
-            accuracy = theme_correct_count[theme] / theme_counts[theme]
-        else:
-            accuracy = 0.0
-
-        precisions[theme] = precision
-        recalls[theme] = recall
-        f1_scores[theme] = f1
-        accuracies[theme] = accuracy
-
-    return precisions, recalls, f1_scores, accuracies
-
-
-def get_all_metrics(tp, fp, fn, tn):
-    all_tp = sum(tp.values())
-    all_fp = sum(fp.values())
-    all_fn = sum(fn.values())
-    all_tn = sum(tn.values())
-
-    total_predictions = all_tp + all_fp + all_fn + all_tn
-
-    if all_tp + all_fp > 0:
-        global_precision = all_tp / (all_tp + all_fp)
-    else:
-        global_precision = 0.0
-
-    if all_tp + all_fn > 0:
-        global_recall = all_tp / (all_tp + all_fn)
-    else:
-        global_recall = 0.0
-
-    if global_precision + global_recall > 0:
-        global_f1 = 2 * (global_precision * global_recall) / (global_precision + global_recall)
-    else:
-        global_f1 = 0.0
-
-    if total_predictions > 0:
-        global_accuracy = (all_tp + all_tn) / total_predictions
-    else:
-        global_accuracy = 0.0
-
-    return global_precision, global_recall, global_f1, global_accuracy
 

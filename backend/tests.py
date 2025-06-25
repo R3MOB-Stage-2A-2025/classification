@@ -2,20 +2,99 @@ import json
 import os
 
 from functions import load_json
-from functions import update_metrics_for_theme, get_all_metrics, get_metrics_for_each_theme
-
-from functions import classify_abstract_by_keywords
-from functions import classify_abstract_TF_IDF
+from functions import unsupervised_cosine_similarity
 
 # Choix de la fonction de classification à tester
-fonction_tested = classify_abstract_by_keywords
+fonction_tested = unsupervised_cosine_similarity
 
 # Chargement des données
 data = load_json('data/data.json')
 themes_keywords = load_json('data/themes_keywords.json')
 
+##############################################################################
+## METRIC FUNCTIONS
+##############################################################################
 
-# Fonction de lancement des tests
+def update_metrics_for_theme(theme, true_themes, classified_themes, tp, fp, fn, tn):
+    if theme in true_themes and theme in classified_themes:
+        tp[theme] += 1
+    elif theme in true_themes and theme not in classified_themes:
+        fn[theme] += 1
+    elif theme not in true_themes and theme in classified_themes:
+        fp[theme] += 1
+    else:
+        tn[theme] += 1
+
+
+def get_metrics_for_each_theme(tp, fp, fn, tn, theme_counts, theme_correct_count):
+    precisions = {}
+    recalls = {}
+    f1_scores = {}
+    accuracies = {}
+
+    for theme in tp.keys():
+        if tp[theme] + fp[theme] > 0:
+            precision = tp[theme] / (tp[theme] + fp[theme])
+        else:
+            precision = 0.0
+
+        if tp[theme] + fn[theme] > 0:
+            recall = tp[theme] / (tp[theme] + fn[theme])
+        else:
+            recall = 0.0
+
+        if precision + recall > 0:
+            f1 = 2 * (precision * recall) / (precision + recall)
+        else:
+            f1 = 0.0
+
+        if theme_counts[theme] > 0:
+            accuracy = theme_correct_count[theme] / theme_counts[theme]
+        else:
+            accuracy = 0.0
+
+        precisions[theme] = precision
+        recalls[theme] = recall
+        f1_scores[theme] = f1
+        accuracies[theme] = accuracy
+
+    return precisions, recalls, f1_scores, accuracies
+
+
+def get_all_metrics(tp, fp, fn, tn):
+    all_tp = sum(tp.values())
+    all_fp = sum(fp.values())
+    all_fn = sum(fn.values())
+    all_tn = sum(tn.values())
+
+    total_predictions = all_tp + all_fp + all_fn + all_tn
+
+    if all_tp + all_fp > 0:
+        global_precision = all_tp / (all_tp + all_fp)
+    else:
+        global_precision = 0.0
+
+    if all_tp + all_fn > 0:
+        global_recall = all_tp / (all_tp + all_fn)
+    else:
+        global_recall = 0.0
+
+    if global_precision + global_recall > 0:
+        global_f1 = 2 * (global_precision * global_recall) / (global_precision + global_recall)
+    else:
+        global_f1 = 0.0
+
+    if total_predictions > 0:
+        global_accuracy = (all_tp + all_tn) / total_predictions
+    else:
+        global_accuracy = 0.0
+
+    return global_precision, global_recall, global_f1, global_accuracy
+
+##############################################################################
+## LAUNCHE THE TESTS
+##############################################################################
+
 def main():
 
     tp = {theme: 0 for theme in themes_keywords.keys()}

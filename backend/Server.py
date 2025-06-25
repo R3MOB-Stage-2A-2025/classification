@@ -31,8 +31,9 @@ os.chdir(dir_path_current)
 
 # Retrieve keywords.
 from functions import load_json
-from functions import classify_abstract_by_keywords
-from functions import classify_abstract_TF_IDF
+#from functions import classify_abstract_by_keywords
+#from functions import classify_abstract_TF_IDF
+from functions import unsupervised_cosine_similarity
 
 themes_keywords: dict[str, list[str]] = load_json('data/themes_keywords.json')
 # </Retrieve keywords>
@@ -57,7 +58,7 @@ def handle_classify(data: str) -> None:
     print(f"Classification query received: {data}")
 
     themes: str = json.dumps(
-        classify_abstract_TF_IDF(data, themes_keywords)
+        unsupervised_cosine_similarity(data, themes_keywords)
     )
 
     # debug.
@@ -81,7 +82,7 @@ def handle_json_classify(data: str) -> None:
 
     #try:
     themes: str = json.dumps(
-        classify_abstract_by_keywords(data_parsed, themes_keywords)
+        unsupervised_cosine_similarity(data_parsed, themes_keywords)
     )
     #except:
         #emit("json_classification_error", { 'error': 'Impossible to classify' }, to=request.sid)
