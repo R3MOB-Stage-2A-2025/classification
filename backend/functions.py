@@ -1,6 +1,5 @@
 import json
 import re
-import spacy
 
 import nltk
 # This one is searching in the `nltk_data/` dir.
