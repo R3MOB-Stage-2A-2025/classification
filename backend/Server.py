@@ -43,6 +43,57 @@ mobilityType_keywords: dict[str, list[str]] = \
     load_json('data/mobilityType_keywords.json')
 # </Retrieve keywords>
 
+# Retrieve Classification Results
+def classification_results(data: str) -> dict[str, list[str]]:
+    """
+    :param data: it needs to be already parsed.
+    """
+    try:
+        challenges: list[str] = json.dumps(
+            unsupervised_cosine_similarity(data, challenge_keywords)
+        )
+
+        themes: list[str] = json.dumps(
+            unsupervised_cosine_similarity(data, theme_keywords,
+                                           precision=0.05)
+        )
+
+        scientificThemes: list[str] = json.dumps(
+            unsupervised_cosine_similarity(data, scientificTheme_keywords)
+        )
+
+        mobilityTypes: list[str] = json.dumps(
+            unsupervised_cosine_similarity(data, mobilityType_keywords,
+                                           precision=0.02)
+        )
+    except:
+        emit("classification_error", { 'error': 'Impossible to classify' }, to=request.sid)
+
+    return {
+        'challenges': challenges or [],
+        'themes': themes or [],
+        'scientificThemes': scientificThemes or [],
+        'mobilityTypes': mobilityTypes or [],
+    }
+
+def classification_error(results: dict[str, list[str]]) -> bool:
+    if 'challenges' in results and results['challenges'] == "[]":
+        emit("classification_error", { 'error': 'No challenges found' }, to=request.sid)
+        return True
+    elif 'themes' in results and results['themes'] == "[]":
+        emit("classification_error", { 'error': 'No themes found' }, to=request.sid)
+        return True
+    elif 'scientificThemes' in results and results['scientificThemes'] == "[]":
+        emit("classification_error", { 'error': 'No scientific themes found' }, to=request.sid)
+        return True
+    elif 'mobilityTypes' in results and results['mobilityTypes'] == "[]":
+        emit("classification_error", { 'error': 'No mobility types found' }, to=request.sid)
+        return True
+    else:
+        return False
+
+# </Retrieve Classification Results>
+
 app = Flask(__name__)
 app.config['SECRET_KEY'] = BACKEND_SECRETKEY
 CORS(app, resources={r"/*": { "origins": "*" }})
@@ -61,42 +112,16 @@ def handle_message(data):
 @socketio.on('classification')
 def handle_classify(data: str) -> None:
     print(f"Classification query received: {data}")
+    results = classification_results(data)
 
-    try:
-        challenges: str = json.dumps(
-            unsupervised_cosine_similarity(data, challenge_keywords)
-        )
-
-        themes: str = json.dumps(
-            unsupervised_cosine_similarity(data, theme_keywords)
-        )
-
-        scientificThemes: str = json.dumps(
-            unsupervised_cosine_similarity(data, scientificTheme_keywords)
-        )
-
-        mobilityTypes: str = json.dumps(
-            unsupervised_cosine_similarity(data, mobilityType_keywords)
-        )
-    except:
-        emit("classification_error", { 'error': 'Impossible to classify' }, to=request.sid)
-
-    if challenges == "[]":
-        emit("classification_error", { 'error': 'No challenges found' }, to=request.sid)
-    elif themes == "[]":
-        emit("classification_error", { 'error': 'No themes found' }, to=request.sid)
-    elif scientificThemes == "[]":
-        emit("classification_error", { 'error': 'No scientific themes found' }, to=request.sid)
-    elif mobilityTypes == "[]":
-        emit("classification_error", { 'error': 'No mobility types found' }, to=request.sid)
-    else:
+    if not classification_error(results):
         emit(
             "classification_results",
             {
-                'challenges': challenges,
-                'themes': themes,
-                'scientificThemes': scientificThemes,
-                'mobilityTypes': mobilityTypes,
+                'challenges': results['challenges'],
+                'themes': results['themes'],
+                'scientificThemes': results['scientificThemes'],
+                'mobilityTypes': results['mobilityTypes'],
             },
             to=request.sid
         )
@@ -104,48 +129,21 @@ def handle_classify(data: str) -> None:
 @socketio.on('json_classification')
 def handle_json_classify(data: str) -> None:
     print(f"JSON Classification query received: {data}")
-
     data_parsed: str = JsonParserCrossref(data).classify_me()
+    results = classification_results(data_parsed)
 
     # debug.
     print(data_parsed)
     # </debug>
 
-    try:
-        challenges: str = json.dumps(
-            unsupervised_cosine_similarity(data_parsed, challenge_keywords)
-        )
-
-        themes: str = json.dumps(
-            unsupervised_cosine_similarity(data_parsed, theme_keywords)
-        )
-
-        scientificThemes: str = json.dumps(
-            unsupervised_cosine_similarity(data_parsed, scientificTheme_keywords)
-        )
-
-        mobilityTypes: str = json.dumps(
-            unsupervised_cosine_similarity(data_parsed, mobilityType_keywords)
-        )
-    except:
-        emit("json_classification_error", { 'error': 'Impossible to classify' }, to=request.sid)
-
-    if challenges == "[]":
-        emit("json_classification_error", { 'error': 'No challenges found' }, to=request.sid)
-    elif themes == "[]":
-        emit("json_classification_error", { 'error': 'No themes found' }, to=request.sid)
-    elif scientificThemes == "[]":
-        emit("json_classification_error", { 'error': 'No scientific themes found' }, to=request.sid)
-    elif mobilityTypes == "[]":
-        emit("json_classification_error", { 'error': 'No mobility types found' }, to=request.sid)
-    else:
+    if not classification_error(results):
         emit(
             "json_classification_results",
             {
-                'challenges': challenges,
-                'themes': themes,
-                'scientificThemes': scientificThemes,
-                'mobilityTypes': mobilityTypes,
+                'challenges': results['challenges'],
+                'themes': results['themes'],
+                'scientificThemes': results['scientificThemes'],
+                'mobilityTypes': results['mobilityTypes'],
             },
             to=request.sid
         )

@@ -57,17 +57,10 @@ function App() {
             setVariablesToData(data);
         });
 
-        socket.on("json_classification_error", (data) => {
-            setLoading(false);
-            setVariablesToFalse();
-            setError(data.error || "JSON could not be imported.");
-        });
-
         return () => {
             socket.off("classification_results");
             socket.off("classification_error");
             socket.off("json_classification_results");
-            socket.off("json_classification_error");
         };
     }, []);
 

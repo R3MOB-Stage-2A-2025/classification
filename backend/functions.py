@@ -35,7 +35,7 @@ def load_json(file_path: str) -> str:
 ## CLASSIFY WITHOUT A DATASET
 ##############################################################################
 
-def unsupervised_cosine_similarity(text: str, themes_keywords: dict[str, list]) -> list[str]:
+def unsupervised_cosine_similarity(text: str, themes_keywords: dict[str, list], precision: float = 0.08) -> list[str]:
     """
     If you worry about the "-" in the `np.sort()` or `np.argsort()`,
     it is just to get a *descending order*.
@@ -72,7 +72,7 @@ def unsupervised_cosine_similarity(text: str, themes_keywords: dict[str, list]) 
     # </debug>
 
     for i in range(len(top_scores) - 1, 0, -1):
-        if abs(top_scores[i] - top_scores[0]) > 0.08:
+        if abs(top_scores[i] - top_scores[0]) > precision:
             top_indices.pop(i)
 
     top_themes: list[str] = [themes[i] for i in top_indices]
