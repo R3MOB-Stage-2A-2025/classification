@@ -32,7 +32,7 @@ A reference is a publication that has been cited by the current publication.
 ### Current model
 
 Model based on [***sentence transformers***](https://github.com/UKPLab/sentence-transformers)
-which is a *text embedding* framework based on [**SBERT***](www.sbert.net).
+which is a *text embedding* framework based on [***SBERT***](www.sbert.net).
 
 There are a lot a available models, however I chose the by default model
 which is `all-MiniLM-L6-v2`.
@@ -41,7 +41,9 @@ So the current solution is to use an *unsupervised algorithm*. Indeed,
 there are not currently enough labelized data to use a classifier based
 on *TF IDF*.
 
-Here is the insights based on the ``classification/backend/test.py`` file:
+Here comes the insights based on the ``classification/backend/test.py`` file,
+the goal was to determine the *Thématique Scientifique* of the publication,
+using the themes precised in `classification/backend/data/themes_keywords.json`:
 
 ```bash
 (.venv)  backend  >>  python tests.py
@@ -91,7 +93,7 @@ source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
-Be careful of you partition:
+Be careful of your partition:
 
 ```bash
 backend  >>  du -sch .venv/
@@ -103,6 +105,7 @@ backend  >>  du -sch .venv/
 
 ```bash
 cd classification/backend/
+source .venv/bin/activate
 python Server.py
 ```
 
