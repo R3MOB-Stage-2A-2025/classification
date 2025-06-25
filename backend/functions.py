@@ -67,11 +67,20 @@ def unsupervised_cosine_similarity(text: str, themes_keywords: dict[str, list]) 
     # Then, if there is a score gap, let's remove the last or the 2 last ones.
     top_scores: list[float] = np.sort(-cosine_scores)[:3].tolist()
 
+    # TODO: debug.
+    print(top_scores)
+    # </debug>
+
     for i in range(len(top_scores) - 1, 0, -1):
         if abs(top_scores[i] - top_scores[0]) > 0.08:
             top_indices.pop(i)
 
     top_themes: list[str] = [themes[i] for i in top_indices]
+
+    # TODO: debug.
+    print(top_themes)
+    # </debug>
+
     return top_themes
 
 ###############################################################################

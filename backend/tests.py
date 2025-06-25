@@ -9,7 +9,7 @@ fonction_tested = unsupervised_cosine_similarity
 
 # Chargement des données
 data = load_json('data/data.json')
-themes_keywords = load_json('data/themes_keywords.json')
+themes_keywords = load_json('data/scientificTheme_keywords.json')
 
 ##############################################################################
 ## METRIC FUNCTIONS

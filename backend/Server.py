@@ -31,11 +31,16 @@ os.chdir(dir_path_current)
 
 # Retrieve keywords.
 from functions import load_json
-#from functions import classify_abstract_by_keywords
-#from functions import classify_abstract_TF_IDF
 from functions import unsupervised_cosine_similarity
 
-themes_keywords: dict[str, list[str]] = load_json('data/themes_keywords.json')
+challenge_keywords: dict[str, list[str]] = \
+    load_json('data/challenge_keywords.json')
+theme_keywords: dict[str, list[str]] = \
+    load_json('data/theme_keywords.json')
+scientificTheme_keywords: dict[str, list[str]] = \
+    load_json('data/scientificTheme_keywords.json')
+mobilityType_keywords: dict[str, list[str]] = \
+    load_json('data/mobilityType_keywords.json')
 # </Retrieve keywords>
 
 app = Flask(__name__)
@@ -57,18 +62,44 @@ def handle_message(data):
 def handle_classify(data: str) -> None:
     print(f"Classification query received: {data}")
 
-    themes: str = json.dumps(
-        unsupervised_cosine_similarity(data, themes_keywords)
-    )
+    try:
+        challenges: str = json.dumps(
+            unsupervised_cosine_similarity(data, challenge_keywords)
+        )
 
-    # debug.
-    print(f'Themes found: {themes}')
-    # </debug>
+        themes: str = json.dumps(
+            unsupervised_cosine_similarity(data, theme_keywords)
+        )
 
-    if themes == "[]":
+        scientificThemes: str = json.dumps(
+            unsupervised_cosine_similarity(data, scientificTheme_keywords)
+        )
+
+        mobilityTypes: str = json.dumps(
+            unsupervised_cosine_similarity(data, mobilityType_keywords)
+        )
+    except:
+        emit("classification_error", { 'error': 'Impossible to classify' }, to=request.sid)
+
+    if challenges == "[]":
+        emit("classification_error", { 'error': 'No challenges found' }, to=request.sid)
+    elif themes == "[]":
         emit("classification_error", { 'error': 'No themes found' }, to=request.sid)
+    elif scientificThemes == "[]":
+        emit("classification_error", { 'error': 'No scientific themes found' }, to=request.sid)
+    elif mobilityTypes == "[]":
+        emit("classification_error", { 'error': 'No mobility types found' }, to=request.sid)
     else:
-        emit("classification_results", { 'themes': themes }, to=request.sid)
+        emit(
+            "classification_results",
+            {
+                'challenges': challenges,
+                'themes': themes,
+                'scientificThemes': scientificThemes,
+                'mobilityTypes': mobilityTypes,
+            },
+            to=request.sid
+        )
 
 @socketio.on('json_classification')
 def handle_json_classify(data: str) -> None:
@@ -80,21 +111,44 @@ def handle_json_classify(data: str) -> None:
     print(data_parsed)
     # </debug>
 
-    #try:
-    themes: str = json.dumps(
-        unsupervised_cosine_similarity(data_parsed, themes_keywords)
-    )
-    #except:
-        #emit("json_classification_error", { 'error': 'Impossible to classify' }, to=request.sid)
+    try:
+        challenges: str = json.dumps(
+            unsupervised_cosine_similarity(data_parsed, challenge_keywords)
+        )
 
-    # debug.
-    print(f'Themes found: {themes}')
-    # </debug>
+        themes: str = json.dumps(
+            unsupervised_cosine_similarity(data_parsed, theme_keywords)
+        )
 
-    if themes == "[]":
+        scientificThemes: str = json.dumps(
+            unsupervised_cosine_similarity(data_parsed, scientificTheme_keywords)
+        )
+
+        mobilityTypes: str = json.dumps(
+            unsupervised_cosine_similarity(data_parsed, mobilityType_keywords)
+        )
+    except:
+        emit("json_classification_error", { 'error': 'Impossible to classify' }, to=request.sid)
+
+    if challenges == "[]":
+        emit("json_classification_error", { 'error': 'No challenges found' }, to=request.sid)
+    elif themes == "[]":
         emit("json_classification_error", { 'error': 'No themes found' }, to=request.sid)
+    elif scientificThemes == "[]":
+        emit("json_classification_error", { 'error': 'No scientific themes found' }, to=request.sid)
+    elif mobilityTypes == "[]":
+        emit("json_classification_error", { 'error': 'No mobility types found' }, to=request.sid)
     else:
-        emit("json_classification_results", { 'themes': themes }, to=request.sid)
+        emit(
+            "json_classification_results",
+            {
+                'challenges': challenges,
+                'themes': themes,
+                'scientificThemes': scientificThemes,
+                'mobilityTypes': mobilityTypes,
+            },
+            to=request.sid
+        )
 
 @socketio.on("disconnect")
 def disconnected():
