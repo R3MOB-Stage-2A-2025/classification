@@ -11,5 +11,9 @@ export default defineConfig({
             exclude: [],
         }),
     ],
+    server: {
+        port: 5175,
+        strictPort: true,
+    },
 })
 
