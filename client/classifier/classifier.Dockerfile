@@ -5,9 +5,9 @@ ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 
 RUN python -m venv $VIRTUAL_ENV
 
-WORKDIR /api-flask
+WORKDIR /api-flask/client/classifier/backend
 
-COPY parsing/ ./parsing/
+COPY parsing/ /api-flask/parsing/
 COPY client/classifier/backend/ ./
 
 RUN pip install --upgrade pip \

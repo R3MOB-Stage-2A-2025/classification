@@ -10,6 +10,7 @@ from dotenv import load_dotenv, dotenv_values
 load_dotenv()
 BACKEND_PORT: int = int(os.getenv("BACKEND_PORT"))
 BACKEND_SECRETKEY: str = os.getenv("BACKEND_SECRETKEY")
+FRONTEND_HOST: str = os.getenv("FRONTEND_HOST")
 # </Retrieve environment variables>
 
 # Retrieve functions from the parsing module.
@@ -17,18 +18,12 @@ import sys
 import os
 
 dir_path_current: str = os.path.dirname(os.path.abspath(__file__))
-absolute_path_file: str = os.path.abspath(dir_path_current)
-os.chdir(absolute_path_file)
-os.chdir('../..')
-
-dir_path: str = os.path.dirname(
-    os.path.abspath("parsing/python/json/JsonParserCrossref.py")
-)
-sys.path.append(dir_path)
+sys.path.append(dir_path_current)
+sys.path.append(
+    dir_path_current.removesuffix("/client/classifier/backend") + \
+    "/parsing/python/json/")
 
 from JsonParserCrossref import JsonParserCrossref
-
-os.chdir(dir_path_current)
 # </Retrieve functions from the parsing module>
 
 # Retrieve keywords.
@@ -156,5 +151,5 @@ def disconnected():
     print(f'client number {request.sid} is disconnected')
 
 if __name__ == '__main__':
-    socketio.run(app, debug=True, port=BACKEND_PORT)
+    socketio.run(app, debug=True, host=FRONTEND_HOST, port=BACKEND_PORT)
 

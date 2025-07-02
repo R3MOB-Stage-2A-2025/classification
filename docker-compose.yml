@@ -31,7 +31,7 @@ services:
       resources:
         limits:
           cpus: '0.70'
-          memory: 500M
+          memory: 1G
             #networks:
       #- classification-net
     environment:

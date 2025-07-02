@@ -12,6 +12,7 @@ from dotenv import load_dotenv, dotenv_values
 load_dotenv()
 BACKEND_PORT: int = int(os.getenv("BACKEND_PORT"))
 BACKEND_SECRETKEY: str = os.getenv("BACKEND_SECRETKEY")
+FRONTEND_HOST: str = os.getenv("FRONTEND_HOST")
 
 HABANERO_BASEURL: str = os.getenv("HABANERO_BASEURL")
 HABANERO_APIKEY: str = os.getenv("HABANERO_APIKEY")
@@ -285,5 +286,5 @@ def disconnected():
     print(f'client number {request.sid} is disconnected')
 
 if __name__ == '__main__':
-    socketio.run(app, debug=True, port=BACKEND_PORT)
+    socketio.run(app, debug=True, host=FRONTEND_HOST, port=BACKEND_PORT)
 
