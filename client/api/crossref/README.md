@@ -9,13 +9,22 @@
 The goal of this repository is to code a wrapper on the *Crossref API* client
 called *Habanero*.
 
-## Environment variables
+## Starting the Flask server in production mode
 
-TODO
+1. Edit the environment variables you wish:
 
-## Production mode
+```bash
+cd backend/
+cp .env.example .env
+vim .env
+```
 
-1. ``cd client_crossref/``
+Then you can use the specified *Dockerfile* with the *docker-compose.yml*
+file in the root directory.
+
+## Starting the Flask server in development mode
+
+1. ``cd crossref/``
 
 2. Initialize the backend:
 
@@ -39,7 +48,6 @@ python Server.py
 cd frontend/
 npm install
 npm run dev
-# TODO
 ```
 
 ## Security
