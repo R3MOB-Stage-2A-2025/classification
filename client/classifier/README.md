@@ -73,16 +73,20 @@ total number of data instances.
 
 These values are between 0 and 1, and tend to be 1.
 
-## Parsing module
+## Starting the Flask server in production mode
 
-You will need to clone the *parsing module* using this command:
+1. Edit the environment variables you wish:
 
 ```bash
-cd classification/
-git submodule update --init --recursive
+cd backend/
+cp .env.example .env
+vim .env
 ```
 
-## Starting the Flask server
+Then you can use the specified *Dockerfile* with the *docker-compose.yml*
+file in the root directory.
+
+## Starting the Flask server in development mode
 
 1. Use it for **python3.13**:
 
