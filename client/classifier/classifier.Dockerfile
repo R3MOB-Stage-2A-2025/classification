@@ -7,13 +7,13 @@ RUN python -m venv $VIRTUAL_ENV
 
 WORKDIR /api-flask
 
-COPY ./backend/ backend/
-COPY ../../parsing/ parsing/
+COPY parsing/ ./parsing/
+COPY client/classifier/backend/ ./
 
 RUN pip install --upgrade pip \
- && pip install --no-cache-dir -r backend/requirements.txt
+&& pip install --no-cache-dir -r requirements.txt
 
 EXPOSE 5011
 
-CMD ["python", "backend/Server.py"]
+CMD ["python", "Server.py"]
 

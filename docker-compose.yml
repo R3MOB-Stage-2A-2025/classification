@@ -9,17 +9,17 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '0.10'
-          memory: 100M
-    networks:
-      - classification-net
+          cpus: '0.70'
+          memory: 500M
+            #networks:
+      #- classification-net
     environment:
       - PUID=1000
       - PGID=1000
     ports:
       - "${CROSSREF_PORT}:5001"
-    volumes:
-      - ./config_crossref:/api-flask
+        #volumes:
+        #- ./config_crossref:/api-flask
 
   classifier:
     build:
@@ -30,17 +30,17 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '0.10'
-          memory: 1G
-    networks:
-      - classification-net
+          cpus: '0.70'
+          memory: 500M
+            #networks:
+      #- classification-net
     environment:
       - PUID=1000
       - PGID=1000
     ports:
       - "${CLASSIFIER_PORT}:5011"
-    volumes:
-      - ./config_classifier:/api-flask
+        #volumes:
+        #- ./config_classifier:/api-flask
 
 networks:
   classification-net:
