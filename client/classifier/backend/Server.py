@@ -17,7 +17,7 @@ import sys
 import os
 
 dir_path_current: str = os.path.dirname(os.path.abspath(__file__))
-os.chdir('..')
+os.chdir('../..')
 
 dir_path: str = os.path.dirname(
     os.path.abspath("parsing/python/json/JsonParserCrossref.py")
