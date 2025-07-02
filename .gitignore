@@ -4,3 +4,5 @@
 *nltk_data
 *.venv
 *results
+*config_classifier
+*config_crossref

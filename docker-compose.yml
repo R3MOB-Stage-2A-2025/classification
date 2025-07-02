@@ -11,20 +11,20 @@ services:
         limits:
           cpus: '0.10'
           memory: 100M
-    network:
-      classification-net
+    networks:
+      - classification-net
     environment:
       - PUID=1000
       - PGID=1000
     ports:
       - "${CROSSREF_PORT}:5001"
     volumes:
-      - ./classifier:/api-flask
+      - ./config_crossref:/api-flask
 
   classifier:
     build:
-      context: ./client/classifier
-      dockerfile: classifier.Dockerfile
+      context: ./
+      dockerfile: client/classifier/classifier.Dockerfile
     container_name: r3mobprod_classifier
     restart: unless-stopped
     deploy:
@@ -32,17 +32,16 @@ services:
         limits:
           cpus: '0.10'
           memory: 1G
-    network:
-      classification-net
+    networks:
+      - classification-net
     environment:
       - PUID=1000
       - PGID=1000
     ports:
       - "${CLASSIFIER_PORT}:5011"
     volumes:
-      - ./classifier:/api-flask
+      - ./config_classifier:/api-flask
 
 networks:
   classification-net:
-
 
