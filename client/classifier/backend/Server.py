@@ -30,14 +30,14 @@ from JsonParserCrossref import JsonParserCrossref
 from functions import load_json
 from functions import unsupervised_cosine_similarity
 
-challenge_keywords: dict[str, list[str]] = \
-    load_json('data/challenge_keywords.json')
 theme_keywords: dict[str, list[str]] = \
     load_json('data/theme_keywords.json')
 scientificTheme_keywords: dict[str, list[str]] = \
     load_json('data/scientificTheme_keywords.json')
 mobilityType_keywords: dict[str, list[str]] = \
     load_json('data/mobilityType_keywords.json')
+axe_keywords: dict[str, list[str]] = \
+    load_json('data/axe_keywords.json')
 # </Retrieve keywords>
 
 # Retrieve Classification Results
@@ -46,10 +46,6 @@ def classification_results(data: str) -> dict[str, list[str]]:
     :param data: it needs to be already parsed.
     """
     try:
-        challenges: list[str] = json.dumps(
-            unsupervised_cosine_similarity(data, challenge_keywords)
-        )
-
         themes: list[str] = json.dumps(
             unsupervised_cosine_similarity(data, theme_keywords,
                                            precision=0.05)
@@ -63,21 +59,24 @@ def classification_results(data: str) -> dict[str, list[str]]:
             unsupervised_cosine_similarity(data, mobilityType_keywords,
                                            precision=0.02)
         )
+
+        axes: list[str] = json.dumps(
+            unsupervised_cosine_similarity(data, axe_keywords,
+                                           precision=0.009)
+        )
+
     except:
         emit("classification_error", { 'error': 'Impossible to classify' }, to=request.sid)
 
     return {
-        'challenges': challenges or [],
         'themes': themes or [],
         'scientificThemes': scientificThemes or [],
         'mobilityTypes': mobilityTypes or [],
+        'axes': axes or [],
     }
 
 def classification_error(results: dict[str, list[str]]) -> bool:
-    if 'challenges' in results and results['challenges'] == "[]":
-        emit("classification_error", { 'error': 'No challenges found' }, to=request.sid)
-        return True
-    elif 'themes' in results and results['themes'] == "[]":
+    if 'themes' in results and results['themes'] == "[]":
         emit("classification_error", { 'error': 'No themes found' }, to=request.sid)
         return True
     elif 'scientificThemes' in results and results['scientificThemes'] == "[]":
@@ -85,6 +84,9 @@ def classification_error(results: dict[str, list[str]]) -> bool:
         return True
     elif 'mobilityTypes' in results and results['mobilityTypes'] == "[]":
         emit("classification_error", { 'error': 'No mobility types found' }, to=request.sid)
+        return True
+    elif 'axes' in results and results['axes'] == "[]":
+        emit("classification_error", { 'error': 'No axes found' }, to=request.sid)
         return True
     else:
         return False
@@ -115,10 +117,10 @@ def handle_classify(data: str) -> None:
         emit(
             "classification_results",
             {
-                'challenges': results['challenges'],
                 'themes': results['themes'],
                 'scientificThemes': results['scientificThemes'],
                 'mobilityTypes': results['mobilityTypes'],
+                'axes': results['axes'],
             },
             to=request.sid
         )
@@ -137,10 +139,10 @@ def handle_json_classify(data: str) -> None:
         emit(
             "json_classification_results",
             {
-                'challenges': results['challenges'],
                 'themes': results['themes'],
                 'scientificThemes': results['scientificThemes'],
                 'mobilityTypes': results['mobilityTypes'],
+                'axes': results['axes'],
             },
             to=request.sid
         )

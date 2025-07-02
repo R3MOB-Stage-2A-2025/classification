@@ -13,27 +13,27 @@ function App() {
     // Retrieve the Challenges, Themes, Scientific Themes and Mobility Types.
     // ----------------------------------------------------------------------
 
-    // Challenge i.e "Enjeu".
-    const [challenges, setChallenges] = useState(null);
     // Themes.
     const [themes, setThemes] = useState(null);
     // Scientific themes.
     const [scientificThemes, setScientificThemes] = useState(null);
     // Mobility Types.
     const [mobilityTypes, setMobilityTypes] = useState(null);
+    // Axes/ Leverage for actions.
+    const [axes, setAxes] = useState(null);
 
     const setVariablesToFalse = () => {
-        setChallenges(false);
         setThemes(false);
         setScientificThemes(false);
         setMobilityTypes(false);
+        setAxes(false);
     };
 
     const setVariablesToData = (data) => {
-        setChallenges(JSON.parse(data.challenges));
         setThemes(JSON.parse(data.themes));
         setScientificThemes(JSON.parse(data.scientificThemes));
         setMobilityTypes(JSON.parse(data.mobilityTypes));
+        setAxes(JSON.parse(data.axes));
     };
 
     // ----------------------------------------------------------------------
@@ -141,17 +141,6 @@ function App() {
             <div id="result">
                 {error && <p>{error}</p>}
 
-                {challenges && challenges.length > 0 && (
-                    <>
-                        <h2>Enjeux associés :</h2>
-                        <ul>
-                            {challenges.map((challenge, index) => (
-                                <li key={index}>{challenge}</li>
-                            ))}
-                        </ul>
-                    </>
-                )}
-
                 {themes && themes.length > 0 && (
                     <>
                         <h2>Thèmes associés :</h2>
@@ -184,6 +173,18 @@ function App() {
                         </ul>
                     </>
                 )}
+
+                {axes && axes.length > 0 && (
+                    <>
+                        <h2>Axes/ leviers d'actions associés :</h2>
+                        <ul>
+                            {axes.map((axe, index) => (
+                                <li key={index}>{axe}</li>
+                            ))}
+                        </ul>
+                    </>
+                )}
+
             </div>
         </div>
     );
