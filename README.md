@@ -28,7 +28,7 @@ You will need:
 
 ### Launching
 
-Each subfolder contains a *Dockerfile* and a specific *docker compose* file.
+Each subfolder contains a *Dockerfile* file.
 
 Anyway you will find at the root folder a `docker-compose.yml` file to rule them all.
 
@@ -36,7 +36,7 @@ Just do this:
 
 ```bash
 cd classification/
-# Edit the environment variables in the `.env` file.
+# Edit the environment variables in the `.env` file before this.
 docker compose -f docker-compose.yml up -d
 
 # If you want to remove the containers.
