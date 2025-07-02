@@ -17,6 +17,8 @@ import sys
 import os
 
 dir_path_current: str = os.path.dirname(os.path.abspath(__file__))
+absolute_path_file: str = os.path.abspath(dir_path_current)
+os.chdir(absolute_path_file)
 os.chdir('../..')
 
 dir_path: str = os.path.dirname(
