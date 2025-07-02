@@ -1,0 +1,42 @@
+.search-result {
+    border: 1px solid #ccc;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 0.5rem;
+    background-color: white;
+}
+
+.search-result h3 {
+    margin-bottom: 0.5rem;
+}
+
+.search-result p {
+    margin: 0.25rem 0;
+}
+
+.result-button {
+  background-color: #007BFF;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 14px;
+  margin: 6px 6px 0 0;
+  font-size: 1.2rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.result-button:hover {
+  background-color: #0056b3;
+}
+
+.result-button:active {
+  transform: scale(0.97);
+  background-color: #004999;
+}
+
+.result-button:disabled {
+  background-color: #cccccc;
+}
+
