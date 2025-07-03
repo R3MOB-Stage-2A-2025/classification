@@ -19,6 +19,12 @@ SEMANTICSCHOLAR_TIMEOUT: int = int(os.getenv("SEMANTICSCHOLAR_TIMEOUT")) # secon
 # </Retrieve environment variables>
 
 # Semantic Scholar Initialization
+from semanticscholar import SemanticScholar
+
+sch = SemanticScholar()
+#paper = sch.get_paper('10.1093/mind/lix.236.433')
+#print(paper.title)
+
 def semanticscholar_query(query: str, publisher: str = None, offset: int = 0, limit: int = 10) -> str:
     """
     :param query: `Title, author, DOI, ORCID iD, etc..`
