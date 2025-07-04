@@ -21,6 +21,27 @@ services:
         #volumes:
         #- ./config_crossref:/api-flask
 
+  semanticscholar:
+    build:
+      context: ./client/api/semanticscholar
+      dockerfile: semanticscholar.Dockerfile
+    container_name: r3mobprod_semanticscholar
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: '0.70'
+          memory: 500M
+            #networks:
+      #- classification-net
+    environment:
+      - PUID=1000
+      - PGID=1000
+    ports:
+      - "${SEMANTICSCHOLAR_PORT}:5002"
+        #volumes:
+        #- ./config_semanticscholar:/api-flask
+
   classifier:
     build:
       context: ./

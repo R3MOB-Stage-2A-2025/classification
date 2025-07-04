@@ -33,8 +33,6 @@ sch = semanticscholar.SemanticScholar(
 def semanticscholar_query(query: str, limit: int = 10) -> str:
     """
     :param query: `Title, author, DOI, ORCID iD, etc..`
-    :param publisher: special parameter to find related publications.
-        This parameter is usually the `container-title` of the response.
     :return: the result of ``semanticscholar.sch.get_paper()``. It is various *json*.
              the result is a string from `json.dumps()`.
     """
@@ -95,20 +93,138 @@ def semanticscholar_query(query: str, limit: int = 10) -> str:
     print(json_results)
     return ""
 
-#semanticscholar_query("mohamed mosbah")
+def semanticscholar_paper(paper_id: str) -> str:
+    """
+    :param paper_id: `DOI, ORCID iD, etc..`
+    :return: the result of ``semanticscholar.sch.get_paper()``.
+    It is various *json*. The result is a string from `json.dumps()`.
+    """
 
-# <Testing if the abstract is here>
-paper_id: str = "" # "10.1109/iccias.2006.294189"
-fields: list[str] = None
+    paper_id: str = paper_id
 
-struct_results: semanticscholar.Paper.Paper = sch.get_paper(
-    paper_id = paper_id,
-    fields = fields
-)
+    fields: list[str] = None
 
-json_results: dict = struct_results.raw_data
-print(json_results)
-# </Testing if the abstract is here>
+    # The type of "struct_results" is:
+    #   `semanticscholar.Paper.Paper`.
+    struct_results = sch.get_paper(
+        paper_id = paper_id,
+        fields = fields
+    )
+
+    json_results: dict = struct_results.raw_data
+    print(json_results)
+    return ""
+
+def semanticscholar_query_author(query: str, limit: int = 10) -> str:
+    """
+    :param query: `author, ORCID iD, etc..`
+    :return: the result of ``semanticscholar.sch.search_author()``.
+    It is various *json*. The result is a string from `json.dumps()`.
+    """
+
+    query: str = query
+
+    fields: list[str] = None
+
+    # `limit` must be <= 100.
+    limit: int = limit
+
+    # The type of "struct_results" is:
+    #   `semanticscholar.PaginatedResults.PaginatedResults`.
+    struct_results = sch.search_paper(
+        query = query,
+        fields = fields,
+        limit = limit
+    )
+
+    json_results: list[dict] = struct_results.raw_data
+    print(json_results)
+    return ""
+
+def semanticscholar_recommendations(paper_id: str, limit: int = 10) -> str:
+    """
+    :param paper_id: `DOI, ArXivId, URL(not all URL)`.
+    :return: the result of ``semanticscholar.sch.get_recommended_papers()``.
+    It is various *json*. The result is a string from `json.dumps()`.
+    """
+
+    paper_id: str = paper_id
+
+    fields: list[str] = None
+
+    # `limit` must be <= 100.
+    limit: int = limit
+
+    # Choose between "recent" and "all-cs".
+    pool_from: str = "recent"
+
+    # The type of "struct_results" is:
+    #   `list[semanticscholar.Paper.Paper]`.
+    struct_results = sch.get_recommended_papers(
+        paper_id = paper_id,
+        fields = fields,
+        limit = limit,
+        pool_from = pool_from
+    )
+
+    json_results: list[str] = [ paper.raw_data for paper in struct_results ]
+    print(json_results)
+    return ""
+
+def semanticscholar_citations(paper_id: str, limit: int = 50) -> str:
+    """
+    :param paper_id: `DOI, ArXivId, URL(not all URL)`.
+    :return: the result of ``semanticscholar.sch.get_paper_citations()``.
+    It is various *json*. The result is a string from `json.dumps()`.
+    """
+
+    paper_id: str = paper_id
+
+    fields: list[str] = None
+
+    # `limit` must be <= 100.
+    limit: int = limit
+
+    # The type of "struct_results" is:
+    #   `semanticscholar.PaginatedResults.PaginatedResults`.
+    struct_results = sch.get_paper_citations(
+        paper_id = paper_id,
+        fields = fields,
+        limit = limit
+    )
+
+    json_results: list[str] = struct_results.raw_data
+    print(json_results)
+    return ""
+
+def semanticscholar_references(paper_id: str, limit: int = 50) -> str:
+    """
+    :param paper_id: `DOI, ArXivId, URL(not all URL)`.
+    :return: the result of ``semanticscholar.sch.get_paper_references()``.
+    It is various *json*. The result is a string from `json.dumps()`.
+    """
+
+    paper_id: str = paper_id
+
+    fields: list[str] = None
+
+    # `limit` must be <= 100.
+    limit: int = limit
+
+    # The type of "struct_results" is:
+    #   `semanticscholar.PaginatedResults.PaginatedResults`.
+    struct_results = sch.get_paper_references(
+        paper_id = paper_id,
+        fields = fields,
+        limit = limit
+    )
+
+    json_results: list[str] = struct_results.raw_data
+    print(json_results)
+    return ""
+
+paper_id: str = "10.1109/WETICE.2013.44"
+semanticscholar_paper(paper_id)
 
 # </Semantic Scholar Initialization>
 
