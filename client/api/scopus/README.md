@@ -17,7 +17,8 @@ It permits to access to
 ```bash
 cd backend/
 cp .env.example .env
-vim .env
+cp pybliometrics.example.cfg pyblometrics.cfg
+vim .env pybliometrics.cfg
 ```
 
 Then you can use the specified *Dockerfile* with the *docker-compose.yml*
