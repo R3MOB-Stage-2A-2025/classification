@@ -128,10 +128,13 @@ def handle_classify(data: str) -> None:
 @socketio.on('json_classification')
 def handle_json_classify(data: str) -> None:
     print(f"JSON Classification query received: {data}")
+    data_dict = json.loads(data)
+    doi = data_dict.get("DOI")
     data_parsed: str = JsonParserCrossref(data).classify_me()
     results = classification_results(data_parsed)
 
     # debug.
+    print("DOI extrait :", doi)
     print(data_parsed)
     # </debug>
 
@@ -139,6 +142,7 @@ def handle_json_classify(data: str) -> None:
         emit(
             "json_classification_results",
             {
+                'doi': doi,
                 'themes': results['themes'],
                 'scientificThemes': results['scientificThemes'],
                 'mobilityTypes': results['mobilityTypes'],
