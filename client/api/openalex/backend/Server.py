@@ -13,11 +13,15 @@ load_dotenv()
 BACKEND_PORT: int = int(os.getenv("BACKEND_PORT"))
 BACKEND_SECRETKEY: str = os.getenv("BACKEND_SECRETKEY")
 FRONTEND_HOST: str = os.getenv("FRONTEND_HOST")
+PYALEX_MAILTO: str = os.getenv("PYALEX_MAILTO")
 # </Retrieve environment variables>
 
 # OpenAlex Initialization
 
+#from pyalex import Works, Authors, Sources, Institutions, Topics, Publishers, Funders
+from pyalex import Works
 
+pyalex.config.email = PYALEX_MAILTO
 
 # </OpenAlex Initialization>
 
