@@ -27,7 +27,7 @@ sch = semanticscholar.SemanticScholar(
     api_key = SEMANTICSCHOLAR_APIKEY,
     api_url = SEMANTICSCHOLAR_APIURL,
     debug = False, # This parameter seems deprecated.
-    retry = False
+    retry = True
 )
 
 def semanticscholar_query(query: str, limit: int = 10) -> str:
@@ -223,8 +223,8 @@ def semanticscholar_references(paper_id: str, limit: int = 50) -> str:
     print(json_results)
     return ""
 
-paper_id: str = "10.1109/WETICE.2013.44"
-semanticscholar_paper(paper_id)
+author_id: str = "mohamed mosbah"
+semanticscholar_query_author(author_id)
 
 # </Semantic Scholar Initialization>
 

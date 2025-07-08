@@ -22,7 +22,7 @@ file in the root directory.
 
 ## Starting the Flask server in development mode
 
-1. ``cd crossref/``
+1. ``cd semanticscholar/``
 
 2. Initialize the backend:
 
@@ -31,7 +31,7 @@ do ``cp .env.example .env`` and edit the `.env` file.
 
 ```bash
 # Open another terminal and do this:
-cd client_crossref/backend/
+cd semanticscholar/backend/
 python -m venv .venv
 source .venv/bin/activate
 cd backend/
