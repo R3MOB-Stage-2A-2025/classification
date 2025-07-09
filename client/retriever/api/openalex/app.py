@@ -23,7 +23,7 @@ class OpenAlexClient(Service):
     def __init__(self, apiurl: str = None, apikey: str = None,
                  mailto: str = None, timeout: int = 20):
 
-        self.name = "Habanero(Crossref)"
+        self.name = "PyAlex(OpenAlex)"
         super().__init__(apiurl=apiurl, apikey=apikey,
                          mailto=mailto, timeout=timeout)
 
