@@ -3,6 +3,14 @@ from time import sleep
 
 import config
 
+# <Generic API>
+import sys
+import os
+
+dir_path_current: str = os.path.dirname(os.path.abspath(__file__))
+sys.path.append(dir_path_current + "/api/services")
+# </Generic API>
+
 from api.openalex.app import OpenAlexClient
 from api.semanticscholar.app import SemanticScholarClient
 from api.crossref.app import CrossrefClient
@@ -55,12 +63,11 @@ class Retriever:
         print("Retriever initialized.")
 
     def threaded_query(self, query: str) -> str:
-        return self._scopus.query(query)
+        return self._openalex.query(query)
 
     def query(self, query: str) -> str:
         with concurrent.futures.ThreadPoolExecutor() as executor:
             future = executor.submit(self.threaded_query, query)
             result: str = future.result(timeout=5)
-
             return result
 
