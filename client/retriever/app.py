@@ -8,6 +8,7 @@ from Retriever import Retriever
 import config
 
 socketio = SocketIO()
+retriever = Retriever()
 
 def create_app() -> Flask:
     app = Flask(__name__)
@@ -45,7 +46,7 @@ def handle_search_query(data: str) -> None:
     # </Parse json data>
 
     # <Send query to the API cluster>
-    results_str: str = Retriever().query(query)
+    results_str: str = retriever.query(query)
     print(f"Raw results from query(): \n{results_str}")
     # </Send query to API cluster>
 
