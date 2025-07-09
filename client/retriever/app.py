@@ -15,6 +15,7 @@ def create_app() -> Flask:
     app.config['SECRET_KEY'] = config.BACKEND_SECRETKEY
     CORS(app, resources={r"/*": { "origins": "*" }})
     socketio.init_app(app, cors_allowed_origins="*")
+    return app
 
 @socketio.on("connect")
 def connected():
