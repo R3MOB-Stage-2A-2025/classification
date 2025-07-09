@@ -15,18 +15,18 @@ pyalex==0.18
 # </OpenAlex>
 
 # <SemanticScholar>
-#semanticscholar==0.10.0
+semanticscholar==0.10.0
 # </SemanticScholar>
 
 # <Crossref>
-#habanero==2.3.0
+habanero==2.3.0
 # </Crossref>
 
 # <Orcid>
-#pyorcid==1.2.0
+#pyorcid==1.2.0 # Conflicting version with *habanero*.
 # </Orcid>
 
 # <Scopus
-#pybliometrics==4.1
+pybliometrics==4.1
 # </Scopus>
 
