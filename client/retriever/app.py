@@ -2,8 +2,6 @@ from flask import Flask, request
 from flask_socketio import SocketIO, emit
 from flask_cors import CORS
 
-import httpx
-import re
 import json
 
 from Retriever import Retriever
@@ -29,6 +27,8 @@ def handle_message(data):
 @socketio.on_error()
 def handle_error(e):
     error_str: str = e.__str__()
+    print("ERROR:\n " + error_str + "\n/ERROR")
+
     error_json_str: str = { 'error': { 'message': error_str } }
     emit("search_results", { 'results': None }, to=request.sid)
     emit("search_error", error_json_str, to=request.sid)
