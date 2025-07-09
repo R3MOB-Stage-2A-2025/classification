@@ -7,7 +7,7 @@ from api.openalex.app import OpenAlexClient
 from api.semanticscholar.app import SemanticScholarClient
 from api.crossref.app import CrossrefClient
 #from api.orcid.app import OrcidClient
-#from api.scopus.app import ScopusClient
+from api.scopus.app import ScopusClient
 
 class Retriever:
     def __init__(self):
@@ -37,12 +37,13 @@ class Retriever:
             timeout = config.HABANERO_TIMEOUT
         )
 
-        self._orcid = OrcidClient(
-            apiurl  = None,
-            apikey  = None,
-            mailto  = None,
-            timeout = None
-        )
+        # Its version is not compatible with *Habanero* (Crossref Client).
+        #self._orcid = OrcidClient(
+            #apiurl  = None,
+            #apikey  = None,
+            #mailto  = None,
+            #timeout = None
+        #)
 
         self._scopus = ScopusClient(
             apiurl  = None,
