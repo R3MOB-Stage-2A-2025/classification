@@ -6,7 +6,6 @@ import json
 
 import pybliometrics
 
-
 class ScopusClient(Service):
     def __init__(self, apiurl: str = None, apikey: str = None,
                  mailto: str = None, timeout: int = 20):
@@ -17,10 +16,10 @@ class ScopusClient(Service):
 
         pybliometrics.scopus.utils.init(keys=[apikey])
 
-    def query(self, query: str) -> str:
+    def query_author(self, query: str) -> str:
         """
-        :param query: `Title, author, DOI, ORCID iD, etc..`
-        :return: the result of ``pybliometrics.scopus.*()``. It is various *json*.
+        :param query: `author, ORCID iD, etc..`
+        :return: the result of ``pybliometrics.scopus.AuthorSearch()``.
                  the result is a string from `json.dumps()`.
         """
 
