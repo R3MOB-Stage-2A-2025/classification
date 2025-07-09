@@ -1,7 +1,0 @@
-flask==3.1.1
-flask_socketio==5.5.1
-flask_cors==6.0.1
-gevent==25.5.1
-dotenv==0.9.9
-httpx==0.28.1
-pyorcid==1.2.0
