@@ -23,7 +23,7 @@ SEMANTICSCHOLAR_TIMEOUT: int = int(os.getenv("SEMANTICSCHOLAR_TIMEOUT")) # secon
 # </SemanticScholar>
 
 # <Crossref>
-HABANERO_BASEURL: str = os.getenv("HABANERO_BASEURL")
+HABANERO_APIURL: str = os.getenv("HABANERO_BASEURL")
 HABANERO_APIKEY: str = os.getenv("HABANERO_APIKEY")
 HABANERO_MAILTO: str = os.getenv("HABANERO_MAILTO")
 HABANERO_TIMEOUT: int = int(os.getenv("HABANERO_TIMEOUT")) # seconds
