@@ -1,309 +1,222 @@
-import httpx
-import re
-import json
-from flask import Flask, request
-from flask_socketio import SocketIO, emit
-from flask_cors import CORS
-
-# Retrieve environment variables.
+# <Import the generic api class>
 import os
-from dotenv import load_dotenv, dotenv_values
+import sys
 
-load_dotenv()
-BACKEND_PORT: int = int(os.getenv("BACKEND_PORT"))
-BACKEND_SECRETKEY: str = os.getenv("BACKEND_SECRETKEY")
-FRONTEND_HOST: str = os.getenv("FRONTEND_HOST")
+dir_path_current: str = os.path.dirname(os.path.abspath(__file__))
+sys.path.append(dir_path_current)
+sys.path.append(
+    dir_path_current.removesuffix("/semanticscholar") + \
+    "/services")
 
-SEMANTICSCHOLAR_TIMEOUT: int = int(os.getenv("SEMANTICSCHOLAR_TIMEOUT")) # seconds
-SEMANTICSCHOLAR_APIKEY: str = os.getenv("SEMANTICSCHOLAR_APIKEY")
-SEMANTICSCHOLAR_APIURL: str = os.getenv("SEMANTICSCHOLAR_APIURL")
-# </Retrieve environment variables>
+from generic_app import Service
+# </Import the generic api class>
 
-# Semantic Scholar Initialization
+import re
+import httpx
+import json
+
 import semanticscholar
 
-sch = semanticscholar.SemanticScholar(
-    timeout = SEMANTICSCHOLAR_TIMEOUT,
-    api_key = SEMANTICSCHOLAR_APIKEY,
-    api_url = SEMANTICSCHOLAR_APIURL,
-    debug = False, # This parameter seems deprecated.
-    retry = True
-)
+class SemanticScholarClient(Service):
+    def __init__(self, apiurl: str = None, apikey: str = None,
+                 mailto: str = None, timeout: int = 20):
 
-def semanticscholar_query(query: str, limit: int = 10) -> str:
-    """
-    :param query: `Title, author, DOI, ORCID iD, etc..`
-    :return: the result of ``semanticscholar.sch.get_paper()``. It is various *json*.
-             the result is a string from `json.dumps()`.
-    """
+        self.name = "SemanticScholar"
+        super().__init__(apiurl=apiurl, apikey=apikey,
+                         mailto=mailto, timeout=timeout)
 
-    query: str = query
-    year: str = None
-    publication_types: list[str] = None
-    open_access_pdf: bool = None
+        self._sch = semanticscholar.SemanticScholar(
+            timeout = timeout,
+            api_key = apikey,
+            api_url = apiurl,
+            debug   = False, # This parameter seems deprecated.
+            retry   = False # This parameter could overuse the thread.
+        )
 
-    # See this website: `https://aclanthology.org/venues/`.
-    venue: list[str] = None
+    def query_paper(self, query: str, limit: int = 10) -> str:
+        """
+        :param query: `Title, author, DOI, ORCID iD, etc..`
+        :return: the result of ``semanticscholar.sch.get_paper()``. It is various *json*.
+                 the result is a string from `json.dumps()`.
+        """
 
-    fields_of_study: list[str] = None
-    fields: list[str] = None
-    publication_date_or_year: str = None
-    min_citation_count: int = None
+        query: str = query
+        year: str = None
+        publication_types: list[str] = None
+        open_access_pdf: bool = None
 
-    # `limit` must be <= 100.
-    limit: int = limit
+        # See this website: `https://aclanthology.org/venues/`.
+        venue: list[str] = None
 
-    # Sort only if `bulk` is actived.
-    # If bulk is actived, `limit` is ignored, and returns
-    # up to 1000 results on each page.
-    bulk: bool = True
+        fields_of_study: list[str] = None
+        fields: list[str] = None
+        publication_date_or_year: str = None
+        min_citation_count: int = None
 
-    # - *field*: can be paperId, publicationDate, or citationCount.
-    # - *order*: can be asc (ascending) or desc (descending).
-    sort: str = "citationCount:desc"
+        # `limit` must be <= 100.
+        limit: int = limit
 
-    # Retrieve a single paper whose
-    # title best matches with the query.
-    match_title: bool = False
+        # Sort only if `bulk` is actived.
+        # If bulk is actived, `limit` is ignored, and returns
+        # up to 1000 results on each page.
+        bulk: bool = True
 
-    # The type of "struct_results" could be:
-    # - `semanticscholar.PaginatedResults.PaginatedResults`.
-    # - `semanticscholar.Paper.Paper`.
-    struct_results = sch.search_paper(
-        query = query,
-        year = year,
-        publication_types = publication_types,
-        open_access_pdf = open_access_pdf,
-        venue = venue,
-        fields_of_study = fields_of_study,
-        fields = fields,
-        publication_date_or_year = publication_date_or_year,
-        min_citation_count = min_citation_count,
-        limit = limit,
-        bulk = bulk,
-        sort = sort,
-        match_title = match_title
-    )
+        # - *field*: can be paperId, publicationDate, or citationCount.
+        # - *order*: can be asc (ascending) or desc (descending).
+        sort: str = "citationCount:desc"
 
-    if type(struct_results) == semanticscholar.Paper.Paper:
+        # Retrieve a single paper whose
+        # title best matches with the query.
+        match_title: bool = False
+
+        # The type of "struct_results" could be:
+        # - `semanticscholar.PaginatedResults.PaginatedResults`.
+        # - `semanticscholar.Paper.Paper`.
+        struct_results = self._sch.search_paper(
+            query = query,
+            year = year,
+            publication_types = publication_types,
+            open_access_pdf = open_access_pdf,
+            venue = venue,
+            fields_of_study = fields_of_study,
+            fields = fields,
+            publication_date_or_year = publication_date_or_year,
+            min_citation_count = min_citation_count,
+            limit = limit,
+            bulk = bulk,
+            sort = sort,
+            match_title = match_title
+        )
+
+        if type(struct_results) == semanticscholar.Paper.Paper:
+            json_results: dict = struct_results.raw_data
+        else:
+            json_results: list[dict] = struct_results.raw_data
+
+        return json.dumps(json_results)
+
+    def semanticscholar_paper(self, paper_id: str) -> str:
+        """
+        :param paper_id: `DOI, ORCID iD, etc..`
+        :return: the result of ``semanticscholar.sch.get_paper()``.
+        It is various *json*. The result is a string from `json.dumps()`.
+        """
+
+        paper_id: str = paper_id
+
+        fields: list[str] = None
+
+        # The type of "struct_results" is:
+        #   `semanticscholar.Paper.Paper`.
+        struct_results = self._sch.get_paper(
+            paper_id = paper_id,
+            fields = fields
+        )
+
         json_results: dict = struct_results.raw_data
-    else:
+        return json.dumps(json_results)
+
+    def query(self, query: str, limit: int = 10) -> str:
+        """
+        :param query: `author, ORCID iD, etc..`
+        :return: the result of ``semanticscholar.sch.search_author()``.
+        It is various *json*. The result is a string from `json.dumps()`.
+        """
+
+        query: str = query
+
+        fields: list[str] = None
+
+        # `limit` must be <= 100.
+        limit: int = limit
+
+        # The type of "struct_results" is:
+        #   `semanticscholar.PaginatedResults.PaginatedResults`.
+        struct_results = self._sch.search_paper(
+            query = query,
+            fields = fields,
+            limit = limit
+        )
+
         json_results: list[dict] = struct_results.raw_data
+        return json.dumps(json_results)
 
-    print(json_results)
-    return ""
+    def semanticscholar_recommendations(self, paper_id: str, limit: int = 10) -> str:
+        """
+        :param paper_id: `DOI, ArXivId, URL(not all URL)`.
+        :return: the result of ``semanticscholar.sch.get_recommended_papers()``.
+        It is various *json*. The result is a string from `json.dumps()`.
+        """
 
-def semanticscholar_paper(paper_id: str) -> str:
-    """
-    :param paper_id: `DOI, ORCID iD, etc..`
-    :return: the result of ``semanticscholar.sch.get_paper()``.
-    It is various *json*. The result is a string from `json.dumps()`.
-    """
+        paper_id: str = paper_id
 
-    paper_id: str = paper_id
+        fields: list[str] = None
 
-    fields: list[str] = None
+        # `limit` must be <= 100.
+        limit: int = limit
 
-    # The type of "struct_results" is:
-    #   `semanticscholar.Paper.Paper`.
-    struct_results = sch.get_paper(
-        paper_id = paper_id,
-        fields = fields
-    )
+        # Choose between "recent" and "all-cs".
+        pool_from: str = "recent"
 
-    json_results: dict = struct_results.raw_data
-    print(json_results)
-    return ""
+        # The type of "struct_results" is:
+        #   `list[semanticscholar.Paper.Paper]`.
+        struct_results = self._sch.get_recommended_papers(
+            paper_id = paper_id,
+            fields = fields,
+            limit = limit,
+            pool_from = pool_from
+        )
 
-def semanticscholar_query_author(query: str, limit: int = 10) -> str:
-    """
-    :param query: `author, ORCID iD, etc..`
-    :return: the result of ``semanticscholar.sch.search_author()``.
-    It is various *json*. The result is a string from `json.dumps()`.
-    """
+        json_results: list[str] = [ paper.raw_data for paper in struct_results ]
+        return json.dumps(json_results)
 
-    query: str = query
+    def semanticscholar_citations(self, paper_id: str, limit: int = 50) -> str:
+        """
+        :param paper_id: `DOI, ArXivId, URL(not all URL)`.
+        :return: the result of ``semanticscholar.sch.get_paper_citations()``.
+        It is various *json*. The result is a string from `json.dumps()`.
+        """
 
-    fields: list[str] = None
+        paper_id: str = paper_id
 
-    # `limit` must be <= 100.
-    limit: int = limit
+        fields: list[str] = None
 
-    # The type of "struct_results" is:
-    #   `semanticscholar.PaginatedResults.PaginatedResults`.
-    struct_results = sch.search_paper(
-        query = query,
-        fields = fields,
-        limit = limit
-    )
+        # `limit` must be <= 100.
+        limit: int = limit
 
-    json_results: list[dict] = struct_results.raw_data
-    print(json_results)
-    return ""
+        # The type of "struct_results" is:
+        #   `semanticscholar.PaginatedResults.PaginatedResults`.
+        struct_results = self._sch.get_paper_citations(
+            paper_id = paper_id,
+            fields = fields,
+            limit = limit
+        )
 
-def semanticscholar_recommendations(paper_id: str, limit: int = 10) -> str:
-    """
-    :param paper_id: `DOI, ArXivId, URL(not all URL)`.
-    :return: the result of ``semanticscholar.sch.get_recommended_papers()``.
-    It is various *json*. The result is a string from `json.dumps()`.
-    """
+        json_results: list[str] = struct_results.raw_data
+        return json.dumps(json_results)
 
-    paper_id: str = paper_id
+    def semanticscholar_references(self, paper_id: str, limit: int = 50) -> str:
+        """
+        :param paper_id: `DOI, ArXivId, URL(not all URL)`.
+        :return: the result of ``semanticscholar.sch.get_paper_references()``.
+        It is various *json*. The result is a string from `json.dumps()`.
+        """
 
-    fields: list[str] = None
+        paper_id: str = paper_id
 
-    # `limit` must be <= 100.
-    limit: int = limit
+        fields: list[str] = None
 
-    # Choose between "recent" and "all-cs".
-    pool_from: str = "recent"
+        # `limit` must be <= 100.
+        limit: int = limit
 
-    # The type of "struct_results" is:
-    #   `list[semanticscholar.Paper.Paper]`.
-    struct_results = sch.get_recommended_papers(
-        paper_id = paper_id,
-        fields = fields,
-        limit = limit,
-        pool_from = pool_from
-    )
+        # The type of "struct_results" is:
+        #   `semanticscholar.PaginatedResults.PaginatedResults`.
+        struct_results = self._sch.get_paper_references(
+            paper_id = paper_id,
+            fields = fields,
+            limit = limit
+        )
 
-    json_results: list[str] = [ paper.raw_data for paper in struct_results ]
-    print(json_results)
-    return ""
-
-def semanticscholar_citations(paper_id: str, limit: int = 50) -> str:
-    """
-    :param paper_id: `DOI, ArXivId, URL(not all URL)`.
-    :return: the result of ``semanticscholar.sch.get_paper_citations()``.
-    It is various *json*. The result is a string from `json.dumps()`.
-    """
-
-    paper_id: str = paper_id
-
-    fields: list[str] = None
-
-    # `limit` must be <= 100.
-    limit: int = limit
-
-    # The type of "struct_results" is:
-    #   `semanticscholar.PaginatedResults.PaginatedResults`.
-    struct_results = sch.get_paper_citations(
-        paper_id = paper_id,
-        fields = fields,
-        limit = limit
-    )
-
-    json_results: list[str] = struct_results.raw_data
-    print(json_results)
-    return ""
-
-def semanticscholar_references(paper_id: str, limit: int = 50) -> str:
-    """
-    :param paper_id: `DOI, ArXivId, URL(not all URL)`.
-    :return: the result of ``semanticscholar.sch.get_paper_references()``.
-    It is various *json*. The result is a string from `json.dumps()`.
-    """
-
-    paper_id: str = paper_id
-
-    fields: list[str] = None
-
-    # `limit` must be <= 100.
-    limit: int = limit
-
-    # The type of "struct_results" is:
-    #   `semanticscholar.PaginatedResults.PaginatedResults`.
-    struct_results = sch.get_paper_references(
-        paper_id = paper_id,
-        fields = fields,
-        limit = limit
-    )
-
-    json_results: list[str] = struct_results.raw_data
-    print(json_results)
-    return ""
-
-author_id: str = "mohamed mosbah"
-semanticscholar_query_author(author_id)
-
-# </Semantic Scholar Initialization>
-
-app = Flask(__name__)
-app.config['SECRET_KEY'] = BACKEND_SECRETKEY
-CORS(app, resources={r"/*": { "origins": "*" }})
-socketio = SocketIO(app, cors_allowed_origins="*")
-
-@socketio.on("connect")
-def connected():
-    """event listener when client connects to the backend"""
-    print(f'client number {request.sid} is connected')
-
-@socketio.on('data')
-def handle_message(data):
-    """event listener when client types a message"""
-    print("data from the front end: ", str(data))
-
-@socketio.on("search_query")
-def handle_search_query(data: str) -> None:
-    """
-    :param data: A *json* file.
-    The parameters of this *json* file are:
-
-        - `query`.
-        - `limit`.
-
-    Nothing more.
-
-    The thing sent using `emit()` is:
-
-        - a dictionary if it is an error, on `search_error` event.
-        Example:
-            ```
-            {
-                "error":
-                {
-                    "type": "ServerError",
-                    "message": "blablabla"
-                }
-            }
-            ```
-
-        - a string using `json.stringify()` on `sch.get_paper()`.
-    """
-
-    # <Parse json data>
-    data_dict: dict[str, int | str] = json.loads(data)
-
-    # `data.get() returns None if it does not find the key.`
-    query: str = data_dict.get('query')
-    offset: int = data_dict.get('offset')
-    publisher: str = data_dict.get('publisher')
-
-    print(f"Search query received: {query} - Offset: {offset}")
-    if publisher != None:
-        print(f"Publisher received: {publisher}")
-    # </Parse json data>
-
-    # <Send query to Semantic Scholar>
-    results_str: str = semanticscholar_query(query, publisher, offset)
-    print(f"Raw results from semanticscholar_query: \n{results_str}")
-    # </Send query to Semantic Scholar>
-
-    # <Send the Semantic Scholar result>
-    parsed_output: dict = json.loads(results_str)
-
-    if 'error' in parsed_output:
-        emit("search_results", { 'results': None }, to=request.sid)
-        emit("search_error", json.loads(results_str), to=request.sid)
-    else:
-        emit("search_results", { 'results': results_str }, to=request.sid)
-    # </Send the Semantic Scholar result>
-
-@socketio.on("disconnect")
-def disconnected():
-    """event listener when client disconnects to the backend"""
-    print(f'client number {request.sid} is disconnected')
-
-if __name__ == '__main__':
-    socketio.run(app, debug=True, host=FRONTEND_HOST, port=BACKEND_PORT)
+        json_results: list[str] = struct_results.raw_data
+        return json.dumps(json_results)
 

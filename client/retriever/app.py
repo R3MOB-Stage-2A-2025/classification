@@ -28,20 +28,17 @@ def handle_message(data):
 @socketio.on_error()
 def handle_error(e):
     error_str: str = e.__str__()
-    print("ERROR:\n " + error_str + "\n/ERROR")
-
     error_json_str: str = { 'error': { 'message': error_str } }
+
     emit("search_results", { 'results': None }, to=request.sid)
     emit("search_error", error_json_str, to=request.sid)
+    print("ERROR:\n " + error_str + "\n/ERROR")
 
 @socketio.on("search_query")
 def handle_search_query(data: str) -> None:
     # <Parse json data>
     data_dict: dict[str, int | str] = json.loads(data)
-
-    # `data.get()` returns None if it does not find the key.
     query: str = data_dict.get('query')
-
     print(f"Search query received: {query}")
     # </Parse json data>
 
@@ -51,7 +48,6 @@ def handle_search_query(data: str) -> None:
     # </Send query to API cluster>
 
     # <Send the API cluster result>
-    parsed_output: dict = json.loads(results_str)
     emit("search_results", { 'results': results_str }, to=request.sid)
     # </Send the API cluster result>
 
