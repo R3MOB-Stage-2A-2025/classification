@@ -1,0 +1,32 @@
+# <Flask + gevent + socketio>
+flask==3.1.1
+flask_socketio==5.5.1
+flask_cors==6.0.1
+gevent==25.5.1
+# </Flask + gevent + socketio>
+
+# <Miscellenaous>
+dotenv==0.9.9
+httpx==0.28.1
+# </Miscellenaous>
+
+# <OpenAlex>
+pyalex==0.18
+# </OpenAlex>
+
+# <SemanticScholar>
+#semanticscholar==0.10.0
+# </SemanticScholar>
+
+# <Crossref>
+#habanero==2.3.0
+# </Crossref>
+
+# <Orcid>
+#pyorcid==1.2.0
+# </Orcid>
+
+# <Scopus
+#pybliometrics==4.1
+# </Scopus>
+

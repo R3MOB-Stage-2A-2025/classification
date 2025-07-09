@@ -13,8 +13,7 @@ export const SearchBar = ({ setResults, setError, setLoading, loading }) => {
             setLoading(true);
             setError(false);
             socket.emit("search_query", JSON.stringify({
-                query: input,
-                offset: 0
+                query: input
             }));
         }
     };
