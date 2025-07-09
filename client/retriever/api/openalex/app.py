@@ -1,15 +1,4 @@
-# <Import the generic api class>
-import os
-import sys
-
-dir_path_current: str = os.path.dirname(os.path.abspath(__file__))
-sys.path.append(dir_path_current)
-sys.path.append(
-    dir_path_current.removesuffix("/openalex") + \
-    "/services")
-
 from generic_app import Service
-# </Import the generic api class>
 
 import re
 import httpx
