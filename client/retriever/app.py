@@ -6,6 +6,7 @@ import httpx
 import re
 import json
 
+from Retriever import Retriever
 import config
 
 socketio = SocketIO()
@@ -25,8 +26,16 @@ def connected():
 def handle_message(data):
     print("data from the front end: ", str(data))
 
+@socketio.on_error()
+def handle_error(e):
+    error_str: str = e.__str__()
+    error_json_str: str = json.dumps({ 'error': { 'message': error_str } })
+    emit("search_results", { 'results': None }, to=request.sid)
+    emit("search_error", json.loads(error_json_str), to=request.sid)
+
 @socketio.on("search_query")
 def handle_search_query(data: str) -> None:
+    # <Parse json data>
     data_dict: dict[str, int | str] = json.loads(data)
 
     # `data.get() returns None if it does not find the key.`
@@ -36,18 +45,13 @@ def handle_search_query(data: str) -> None:
     # </Parse json data>
 
     # <Send query to the API cluster>
-    results_str: str = Retriever.query(query)
+    results_str: str = Retriever().query(query)
     print(f"Raw results from query(): \n{results_str}")
     # </Send query to API cluster>
 
     # <Send the API cluster result>
     parsed_output: dict = json.loads(results_str)
-
-    if 'error' in parsed_output:
-        emit("search_results", { 'results': None }, to=request.sid)
-        emit("search_error", json.loads(results_str), to=request.sid)
-    else:
-        emit("search_results", { 'results': results_str }, to=request.sid)
+    emit("search_results", { 'results': results_str }, to=request.sid)
     # </Send the API cluster result>
 
 @socketio.on("disconnect")
