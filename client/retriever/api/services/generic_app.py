@@ -35,8 +35,8 @@ class Service:
             error_payload = {
                 'error': {
                     'type': 'ServerError',
-                    'message': f"An unexpected error occurred"\
-                                "on the server: {str(e)}"
+                    'message': f"An unexpected error occurred \
+                                on the server: {str(e)}"
                 }
             }
             return json.dumps(error_payload)
