@@ -24,7 +24,7 @@ export const SearchResult = ({ item, loading, setLoading }) => {
 
         const a = document.createElement("a");
         a.href = url;
-        a.download = `${item.DOI?.replace(/\//g, "_") || "metadata"}.json`;
+        a.download = `${item.title[0]?.replaceAll(" ", "_") || "metadata"}.json`;
         a.click();
 
         URL.revokeObjectURL(url);
