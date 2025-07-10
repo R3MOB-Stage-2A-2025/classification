@@ -1,7 +1,6 @@
 from generic_app import Service
 
 import re
-import httpx
 import json
 
 from habanero import Crossref, RequestError
@@ -143,11 +142,13 @@ class CrossrefClient(Service):
 
         progress_bar: bool = False
 
-        try:
+        def func_query(query: str) -> str:
             if len(ids) > 0:
-                return json.dumps(self.generic_dates(self.generic_habanero_output(
-                            self._cr.works(ids=ids)
-                        )))
+                return json.dumps(
+                    self.generic_dates(
+                    self.generic_habanero_output(
+                        self._cr.works(ids=ids)
+                    )))
 
             return json.dumps(self.generic_dates(self.generic_habanero_output(
                         self._cr.works(
@@ -165,36 +166,5 @@ class CrossrefClient(Service):
                         )
                     )))
 
-        except httpx.HTTPStatusError as e:
-            print(f'\nHTTPStatusError: {e}\nResponse: {e.response.text}\n')
-            error_payload = {
-                'error': {
-                    'type': 'HTTPStatusError',
-                    'message': f"Crossref API request failed:\
-                            {e.response.status_code} {e.response.reason_phrase}",
-                    'status_code': e.response.status_code,
-                    'details': str(e.response.text)[:200]
-                }
-            }
-            return json.dumps(error_payload)
-
-        except RequestError as e:
-            print(f'\nRequestError: {e}\n')
-            error_payload = {
-                'error': {
-                    'type': 'RequestError',
-                    'message': f"Habanero library request error: {str(e)}"
-                }
-            }
-            return json.dumps(error_payload)
-
-        except Exception as e:
-            print(f'\nRuntimeError or other unhandled exception: {e}\n')
-            error_payload = {
-                'error': {
-                    'type': 'ServerError',
-                    'message': f"An unexpected error occurred on the server: {str(e)}"
-                }
-            }
-            return json.dumps(error_payload)
+        return self.generic_query(func_query, query)
 

@@ -1,7 +1,6 @@
 from generic_app import Service
 
 import re
-import httpx
 import json
 
 import semanticscholar

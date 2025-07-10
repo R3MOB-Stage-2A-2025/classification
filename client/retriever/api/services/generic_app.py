@@ -1,3 +1,6 @@
+import httpx
+import json
+
 class Service:
     def __init__(self, apiurl: str = None, apikey: str = None,
                  mailto: str = None, timeout: int = 20):
@@ -7,4 +10,34 @@ class Service:
         self._apikey = apikey
         self._mailto = mailto
         self._timeout = timeout
+
+    def generic_query(self, func_query, query: str) -> str:
+        try:
+            return func_query(query)
+
+        except httpx.HTTPStatusError as e:
+            print(f'\nHTTPStatusError: {e}\nResponse: {e.response.text}\n')
+            name_func: str = func_query.__name__
+            name_mod: str= func_query.__module__
+            error_payload = {
+                'error': {
+                    'type': 'HTTPStatusError',
+                    'message': f"From {name_func}() in {name_mod}:\
+                        {e.response.status_code} {e.response.reason_phrase}",
+                    'status_code': e.response.status_code,
+                    'details': str(e.response.text)[:200]
+                }
+            }
+            return json.dumps(error_payload)
+
+        except Exception as e:
+            print(f'\nRuntimeError or other unhandled exception: {e}\n')
+            error_payload = {
+                'error': {
+                    'type': 'ServerError',
+                    'message': f"An unexpected error occurred"\
+                                "on the server: {str(e)}"
+                }
+            }
+            return json.dumps(error_payload)
 

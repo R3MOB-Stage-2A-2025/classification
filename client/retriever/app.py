@@ -44,11 +44,17 @@ def handle_search_query(data: str) -> None:
 
     # <Send query to the API cluster>
     results_str: str = retriever.query(query)
-    print(f"Raw results from query(): \n{results_str}")
     # </Send query to API cluster>
 
     # <Send the API cluster result>
-    emit("search_results", { 'results': results_str }, to=request.sid)
+    potential_error_in_dict: dict = json.loads(results_str)
+    if "error" in potential_error_in_dict:
+        emit("search_results", { 'results': None }, to=request.sid)
+        emit("search_error", potential_error_in_dict, to=request.sid)
+        print("ERROR:\n " + results_str + "\n/ERROR")
+    else:
+        print(f"Raw results from query(): \n{results_str}")
+        emit("search_results", { 'results': results_str }, to=request.sid)
     # </Send the API cluster result>
 
 @socketio.on("disconnect")
