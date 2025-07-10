@@ -38,12 +38,14 @@ def handle_error(e):
 def handle_search_query(data: str) -> None:
     # <Parse json data>
     data_dict: dict[str, int | str] = json.loads(data)
-    query: str = data_dict.get('query')
+    query: str = data_dict.get('query', "")
+    offset: int = data_dict.get('offset', 0)
+    limit: int = data_dict.get('limit', 10)
     print(f"Search query received: {query}")
     # </Parse json data>
 
     # <Send query to the API cluster>
-    results_str: str = retriever.query(query)
+    results_str: str = retriever.query(query, offset=offset, limit=limit)
     # </Send query to API cluster>
 
     # <Send the API cluster result>

@@ -1,5 +1,7 @@
 import concurrent.futures
 from time import sleep
+import re
+import json
 
 import config
 
@@ -62,12 +64,78 @@ class Retriever:
 
         print("Retriever initialized.")
 
-    def threaded_query(self, query: str) -> str:
-        return self._openalex.query(query)
+    def threaded_query(self, query: str, offset: int, limit: int) -> str:
 
-    def query(self, query: str) -> str:
-        with concurrent.futures.ThreadPoolExecutor() as executor:
-            future = executor.submit(self.threaded_query, query)
-            result: str = future.result(timeout=5)
+        # Detect if the query is actually a concatenation of *DOI*s.
+        regex: str = r'10\.\d{4,9}/[\w.\-;()/:]+'
+        dois: list[str] = re.findall(regex, query)
+
+        if len(dois) > 0:
+            return parse_items([
+                self._openalex.query("https://doi.org/" + doi)\
+                for doi in dois
+            ])
+        # </Detect DOIs>
+
+        # <Crossref Query> Just retrieve the *DOI*s and the *abstract*.
+        crossref_results: dict = self._crossref.query(query, offset=offset,
+                        limit=limit, isRetriever=True)
+
+        total_results: int = crossref_results['message']['total-results']
+        # </Crossref Query>
+
+        # <OpenAlex enhances metadata>
+        openalex_results: list[str] = []
+        for item in crossref_results['message']['items']: # item is a list.
+            doi_item: str = item['DOI']
+            abstract_item: str = parse_tag(item['abstract'])\
+                if 'abstract' in item else None
+
+            openalex_results.append(
+                self._openalex.query("https://doi.org/" + doi_item)
+            )
+
+            openalex_results[-1]['abstract'] = abstract_item
+        # </OpenAlex enhances metadata>
+
+        return parse_items(openalex_results, total_results=total_results)
+
+    def query(self, query: str, offset: int, limit: int) -> str:
+        with concurrent.futures.ThreadPoolExecutor(max_workers=2) as executor:
+            future = executor.submit(self.threaded_query, query, offset, limit)
+            result: str = future.result(timeout=25)
             return result
+
+#############################################################################
+# Some functions to parse the results, need a specific json format.
+#############################################################################
+
+def parse_items(publications: list[str], total_results: int = 0) -> str:
+    """
+    :param publication: a list of json files, each is a publication.
+    :return: a json file but parsed in the *Crossref* style.
+    """
+    if len(publications) >= 1 and 'error' in publications[0]:
+        return publications[0]
+
+    crossref_style = {
+        "status": "ok",
+        "message-type": "work-list",
+        "message": {
+            "facets": {},
+            "total-results": max(total_results, len(publications)),
+            "items": publications,
+        }
+    }
+
+    return json.dumps(crossref_style)
+
+def parse_tag(textraw: str) -> str:
+    """
+    :param textraw: something that can have tags like ``<jats:p>``.
+    """
+    regex_tags: str = r'</?[^>]+>'
+    return re.sub(regex_tags, '', textraw)
+
+#############################################################################
 
