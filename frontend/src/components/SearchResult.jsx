@@ -13,9 +13,10 @@ export const SearchResult = ({ item, loading, setLoading }) => {
     ).join(", ")
         : "No authors";
 
-    const abstract = item['abstract']
-        ? item['abstract'].replace(/<\/?jats:[^>]+>/g, '')
-        : "No abstract available";
+    const potential_TLDR = "[ OpenAlex TL;DR ] " + item?.['TL;DR'];
+    const abstract = item?.['abstract']?.replace(/<\/?jats:[^>]+>/g, '')
+            || item?.['TL;DR'] ? potential_TLDR: null
+            || "No abstract available";
 
     const handleMetadataClick = () => {
         const dataStr = JSON.stringify(item, null, 2);
