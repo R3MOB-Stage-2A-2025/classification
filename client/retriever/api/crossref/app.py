@@ -57,7 +57,6 @@ class CrossrefClient(Service):
         # What could happen:
         #   - the *abstract* is located in the *title* section.
         #   - *subject* is almost never present.
-        #   - the *issn-value*: is too generic. (ex: "Electronic")
         #   - there could be A LOT of authors. (too many).
         select: list[str] | str | None = [
             "DOI",

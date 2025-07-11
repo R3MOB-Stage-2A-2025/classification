@@ -28,10 +28,10 @@ def handle_message(data):
 @socketio.on_error()
 def handle_error(e):
     error_str: str = e.__str__()
-    error_json_str: str = { 'error': { 'message': error_str } }
+    error_json_dict: dict[str, dict] = { 'error': { 'message': error_str } }
 
     emit("search_results", { 'results': None }, to=request.sid)
-    emit("search_error", error_json_str, to=request.sid)
+    emit("search_error", error_json_dict, to=request.sid)
     print("ERROR:\n " + error_str + "\n/ERROR")
 
 @socketio.on("search_query")
