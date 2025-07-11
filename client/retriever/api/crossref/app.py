@@ -88,7 +88,7 @@ class CrossrefClient(Service):
 
         progress_bar: bool = False
 
-        def func_query(query: str) -> str:
+        def func_query(query: str) -> dict[str, str | dict]:
             return  self._cr.works(
                 query = query,
                 filter = filtering,

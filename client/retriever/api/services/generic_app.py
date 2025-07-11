@@ -11,7 +11,7 @@ class Service:
         self._mailto = mailto
         self._timeout = timeout
 
-    def generic_query(self, func_query, query: str) -> str:
+    def generic_query(self, func_query, query: str) -> dict[str, str | dict]:
         try:
             return func_query(query)
 
@@ -28,7 +28,7 @@ class Service:
                     'details': str(e.response.text)[:200]
                 }
             }
-            return json.dumps(error_payload)
+            return error_payload
 
         except Exception as e:
             print(f'\nRuntimeError or other unhandled exception: {e}\n')
@@ -39,5 +39,5 @@ class Service:
                                 on the server: {str(e)}"
                 }
             }
-            return json.dumps(error_payload)
+            return error_payload
 

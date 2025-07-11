@@ -87,12 +87,16 @@ class Retriever:
         crossref_results: dict = self._crossref.query(query, offset=offset,
                         limit=limit, isRetriever=True)
 
-        total_results: int = crossref_results['message']['total-results']
+        if 'error' in crossref_results:
+            return json.dumps(crossref_results)
+
+        message : dict = crossref_results.get('message', {})
+        total_results: int = message.get('total-results', 0)
         # </Crossref Query>
 
         # <OpenAlex enhances metadata>
         openalex_results: list[str] = []
-        for item in crossref_results['message']['items']: # item is a list.
+        for item in message.get('items', []): # items is a list.
             doi_item: str = item['DOI']
             abstract_item: str = parse_tag(item['abstract'])\
                 if 'abstract' in item else None

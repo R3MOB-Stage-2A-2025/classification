@@ -28,7 +28,7 @@ class OpenAlexClient(Service):
                  It retrieves one publication at a time.
         """
 
-        def func_query(query: str) -> str:
+        def func_query(query: str) -> dict[str, str | dict]:
             w = Works()
             result = w[query]
             return self.parse_single(result, result['abstract'])
@@ -124,7 +124,7 @@ class OpenAlexClient(Service):
             "container-title": container_title,
             "container-url": container_url,
             "author": author,
-            "reference": reference,
+            "reference": [], # reference,
             "related": related,
             "topics": topics,
             "keywords": keywords,
