@@ -71,10 +71,16 @@ class Retriever:
         dois: list[str] = re.findall(regex, query)
 
         if len(dois) > 0:
-            return parse_items([
-                self._openalex.query("https://doi.org/" + doi)\
-                for doi in dois
-            ])
+            results_not_parsed: list[dict] = []
+
+            for doi in dois:
+                single_result: dict =\
+                    self._openalex.query("https://doi.org/" + doi)
+
+                if 'error' not in single_result:
+                    results_not_parsed.append(single_result)
+
+            return parse_items(results_not_parsed)
         # </Detect DOIs>
 
         # <Crossref Query> Just retrieve the *DOI*s and the *abstract*.
