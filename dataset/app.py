@@ -16,15 +16,15 @@ def disconnect():
 @sio.on("search_results")
 def on_search_results(data):
     print("Search results received:")
-    print(json.dumps(data))
+    print(json.loads(data.get('results', {})))
 
 @sio.on("search_error")
 def on_search_error(data):
     print("Error from server:")
-    print(json.dumps(data))
+    print(data)
 
 def main():
-    sio.connect(config.SERVER_URL)
+    sio.connect(config.RETRIEVER_URL)
 
     query_data = {
         "query": "toto",

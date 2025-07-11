@@ -1,4 +1,8 @@
-python-socketio[client]==1.8.0
+# <Socketio Client>
+python-engineio==4.12.2
+python-socketio==5.13.0
+requests==2.32.4
+# </Socketio Client>
 
 # <Miscellenaous>
 dotenv==0.9.9
