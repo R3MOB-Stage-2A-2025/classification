@@ -40,7 +40,7 @@ class CrossrefClient(Service):
 
         # "Don't use *rows* and *offset* in the */works* route.
         # They are very expansive and slow. Use cursors instead."
-        offset = offset
+        offset = None # offset
 
         limit = limit # Default is 20
 
