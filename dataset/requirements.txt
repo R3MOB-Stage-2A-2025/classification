@@ -1,1 +1,7 @@
 python-socketio[client]==1.8.0
+
+# <Miscellenaous>
+dotenv==0.9.9
+#httpx==0.28.1
+# </Miscellenaous>
+
