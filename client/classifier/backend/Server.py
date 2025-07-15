@@ -45,34 +45,34 @@ def classification_results(data: str) -> dict[str, list[str]]:
     """
     :param data: it needs to be already parsed.
     """
-    try:
-        themes: list[str] = json.dumps(
-            unsupervised_cosine_similarity(data, theme_keywords,
-                                           precision=0.05)
-        )
+    #try:
+    themes: list[str] = json.dumps(
+        unsupervised_cosine_similarity(data, theme_keywords,
+                                       precision=0.05)
+    )
 
-        scientificThemes: list[str] = json.dumps(
-            unsupervised_cosine_similarity(data, scientificTheme_keywords)
-        )
+    scientificThemes: list[str] = json.dumps(
+        unsupervised_cosine_similarity(data, scientificTheme_keywords)
+    )
 
-        mobilityTypes: list[str] = json.dumps(
-            unsupervised_cosine_similarity(data, mobilityType_keywords,
-                                           precision=0.02)
-        )
+    mobilityTypes: list[str] = json.dumps(
+        unsupervised_cosine_similarity(data, mobilityType_keywords,
+                                       precision=0.02)
+    )
 
-        axes: list[str] = json.dumps(
-            unsupervised_cosine_similarity(data, axe_keywords,
-                                           precision=0.009)
-        )
+    axes: list[str] = json.dumps(
+        unsupervised_cosine_similarity(data, axe_keywords,
+                                       precision=0.009)
+    )
 
-    except:
-        emit("classification_error", { 'error': 'Impossible to classify' }, to=request.sid)
+    #except:
+        #emit("classification_error", { 'error': 'Impossible to classify' }, to=request.sid)
 
     return {
-        'themes': themes or [],
-        'scientificThemes': scientificThemes or [],
-        'mobilityTypes': mobilityTypes or [],
-        'axes': axes or [],
+        'themes': themes,
+        'scientificThemes': scientificThemes,
+        'mobilityTypes': mobilityTypes,
+        'axes': axes,
     }
 
 def classification_error(results: dict[str, list[str]]) -> bool:

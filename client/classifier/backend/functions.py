@@ -62,7 +62,7 @@ def unsupervised_cosine_similarity(text: str, themes_keywords: dict[str, list], 
 
     # Here, I set up the max number of themes.
     # For something like a "thematique scientifique", let's consider max=3.
-    top_indices: list[float] = np.argsort(-cosine_scores)[:3].tolist()
+    top_indices: list[int] = np.argsort(-cosine_scores)[:3].tolist()
 
     # Then, if there is a score gap, let's remove the last or the 2 last ones.
     top_scores: list[float] = np.sort(-cosine_scores)[:3].tolist()
@@ -71,11 +71,16 @@ def unsupervised_cosine_similarity(text: str, themes_keywords: dict[str, list], 
     print(top_scores)
     # </debug>
 
-    for i in range(len(top_scores) - 1, 0, -1):
-        if abs(top_scores[i] - top_scores[0]) > precision:
+    for i in range(len(top_indices) - 1, 0, -1):
+        if i == 0 and abs(top_scores[i]) < 0.10:
+            top_indices.pop(i)
+        elif abs(top_scores[i] - top_scores[0]) > precision or\
+                abs(top_scores[i]) < 0.10:
             top_indices.pop(i)
 
-    top_themes: list[str] = [themes[i] for i in top_indices]
+    top_themes: list[str] = []
+    for i in top_indices:
+        top_themes.append(themes[i])
 
     # TODO: debug.
     print(top_themes)
