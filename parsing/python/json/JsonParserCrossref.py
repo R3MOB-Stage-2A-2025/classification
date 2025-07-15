@@ -138,12 +138,14 @@ class JsonParserCrossref:
 
         return sus_result
 
-    def _parse_keywords_from_inverted_abstract(self) -> list:
+    def _parse_keywords_from_inverted_abstract(self) -> list[str]:
         """
         See *OpenAlex* `abstract_inverted_index`.
         :return: a list of keywords from the abstract.
         """
-        return list(self._abstract_inverted_index.keys())
+        if self._abstract_inverted_index != None:
+            return list(self._abstract_inverted_index.keys())
+        return []
 
     def _parse_json(self, jsonraw: str) -> dict[str, dict]:
         publication: dict[str, dict] = json.loads(jsonraw)
@@ -241,7 +243,7 @@ class JsonParserCrossref:
                             self._abstract_inverted_index,
         }
 
-    def line_json(self) -> str:
+    def line_json(self) -> dict[str, str | list[str]]:
         """
         Write the publication in a `json` format, in order to classify it.
 
@@ -261,7 +263,7 @@ class JsonParserCrossref:
             'sustainable': self._sustainable_development_goals # list[str]
         }
 
-        return json.dumps(elements)
+        return elements
 
     def classify_me(self, line_json: str = None) -> str:
         """
