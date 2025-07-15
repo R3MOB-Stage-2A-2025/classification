@@ -42,4 +42,5 @@ class Labelliser:
 
         with open(filepath, "a") as f:
             f.write(parsed_publication)
+            f.write("\n")
 
