@@ -3,6 +3,7 @@
 *.env
 *nltk_data
 *.venv
+*.vite
 *results
 *config_classifier
 *config_crossref
