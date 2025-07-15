@@ -2,8 +2,10 @@ import socketio
 import json
 
 import config
+from Labelliser import Labelliser
 
 sio = socketio.Client()
+labellator = Labelliser()
 
 @sio.event
 def connect():
@@ -16,7 +18,19 @@ def disconnect():
 @sio.on("search_results")
 def on_search_results(data):
     print("Search results received:")
-    print(json.loads(data.get('results', {})))
+    results: dict = json.loads(data.get('results', {}))
+
+    if results.get('status', "ko") == "ok":
+        message: dict = results.get('message', {})
+        items: dict = message.get('items', [{}])
+
+        publication: dict = items[0]
+        print(publication.get('title', ""))
+
+        publication_str: str = json.dumps(publication)
+        labellator.store_publication(publication_str)
+    else:
+        print("None, status==ko")
 
 @sio.on("search_error")
 def on_search_error(data):
@@ -27,7 +41,7 @@ def main():
     sio.connect(config.RETRIEVER_URL)
 
     query_data = {
-        "query": "toto",
+        'query' : 'https://doi.org/10.36227/techrxiv.23979117',
         "offset": 0,
         "limit": 1
     }
