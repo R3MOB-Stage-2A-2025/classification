@@ -275,7 +275,7 @@ class JsonParserCrossref:
 
         if line_json == None:
             line_json = self.line_json()
-        line_json_dict: dict[str, str | list[str]] = json.loads(line_json)
+        line_json_dict: dict[str, str | list[str]] = line_json
 
         concatenation: str = ""
         concatenation += line_json_dict['title']
