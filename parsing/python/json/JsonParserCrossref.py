@@ -265,7 +265,7 @@ class JsonParserCrossref:
 
         return elements
 
-    def classify_me(self, line_json: str = None) -> str:
+    def classify_me(self, line_json: dict[str, str | list[str]] = None) -> str:
         """
         :return: a concatenation of every elements that can be
         used to classify the publication.
