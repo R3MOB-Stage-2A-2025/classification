@@ -1,0 +1,93 @@
+import socketio
+import json
+
+import config
+import functions
+from Labelliser import Labelliser
+
+sio = socketio.Client()
+labellator = Labelliser(
+    processingFilepath='./raw/r3mob_150725_depth_1.json')
+
+total_queries = 0
+responses_received = 0
+
+@sio.event
+def connect():
+    print("Connected.")
+
+@sio.event
+def disconnect():
+    print("Disconnected.")
+
+@sio.on("search_results")
+def on_search_results(data):
+    global responses_received
+    responses_received += 1
+
+    print("\n")
+    print("Search results received:")
+    results: dict = json.loads(data.get('results', {}))
+
+    try:
+        message: dict = results.get('message', {})
+        items: dict = message.get('items', [{}])
+
+        publication: dict = items[0]
+        print(publication.get('title', ""))
+
+        publication_str: str = json.dumps(publication)
+        labellator.related(publication_str)
+
+    except Exception as e:
+        labellator.checkpoint_processing()
+        print(f'{e}')
+        exit(0)
+
+@sio.on("search_error")
+def on_search_error(data):
+    global responses_received
+    responses_received += 1
+
+    labellator.checkpoint_processing()
+    print("Error from server:")
+    print(data)
+
+def related(inputf: str = './raw/data.csv'):
+    sio.connect(config.RETRIEVER_URL)
+
+    url_dois: list[str] =\
+        functions.find_dois_dataset(inputf)
+
+    total_queries = len(url_dois)
+
+    # <debug>
+    print(f'All the DOIS found (N={total_queries}): ')
+    print(', '.join(url_dois))
+    # </debug>
+
+    try:
+        for url_doi in url_dois:
+            query_data = {
+                'query' : url_doi,
+                "offset": 0,
+                "limit": 1
+            }
+
+            sio.emit("search_query", json.dumps(query_data))
+            sio.sleep(1)
+
+        while responses_received < total_queries:
+            sio.sleep(0.1)
+
+    except Exception as e:
+        labellator.checkpoint_processing()
+        print(f'{e}')
+        exit(0)
+
+    labellator.checkpoint_processing()
+    disconnect()
+
+if __name__ == "__main__":
+    related(inputf='./raw/r3mob_150725.csv')
+

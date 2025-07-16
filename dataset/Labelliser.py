@@ -66,3 +66,41 @@ class Labelliser:
         self.processingDataDict[DOI] = parsed_publication_dict
         # </Write>
 
+    def related(self, publication: str) -> None:
+        parsed_publication = JsonParserCrossref(publication)
+
+        # <ID>
+        parsed_publication_ID = parsed_publication.ID()
+        DOI: str = parsed_publication_ID.get("DOI", "3301")
+        OPENALEX: str = parsed_publication_ID.get("OPENALEX", "404N0tF0und!")
+        # </ID>
+
+        # <Similarities>
+        parsed_publication_similarities = parsed_publication.similarities()
+        parsed_publication_related =\
+            parsed_publication_similarities.get("related", [])
+
+        for i in range(len(parsed_publication_related)):
+            current: str =\
+                parsed_publication_related[i].get("OPENALEX", "")
+
+            if current != "":
+                parsed_publication_related[i] = current
+
+        related: list[str] = parsed_publication_related
+        # </Similarities>
+
+        if DOI == "3301":
+            print(f'Cant add, the DOI is not here! OPENALEX={OPENALEX}')
+            return
+
+        # <Check> if the publication is already in here.
+        if self.processingDataDict.get(DOI, {}) != {}:
+            print(f'DOI={DOI}, OPENALEX={OPENALEX} Already here!')
+            return
+        # </Check>
+
+        # <Write> the new publication into the processing array.
+        self.processingDataDict[DOI] = related
+        # </Write>
+
