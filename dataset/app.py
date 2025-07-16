@@ -24,10 +24,11 @@ def on_search_results(data):
     global responses_received
     responses_received += 1
 
+    print("\n")
     print("Search results received:")
     results: dict = json.loads(data.get('results', {}))
 
-    if results.get('status', "ko") == "ok":
+    try:
         message: dict = results.get('message', {})
         items: dict = message.get('items', [{}])
 
@@ -36,8 +37,11 @@ def on_search_results(data):
 
         publication_str: str = json.dumps(publication)
         labellator.store_publication(publication_str)
-    else:
-        print("None, status==ko")
+
+    except Exception as e:
+        labellator.checkpoint_processing()
+        print(f'{e}')
+        exit(0)
 
 @sio.on("search_error")
 def on_search_error(data):
@@ -61,21 +65,27 @@ def main():
     print(', '.join(url_dois))
     # </debug>
 
-    for url_doi in url_dois:
-        query_data = {
-            'query' : url_doi,
-            "offset": 0,
-            "limit": 1
-        }
+    try:
+        for url_doi in url_dois:
+            query_data = {
+                'query' : url_doi,
+                "offset": 0,
+                "limit": 1
+            }
 
-        sio.emit("search_query", json.dumps(query_data))
-        sio.sleep(1)
+            sio.emit("search_query", json.dumps(query_data))
+            sio.sleep(1)
 
-    while responses_received < total_queries:
-        sio.sleep(0.1)
+        while responses_received < total_queries:
+            sio.sleep(0.1)
+
+    except Exception as e:
+        labellator.checkpoint_processing()
+        print(f'{e}')
+        exit(0)
 
     labellator.checkpoint_processing()
-    sio.disconnect()
+    disconnect()
 
 if __name__ == "__main__":
     main()

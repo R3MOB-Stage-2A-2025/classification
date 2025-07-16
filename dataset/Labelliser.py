@@ -33,9 +33,16 @@ class Labelliser:
         !! Calling this function will erase the actual content of the file !!
         """
 
-        text: str = json.dumps(self.processingDataDict)
-        with open(self.processingFilepath, 'w') as pwf:
-            pwf.write(text)
+        #text: str = json.dumps(self.processingDataDict)
+        #with open(self.processingFilepath, 'w') as pwf:
+            #pwf.write(text)
+
+        pwf = open(self.processingFilepath, 'w')
+
+        json.dump(self.processingDataDict, fp=pwf,
+                  separators=(",", ":\n"), indent=2)
+
+        pwf.close()
 
     def store_publication(self, publication: str) -> None:
 
