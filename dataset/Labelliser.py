@@ -12,35 +12,50 @@ from JsonParserCrossref import JsonParserCrossref
 # </Parser>
 
 class Labelliser:
-    def __init__(self):
+    def __init__(self, processingFilepath: str = "./processing/data.json"):
         self.name = "Labellator"
 
-    def store_publication(self, publication: str,
-                          filepath: str = "./processing/data.json") -> None:
-        parsed_publication_dict = JsonParserCrossref(publication).line_json()
-        parsed_publication = json.dumps(parsed_publication_dict)
+        # <Processing data loader>
+        self.processingFilepath = processingFilepath
 
-        DOI: str = parsed_publication_dict.get("DOI", "N0tH3r3!")
-        OPENALEX: str = parsed_publication_dict.get("OPENALEX", "N0tH3r3!")
+        if os.path.exists(processingFilepath):
+            with open(processingFilepath, 'rt') as prf:
+                processingDataJson = json.load(prf)
+            self.processingDataDict = processingDataJson
+        else:
+            self.processingDataDict = {}
+        # </Processing data loader>
+
+    def checkpoint_processing(self) -> None:
+        """
+        To be called when we want to save our progress in the file.
+
+        !! Calling this function will erase the actual content of the file !!
+        """
+
+        text: str = json.dumps(self.processingDataDict)
+        with open(self.processingFilepath, 'w') as pwf:
+            pwf.write(text)
+
+    def store_publication(self, publication: str) -> None:
+
+        parsed_publication_dict = JsonParserCrossref(publication).line_json()
+        DOI: str = parsed_publication_dict.get("DOI", "3301")
+        OPENALEX: str = parsed_publication_dict.get("OPENALEX", "404N0tF0und!")
+
+        if DOI == "3301":
+            print(f'Cant add, the DOI is not here! OPENALEX={OPENALEX}')
+            return
+
+        parsed_publication_dict.pop('DOI')
 
         # <Check> if the publication is already in here.
-        # ! Time consuming O(nb_line_file) because of *json* format !
-        check = open(filepath, 'r') if os.path.exists(filepath) else []
-
-        for line in check:
-            line_dict = json.loads(line)
-            line_DOI: str = line_dict.get("DOI", "")
-            line_OPENALEX: str = line_dict.get("OPENALEX", "")
-
-            if DOI == line_DOI or OPENALEX == line_OPENALEX:
-                print(f'DOI={DOI}, OPENALEX={OPENALEX} Already here!')
-                return
-
-        if check != []:
-            check.close()
+        if self.processingDataDict.get(DOI, {}) != {}:
+            print(f'DOI={DOI}, OPENALEX={OPENALEX} Already here!')
+            return
         # </Check>
 
-        with open(filepath, "a") as f:
-            f.write(parsed_publication)
-            f.write("\n")
+        # <Write> the new publication into the processing array.
+        self.processingDataDict[DOI] = parsed_publication_dict
+        # </Write>
 
