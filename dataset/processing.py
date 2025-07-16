@@ -6,7 +6,7 @@ import functions
 from Labelliser import Labelliser
 
 sio = socketio.Client()
-labellator = Labelliser()
+labellator = Labelliser(processingFilepath=config.PROCESSING_FILEPAH)
 
 total_queries = 0
 responses_received = 0
@@ -52,11 +52,11 @@ def on_search_error(data):
     print("Error from server:")
     print(data)
 
-def main():
+def r3mob(inputf: str = './raw/data.csv'):
     sio.connect(config.RETRIEVER_URL)
 
     url_dois: list[str] =\
-        functions.find_dois_dataset('./raw/r3mob_150725.csv')
+        functions.find_dois_dataset(inputf)
 
     total_queries = len(url_dois)
 
@@ -88,5 +88,5 @@ def main():
     disconnect()
 
 if __name__ == "__main__":
-    main()
+    r3mob(inputf='./raw/r3mob_150725.csv')
 
