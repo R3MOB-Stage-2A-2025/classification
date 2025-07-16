@@ -20,7 +20,7 @@ class OpenAlexClient(Service):
         config.retry_backoff_factor = 0.1
         config.retry_http_codes = [429, 500, 503]
 
-    def query(self, query: str) -> str:
+    def query(self, query: str) -> dict[str, str | dict]:
         """
         :param query: `Title, author, DOI, ORCID iD, etc..`
         :return: the result of ``pyalex.Works['query']``.
@@ -31,6 +31,12 @@ class OpenAlexClient(Service):
         def func_query(query: str) -> dict[str, str | dict]:
             w = Works()
             result = w[query]
+
+            # ! Do not consider if they <don't have DOI's>...
+            if result != None and result.get('doi') == None:
+                return self.parse_single(None, None)
+            # </don't have DOI's>
+
             return self.parse_single(result, result['abstract'])
 
         return self.generic_query(func_query, query)
@@ -41,6 +47,9 @@ class OpenAlexClient(Service):
         :param TLDR: sometimes *OpenAlex* could generate the TLDR.
         :return: the json file but parsed in the *Crossref* style.
         """
+
+        if (publication == None):
+            return {}
 
         # <Human Readable>
         title: list[str] = [ publication.get("title") ]
