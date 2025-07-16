@@ -26,5 +26,13 @@ CLASSIFIER_URL: str = CLASSIFIER_SCHEME +\
                ":" + CLASSIFIER_PORT
 # </Classifier>
 
+# <Dataset>
+PROCESSING_DIR: str = os.getenv("PROCESSING_DIR")
+PROCESSING_FILE: str = os.getenv("PROCESSING_FILE")
+
+PROCESSING_FILEPAH: str = PROCESSING_DIR + "/" + PROCESSING_FILE
+
+# </Dataset>
+
 # </Environment variables>
 

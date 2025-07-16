@@ -23,6 +23,7 @@ def disconnect():
 def on_search_results(data):
     global responses_received
     responses_received += 1
+
     print("Search results received:")
     results: dict = json.loads(data.get('results', {}))
 
@@ -42,6 +43,8 @@ def on_search_results(data):
 def on_search_error(data):
     global responses_received
     responses_received += 1
+
+    labellator.checkpoint_processing()
     print("Error from server:")
     print(data)
 
@@ -71,6 +74,7 @@ def main():
     while responses_received < total_queries:
         sio.sleep(0.1)
 
+    labellator.checkpoint_processing()
     sio.disconnect()
 
 if __name__ == "__main__":
