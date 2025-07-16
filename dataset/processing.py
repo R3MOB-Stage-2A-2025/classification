@@ -6,7 +6,8 @@ import functions
 from Labelliser import Labelliser
 
 sio = socketio.Client()
-labellator = Labelliser(processingFilepath=config.PROCESSING_FILEPAH)
+#labellator = Labelliser(processingFilepath=config.PROCESSING_FILEPAH)
+labellator = Labelliser('./processing/data_depth_1.json')
 
 total_queries = 0
 responses_received = 0
@@ -55,20 +56,20 @@ def on_search_error(data):
 def r3mob(inputf: str = './raw/data.csv'):
     sio.connect(config.RETRIEVER_URL)
 
-    url_dois: list[str] =\
-        functions.find_dois_dataset(inputf)
+    list_url_openalex: list[str] =\
+        functions.find_openalex_dataset(inputf)
 
-    total_queries = len(url_dois)
+    total_queries = len(list_url_openalex)
 
     # <debug>
-    print(f'All the DOIS found (N={total_queries}): ')
-    print(', '.join(url_dois))
+    print(f'All the OPENALEX IDs found (N={total_queries}): ')
+    print(', '.join(list_url_openalex))
     # </debug>
 
     try:
-        for url_doi in url_dois:
+        for url_openalex in list_url_openalex:
             query_data = {
-                'query' : url_doi,
+                'query' : url_openalex,
                 "offset": 0,
                 "limit": 1
             }
@@ -88,5 +89,5 @@ def r3mob(inputf: str = './raw/data.csv'):
     disconnect()
 
 if __name__ == "__main__":
-    r3mob(inputf='./raw/r3mob_150725.csv')
+    r3mob(inputf='./raw/r3mob_150725_depth_1.json')
 
