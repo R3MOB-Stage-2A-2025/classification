@@ -3,6 +3,7 @@ from flask_socketio import SocketIO, emit
 from flask_cors import CORS
 
 import json
+import re
 
 from Retriever import Retriever
 import config
@@ -45,7 +46,14 @@ def handle_search_query(data: str) -> None:
     # </Parse json data>
 
     # <Send query to the API cluster>
-    results_str: str = retriever.query(query, offset=offset, limit=limit)
+    regex_openalex: str = r'"https:\/\/openalex\.org\/W\d+"'
+    OPENALEX_query: str = re.match(string=query, pattern=regex_openalex)
+
+    if OPENALEX_query != None:
+        results_str: str = retriever.query_openalex(query=query)
+
+    else:
+        results_str: str = retriever.query(query, offset=offset, limit=limit)
     # </Send query to API cluster>
 
     # <Send the API cluster result>

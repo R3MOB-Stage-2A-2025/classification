@@ -95,7 +95,7 @@ class Retriever:
         # </Crossref Query>
 
         # <OpenAlex enhances metadata>
-        openalex_results: list[str] = []
+        openalex_results: list[dict[str, str | dict]] = []
         for item in message.get('items', []): # items is a list.
             doi_item: str = item['DOI']
             abstract_item: str = parse_tag(item['abstract'])\
@@ -110,9 +110,25 @@ class Retriever:
 
         return parse_items(openalex_results, total_results=total_results)
 
+    def threaded_query_openalex(self, query: str) -> str:
+        """
+                                Only uses openalex.
+        ! `query` must be a *DOI URL* or a *OPENALEX Work ID* (only one ID). !
+
+        example: `"https://openalex.org/W1989375655"`.
+        """
+        openalex_result: dict[str, str | dict] = self._openalex.query(query)
+        return parse_items([openalex_result], total_results=1)
+
     def query(self, query: str, offset: int, limit: int) -> str:
         with concurrent.futures.ThreadPoolExecutor(max_workers=2) as executor:
             future = executor.submit(self.threaded_query, query, offset, limit)
+            result: str = future.result(timeout=25)
+            return result
+
+    def query_openalex(self, query: str) -> str:
+        with concurrent.futures.ThreadPoolExecutor(max_workers=2) as executor:
+            future = executor.submit(self.threaded_query_openalex, query)
             result: str = future.result(timeout=25)
             return result
 
@@ -120,7 +136,7 @@ class Retriever:
 # Some functions to parse the results, need a specific json format.
 #############################################################################
 
-def parse_items(publications: list[str], total_results: int = 0) -> str:
+def parse_items(publications: list[dict[str, str | dict]], total_results: int = 0) -> str:
     """
     :param publication: a list of json files, each is a publication.
     :return: a json file but parsed in the *Crossref* style.
