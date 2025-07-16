@@ -32,11 +32,6 @@ class Labelliser:
 
         !! Calling this function will erase the actual content of the file !!
         """
-
-        #text: str = json.dumps(self.processingDataDict)
-        #with open(self.processingFilepath, 'w') as pwf:
-            #pwf.write(text)
-
         pwf = open(self.processingFilepath, 'w')
 
         json.dump(self.processingDataDict, fp=pwf,
@@ -50,7 +45,7 @@ class Labelliser:
         DOI: str = parsed_publication_dict.get("DOI", "3301")
         OPENALEX: str = parsed_publication_dict.get("OPENALEX", "404N0tF0und!")
 
-        if DOI == "3301":
+        if DOI == "3301" or DOI == "" or DOI == None:
             print(f'Cant add, the DOI is not here! OPENALEX={OPENALEX}')
             return
 
