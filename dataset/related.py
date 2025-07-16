@@ -7,7 +7,7 @@ from Labelliser import Labelliser
 
 sio = socketio.Client()
 labellator = Labelliser(
-    processingFilepath='./raw/r3mob_150725_depth_1.json')
+    processingFilepath='./raw/r3mob_150725_depth_2.json')
 
 total_queries = 0
 responses_received = 0
@@ -53,7 +53,7 @@ def on_search_error(data):
     print("Error from server:")
     print(data)
 
-def related(inputf: str = './raw/data.csv'):
+def related_dois(inputf: str = './raw/data.csv'):
     sio.connect(config.RETRIEVER_URL)
 
     url_dois: list[str] =\
@@ -88,6 +88,41 @@ def related(inputf: str = './raw/data.csv'):
     labellator.checkpoint_processing()
     disconnect()
 
+def related_openalex(inputf: str = './raw/data.csv'):
+    sio.connect(config.RETRIEVER_URL)
+
+    list_url_openalex: list[str] =\
+        functions.find_openalex_dataset(inputf)
+
+    total_queries = len(list_url_openalex)
+
+    # <debug>
+    print(f'All the DOIS found (N={total_queries}): ')
+    print(', '.join(list_url_openalex))
+    # </debug>
+
+    try:
+        for url_openalex in list_url_openalex:
+            query_data = {
+                'query' : url_openalex,
+                "offset": 0,
+                "limit": 1
+            }
+
+            sio.emit("search_query", json.dumps(query_data))
+            sio.sleep(1)
+
+        while responses_received < total_queries:
+            sio.sleep(0.1)
+
+    except Exception as e:
+        labellator.checkpoint_processing()
+        print(f'{e}')
+        exit(0)
+
+    labellator.checkpoint_processing()
+    disconnect()
+
 if __name__ == "__main__":
-    related(inputf='./raw/r3mob_150725.csv')
+    related_openalex(inputf='./raw/r3mob_150725_depth_1.json')
 
