@@ -43,26 +43,39 @@ axe_keywords: dict[str, list[str]] = \
 # Retrieve Classification Results
 def classification_results(data: str) -> dict[str, list[str]]:
     """
-    :param data: it needs to be already parsed.
+    :param data: It is not already parsed.
     """
     #try:
+
+    # <Parsing>
+    data_parsed: str = JsonParserCrossref(data)
+    doi: str = data_parsed.ID().get("DOI", "")
+    data_to_classify_generic: str = data_parsed.classify_me()
+    # </Parsing>
+
+    # <debug>
+    print("Extracted DOI:", doi)
+    print(data_to_classify_generic)
+    # </debug>
+
     themes: list[str] = json.dumps(
-        unsupervised_cosine_similarity(data, theme_keywords,
-                                       precision=0.05)
+        unsupervised_cosine_similarity(data_to_classify_generic,
+                                       theme_keywords, precision=0.05)
     )
 
     scientificThemes: list[str] = json.dumps(
-        unsupervised_cosine_similarity(data, scientificTheme_keywords)
+        unsupervised_cosine_similarity(data_to_classify_generic,
+                                       scientificTheme_keywords, precision=0.4)
     )
 
     mobilityTypes: list[str] = json.dumps(
-        unsupervised_cosine_similarity(data, mobilityType_keywords,
-                                       precision=0.02)
+        unsupervised_cosine_similarity(data_to_classify_generic,
+                                       mobilityType_keywords, precision=0.002)
     )
 
     axes: list[str] = json.dumps(
-        unsupervised_cosine_similarity(data, axe_keywords,
-                                       precision=0.009)
+        unsupervised_cosine_similarity(data_to_classify_generic,
+                                       axe_keywords, precision=0.009)
     )
 
     #except:
@@ -76,20 +89,20 @@ def classification_results(data: str) -> dict[str, list[str]]:
     }
 
 def classification_error(results: dict[str, list[str]]) -> bool:
+
     if 'themes' in results and results['themes'] == "[]":
-        emit("classification_error", { 'error': 'No themes found' }, to=request.sid)
-        return True
-    elif 'scientificThemes' in results and results['scientificThemes'] == "[]":
-        emit("classification_error", { 'error': 'No scientific themes found' }, to=request.sid)
-        return True
-    elif 'mobilityTypes' in results and results['mobilityTypes'] == "[]":
-        emit("classification_error", { 'error': 'No mobility types found' }, to=request.sid)
-        return True
-    elif 'axes' in results and results['axes'] == "[]":
-        emit("classification_error", { 'error': 'No axes found' }, to=request.sid)
-        return True
-    else:
-        return False
+        results['themes'] = '[ "No themes found" ]'
+
+    if 'scientificThemes' in results and results['scientificThemes'] == "[]":
+        results['scientificThemes'] = '[ "No scientific themes found" ]'
+
+    if 'mobilityTypes' in results and results['mobilityTypes'] == "[]":
+        results['mobilityTypes'] = '[ "No mobility types found" ]'
+
+    if 'axes' in results and results['axes'] == "[]":
+        results['axes'] = '[ "No axes found" ]'
+
+    return False
 
 # </Retrieve Classification Results>
 
@@ -113,43 +126,41 @@ def handle_classify(data: str) -> None:
     print(f"Classification query received: {data}")
     results = classification_results(data)
 
-    if not classification_error(results):
-        emit(
-            "classification_results",
-            {
-                'themes': results['themes'],
-                'scientificThemes': results['scientificThemes'],
-                'mobilityTypes': results['mobilityTypes'],
-                'axes': results['axes'],
-            },
-            to=request.sid
-        )
+    if classification_error(results):
+        return
+
+    emit(
+        "classification_results",
+        {
+            'themes': results['themes'],
+            'scientificThemes': results['scientificThemes'],
+            'mobilityTypes': results['mobilityTypes'],
+            'axes': results['axes'],
+        },
+        to=request.sid
+    )
 
 @socketio.on('json_classification')
 def handle_json_classify(data: str) -> None:
     print(f"JSON Classification query received: {data}")
     data_dict = json.loads(data)
     doi = data_dict.get("DOI")
-    data_parsed: str = JsonParserCrossref(data).classify_me()
-    results = classification_results(data_parsed)
+    results = classification_results(data)
 
-    # debug.
-    print("DOI extrait :", doi)
-    print(data_parsed)
-    # </debug>
+    if classification_error(results):
+        return
 
-    if not classification_error(results):
-        emit(
-            "json_classification_results",
-            {
-                'doi': doi,
-                'themes': results['themes'],
-                'scientificThemes': results['scientificThemes'],
-                'mobilityTypes': results['mobilityTypes'],
-                'axes': results['axes'],
-            },
-            to=request.sid
-        )
+    emit(
+        "json_classification_results",
+        {
+            'doi': doi,
+            'themes': results['themes'],
+            'scientificThemes': results['scientificThemes'],
+            'mobilityTypes': results['mobilityTypes'],
+            'axes': results['axes'],
+        },
+        to=request.sid
+    )
 
 @socketio.on("disconnect")
 def disconnected():
