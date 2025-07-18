@@ -39,8 +39,7 @@ def unsupervised_cosine_similarity(text: str, themes_keywords: dict[str, list], 
     """
     If you worry about the "-" in the `np.sort()` or `np.argsort()`,
     it is just to get a *descending order*.
-    In fact, all the scores are negatives. The strongest match is the
-    highest score given its absolute value.
+    In fact, the strongest match is the lowest score, i.e the closer to `-1`.
     """
     themes: list[str] = list(themes_keywords.keys())
 
@@ -49,6 +48,19 @@ def unsupervised_cosine_similarity(text: str, themes_keywords: dict[str, list], 
     for theme, keywords in themes_keywords.items():
         concatenation: str = '[ ' + theme + ' ] ' +  ' '.join(keywords)
         enhanced_themes.append(concatenation)
+
+    # <Utility Check>
+    utility_check = model.encode(', '.join(enhanced_themes))
+    publication_utility_check = model.encode(text)
+    cosine_scores_utility_check =\
+        util.cos_sim(publication_utility_check, utility_check)[0]
+    indices_utility_check: list[int] =\
+        np.argsort(-cosine_scores_utility_check)[:3].tolist()
+    scores_utility_check: list[float] =\
+        np.sort(-cosine_scores_utility_check)[:3].tolist()
+    print("\n")
+    print(scores_utility_check)
+    # </Utility Check>
 
     theme_embeddings = model.encode(enhanced_themes)
 
@@ -67,15 +79,15 @@ def unsupervised_cosine_similarity(text: str, themes_keywords: dict[str, list], 
     # Then, if there is a score gap, let's remove the last or the 2 last ones.
     top_scores: list[float] = np.sort(-cosine_scores)[:3].tolist()
 
-    # TODO: debug.
+    # <debug>
     print(top_scores)
     # </debug>
 
-    for i in range(len(top_indices) - 1, 0, -1):
-        if i == 0 and abs(top_scores[i]) < 0.10:
+    for i in range(len(top_indices) - 1, -1, -1):
+        if i == 0 and -0.10 < top_scores[i]:
             top_indices.pop(i)
         elif abs(top_scores[i] - top_scores[0]) > precision or\
-                abs(top_scores[i]) < 0.10:
+                -0.10 < top_scores[i]:
             top_indices.pop(i)
 
     top_themes: list[str] = []
@@ -91,7 +103,6 @@ def unsupervised_cosine_similarity(text: str, themes_keywords: dict[str, list], 
 ###############################################################################
 ### INPUT NORMALIZATION FUNCTIONS
 ###############################################################################
-
 
 def preprocess_text(text: str) -> dict[str, list[str | list[str]]]:
     """
@@ -138,7 +149,6 @@ def preprocess_text(text: str) -> dict[str, list[str | list[str]]]:
 
     return dataframe
 
-
 def get_synonyms(word: str) -> set[str]:
     """
     :return: The synonyms of the given word, using *WordNet*.
@@ -160,7 +170,6 @@ def get_synonyms(word: str) -> set[str]:
             synonyms.add(lemma.name())
 
     return synonyms
-
 
 def expand_keywords_with_synonyms(unique_keywords: dict[str, set[str]]):
     """
@@ -212,7 +221,6 @@ def expand_keywords_with_synonyms(unique_keywords: dict[str, set[str]]):
 
     return expanded_keywords_with_synonyms
 
-
 def expand_and_preprocess_keywords(themes_keywords: dict[str, str]) -> dict[str, set[str]]:
     # `set()` builds an unordered collection of unique elements.
     unique_keywords: dict[str, set[str]] = {
@@ -221,7 +229,6 @@ def expand_and_preprocess_keywords(themes_keywords: dict[str, str]) -> dict[str,
     }
 
     return expand_keywords_with_synonyms(unique_keywords)
-
 
 ###############################################################################
 ### CLASSIFY BY KEYWORDS
@@ -237,7 +244,7 @@ def is_keyword_in_processed_text(keyword: str, processed_text: list[str]) -> boo
     The words are not well written.
     """
     for elt in processed_text:
-        if elt == keyword.lower():
+        if elt in keyword.lower():
             return True
     return False
 
