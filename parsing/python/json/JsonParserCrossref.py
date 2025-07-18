@@ -292,3 +292,55 @@ class JsonParserCrossref:
 
         return concatenation
 
+    def classify_me_mobilityTypes(self,
+                line_json: dict[str, str | list[str]] = None) -> str:
+        """
+        See the function `self.classify_me()`.
+        The difference here is that only concepts are useful.
+        """
+
+        if line_json == None:
+            line_json = self.line_json()
+        line_json_dict: dict[str, str | list[str]] = line_json
+
+        concatenation: str = ""
+        concatenation += line_json_dict['title']
+        concatenation += ", "
+        #concatenation += ', '.join(line_json_dict['abstract'])
+        #concatenation += ", "
+        #concatenation += ', '.join(line_json_dict['topics'])
+        #concatenation += ", "
+        #concatenation += ', '.join(line_json_dict['keywords'])
+        #concatenation += ", "
+        concatenation += ', '.join(line_json_dict['concepts'])
+        concatenation += ", "
+        #concatenation += ', '.join(line_json_dict['sustainable'])
+
+        return concatenation
+
+    def classify_me_without_openalex(self,
+                line_json: dict[str, str | list[str]] = None) -> str:
+        """
+        See the function `self.classify_me()`.
+        The difference here is that only Title and abstracts are used.
+        """
+
+        if line_json == None:
+            line_json = self.line_json()
+        line_json_dict: dict[str, str | list[str]] = line_json
+
+        concatenation: str = ""
+        concatenation += line_json_dict['title']
+        concatenation += ", "
+        concatenation += ', '.join(line_json_dict['abstract'])
+        concatenation += ", "
+        #concatenation += ', '.join(line_json_dict['topics'])
+        #concatenation += ", "
+        #concatenation += ', '.join(line_json_dict['keywords'])
+        #concatenation += ", "
+        #concatenation += ', '.join(line_json_dict['concepts'])
+        #concatenation += ", "
+        #concatenation += ', '.join(line_json_dict['sustainable'])
+
+        return concatenation
+
