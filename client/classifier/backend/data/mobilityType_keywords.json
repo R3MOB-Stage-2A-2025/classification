@@ -23,14 +23,12 @@
     "High-speed rail",
     "Rail infrastructure",
     "Railway station",
-    "Track network",
     "Rail freight",
     "Passenger rail",
     "Light rail",
     "Metro",
     "Locomotive",
     "Rail operations",
-    "Signaling system",
     "Intercity train"
   ],
   "Fluvial/Maritime": [
@@ -76,13 +74,10 @@
     "Ropeway",
     "Urban cable transport",
     "Mountain transport",
-    "Cable system",
-    "Lift infrastructure",
     "Suspended transport",
     "Teleferic",
     "Passenger cableway",
-    "Inclined elevator",
-    "Cable-supported system"
+    "Inclined elevator"
   ]
 }
 
