@@ -35,7 +35,8 @@ def load_json(file_path: str) -> str:
 ## CLASSIFY WITHOUT A DATASET
 ##############################################################################
 
-def unsupervised_cosine_similarity(text: str, themes_keywords: dict[str, list], precision: float = 0.08) -> list[str]:
+def unsupervised_cosine_similarity(text: str, themes_keywords: dict[str, list],
+            precision_utility: float = 0.10, precision: float = 0.08) -> list[str]:
     """
     If you worry about the "-" in the `np.sort()` or `np.argsort()`,
     it is just to get a *descending order*.
@@ -58,8 +59,14 @@ def unsupervised_cosine_similarity(text: str, themes_keywords: dict[str, list], 
         np.argsort(-cosine_scores_utility_check)[:3].tolist()
     scores_utility_check: list[float] =\
         np.sort(-cosine_scores_utility_check)[:3].tolist()
+
+    # <debug>
     print("\n")
     print(scores_utility_check)
+    # </debug>
+
+    if -precision_utility < scores_utility_check[0]:
+        return []
     # </Utility Check>
 
     theme_embeddings = model.encode(enhanced_themes)
@@ -83,6 +90,7 @@ def unsupervised_cosine_similarity(text: str, themes_keywords: dict[str, list], 
     print(top_scores)
     # </debug>
 
+    # <Threshold Check>
     for i in range(len(top_indices) - 1, -1, -1):
         if i == 0 and -0.10 < top_scores[i]:
             top_indices.pop(i)
@@ -93,8 +101,9 @@ def unsupervised_cosine_similarity(text: str, themes_keywords: dict[str, list], 
     top_themes: list[str] = []
     for i in top_indices:
         top_themes.append(themes[i])
+    # </Threshold Check>
 
-    # TODO: debug.
+    # <debug>
     print(top_themes)
     # </debug>
 

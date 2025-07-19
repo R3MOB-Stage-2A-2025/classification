@@ -60,22 +60,30 @@ def classification_results(data: str) -> dict[str, list[str]]:
 
     themes: list[str] = json.dumps(
         unsupervised_cosine_similarity(data_to_classify_generic,
-                                       theme_keywords, precision=0.05)
+                                       theme_keywords,
+                                       precision_utility=0.20,
+                                       precision=0.05)
     )
 
     scientificThemes: list[str] = json.dumps(
         unsupervised_cosine_similarity(data_to_classify_generic,
-                                       scientificTheme_keywords, precision=0.4)
+                                       scientificTheme_keywords,
+                                       precision_utility=0.10,
+                                       precision=0.4)
     )
 
     mobilityTypes: list[str] = json.dumps(
         unsupervised_cosine_similarity(data_to_classify_generic,
-                                       mobilityType_keywords, precision=0.002)
+                                       mobilityType_keywords,
+                                       precision_utility=0.20,
+                                       precision=0.002)
     )
 
     axes: list[str] = json.dumps(
         unsupervised_cosine_similarity(data_to_classify_generic,
-                                       axe_keywords, precision=0.009)
+                                       axe_keywords,
+                                       precision_utility=0.10,
+                                       precision=0.009)
     )
 
     #except:
