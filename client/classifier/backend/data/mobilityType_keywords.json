@@ -14,13 +14,13 @@
     "Aerospace",
     "Helicopter",
     "Runway",
-    "Commercial aviation"
+    "Commercial aviation",
+    "Rocket"
   ],
   "Ferroviaire": [
     "Rail transport",
     "Train",
     "Railway",
-    "High-speed rail",
     "Rail infrastructure",
     "Railway station",
     "Rail freight",
@@ -46,7 +46,8 @@
     "Ferry",
     "Container ship",
     "Marine traffic",
-    "Shipyard"
+    "Shipyard",
+    "Oceanography"
   ],
   "Routier": [
     "Road transport",
