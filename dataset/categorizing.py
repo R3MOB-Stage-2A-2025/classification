@@ -38,7 +38,8 @@ def on_search_results(data):
 
         # <debug>
         print("\n")
-        print(f'DOI: {results.get('DOI', "")}')
+        doi: str = results.get('DOI', "")
+        print(f'DOI: {doi}')
         print(f'results: {results}')
         # </debug>
 
