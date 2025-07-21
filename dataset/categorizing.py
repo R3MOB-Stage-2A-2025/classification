@@ -1,5 +1,6 @@
 import socketio
 import json
+import random
 
 import config
 import functions
@@ -44,7 +45,9 @@ def on_search_results(data):
         # </debug>
 
         labellator.store_publication(labels=metadata_str)
-        labellator.checkpoint_processing()
+
+        if random.randint(20) == 16:
+            labellator.checkpoint_processing()
 
     except Exception as e:
         labellator.checkpoint_processing()
