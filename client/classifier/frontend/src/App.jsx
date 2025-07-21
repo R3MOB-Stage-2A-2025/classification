@@ -13,6 +13,8 @@ function App() {
     // Retrieve the Challenges, Themes, Scientific Themes and Mobility Types.
     // ----------------------------------------------------------------------
 
+    // Challenges.
+    const [challenges, setChallenges] = useState(null);
     // Themes.
     const [themes, setThemes] = useState(null);
     // Scientific themes.
@@ -21,19 +23,25 @@ function App() {
     const [mobilityTypes, setMobilityTypes] = useState(null);
     // Axes/ Leverage for actions.
     const [axes, setAxes] = useState(null);
+    // Usages.
+    const [usages, setUsages] = useState(null);
 
     const setVariablesToFalse = () => {
+        setChallenges(false);
         setThemes(false);
         setScientificThemes(false);
         setMobilityTypes(false);
         setAxes(false);
+        setUsages(false);
     };
 
     const setVariablesToData = (data) => {
+        setChallenges(JSON.parse(data.challenges));
         setThemes(JSON.parse(data.themes));
         setScientificThemes(JSON.parse(data.scientificThemes));
         setMobilityTypes(JSON.parse(data.mobilityTypes));
         setAxes(JSON.parse(data.axes));
+        setUsages(JSON.parse(data.usages));
     };
 
     // ----------------------------------------------------------------------
@@ -141,6 +149,17 @@ function App() {
             <div id="result">
                 {error && <p>{error}</p>}
 
+                {challenges && challenges.length > 0 && (
+                    <>
+                        <h2>Enjeux associés :</h2>
+                        <ul>
+                            {challenges.map((challenge, index) => (
+                                <li key={index}>{challenge}</li>
+                            ))}
+                        </ul>
+                    </>
+                )}
+
                 {themes && themes.length > 0 && (
                     <>
                         <h2>Thèmes associés :</h2>
@@ -180,6 +199,17 @@ function App() {
                         <ul>
                             {axes.map((axe, index) => (
                                 <li key={index}>{axe}</li>
+                            ))}
+                        </ul>
+                    </>
+                )}
+
+                {usages && usages.length > 0 && (
+                    <>
+                        <h2>usages associés :</h2>
+                        <ul>
+                            {usages.map((usage, index) => (
+                                <li key={index}>{usage}</li>
                             ))}
                         </ul>
                     </>
