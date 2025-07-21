@@ -46,7 +46,7 @@ def on_search_results(data):
 
         labellator.store_publication(labels=metadata_str)
 
-        if random.randint(20) == 16:
+        if random.randint(0, 20) == 16:
             labellator.checkpoint_processing()
 
     except Exception as e:
