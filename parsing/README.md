@@ -253,5 +253,8 @@ Example:
 }
 ```
 
+You can reconstruct the abstract from here, which Openalex does,
+the result is stored in the value of "TL;DR".
+
 ### EOF
 
