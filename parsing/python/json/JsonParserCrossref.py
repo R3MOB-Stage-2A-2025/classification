@@ -37,14 +37,14 @@ class JsonParserCrossref:
         # </Similarities>
 
         # <Keywords>
-        self._topics: list[dict] = []
-        self._keywords: list[dict] = []
-        self._concepts: list[dict] = []
+        self._topics: list[str] = []
+        self._keywords: list[str] = []
+        self._concepts: list[str] = []
         # </Keywords>
 
         # <Miscellenaous>
-        self._sustainable_development_goals: list[dict] = []
-        self._abstract_inverted_index: list[dict] = []
+        self._sustainable_development_goals: list[str] = []
+        self._abstract_inverted_index: list[str] = []
         # </Miscellenaous>
 
         # <Parsing>
@@ -192,7 +192,7 @@ class JsonParserCrossref:
             self._parse_sustainable(publication)
 
         self._abstract_inverted_index =\
-            publication.get("abstract_inverted_index", {})
+            publication.get("abstract_inverted_index", [])
         # </Miscellenaous>
 
         return publication
