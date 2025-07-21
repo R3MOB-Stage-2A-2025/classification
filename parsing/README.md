@@ -220,7 +220,7 @@ The *abstract inverted index* is not tokenized.
 ### NB: Reconstruct the abstract
 
 If you kept the original version of the *abstract_inverted_index*,
-this is not the case here, you can reconstruct the abstract because
+this is not the case here above, you can reconstruct the abstract because
 it contains the position of the work in the text.
 
 Example:
