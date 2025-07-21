@@ -39,9 +39,15 @@ class Labelliser:
 
         pwf.close()
 
-    def store_publication(self, publication: str) -> None:
+    def store_publication(self, publication: str = None, labels: str = None) -> None:
 
-        parsed_publication_dict = JsonParserCrossref(publication).line_json()
+        if publication != None:
+            parsed_publication_dict = JsonParserCrossref(publication).line_json()
+        elif labels != None:
+            parsed_publication_dict = json.loads(labels)
+        else:
+            return
+
         DOI: str = parsed_publication_dict.get("DOI", "3301")
         OPENALEX: str = parsed_publication_dict.get("OPENALEX", "404N0tF0und!")
 
@@ -59,6 +65,7 @@ class Labelliser:
 
         # <Write> the new publication into the processing array.
         self.processingDataDict[DOI] = parsed_publication_dict
+        print(self.processingDataDict)
         # </Write>
 
     def related(self, publication: str) -> None:
