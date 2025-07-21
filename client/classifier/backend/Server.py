@@ -30,6 +30,8 @@ from JsonParserCrossref import JsonParserCrossref
 from functions import load_json
 from functions import unsupervised_cosine_similarity
 
+challenge_keywords: dict[str, list[str]]= \
+    load_json('data/challenge_keywords.json')
 theme_keywords: dict[str, list[str]] = \
     load_json('data/theme_keywords.json')
 scientificTheme_keywords: dict[str, list[str]] = \
@@ -38,6 +40,8 @@ mobilityType_keywords: dict[str, list[str]] = \
     load_json('data/mobilityType_keywords.json')
 axe_keywords: dict[str, list[str]] = \
     load_json('data/axe_keywords.json')
+usage_keywords: dict[str, list[str]] = \
+    load_json('data/usage_keywords.json')
 # </Retrieve keywords>
 
 # Retrieve Classification Results
@@ -45,7 +49,6 @@ def classification_results(data: str) -> dict[str, list[str]]:
     """
     :param data: It is not already parsed.
     """
-    #try:
 
     # <Parsing>
     data_parsed: str = JsonParserCrossref(data)
@@ -58,45 +61,67 @@ def classification_results(data: str) -> dict[str, list[str]]:
     print(data_to_classify_generic)
     # </debug>
 
-    themes: list[str] = json.dumps(
+    challenges: str = json.dumps(
+        unsupervised_cosine_similarity(data_to_classify_generic,
+                                       challenge_keywords,
+                                       precision_utility=0.10,
+                                       precision=0.05)
+    )
+
+    themes: str = json.dumps(
         unsupervised_cosine_similarity(data_to_classify_generic,
                                        theme_keywords,
                                        precision_utility=0.20,
                                        precision=0.05)
     )
 
-    scientificThemes: list[str] = json.dumps(
+    scientificThemes: str = json.dumps(
         unsupervised_cosine_similarity(data_to_classify_generic,
                                        scientificTheme_keywords,
                                        precision_utility=0.10,
                                        precision=0.4)
     )
 
-    mobilityTypes: list[str] = json.dumps(
+    mobilityTypes: str = json.dumps(
         unsupervised_cosine_similarity(data_to_classify_generic,
                                        mobilityType_keywords,
                                        precision_utility=0.20,
                                        precision=0.002)
     )
 
-    axes: list[str] = json.dumps(
-        unsupervised_cosine_similarity(data_to_classify_generic,
-                                       axe_keywords,
-                                       precision_utility=0.10,
-                                       precision=0.009)
-    )
+    if mobilityTypes == "[]":
+        axes: str = "[]"
+    else:
+        axes: str = json.dumps(
+            unsupervised_cosine_similarity(data_to_classify_generic,
+                                           axe_keywords,
+                                           precision_utility=0.10,
+                                           precision=0.009)
+        )
 
-    #except:
-        #emit("classification_error", { 'error': 'Impossible to classify' }, to=request.sid)
+    if mobilityTypes == "[]":
+        usages: str = "[]"
+    else:
+        usages: str = json.dumps(
+            unsupervised_cosine_similarity(data_to_classify_generic,
+                                           usage_keywords,
+                                           precision_utility=0.25,
+                                           precision=0.009)
+        )
 
     return {
+        'challenges': challenges,
         'themes': themes,
         'scientificThemes': scientificThemes,
         'mobilityTypes': mobilityTypes,
         'axes': axes,
+        'usages': usages,
     }
 
 def classification_error(results: dict[str, list[str]]) -> bool:
+
+    if 'challenges' in results and results['challenges'] == "[]":
+        results['challenges'] = '[ "No challenges found" ]'
 
     if 'themes' in results and results['themes'] == "[]":
         results['themes'] = '[ "No themes found" ]'
@@ -109,6 +134,9 @@ def classification_error(results: dict[str, list[str]]) -> bool:
 
     if 'axes' in results and results['axes'] == "[]":
         results['axes'] = '[ "No axes found" ]'
+
+    if 'usages' in results and results['usages'] == "[]":
+        results['usages'] = '[ "No usages found" ]'
 
     return False
 
@@ -140,10 +168,12 @@ def handle_classify(data: str) -> None:
     emit(
         "classification_results",
         {
+            'challenges': results['challenges'],
             'themes': results['themes'],
             'scientificThemes': results['scientificThemes'],
             'mobilityTypes': results['mobilityTypes'],
             'axes': results['axes'],
+            'usages': results['usages'],
         },
         to=request.sid
     )
@@ -162,10 +192,12 @@ def handle_json_classify(data: str) -> None:
         "json_classification_results",
         {
             'doi': doi,
+            'challenges': results['challenges'],
             'themes': results['themes'],
             'scientificThemes': results['scientificThemes'],
             'mobilityTypes': results['mobilityTypes'],
             'axes': results['axes'],
+            'usages': results['usages'],
         },
         to=request.sid
     )
