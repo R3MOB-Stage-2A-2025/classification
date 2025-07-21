@@ -12,6 +12,7 @@ def find_dois_dataset(filepath: str = './raw/data.json') -> list[str]:
 
     base_url: str = "https://doi.org/"
     regex_doi: str = r'10\.\d{4,9}/[\w.\-;()/:]+'
+    #regex_doi: str = r'10\.\d{4,9}/[^\s]+'
     result: list[str] = []
 
     check = open(filepath, 'r') if os.path.exists(filepath) else []

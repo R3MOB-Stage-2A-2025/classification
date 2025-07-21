@@ -6,7 +6,7 @@ import config
 import functions
 from Labelliser import Labelliser
 
-filePath: str = "data.json"
+filePath: str = "temp_depth_1.json"
 processingFilepath: str = "./processing/" + filePath
 labelledFilePath: str = "./labelled/" + filePath
 
