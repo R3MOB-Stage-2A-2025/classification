@@ -1,7 +1,7 @@
 # parsing
 
 A *python* module to parse a *json* file of a publication that is
-writtent in the *Crossref style*.
+written in the *Crossref style*.
 
 # How to use
 
@@ -41,7 +41,7 @@ Time line, Position (finance), Greenhouse gas, Fossil fuel, Timeline,\
 Natural resource economics, Climate change, Position (finance),\
 Business, Climate change mitigation, Economics, Finance, Engineering,\
 Ecology, Geography, Archaeology, Biology, Waste management,\
-Affordable and clean energy
+Affordable and clean energy\
 "
 ```
 
@@ -62,6 +62,9 @@ text_to_classify: str = JsonParserCrossref().classify_me(line_json=metadata)
 ```
 
 ## Overview
+
+This is the generic *json* format for a publication in this project.
+You can see here all the keys of this *Crossref Style json*:
 
 ```json
 [
@@ -88,7 +91,6 @@ text_to_classify: str = JsonParserCrossref().classify_me(line_json=metadata)
 ]
 ```
 
-You can see here all the keys of this *Crossref Style json*.
 
 The objects are sorted into "sub json files" to improve the parsing experience:
 
@@ -196,7 +198,6 @@ topics = [
 ] # Just the "display_name" of each topic given by Openalex.
 
 # Example of "abstract_inverted_index":
-
 abstract_inverted_index = [
   "Vehicle",
   "density",
@@ -221,6 +222,7 @@ The *abstract inverted index* is not tokenized.
 If you kept the original version of the *abstract_inverted_index*,
 this is not the case here, you can reconstruct the abstract because
 it contains the position of the work in the text.
+
 Example:
 
 ```json
