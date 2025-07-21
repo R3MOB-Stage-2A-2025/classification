@@ -1,7 +1,7 @@
 import json
 
 class JsonParserCrossref:
-    def __init__(self, jsonfile: str):
+    def __init__(self, jsonfile: str = None):
         """
         :param jsonfile: It should be something returned by ``json.dumps()``,
         or in the same format.
@@ -48,7 +48,8 @@ class JsonParserCrossref:
         # </Miscellenaous>
 
         # <Parsing>
-        self._parse_json(jsonfile)
+        if jsonfile != None:
+            self._parse_json(jsonfile)
         # </Parsing>
 
     def _parse_topics(self, publication: dict[str, dict]) -> list[str]:
