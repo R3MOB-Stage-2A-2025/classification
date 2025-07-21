@@ -1,5 +1,6 @@
 import os
 import re
+import json
 
 def find_dois_dataset(filepath: str = './raw/data.json') -> list[str]:
     """
@@ -54,4 +55,26 @@ def find_openalex_dataset(filepath: str = './raw/data.json') -> list[str]:
         check.close()
 
     return result
+
+class MetadataRetriever:
+    def __init__(self, processingFilepath: str = './processing/data.json'):
+        self.name = "MetadataRetriever"
+
+        # <Processing data loader>
+        self.processingFilepath = processingFilepath
+
+        if os.path.exists(processingFilepath):
+            with open(processingFilepath, 'rt') as prf:
+                processingDataJson = json.load(prf)
+            self.processingDataDict = processingDataJson
+        else:
+            self.processingDataDict = {}
+        # </Processing data loader>
+
+    def retrieve_data_from_doi(self, doi: str) -> dict[str, str | dict[str]]:
+        """
+        Given a DOI and a json object where the keys are *DOI*s, it retrieves
+        the specific publication metadatas in constant time.
+        """
+        return self.processingDataDict[doi]
 
