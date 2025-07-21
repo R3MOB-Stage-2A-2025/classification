@@ -221,7 +221,7 @@ The *abstract inverted index* is not tokenized.
 
 If you kept the original version of the *abstract_inverted_index*,
 this is not the case here above, you can reconstruct the abstract because
-it contains the position of the work in the text.
+it contains the position of the word in the text.
 
 Example:
 
