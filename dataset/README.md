@@ -91,7 +91,7 @@ or merely to use the functions `related_dois()` or `related_openalex`.
 3. Processing: retrieve all the metadata related to the set of IDs.
 
 ```bash
-vim related.py # Change the name of the input file and output file.
+vim processing.py # Change the name of the input file and output file.
 source .venv/bin/activate
 python processing.py
 ```
@@ -112,7 +112,7 @@ Each paper in the `processing/file.json` file has it's labels in the
 `labelled/file.json` file, where the key is its *DOI*.
 
 ```bash
-vim related.py # Change the name of the input file and output file.
+vim categorizing.py # Change the name of the input file and output file.
 source .venv/bin/activate
 python categorizing.py
 ```
