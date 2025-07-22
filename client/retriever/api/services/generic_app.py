@@ -12,6 +12,44 @@ class Service:
         self._timeout = timeout
 
     def generic_query(self, func_query, query: str) -> dict[str, str | dict]:
+        """
+        This function is used to handle exceptions over a *query function*
+        from an *api*.
+
+        :param func_query: the function from the sub class.
+            Example: from `Crossref.query()`:
+            ```python
+            def func_query(query: str) -> dict[str, str | dict]:
+                return  self._cr.works(
+                    query = query,
+                    filter = filtering,
+                    offset = offset,
+                    limit = limit,
+                    sort = sort,
+                    order = order,
+                    facet = facet,
+                    select = select,
+                    cursor = cursor,
+                    cursor_max = cursor_max,
+                    progress_bar = progress_bar
+                )
+            ```
+
+        :param query: The query to give to the function `func_query`.
+        :return: Here, something in that format:
+
+        ```python
+        {
+          "status": "ok",
+          "message-type": "work-list",
+          "message": {
+            "facets": {},
+            "total-results": 521699,
+            "items": []
+          }
+        }
+        ```
+        """
         try:
             return func_query(query)
 
