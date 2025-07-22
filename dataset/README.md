@@ -83,10 +83,10 @@ like this one `10.1175/1520-0450(1977)016<0237:pwviac>2.0.co;2`,
 for my regex `r'10\.\d{4,9}/[\w.\-;()/:]+'`, this doi is
 `10.1175/1520-0450(1977)016`.
 
-Another could be to use directly the web interface of *Openalex* to
+Another is to use directly the web interface of *Openalex* to
 download a set of papers related to specific topics, which I did
 in the `request/` folder. However, you will have to parse it manually,
-or merely to use the functions `related_dois()` or `related_openalex`.
+or merely to use the functions `related_dois()` or `related_openalex()`.
 
 3. Processing: retrieve all the metadata related to the set of IDs.
 
@@ -108,7 +108,7 @@ If there is no DOI, I don't take the paper.
 4. Labelling: call the *llm* from the *Classifier* module
 to categorize the papers.
 
-Each paper in the `processing/file.json` file has it's labels in the
+Each paper in the `processing/file.json` file has its labels in the
 `labelled/file.json` file, where the key is its *DOI*.
 
 ```bash
