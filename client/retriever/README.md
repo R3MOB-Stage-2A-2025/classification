@@ -64,42 +64,148 @@ Be sure to always precise your *mail* in the `.env` file.
 
 ## How to use
 
-- backend: **Python** (*Pyalex*) using *flask_socketio*, *gevent* and *flask*.
+You can launch the application manually using *python* (recommended for dev),
+or automatically using *docker* for non-dev users.
 
-The goal of this repository is to code a wrapper on the *OpenAlex Api* client
-called *pyalex*.
-
-## Starting the Flask server in production mode
+### Starting the Flask server in production mode (docker)
 
 1. Edit the environment variables you wish:
 
 ```bash
-cd backend/
 cp .env.example .env
-vim .env
+vim .env # edit the variables
 ```
 
-Then you can use the specified *Dockerfile* with the *docker-compose.yml*
-file in the root directory.
+2. Install *docker and *docker compose* (last section of main *README.md*).
 
-## Starting the Flask server in development mode
+3. Use the `docker compose` of the main *README.md* file.
 
-1. ``cd openalex/``
+### Starting the Flask server in development mode (python)
 
-2. Initialize the backend:
+1. Initialize the backend:
 
-You should first choose you environment variables in the `backend/` folder.
-do ``cp .env.example .env`` and edit the `.env` file.
+```bash
+cp .env.example .env
+vim .env # edit the variables
+```
+
+2. Launch the Flask app
 
 ```bash
 # Open another terminal and do this:
-cd openalex/backend/
+cd /client/retriever
 python -m venv .venv
 source .venv/bin/activate
-cd backend/
 pip install -r requirements.txt
-python Server.py
+python app.py
 ```
+
+## Overview
+
+- backend: *flask_socketio*, *gevent* and *flask*.
+
+- frontend: for development only, see the `/frontend` directory.
+
+### Example of a client API
+
+You can use this *Flask* server like this with **Python3.13**:
+
+```python
+import socketio
+import json
+
+RETRIEVER_URL: str = "http://localhost:5001"
+
+sio = socketio.Client()
+
+def connect():
+    print("Connected.")
+
+@sio.event
+def disconnect():
+    print("Disconnected.")
+
+@sio.on("search_results")
+def on_search_results(data):
+    results: dict = json.loads(data.get('results', {}))
+
+    try:
+        # results contains various publications, it just displays one here.
+        message: dict = results.get('message', {})
+        items: dict = message.get('items', [{}])
+
+        publication: dict = items[0]
+        print(publication.get('title', ""))
+
+        publication_str: str = json.dumps(publication)
+        # Do something with it.
+        print(f'\n\n{publication}\n\n')
+
+    except Exception as e:
+        print(f'{e}')
+        exit(0)
+
+@sio.on("search_error")
+def on_search_error(data):
+    print("Error from server:")
+    print(data)
+
+def main():
+    sio.connect(RETRIEVER_URL)
+
+    try:
+        query_data = {
+            'query' : 'Mohamed Mosbah',
+            "offset": 0,
+            "limit": 1
+        }
+        # 'query' can also be a DOI, an Openalex ID, an ORCID.
+
+        sio.emit("search_query", json.dumps(query_data))
+
+    except Exception as e:
+        print(f'{e}')
+        exit(0)
+
+    sio.sleep(20) # Wait 20sec for the response
+    disconnect()
+
+if __name__ == "__main__":
+    main()
+```
+
+Here is the *requirements.txt* file:
+
+```python
+python-engineio==4.12.2
+python-socketio==5.13.0
+websocket-client==1.8.0
+requests==2.32.4
+```
+
+For a *javascript* client, you can check the `/frontend` directory.
+
+### How to install docker
+
+- **Ubuntu** and **Debian**
+`curl -fsSL https://get.docker.com | sh`
+
+- **Arch Linux** and **Manjaro**
+`sudo pacman -Sy --noconfirm docker && sudo systemctl enable --now docker`
+
+- **Fedora**
+`sudo dnf install -y docker docker-compose && sudo systemctl enable --now docker`
+
+- **CentOS** and **RHEL**
+`sudo yum install -y docker && sudo systemctl enable --now docker`
+
+-  **OpenSUSE**
+`sudo zypper install -y docker && sudo systemctl enable --now docker`
+
+- **WSL2** on **Windows**
+Use *Docker Desktop* with [this link](https://www.docker.com/products/docker-desktop/).
+Then use
+`sudo service docker start`
 
 ### EOF
 
