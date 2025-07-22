@@ -372,7 +372,7 @@ To explain what is going on:
 2. *Openalex* enhances what *Crossref* can give with its own metadata,
 
 3. The *llm* called **sentence-transformers** from *HuggingFace* labellizes
-a generated dataset that is close to your searching query.
+a generated dataset that is close to your searching query,
 
 4. The current classification model, trained on that dataset, classifies the
 searched paper amongst the given themes (here, the categories given by
