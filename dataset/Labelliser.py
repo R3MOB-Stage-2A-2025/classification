@@ -40,6 +40,27 @@ class Labelliser:
         pwf.close()
 
     def store_publication(self, publication: str = None, labels: str = None) -> None:
+        """
+        This function can store a publication or can store labels
+            of the publication. It can do both.
+
+        :param publication: a publication that is in the *Crossref style*
+            and comes from `json.dumps()`.
+
+            Example: See the *Retriever* module.
+
+            If publication == None, then it will be in the "label storage"
+                mode.
+
+        :param labels: labels from the *Classifier* module.
+            Example:
+            ```
+            {'DOI': '10.1007/978-3-030-04915-7_62', 'challenges': '["Technologiques", "Economiques"]', 'themes': '[ "Other" ]', 'scientificThemes': '["Mat\\u00e9riaux, A\\u00e9rodynamique, Transition \\u00e9cologique, \\u00c9nerg\\u00e9tique et Mobilit\\u00e9s durables", "Sciences cognitives, Interfaces H/M", "Base et Traitement de donn\\u00e9es, IA"]', 'mobilityTypes': '["Fluvial/Maritime"]', 'axes': '["Accompagner le d\\u00e9veloppement des syst\\u00e8mes de transports d\\u00e9carbon\\u00e9s et s\\u00fbrs"]', 'usages': '[ "Other" ]'}
+            ```
+
+            If labels == None, then it will be in the "publication storage"
+                mode.
+        """
 
         if publication != None:
             parsed_publication_dict = JsonParserCrossref(publication).line_json()
@@ -69,6 +90,17 @@ class Labelliser:
         # </Write>
 
     def related(self, publication: str) -> None:
+        """
+        It stores locally the related papers from *Openalex* of the
+        given publication. It will store it in `self.processingDataDict`,
+        which is written in the output file using the function
+        `self.checkpoint_processing()` (you need to call it manually).
+
+        Example: See in the `dataset/raw/` directory.
+
+        :param publication: a publication that is in the *Crossref style*
+            and comes from `json.dumps()`.
+        """
         parsed_publication = JsonParserCrossref(publication)
 
         # <ID>

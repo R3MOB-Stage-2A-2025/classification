@@ -4,8 +4,9 @@ import json
 
 def find_dois_dataset(filepath: str = './raw/data.json') -> list[str]:
     """
+    :param filepath: The input file.
     :return: all the *DOI*'s, as *URL*s from `https://doi.org/`.
-    This is a regex finder.
+    This is a regex finder, here is the regex: `r'10\.\d{4,9}/[\w.\-;()/:]+'`.
 
     NB: the returned list could contain the same element multiple times.
     """
@@ -35,8 +36,10 @@ def find_dois_dataset(filepath: str = './raw/data.json') -> list[str]:
 
 def find_openalex_dataset(filepath: str = './raw/data.json') -> list[str]:
     """
+    :param filepath: The input file.
     :return: all the *OPENALEX*'s, as *URL*s from `https://openalex.org/`.
-    This is a regex finder.
+    This is a regex finder, here is the regex:
+        `r'"https:\/\/openalex\.org\/W\d+"'`.
 
     NB: the returned list could contain the same element multiple times.
     """
@@ -59,6 +62,13 @@ def find_openalex_dataset(filepath: str = './raw/data.json') -> list[str]:
 
 class MetadataRetriever:
     def __init__(self, processingFilepath: str = './processing/data.json'):
+        """
+        This class has the purpose of storing the file from the `processing/`
+            dir, in order to give it to the *Classifier* module by
+            `labelling.py`, without having to reload every time the file.
+
+        :param processingFilepath: the input file.
+        """
         self.name = "MetadataRetriever"
 
         # <Processing data loader>
@@ -74,8 +84,8 @@ class MetadataRetriever:
 
     def retrieve_data_from_doi(self, doi: str) -> dict[str, str | dict[str]]:
         """
-        Given a DOI and a json object where the keys are *DOI*s, it retrieves
-        the specific publication metadatas in constant time.
+        Given a DOI, it retrieves the specific publication metadatas
+            in constant time, stored in `self.processingDataDict[doi]`.
         """
         return self.processingDataDict[doi]
 

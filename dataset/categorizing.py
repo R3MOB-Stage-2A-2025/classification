@@ -6,9 +6,11 @@ import config
 import functions
 from Labelliser import Labelliser
 
+# <file path>
 filePath: str = "temp_depth_1.json"
 processingFilepath: str = "./processing/" + filePath
 labelledFilePath: str = "./labelled/" + filePath
+# </file path>
 
 sio = socketio.Client()
 metadata = functions.MetadataRetriever(processingFilepath)
