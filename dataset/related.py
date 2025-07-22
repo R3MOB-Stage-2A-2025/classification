@@ -5,9 +5,13 @@ import config
 import functions
 from Labelliser import Labelliser
 
+# <file path>
+inputFile: str = './raw/r3mob_150725_depth_1.json'
+outputFile: str = './raw/r3mob_150725_depth_2.json'
+# </file path>
+
 sio = socketio.Client()
-labellator = Labelliser(
-    processingFilepath='./raw/r3mob_150725_depth_2.json')
+labellator = Labelliser(processingFilepath=outputFile)
 
 total_queries = 0
 responses_received = 0
@@ -124,5 +128,5 @@ def related_openalex(inputf: str = './raw/data.csv'):
     disconnect()
 
 if __name__ == "__main__":
-    related_openalex(inputf='./raw/r3mob_150725_depth_1.json')
+    related_openalex(inputf=inputFile)
 

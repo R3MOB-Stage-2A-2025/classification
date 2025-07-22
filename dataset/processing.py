@@ -5,9 +5,14 @@ import config
 import functions
 from Labelliser import Labelliser
 
+# <file path>
+inputFile: str = './raw/r3mob_150725_depth_1.json'
+outputFile: str = './processing/data_depth_1.json'
+# </file path>
+
 sio = socketio.Client()
 #labellator = Labelliser(processingFilepath=config.PROCESSING_FILEPAH)
-labellator = Labelliser('./processing/data_depth_1.json')
+labellator = Labelliser(outputFile)
 
 total_queries = 0
 responses_received = 0
@@ -89,5 +94,5 @@ def r3mob(inputf: str = './raw/data.csv'):
     disconnect()
 
 if __name__ == "__main__":
-    r3mob(inputf='./raw/r3mob_150725_depth_1.json')
+    r3mob(inputf=inputFile)
 
