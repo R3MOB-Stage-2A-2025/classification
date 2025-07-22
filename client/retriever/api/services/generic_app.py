@@ -35,8 +35,8 @@ class Service:
                 )
             ```
 
-        :param query: The query to give to the function `func_query`.
-        :return: Here, something in that format:
+        :param query: The query to give to the function `func_query()`.
+        :return: for the example above, something in that format:
 
         ```python
         {
@@ -45,7 +45,7 @@ class Service:
           "message": {
             "facets": {},
             "total-results": 521699,
-            "items": []
+            "items": [] # contains publications
           }
         }
         ```

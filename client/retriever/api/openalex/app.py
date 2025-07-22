@@ -4,12 +4,22 @@ import re
 import json
 
 from pyalex import config
-#from pyalex import Works, Authors, Sources, Institutions, Topics, Publishers, Funders
+#from pyalex import Authors, Sources, Institutions, Topics, Publishers, Funders
 from pyalex import Works
 
 class OpenAlexClient(Service):
     def __init__(self, apiurl: str = None, apikey: str = None,
                  mailto: str = None, timeout: int = 20):
+        """
+        There is:
+
+        ```python
+        PYALEX_MAILTO=<mail@gmail.com>
+        ```
+
+        There is not a *timeout* variable. However, there is a *max_retries*
+            variable which is set to 0 in this project.
+        """
 
         self.name = "PyAlex(OpenAlex)"
         super().__init__(apiurl=apiurl, apikey=apikey,
@@ -26,6 +36,134 @@ class OpenAlexClient(Service):
         :return: the result of ``pyalex.Works['query']``.
                  the result is a string from `json.dumps()`.
                  It retrieves one publication at a time.
+
+        This is parsed in the *Crossref Style*.
+
+        The "TL;DR" (generated abstract by Openalex)
+            is set to 1300 characters max.
+
+        Example:
+
+        ```json
+        {
+            "title": [
+                "PROBABILISTIC GRAPH GRAMMARS"
+            ],
+            "abstract": null,
+            "TL;DR": "In a probabilistic graph grammar, ...",
+            "DOI": "10.3233/fi-1996-263406",
+            "URL": "https://doi.org/10.3233/fi-1996-263406",
+            "OPENALEX": "https://openalex.org/W35991460",
+            "type": "journal-article",
+            "ISSN": [
+                "0169-2968",
+                "1875-8681"
+            ],
+            "publisher": "IOS Press",
+            "publication_date": "1996-01-01",
+            "container-title": [
+                "Fundamenta Informaticae"
+            ],
+            "container-url": [
+                "https://doi.org/10.3233/fi-1996-263406"
+            ],
+            "author": [
+            {
+                "given": "Mohamed",
+                "family": "Mosbah",
+                "ORCID": "https://orcid.org/0000-0001-6031-4237",
+                "OPENALEX": "https://openalex.org/A5067540221",
+                "affiliation": [
+                {
+                    "name": "Laboratoire Bordelais de Recherche en Informatique",
+                    "openalex": "https://openalex.org/I4210142254",
+                    "ror": "https://ror.org/03adqg323",
+                    "country": "FR"
+                },
+                {
+                    "name": "Institut Polytechnique de Bordeaux",
+                    "openalex": "https://openalex.org/I4210160189",
+                    "ror": "https://ror.org/054qv7y42",
+                    "country": "FR"
+                },
+                {
+                    "name": "Université de Bordeaux",
+                    "openalex": "https://openalex.org/I15057530",
+                    "ror": "https://ror.org/057qpr032",
+                    "country": "FR"
+                }
+                ]
+            }
+            ],
+            "reference": [
+            {
+                "key": 1,
+                "OPENALEX": "https://openalex.org/W2962838298"
+            }
+            ],
+            "related": [
+            {
+                "key": 1,
+                "OPENALEX": "https://openalex.org/W4391375266"
+            },
+            {
+                "key": 2,
+                "OPENALEX": "https://openalex.org/W3002753104"
+            }
+            ],
+            "topics": [
+            {
+                "id": "https://openalex.org/T10181",
+                "display_name": "Natural Language Processing Techniques",
+                "score": 0.9998,
+                "subfield": {
+                    "id": "https://openalex.org/subfields/1702",
+                    "display_name": "Artificial Intelligence"
+                },
+                "field": {
+                    "id": "https://openalex.org/fields/17",
+                    "display_name": "Computer Science"
+                },
+                "domain": {
+                    "id": "https://openalex.org/domains/3",
+                    "display_name": "Physical Sciences"
+                }
+            }
+            ],
+            "keywords": [],
+            "concepts": [
+            {
+                "id": "https://openalex.org/C49937458",
+                "wikidata": "https://www.wikidata.org/wiki/Q2599292",
+                "display_name": "Probabilistic logic",
+                "level": 2,
+                "score": 0.7071239
+            }
+            ],
+            "sustainable_development_goals": [],
+            "abstract_inverted_index": {
+                "In": [
+                    0
+                ],
+                "a": [
+                    1,
+                8,
+                15,
+                34
+                ],
+                "probabilistic": [
+                    2,
+                35
+                ],
+                "graph": [
+                    3
+                ],
+                "grammar,": [
+                    4
+                ]
+            }
+        }
+        ```
         """
 
         def func_query(query: str) -> dict[str, str | dict]:
@@ -43,9 +181,17 @@ class OpenAlexClient(Service):
 
     def parse_single(self, publication: str, TLDR: str = "") -> dict[str, str | dict]:
         """
-        :param publication: a single json file for this publication.
-        :param TLDR: sometimes *OpenAlex* could generate the TLDR.
+        :param publication: a single json file for this publication,
+            in the *Openalex Style*.
+        :param TLDR: sometimes *OpenAlex* could generate the abstract,
+            which I call a "TL;DR".
+
         :return: the json file but parsed in the *Crossref* style.
+
+            The references are not returned otherwise the *json* file returned
+                will be too long and it will require more disk space.
+            A publication could have up to 50 references (max set by Openalex),
+                and it is usually the case.
         """
 
         if (publication == None):
@@ -133,7 +279,7 @@ class OpenAlexClient(Service):
             "container-title": container_title,
             "container-url": container_url,
             "author": author,
-            "reference": [], # reference,
+            "reference": [], # Increases the size of the json file.
             "related": related,
             "topics": topics,
             "keywords": keywords,
@@ -149,6 +295,19 @@ class OpenAlexClient(Service):
 #############################################################################
 
 def extract_author_data(authorships: list[dict]) -> list[dict]:
+    """
+    :param authorships: What *Openalex* returns for the authors.
+    :return: *authorships* but in the *Crossref style*.
+
+    Example:
+        Author names:
+        `raw_author_name` (Openalex) -->
+                [ `given_names`, `family_name` ] (Crossref style)
+
+        Affiliations:
+        `display_name` (Openalex) --> `name` (Crossref style)
+        `country_code` (Openalex) --> `country` (Crossref style)
+    """
     authors: list[dict] = []
 
     for author in authorships:

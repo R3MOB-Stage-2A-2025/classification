@@ -8,6 +8,18 @@ import semanticscholar
 class SemanticScholarClient(Service):
     def __init__(self, apiurl: str = None, apikey: str = None,
                  mailto: str = None, timeout: int = 20):
+        """
+        There is:
+
+        ```python
+        SEMANTICSCHOLAR_APIURL=https://api.semanticscholar.org
+        SEMANTICSCHOLAR_APIKEY=<apikey>
+        SEMANTICSCHOLAR_TIMEOUT=15
+        ```
+
+        There is not `mailto`, *semanticscholar* does not
+        have a polite pool.
+        """
 
         self.name = "SemanticScholar"
         super().__init__(apiurl=apiurl, apikey=apikey,
@@ -24,8 +36,12 @@ class SemanticScholarClient(Service):
     def query_paper(self, query: str, limit: int = 10) -> str:
         """
         :param query: `Title, author, DOI, ORCID iD, etc..`
-        :return: the result of ``semanticscholar.sch.get_paper()``. It is various *json*.
+        :param limit: The maximum number of results for this searching query.
+            `limit <= 100`.
+        :return: the result of ``semanticscholar.sch.get_paper()``.
                  the result is a string from `json.dumps()`.
+
+        This is not parsed in the *Crossref Style*.
         """
 
         query: str = query
@@ -87,7 +103,9 @@ class SemanticScholarClient(Service):
         """
         :param paper_id: `DOI, ORCID iD, etc..`
         :return: the result of ``semanticscholar.sch.get_paper()``.
-        It is various *json*. The result is a string from `json.dumps()`.
+        The result is a string from `json.dumps()`.
+
+        This is not parsed in the *Crossref Style*.
         """
 
         paper_id: str = paper_id
@@ -107,8 +125,12 @@ class SemanticScholarClient(Service):
     def query(self, query: str, limit: int = 10) -> str:
         """
         :param query: `author, ORCID iD, etc..`
+        :param limit: The maximum number of results for this searching query.
+            `limit <= 100`.
         :return: the result of ``semanticscholar.sch.search_author()``.
         It is various *json*. The result is a string from `json.dumps()`.
+
+        This is not parsed in the *Crossref Style*.
         """
 
         query: str = query
@@ -132,8 +154,12 @@ class SemanticScholarClient(Service):
     def semanticscholar_recommendations(self, paper_id: str, limit: int = 10) -> str:
         """
         :param paper_id: `DOI, ArXivId, URL(not all URL)`.
+        :param limit: The maximum number of results for this searching query.
+            `limit <= 100`.
         :return: the result of ``semanticscholar.sch.get_recommended_papers()``.
         It is various *json*. The result is a string from `json.dumps()`.
+
+        This is not parsed in the *Crossref Style*.
         """
 
         paper_id: str = paper_id
@@ -161,8 +187,12 @@ class SemanticScholarClient(Service):
     def semanticscholar_citations(self, paper_id: str, limit: int = 50) -> str:
         """
         :param paper_id: `DOI, ArXivId, URL(not all URL)`.
+        :param limit: The maximum number of results for this searching query.
+            `limit <= 100`.
         :return: the result of ``semanticscholar.sch.get_paper_citations()``.
         It is various *json*. The result is a string from `json.dumps()`.
+
+        This is not parsed in the *Crossref Style*.
         """
 
         paper_id: str = paper_id
@@ -186,8 +216,12 @@ class SemanticScholarClient(Service):
     def semanticscholar_references(self, paper_id: str, limit: int = 50) -> str:
         """
         :param paper_id: `DOI, ArXivId, URL(not all URL)`.
+        :param limit: The maximum number of results for this searching query.
+            `limit <= 100`.
         :return: the result of ``semanticscholar.sch.get_paper_references()``.
         It is various *json*. The result is a string from `json.dumps()`.
+
+        This is not parsed in the *Crossref Style*.
         """
 
         paper_id: str = paper_id

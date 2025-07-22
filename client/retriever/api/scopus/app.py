@@ -9,6 +9,19 @@ class ScopusClient(Service):
     def __init__(self, apiurl: str = None, apikey: str = None,
                  mailto: str = None, timeout: int = 20):
 
+        """
+        There is:
+
+        ```python
+        PYBLIOMETRICS_APIKEY=<apikey>
+        ```
+
+        There is not `mailto`, *semanticscholar* does not
+            have a polite pool.
+        There is not `apiurl`, it is hardcoded in *pybliometrics*.
+        There is not `timeout`.
+        """
+
         self.name = "Pybliometrics(Scopus)"
         super().__init__(apiurl=apiurl, apikey=apikey,
                          mailto=mailto, timeout=timeout)
@@ -20,6 +33,8 @@ class ScopusClient(Service):
         :param query: `author, ORCID iD, etc..`
         :return: the result of ``pybliometrics.scopus.AuthorSearch()``.
                  the result is a string from `json.dumps()`.
+
+        This is not parsed in the *Crossref Style*.
         """
 
         query: str = query

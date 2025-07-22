@@ -5,13 +5,25 @@ import json
 
 from habanero import Crossref, RequestError
 
-xrate_limit: str = "" "X-Rate-Limit-Limit: 100"
-xrate_interval: str = "" "X-Rate-Limit-Interval: 1s"
-ua_string: str = xrate_limit + ";" + xrate_interval
+# <Rate limit>
+xrate_limit: str = "X-Rate-Limit-Limit: 100"
+xrate_interval: str = "X-Rate-Limit-Interval: 1s"
+ua_string: str = xrate_limit + "; " + xrate_interval
+# </Rate limit>
 
 class CrossrefClient(Service):
     def __init__(self, apiurl: str = None, apikey: str = None,
                  mailto: str = None, timeout: int = 20):
+        """
+        There is:
+
+        ```python
+        HABANERO_BASEURL=https://api.crossref.org
+        HABANERO_APIKEY=<apikey>
+        HABANERO_MAILTO=<mail@gmail.com>
+        HABANERO_TIMEOUT=15
+        ```
+        """
 
         self.name = "Habanero(Crossref)"
         super().__init__(apiurl=apiurl, apikey=apikey,
@@ -28,10 +40,49 @@ class CrossrefClient(Service):
     def query(self, query: str, offset: int = 0, limit: int = 10, isRetriever: bool = False) -> dict[str, str | dict | int]:
         """
         :param query: `Title, author, DOI, ORCID iD, etc..`
+        :param limit: The maximum number of results for this searching query.
+            The default is 20, more will slow the response time.
         :param isRetriever: True ==> only returns DOIs and abstracts.
                             False ==> basic search, with all info.
         :return: the result of ``habanero.Crossref.works()``. It is various *json*.
                  the result is a string from `json.dumps()`.
+
+        This is parsed in the *Crossref Style*, sorted by *relevance*
+        in *desc* order.
+
+        Example:
+
+        ```python
+        {
+          "status": "ok",
+          "message-type": "work-list",
+          "message": {
+            "facets": {},
+            "total-results": 521699,
+            "items": [] # various publications.
+          }
+        }
+        ```
+
+        An item has these keys:
+
+        ```
+        [
+          "DOI",
+          "ISSN",
+          "OPENALEX",
+          "URL",
+          "abstract",
+          "author",
+          "container-title",
+          "container-url",
+          "publication_date",
+          "publisher",
+          "reference",
+          "title",
+          "type"
+        ]
+        ```
         """
 
         filtering: dict = {
