@@ -7,14 +7,12 @@ WORKDIR /api-flask
 
 RUN python -m venv $VIRTUAL_ENV
 
-COPY backend/requirements.txt .
-COPY backend/.env .
-COPY backend/Server.py .
+COPY client/retriever .
 
 RUN pip install --upgrade pip \
  && pip install --no-cache-dir -r requirements.txt
 
 EXPOSE 5001
 
-CMD ["python", "Server.py"]
+CMD ["python", "app.py"]
 
