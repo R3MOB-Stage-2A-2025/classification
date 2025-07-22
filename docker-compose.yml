@@ -1,9 +1,9 @@
+---
 services:
-
-  crossref:
+  retriever:
     build:
-      context: ./client/api/crossref
-      dockerfile: crossref.Dockerfile
+      context: .
+      dockerfile: client/retriever/retriever.Dockerfile
     container_name: r3mobprod_crossref
     restart: unless-stopped
     deploy:
@@ -21,47 +21,26 @@ services:
         #volumes:
         #- ./config_crossref:/api-flask
 
-  semanticscholar:
-    build:
-      context: ./client/api/semanticscholar
-      dockerfile: semanticscholar.Dockerfile
-    container_name: r3mobprod_semanticscholar
-    restart: unless-stopped
-    deploy:
-      resources:
-        limits:
-          cpus: '0.70'
-          memory: 500M
-            #networks:
-      #- classification-net
-    environment:
-      - PUID=1000
-      - PGID=1000
-    ports:
-      - "${SEMANTICSCHOLAR_PORT}:5002"
-        #volumes:
-        #- ./config_semanticscholar:/api-flask
-
-  classifier:
-    build:
-      context: ./
-      dockerfile: client/classifier/classifier.Dockerfile
-    container_name: r3mobprod_classifier
-    restart: unless-stopped
-    deploy:
-      resources:
-        limits:
-          cpus: '0.70'
-          memory: 1G
-            #networks:
-      #- classification-net
-    environment:
-      - PUID=1000
-      - PGID=1000
-    ports:
-      - "${CLASSIFIER_PORT}:5011"
-        #volumes:
-        #- ./config_classifier:/api-flask
+        #classifier:
+        #build:
+        #context: ./
+        #dockerfile: client/classifier/classifier.Dockerfile
+        #container_name: r3mobprod_classifier
+        #restart: unless-stopped
+        #deploy:
+        #resources:
+        #limits:
+        #cpus: '0.70'
+        #memory: 1G
+        ##networks:
+        ##- classification-net
+        #environment:
+        #- PUID=1000
+        #- PGID=1000
+        #ports:
+        #- "${CLASSIFIER_PORT}:5011"
+        ##volumes:
+        ##- ./config_classifier:/api-flask
 
 networks:
   classification-net:
