@@ -4,7 +4,7 @@ services:
     build:
       context: .
       dockerfile: client/retriever/retriever.Dockerfile
-    container_name: r3mobprod_crossref
+    container_name: r3mobprod_retriever
     restart: unless-stopped
     deploy:
       resources:
@@ -21,26 +21,26 @@ services:
         #volumes:
         #- ./config_crossref:/api-flask
 
-        #classifier:
-        #build:
-        #context: ./
-        #dockerfile: client/classifier/classifier.Dockerfile
-        #container_name: r3mobprod_classifier
-        #restart: unless-stopped
-        #deploy:
-        #resources:
-        #limits:
-        #cpus: '0.70'
-        #memory: 1G
-        ##networks:
-        ##- classification-net
-        #environment:
-        #- PUID=1000
-        #- PGID=1000
-        #ports:
-        #- "${CLASSIFIER_PORT}:5011"
-        ##volumes:
-        ##- ./config_classifier:/api-flask
+  classifier:
+    build:
+      context: .
+      dockerfile: client/classifier/classifier.Dockerfile
+    container_name: r3mobprod_classifier
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: '0.70'
+          memory: 1G
+      #networks:
+      #- classification-net
+    environment:
+      - PUID=1000
+      - PGID=1000
+    ports:
+      - "${CLASSIFIER_PORT}:5011"
+        #volumes:
+        #- ./config_classifier:/api-flask
 
 networks:
   classification-net:
