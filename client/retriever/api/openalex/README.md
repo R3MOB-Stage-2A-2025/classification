@@ -1,4 +1,4 @@
-# Client - ORCID
+# Client - Openalex
 
 [***Pyalex***](https://pypi.org/project/pyalex/) wrapper.
 

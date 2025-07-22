@@ -1,4 +1,4 @@
-# Client - Crossref API
+# Client - Crossref
 
 [***Habanero***](https://github.com/sckott/habanero/) wrapper.
 

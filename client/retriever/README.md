@@ -107,7 +107,7 @@ python app.py
 
 ### Example of a client API
 
-You can use this *Flask* server like this with **Python3.13**:
+You can use this *Flask* client like this with **Python3.13**:
 
 ```python
 import socketio
