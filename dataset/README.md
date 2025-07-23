@@ -81,9 +81,17 @@ base given at the start, thanks to the *Openalex* classification algorithms.
 However, it took a lot of time because sometimes DOIs are broken,
 like this one `10.1175/1520-0450(1977)016<0237:pwviac>2.0.co;2`,
 for my regex `r'10\.\d{4,9}/[\w.\-;()/:]+'`, this doi is
-`10.1175/1520-0450(1977)016`.
+`10.1175/1520-0450(1977)016`. One way to improve this repository
+is to find a better *regex*, which I tried but without success.
+Among 12000 publications, I found around 80 publications with a broken *DOI*.
 
-Another is to use directly the web interface of *Openalex* to
+I checked into the source code of *Openalex* and they seem to make
+only a comparison like that ``if DOI.startswith("10.") then ok else ko``,
+which could fix the issue, but I'm not sure how to use it when trying to find
+*DOI*s in a text.
+
+
+Another idea is to use directly the web interface of *Openalex* to
 download a set of papers related to specific topics, which I did
 in the `request/` folder. However, you will have to parse it manually,
 or merely to use the functions `related_dois()` or `related_openalex()`.
