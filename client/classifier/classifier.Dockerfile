@@ -5,10 +5,10 @@ ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 
 RUN python -m venv $VIRTUAL_ENV
 
-WORKDIR /api-flask/client/classifier/backend
+WORKDIR /api-flask/client/classifier/
 
 COPY parsing/ /api-flask/parsing/
-COPY client/classifier/backend/ ./
+COPY client/classifier/ .
 
 # <Magic trick> to always get a `.env` file (take `.env.example`).
 RUN if [ ! -e .env ]; then cp .env.example .env; fi

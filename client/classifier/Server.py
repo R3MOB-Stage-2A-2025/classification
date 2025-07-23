@@ -1,17 +1,13 @@
-import json
-from flask import Flask, request, jsonify, send_from_directory, Response
+from flask import Flask, request
 from flask_socketio import SocketIO, emit
 from flask_cors import CORS
 
-# Retrieve environment variables.
-import os
-from dotenv import load_dotenv, dotenv_values
+import json
+import re
 
-load_dotenv()
-BACKEND_PORT: int = int(os.getenv("BACKEND_PORT"))
-BACKEND_SECRETKEY: str = os.getenv("BACKEND_SECRETKEY")
-FRONTEND_HOST: str = os.getenv("FRONTEND_HOST")
-# </Retrieve environment variables>
+#from Retriever import Retriever
+from functions import unsupervised_cosine_similarity
+import config
 
 # Retrieve functions from the parsing module.
 import sys
@@ -20,15 +16,14 @@ import os
 dir_path_current: str = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(dir_path_current)
 sys.path.append(
-    dir_path_current.removesuffix("/client/classifier/backend") + \
+    dir_path_current.removesuffix("/client/classifier") + \
     "/parsing/python/json/")
 
 from JsonParserCrossref import JsonParserCrossref
 # </Retrieve functions from the parsing module>
 
-# Retrieve keywords.
+# <Retrieve keywords>
 from functions import load_json
-from functions import unsupervised_cosine_similarity
 
 challenge_keywords: dict[str, list[str]]= \
     load_json('data/challenge_keywords.json')
@@ -44,91 +39,29 @@ usage_keywords: dict[str, list[str]] = \
     load_json('data/usage_keywords.json')
 # </Retrieve keywords>
 
+socketio = SocketIO()
+#retriever = Retriever()
+
 # <Classification to labellize dataset>
-def dataset_classification_results(data: str) -> dict[str, list[str]]:
-    """
-    :param data: It is already parsed.
-    """
+def dataset_parsing(data: str) -> str:
 
     # <Parsing>
     data_dict = json.loads(data)
     data_to_classify_generic: str = JsonParserCrossref(jsonfile=None)\
-                                            .classify_me(line_json=data_dict)
+                                        .classify_me(line_json=data_dict)
     # </Parsing>
 
     # <debug>
-    print("HEREE")
     doi: str = data_dict.get("DOI", "")
     print("Extracted DOI:", doi)
     print(data_to_classify_generic)
     # </debug>
 
-    challenges: str = json.dumps(
-        unsupervised_cosine_similarity(data_to_classify_generic,
-                                       challenge_keywords,
-                                       precision_utility=0.10,
-                                       precision=0.05)
-    )
-
-    themes: str = json.dumps(
-        unsupervised_cosine_similarity(data_to_classify_generic,
-                                       theme_keywords,
-                                       precision_utility=0.20,
-                                       precision=0.05)
-    )
-
-    scientificThemes: str = json.dumps(
-        unsupervised_cosine_similarity(data_to_classify_generic,
-                                       scientificTheme_keywords,
-                                       precision_utility=0.10,
-                                       precision=0.4)
-    )
-
-    mobilityTypes: str = json.dumps(
-        unsupervised_cosine_similarity(data_to_classify_generic,
-                                       mobilityType_keywords,
-                                       precision_utility=0.20,
-                                       precision=0.002)
-    )
-
-    if mobilityTypes == "[]":
-        axes: str = "[]"
-    else:
-        axes: str = json.dumps(
-            unsupervised_cosine_similarity(data_to_classify_generic,
-                                           axe_keywords,
-                                           precision_utility=0.10,
-                                           precision=0.009)
-        )
-
-    if mobilityTypes == "[]":
-        usages: str = "[]"
-    else:
-        usages: str = json.dumps(
-            unsupervised_cosine_similarity(data_to_classify_generic,
-                                           usage_keywords,
-                                           precision_utility=0.25,
-                                           precision=0.009)
-        )
-
-    return {
-        'challenges': challenges,
-        'themes': themes,
-        'scientificThemes': scientificThemes,
-        'mobilityTypes': mobilityTypes,
-        'axes': axes,
-        'usages': usages,
-    }
-
-
-
+    return data_to_classify_generic
 # </Classification to labellize dataset>
 
 # <Live Classification>
-def classification_results(data: str) -> dict[str, list[str]]:
-    """
-    :param data: It is not already parsed.
-    """
+def live_parsing(data: str) -> str:
 
     # <Parsing>
     data_parsed: str = JsonParserCrossref(data)
@@ -141,29 +74,38 @@ def classification_results(data: str) -> dict[str, list[str]]:
     print(data_to_classify_generic)
     # </debug>
 
+    return data_to_classify_generic
+# </Live Classification>
+
+# <Classification Response>
+def classification_results(data: str) -> dict[str, list[str]]:
+    """
+    :param data: It is not already parsed.
+    """
+
     challenges: str = json.dumps(
-        unsupervised_cosine_similarity(data_to_classify_generic,
+        unsupervised_cosine_similarity(data,
                                        challenge_keywords,
                                        precision_utility=0.10,
                                        precision=0.05)
     )
 
     themes: str = json.dumps(
-        unsupervised_cosine_similarity(data_to_classify_generic,
+        unsupervised_cosine_similarity(data,
                                        theme_keywords,
                                        precision_utility=0.20,
                                        precision=0.05)
     )
 
     scientificThemes: str = json.dumps(
-        unsupervised_cosine_similarity(data_to_classify_generic,
+        unsupervised_cosine_similarity(data,
                                        scientificTheme_keywords,
                                        precision_utility=0.10,
                                        precision=0.4)
     )
 
     mobilityTypes: str = json.dumps(
-        unsupervised_cosine_similarity(data_to_classify_generic,
+        unsupervised_cosine_similarity(data,
                                        mobilityType_keywords,
                                        precision_utility=0.20,
                                        precision=0.002)
@@ -173,7 +115,7 @@ def classification_results(data: str) -> dict[str, list[str]]:
         axes: str = "[]"
     else:
         axes: str = json.dumps(
-            unsupervised_cosine_similarity(data_to_classify_generic,
+            unsupervised_cosine_similarity(data,
                                            axe_keywords,
                                            precision_utility=0.10,
                                            precision=0.009)
@@ -183,7 +125,7 @@ def classification_results(data: str) -> dict[str, list[str]]:
         usages: str = "[]"
     else:
         usages: str = json.dumps(
-            unsupervised_cosine_similarity(data_to_classify_generic,
+            unsupervised_cosine_similarity(data,
                                            usage_keywords,
                                            precision_utility=0.25,
                                            precision=0.009)
@@ -197,7 +139,6 @@ def classification_results(data: str) -> dict[str, list[str]]:
         'axes': axes,
         'usages': usages,
     }
-# </Live Classification>
 
 def classification_error(results: dict[str, list[str]]) -> bool:
 
@@ -226,25 +167,45 @@ def classification_error(results: dict[str, list[str]]) -> bool:
         results['usages'] = '[ "Other" ]'
 
     return False
+# </Classification Response>
 
-# </Retrieve Classification Results>
-
-app = Flask(__name__)
-app.config['SECRET_KEY'] = BACKEND_SECRETKEY
-CORS(app, resources={r"/*": { "origins": "*" }})
-socketio = SocketIO(app, cors_allowed_origins="*")
+def create_app() -> Flask:
+    app = Flask(__name__)
+    app.config['SECRET_KEY'] = config.BACKEND_SECRETKEY
+    CORS(app, resources={r"/*": { "origins": "*" }})
+    socketio.init_app(app, cors_allowed_origins="*")
+    return app
 
 @socketio.on("connect")
 def connected():
-    """event listener when client connects to the classification module"""
     print(f'client number {request.sid} is connected')
 
 @socketio.on('data')
 def handle_message(data):
-    """event listener when client types a message"""
     print("data from the front end: ", str(data))
 
-@socketio.on('classification')
+@socketio.on_error()
+def handle_error(e):
+    error_str: str = e.__str__()
+    error_json_dict: dict[str, dict] = { 'error': { 'message': error_str } }
+    emit("classification_error", error_json_dict, to=request.sid)
+
+    emit(
+        "text_classification_results",
+        {
+            'challenges': '[]',
+            'themes': '[]',
+            'scientificThemes': '[]',
+            'mobilityTypes': '[]',
+            'axes': '[]',
+            'usages': '[]',
+        },
+        to=request.sid
+    )
+
+    print("ERROR:\n " + error_str + "\n/ERROR")
+
+@socketio.on('text_classification')
 def handle_classify(data: str) -> None:
     print(f"Classification query received: {data}")
     results = classification_results(data)
@@ -253,7 +214,7 @@ def handle_classify(data: str) -> None:
         return
 
     emit(
-        "classification_results",
+        "text_classification_results",
         {
             'challenges': results['challenges'],
             'themes': results['themes'],
@@ -270,7 +231,7 @@ def handle_json_classify(data: str) -> None:
     print(f"JSON Classification query received: {data}")
     data_dict = json.loads(data)
     doi = data_dict.get("DOI")
-    results = classification_results(data)
+    results = classification_results(live_parsing(data))
 
     if classification_error(results):
         return
@@ -294,7 +255,7 @@ def handle_json_classify(data: str) -> None:
     print(f"Dataset Classification query received: {data}")
     data_dict = json.loads(data)
     doi = data_dict.get("DOI")
-    results = dataset_classification_results(data)
+    results = dataset_classification_results(dataset_parsing(data))
 
     if classification_error(results):
         return
@@ -315,9 +276,14 @@ def handle_json_classify(data: str) -> None:
 
 @socketio.on("disconnect")
 def disconnected():
-    """event listener when client disconnects to the classification module"""
     print(f'client number {request.sid} is disconnected')
 
 if __name__ == '__main__':
-    socketio.run(app, debug=True, host=FRONTEND_HOST, port=BACKEND_PORT)
+    app: Flask = create_app()
+    socketio.run(
+        app,
+        debug=True,
+        host=config.FRONTEND_HOST,
+        port=config.BACKEND_PORT
+    )
 
