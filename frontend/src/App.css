@@ -1,1 +1,23 @@
+.App {
+    padding-top: 10vh;
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    min-width: 200px;
+}
+
+.MainButton {
+    font-size: 8rem;
+    margin: 4rem;
+    color: #fff;
+    background-color: #e8431e;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+MainButton:hover {
+    background-color: red;
+}
 

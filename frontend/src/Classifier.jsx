@@ -132,6 +132,7 @@ function Classifier() {
                     <button type="button" onClick={classifyText}>Valider</button>
                 </form>
             </div>
+
             <div className="Upload">
                 <label htmlFor="jsonUpload">
                     <strong>Importer une publication JSON :</strong>
@@ -142,7 +143,7 @@ function Classifier() {
                     accept=".json"
                     onChange={handleJsonUpload}
                     disabled={loading}
-                    style={{ marginLeft: '1rem' }}
+                    style={{ marginTop: '0.5rem', fontSize: '1rem' }}
                 />
             </div>
 
