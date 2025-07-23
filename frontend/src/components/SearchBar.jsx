@@ -3,7 +3,7 @@ import "./SearchBar.css";
 import { useState } from "react";
 import { FaSearch } from "react-icons/fa";
 
-import { socket } from "../socket";
+import { socket_retriever } from "../socket";
 
 export const SearchBar = ({ setResults, setError, setLoading, loading }) => {
     const [input, setInput] = useState("");
@@ -12,7 +12,7 @@ export const SearchBar = ({ setResults, setError, setLoading, loading }) => {
         if (e.key === "Enter" && !loading) {
             setLoading(true);
             setError(false);
-            socket.emit("search_query", JSON.stringify({
+            socket_retriever.emit("search_query", JSON.stringify({
                 query: input
             }));
         }

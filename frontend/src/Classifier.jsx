@@ -1,10 +1,10 @@
-import './App.css';
+import './Classifier.css';
 
 import { useState, useEffect } from 'react';
 
-import { socket } from './socket';
+import { socket_classifier } from './socket';
 
-function App() {
+function Classifier() {
     const [input, setInput] = useState('');
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
@@ -47,28 +47,28 @@ function App() {
     // ----------------------------------------------------------------------
 
     useEffect(() => {
-        socket.on("classification_error", (data) => {
+        socket_classifier.on("classification_error", (data) => {
             setError(data.error || "Unknown Error detected.");
             setLoading(false);
             setVariablesToFalse();
         });
 
-        socket.on("classification_results", (data) => {
+        socket_classifier.on("classification_results", (data) => {
             setLoading(false);
             setError(null);
             setVariablesToData(data);
         });
 
-        socket.on("json_classification_results", (data) => {
+        socket_classifier.on("json_classification_results", (data) => {
             setLoading(false);
             setError(null);
             setVariablesToData(data);
         });
 
         return () => {
-            socket.off("classification_results");
-            socket.off("classification_error");
-            socket.off("json_classification_results");
+            socket_classifier.off("classification_results");
+            socket_classifier.off("classification_error");
+            socket_classifier.off("json_classification_results");
         };
     }, []);
 
@@ -77,7 +77,7 @@ function App() {
             setVariablesToFalse();
             setLoading(true);
             setError(false);
-            socket.emit("classification", input);
+            socket_classifier.emit("classification", input);
         }
     };
 
@@ -102,7 +102,7 @@ function App() {
                 setLoading(true);
                 setError(null);
                 setVariablesToFalse();
-                socket.emit("json_classification", JSON.stringify(jsonContent));
+                socket_classifier.emit("json_classification", JSON.stringify(jsonContent));
             } catch (err) {
                 setError("JSON is invalid.");
             }
@@ -114,7 +114,7 @@ function App() {
     // ----------------------------------------------------------------------
 
     return (
-        <div>
+        <div className="Classifier">
             <h1>Classification des publications</h1>
             {loading && <span className="loading">Searching...</span>}
             <div id="data">
@@ -132,7 +132,7 @@ function App() {
                     <button type="button" onClick={classifyText}>Valider</button>
                 </form>
             </div>
-            <div>
+            <div className="Upload">
                 <label htmlFor="jsonUpload">
                     <strong>Importer une publication JSON :</strong>
                 </label>
@@ -206,7 +206,7 @@ function App() {
 
                 {usages && usages.length > 0 && (
                     <>
-                        <h2>usages associés :</h2>
+                        <h2>Usages associés :</h2>
                         <ul>
                             {usages.map((usage, index) => (
                                 <li key={index}>{usage}</li>
@@ -220,5 +220,5 @@ function App() {
     );
 }
 
-export default App;
+export default Classifier;
 

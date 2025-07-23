@@ -1,6 +1,6 @@
 import "./SearchResult.css";
 
-import { socket } from "../socket";
+import { socket_retriever } from "../socket";
 
 export const SearchResult = ({ item, loading, setLoading }) => {
     const title = item?.['title'] || "Untitled";
@@ -36,7 +36,7 @@ export const SearchResult = ({ item, loading, setLoading }) => {
 
         if (!loading && title !== "") {
             setLoading(true);
-            socket.emit("search_query", JSON.stringify({
+            socket_retriever.emit("search_query", JSON.stringify({
                 query: title,
                 offset: 0
             }));

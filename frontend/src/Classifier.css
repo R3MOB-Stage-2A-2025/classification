@@ -1,13 +1,19 @@
+.Classifier {
+    padding: 1rem;
+}
+
 h1 {
     margin-bottom: 0rem;
 }
 
 #data {
     margin: auto;
+    padding: 1rem;
     max-width: 1000px;
 }
 
 #textInput {
+    padding: 1rem;
     width: 100%;
     min-height: 200px;
     padding: 1rem;
@@ -21,6 +27,7 @@ h1 {
 
 button {
     margin-top: 2rem;
+    margin-bottom: 0.5rem;
     padding: 0.75rem 1.5rem;
     border: none;
     border-radius: 10px;
@@ -46,12 +53,16 @@ button:hover {
 
 #result ul {
     list-style-type: none;
-    padding: 0;
+    padding: 0.8rem;
 }
 
 #result li {
-    margin: -1rem; /* This thing is ugly but I don't like *CSS*. */
+    margin: 0.6rem;
     font-weight: bold;
     color: #444;
+}
+
+.Upload {
+    margin-bottom: 2rem;
 }
 
