@@ -50,10 +50,10 @@ function Classifier() {
         socket_classifier.on("classification_error", (data) => {
             setError(data.error || "Unknown Error detected.");
             setLoading(false);
-            setVariablesToFalse();
+            //setVariablesToFalse();
         });
 
-        socket_classifier.on("classification_results", (data) => {
+        socket_classifier.on("text_classification_results", (data) => {
             setLoading(false);
             setError(null);
             setVariablesToData(data);
@@ -66,8 +66,8 @@ function Classifier() {
         });
 
         return () => {
-            socket_classifier.off("classification_results");
             socket_classifier.off("classification_error");
+            socket_classifier.off("text_classification_results");
             socket_classifier.off("json_classification_results");
         };
     }, []);
@@ -77,7 +77,7 @@ function Classifier() {
             setVariablesToFalse();
             setLoading(true);
             setError(false);
-            socket_classifier.emit("classification", input);
+            socket_classifier.emit("text_classification", input);
         }
     };
 
@@ -115,8 +115,16 @@ function Classifier() {
 
     return (
         <div className="Classifier">
+
+            { error &&
+                <div className="error-wrapper-classifier">
+                    { error.message }
+                </div>
+            }
+
             <h1>Classification des publications</h1>
             {loading && <span className="loading">Searching...</span>}
+
             <div id="data">
                 <form id="classificationForm" onSubmit={(e) => e.preventDefault()}>
                     <textarea
@@ -148,8 +156,6 @@ function Classifier() {
             </div>
 
             <div id="result">
-                {error && <p>{error}</p>}
-
                 {challenges && challenges.length > 0 && (
                     <>
                         <h2>Enjeux associés :</h2>
