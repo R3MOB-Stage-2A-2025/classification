@@ -1,1652 +1,882 @@
 {
-  "10.1016/j.marpol.2022.105310":
-{
-    "challenges":
-"[\"Environnementaux\"]",
-    "themes":
-"[\"Energie\"]",
-    "scientificThemes":
-"[\"Marketing, Durabilit\\u00e9, Chaine d\\u2019approvisionnement, Logistiques, Inter & Multimodalit\\u00e9\", \"Mat\\u00e9riaux, A\\u00e9rodynamique, Transition \\u00e9cologique, \\u00c9nerg\\u00e9tique et Mobilit\\u00e9s durables\", \"Sciences \\u00e9conomique, \\u00c9valuation des politiques publiques, Mod\\u00e8les \\u00e9conomiques\"]",
-    "mobilityTypes":
-"[\"Fluvial/Maritime\"]",
-    "axes":
-"[\"Accompagner le d\\u00e9veloppement des syst\\u00e8mes de transports d\\u00e9carbon\\u00e9s et s\\u00fbrs\", \"Favoriser le report modal des marchandises vers le fer et le maritime et am\\u00e9liorer la logistique urbaine et rurale\"]",
-    "usages":
-"[ \"Other\" ]"
-  },
-  "10.1177/03611981231194630":
-{
-    "challenges":
-"[\"Strat\\u00e9giques\", \"Soci\\u00e9taux\", \"Economiques\"]",
-    "themes":
-"[\"Urbain\"]",
-    "scientificThemes":
-"[\"Sciences \\u00e9conomique, \\u00c9valuation des politiques publiques, Mod\\u00e8les \\u00e9conomiques\", \"G\\u00e9ographie, Territoires et Sociologie\", \"Marketing, Durabilit\\u00e9, Chaine d\\u2019approvisionnement, Logistiques, Inter & Multimodalit\\u00e9\"]",
-    "mobilityTypes":
-"[\"Routier\"]",
-    "axes":
-"[\"Peser sur les choix de modes de transport des voyageurs\"]",
-    "usages":
-"[ \"Other\" ]"
-  },
-  "10.1109/iscc58397.2023.10218018":
-{
-    "challenges":
-"[\"Technologiques\"]",
-    "themes":
-"[\"Urbain\", \"Communications\"]",
-    "scientificThemes":
-"[\"Communications, Infrastructures et Connectivit\\u00e9\", \"Mat\\u00e9riaux, A\\u00e9rodynamique, Transition \\u00e9cologique, \\u00c9nerg\\u00e9tique et Mobilit\\u00e9s durables\", \"Marketing, Durabilit\\u00e9, Chaine d\\u2019approvisionnement, Logistiques, Inter & Multimodalit\\u00e9\"]",
-    "mobilityTypes":
-"[\"Routier\"]",
-    "axes":
-"[\"Accompagner le d\\u00e9veloppement des syst\\u00e8mes de transports d\\u00e9carbon\\u00e9s et s\\u00fbrs\"]",
-    "usages":
-"[\"V\\u00e9hicule autonome et connect\\u00e9\"]"
-  },
-  "10.1007/978-3-319-90053-7_12":
-{
-    "challenges":
-"[\"Technologiques\"]",
-    "themes":
-"[\"Plateforme\"]",
-    "scientificThemes":
-"[\"Base et Traitement de donn\\u00e9es, IA\", \"Sciences cognitives, Interfaces H/M\", \"S\\u00e9curit\\u00e9, Cybers\\u00e9curit\\u00e9, R\\u00e9silience, Suret\\u00e9, Fonctionnement et Interop\\u00e9rabilit\\u00e9 des syst\\u00e8mes\"]",
-    "mobilityTypes":
-"[ \"Other\" ]",
-    "axes":
-"[ \"Other\" ]",
-    "usages":
-"[ \"Other\" ]"
-  },
-  "10.1109/icc45855.2022.9838640":
-{
-    "challenges":
-"[\"Technologiques\"]",
-    "themes":
-"[\"Urbain\", \"Communications\", \"Logistique\"]",
-    "scientificThemes":
-"[\"Communications, Infrastructures et Connectivit\\u00e9\", \"Base et Traitement de donn\\u00e9es, IA\", \"Marketing, Durabilit\\u00e9, Chaine d\\u2019approvisionnement, Logistiques, Inter & Multimodalit\\u00e9\"]",
-    "mobilityTypes":
-"[\"Routier\"]",
-    "axes":
-"[\"Accompagner le d\\u00e9veloppement des syst\\u00e8mes de transports d\\u00e9carbon\\u00e9s et s\\u00fbrs\"]",
-    "usages":
-"[\"V\\u00e9hicule autonome et connect\\u00e9\"]"
-  },
-  "10.1007/978-3-030-88418-5_2":
-{
-    "challenges":
-"[\"Strat\\u00e9giques\", \"Technologiques\"]",
-    "themes":
-"[ \"Other\" ]",
-    "scientificThemes":
-"[\"S\\u00e9curit\\u00e9, Cybers\\u00e9curit\\u00e9, R\\u00e9silience, Suret\\u00e9, Fonctionnement et Interop\\u00e9rabilit\\u00e9 des syst\\u00e8mes\", \"Sciences juridiques, R\\u00e8glementations et Assurances\", \"Marketing, Durabilit\\u00e9, Chaine d\\u2019approvisionnement, Logistiques, Inter & Multimodalit\\u00e9\"]",
-    "mobilityTypes":
-"[ \"Other\" ]",
-    "axes":
-"[ \"Other\" ]",
-    "usages":
-"[ \"Other\" ]"
-  },
-  "10.1109/tnsm.2023.3300653":
-{
-    "challenges":
-"[\"Technologiques\"]",
-    "themes":
-"[\"Communications\", \"Urbain\"]",
-    "scientificThemes":
-"[\"Communications, Infrastructures et Connectivit\\u00e9\", \"Mat\\u00e9riaux, A\\u00e9rodynamique, Transition \\u00e9cologique, \\u00c9nerg\\u00e9tique et Mobilit\\u00e9s durables\", \"Marketing, Durabilit\\u00e9, Chaine d\\u2019approvisionnement, Logistiques, Inter & Multimodalit\\u00e9\"]",
-    "mobilityTypes":
-"[\"Routier\"]",
-    "axes":
-"[\"Accompagner le d\\u00e9veloppement des syst\\u00e8mes de transports d\\u00e9carbon\\u00e9s et s\\u00fbrs\"]",
-    "usages":
-"[\"V\\u00e9hicule autonome et connect\\u00e9\"]"
-  },
-  "10.3934/proc.2011.2011.794":
-{
-    "challenges":
-"[ \"Other\"]",
-    "themes":
-"[ \"Other\" ]",
-    "scientificThemes":
-"[\"Mat\\u00e9riaux, A\\u00e9rodynamique, Transition \\u00e9cologique, \\u00c9nerg\\u00e9tique et Mobilit\\u00e9s durables\", \"Base et Traitement de donn\\u00e9es, IA\", \"Sciences \\u00e9conomique, \\u00c9valuation des politiques publiques, Mod\\u00e8les \\u00e9conomiques\"]",
-    "mobilityTypes":
-"[ \"Other\" ]",
-    "axes":
-"[ \"Other\" ]",
-    "usages":
-"[ \"Other\" ]"
-  },
-  "10.1016/j.jocm.2024.100476":
-{
-    "challenges":
-"[\"Economiques\"]",
-    "themes":
-"[\"Urbain\"]",
-    "scientificThemes":
-"[\"Sciences \\u00e9conomique, \\u00c9valuation des politiques publiques, Mod\\u00e8les \\u00e9conomiques\", \"Marketing, Durabilit\\u00e9, Chaine d\\u2019approvisionnement, Logistiques, Inter & Multimodalit\\u00e9\", \"Sciences cognitives, Interfaces H/M\"]",
-    "mobilityTypes":
-"[\"Routier\"]",
-    "axes":
-"[\"Accompagner le d\\u00e9veloppement des syst\\u00e8mes de transports d\\u00e9carbon\\u00e9s et s\\u00fbrs\", \"Peser sur les choix de modes de transport des voyageurs\"]",
-    "usages":
-"[ \"Other\" ]"
-  },
-  "10.1007/978-3-030-65810-6_1":
-{
-    "challenges":
-"[\"Technologiques\"]",
-    "themes":
-"[\"Urbain\"]",
-    "scientificThemes":
-"[\"Communications, Infrastructures et Connectivit\\u00e9\", \"Sciences \\u00e9conomique, \\u00c9valuation des politiques publiques, Mod\\u00e8les \\u00e9conomiques\", \"Marketing, Durabilit\\u00e9, Chaine d\\u2019approvisionnement, Logistiques, Inter & Multimodalit\\u00e9\"]",
-    "mobilityTypes":
-"[\"Routier\"]",
-    "axes":
-"[\"Accompagner le d\\u00e9veloppement des syst\\u00e8mes de transports d\\u00e9carbon\\u00e9s et s\\u00fbrs\"]",
-    "usages":
-"[\"V\\u00e9hicule autonome et connect\\u00e9\"]"
-  },
-  "10.1109/iwcmc51323.2021.9498980":
-{
-    "challenges":
-"[\"Soci\\u00e9taux\", \"Technologiques\"]",
-    "themes":
-"[ \"Other\" ]",
-    "scientificThemes":
-"[\"S\\u00e9curit\\u00e9, Cybers\\u00e9curit\\u00e9, R\\u00e9silience, Suret\\u00e9, Fonctionnement et Interop\\u00e9rabilit\\u00e9 des syst\\u00e8mes\", \"Communications, Infrastructures et Connectivit\\u00e9\", \"Sciences cognitives, Interfaces H/M\"]",
-    "mobilityTypes":
-"[\"Routier\"]",
-    "axes":
-"[\"Accompagner le d\\u00e9veloppement des syst\\u00e8mes de transports d\\u00e9carbon\\u00e9s et s\\u00fbrs\"]",
-    "usages":
-"[\"V\\u00e9hicule autonome et connect\\u00e9\"]"
-  },
-  "10.1145/3052973.3053000":
-{
-    "challenges":
-"[\"Strat\\u00e9giques\", \"Technologiques\"]",
-    "themes":
-"[ \"Other\" ]",
-    "scientificThemes":
-"[\"S\\u00e9curit\\u00e9, Cybers\\u00e9curit\\u00e9, R\\u00e9silience, Suret\\u00e9, Fonctionnement et Interop\\u00e9rabilit\\u00e9 des syst\\u00e8mes\", \"Sciences juridiques, R\\u00e8glementations et Assurances\", \"Marketing, Durabilit\\u00e9, Chaine d\\u2019approvisionnement, Logistiques, Inter & Multimodalit\\u00e9\"]",
-    "mobilityTypes":
-"[ \"Other\" ]",
-    "axes":
-"[ \"Other\" ]",
-    "usages":
-"[ \"Other\" ]"
-  },
-  "10.1002/smtd.201800215":
-{
-    "challenges":
-"[ \"Other\"]",
-    "themes":
-"[ \"Other\" ]",
-    "scientificThemes":
-"[\"Mat\\u00e9riaux, A\\u00e9rodynamique, Transition \\u00e9cologique, \\u00c9nerg\\u00e9tique et Mobilit\\u00e9s durables\"]",
-    "mobilityTypes":
-"[ \"Other\" ]",
-    "axes":
-"[ \"Other\" ]",
-    "usages":
-"[ \"Other\" ]"
-  },
-  "10.1109/vnc57357.2023.10136284":
-{
-    "challenges":
-"[\"Technologiques\"]",
-    "themes":
-"[\"Logistique\", \"Urbain\", \"Rural\"]",
-    "scientificThemes":
-"[\"Marketing, Durabilit\\u00e9, Chaine d\\u2019approvisionnement, Logistiques, Inter & Multimodalit\\u00e9\", \"Mat\\u00e9riaux, A\\u00e9rodynamique, Transition \\u00e9cologique, \\u00c9nerg\\u00e9tique et Mobilit\\u00e9s durables\", \"Sciences \\u00e9conomique, \\u00c9valuation des politiques publiques, Mod\\u00e8les \\u00e9conomiques\"]",
-    "mobilityTypes":
-"[\"Routier\"]",
-    "axes":
-"[\"Peser sur les choix de modes de transport des voyageurs\"]",
-    "usages":
-"[\"V\\u00e9hicule autonome et connect\\u00e9\"]"
-  },
-  "10.1145/3477314.3507202":
-{
-    "challenges":
-"[\"Technologiques\"]",
-    "themes":
-"[\"Communications\"]",
-    "scientificThemes":
-"[\"S\\u00e9curit\\u00e9, Cybers\\u00e9curit\\u00e9, R\\u00e9silience, Suret\\u00e9, Fonctionnement et Interop\\u00e9rabilit\\u00e9 des syst\\u00e8mes\", \"Communications, Infrastructures et Connectivit\\u00e9\", \"Sciences juridiques, R\\u00e8glementations et Assurances\"]",
-    "mobilityTypes":
-"[\"Routier\"]",
-    "axes":
-"[\"Accompagner le d\\u00e9veloppement des syst\\u00e8mes de transports d\\u00e9carbon\\u00e9s et s\\u00fbrs\"]",
-    "usages":
-"[\"V\\u00e9hicule autonome et connect\\u00e9\"]"
-  },
-  "10.1016/j.ejor.2024.05.031":
-{
-    "challenges":
-"[\"Technologiques\"]",
-    "themes":
-"[\"Logistique\", \"Urbain\", \"Rural\"]",
-    "scientificThemes":
-"[\"Mat\\u00e9riaux, A\\u00e9rodynamique, Transition \\u00e9cologique, \\u00c9nerg\\u00e9tique et Mobilit\\u00e9s durables\", \"Marketing, Durabilit\\u00e9, Chaine d\\u2019approvisionnement, Logistiques, Inter & Multimodalit\\u00e9\", \"Communications, Infrastructures et Connectivit\\u00e9\"]",
-    "mobilityTypes":
-"[\"A\\u00e9rien\"]",
-    "axes":
-"[\"Favoriser le report modal des marchandises vers le fer et le maritime et am\\u00e9liorer la logistique urbaine et rurale\"]",
-    "usages":
-"[\"V\\u00e9hicule autonome et connect\\u00e9\"]"
-  },
-  "10.1007/978-3-030-99587-4_29":
-{
-    "challenges":
-"[\"Technologiques\"]",
-    "themes":
-"[\"Communications\"]",
-    "scientificThemes":
-"[\"Base et Traitement de donn\\u00e9es, IA\", \"S\\u00e9curit\\u00e9, Cybers\\u00e9curit\\u00e9, R\\u00e9silience, Suret\\u00e9, Fonctionnement et Interop\\u00e9rabilit\\u00e9 des syst\\u00e8mes\", \"Marketing, Durabilit\\u00e9, Chaine d\\u2019approvisionnement, Logistiques, Inter & Multimodalit\\u00e9\"]",
-    "mobilityTypes":
-"[ \"Other\" ]",
-    "axes":
-"[ \"Other\" ]",
-    "usages":
-"[ \"Other\" ]"
-  },
-  "10.3233/fi-1996-263406":
-{
-    "challenges":
-"[\"Technologiques\"]",
-    "themes":
-"[\"Communications\", \"Logistique\", \"Mat\\u00e9riaux\"]",
-    "scientificThemes":
-"[\"Sciences cognitives, Interfaces H/M\", \"Base et Traitement de donn\\u00e9es, IA\", \"Marketing, Durabilit\\u00e9, Chaine d\\u2019approvisionnement, Logistiques, Inter & Multimodalit\\u00e9\"]",
-    "mobilityTypes":
-"[ \"Other\" ]",
-    "axes":
-"[ \"Other\" ]",
-    "usages":
-"[ \"Other\" ]"
-  },
-  "10.1007/978-3-030-75075-6_8":
-{
-    "challenges":
-"[\"Technologiques\"]",
-    "themes":
-"[\"Communications\"]",
-    "scientificThemes":
-"[\"S\\u00e9curit\\u00e9, Cybers\\u00e9curit\\u00e9, R\\u00e9silience, Suret\\u00e9, Fonctionnement et Interop\\u00e9rabilit\\u00e9 des syst\\u00e8mes\", \"Communications, Infrastructures et Connectivit\\u00e9\", \"Capteurs et Traitement du signal\"]",
-    "mobilityTypes":
-"[ \"Other\" ]",
-    "axes":
-"[ \"Other\" ]",
-    "usages":
-"[ \"Other\" ]"
-  },
-  "10.26904/rf-148-4826204184":
-{
-    "challenges":
-"[\"Strat\\u00e9giques\", \"Technologiques\", \"Soci\\u00e9taux\"]",
-    "themes":
-"[ \"Other\" ]",
-    "scientificThemes":
-"[\"Sciences cognitives, Interfaces H/M\", \"G\\u00e9ographie, Territoires et Sociologie\", \"Marketing, Durabilit\\u00e9, Chaine d\\u2019approvisionnement, Logistiques, Inter & Multimodalit\\u00e9\"]",
-    "mobilityTypes":
-"[ \"Other\" ]",
-    "axes":
-"[ \"Other\" ]",
-    "usages":
-"[ \"Other\" ]"
-  },
-  "10.4236/jemaa.2020.129011":
-{
-    "challenges":
-"[ \"Other\"]",
-    "themes":
-"[\"Communications\", \"Mat\\u00e9riaux\"]",
-    "scientificThemes":
-"[ \"Other\" ]",
-    "mobilityTypes":
-"[ \"Other\" ]",
-    "axes":
-"[ \"Other\" ]",
-    "usages":
-"[ \"Other\" ]"
-  },
-  "10.1016/j.trb.2022.08.007":
-{
-    "challenges":
-"[\"Strat\\u00e9giques\", \"Technologiques\", \"Economiques\"]",
-    "themes":
-"[\"Urbain\"]",
-    "scientificThemes":
-"[\"Marketing, Durabilit\\u00e9, Chaine d\\u2019approvisionnement, Logistiques, Inter & Multimodalit\\u00e9\", \"Sciences \\u00e9conomique, \\u00c9valuation des politiques publiques, Mod\\u00e8les \\u00e9conomiques\", \"Mat\\u00e9riaux, A\\u00e9rodynamique, Transition \\u00e9cologique, \\u00c9nerg\\u00e9tique et Mobilit\\u00e9s durables\"]",
-    "mobilityTypes":
-"[\"Routier\"]",
-    "axes":
-"[\"Accompagner le d\\u00e9veloppement des syst\\u00e8mes de transports d\\u00e9carbon\\u00e9s et s\\u00fbrs\"]",
-    "usages":
-"[\"V\\u00e9hicule autonome et connect\\u00e9\"]"
-  },
-  "10.1109/noms56928.2023.10154436":
-{
-    "challenges":
-"[\"Technologiques\"]",
-    "themes":
-"[\"Logistique\", \"Communications\"]",
-    "scientificThemes":
-"[\"Marketing, Durabilit\\u00e9, Chaine d\\u2019approvisionnement, Logistiques, Inter & Multimodalit\\u00e9\", \"Communications, Infrastructures et Connectivit\\u00e9\", \"Sciences cognitives, Interfaces H/M\"]",
-    "mobilityTypes":
-"[ \"Other\" ]",
-    "axes":
-"[ \"Other\" ]",
-    "usages":
-"[ \"Other\" ]"
-  },
-  "10.1016/j.ejor.2020.04.016":
-{
-    "challenges":
-"[\"Strat\\u00e9giques\", \"Technologiques\", \"Economiques\"]",
-    "themes":
-"[\"Logistique\"]",
-    "scientificThemes":
-"[\"Marketing, Durabilit\\u00e9, Chaine d\\u2019approvisionnement, Logistiques, Inter & Multimodalit\\u00e9\", \"Communications, Infrastructures et Connectivit\\u00e9\", \"Sciences \\u00e9conomique, \\u00c9valuation des politiques publiques, Mod\\u00e8les \\u00e9conomiques\"]",
-    "mobilityTypes":
-"[\"Routier\"]",
-    "axes":
-"[\"Favoriser le report modal des marchandises vers le fer et le maritime et am\\u00e9liorer la logistique urbaine et rurale\"]",
-    "usages":
-"[ \"Other\" ]"
-  },
-  "10.62036/isd.2022.6":
-{
-    "challenges":
-"[\"Environnementaux\"]",
-    "themes":
-"[\"Energie\"]",
-    "scientificThemes":
-"[\"Marketing, Durabilit\\u00e9, Chaine d\\u2019approvisionnement, Logistiques, Inter & Multimodalit\\u00e9\", \"Mat\\u00e9riaux, A\\u00e9rodynamique, Transition \\u00e9cologique, \\u00c9nerg\\u00e9tique et Mobilit\\u00e9s durables\", \"Sciences cognitives, Interfaces H/M\"]",
-    "mobilityTypes":
-"[ \"Other\" ]",
-    "axes":
-"[ \"Other\" ]",
-    "usages":
-"[ \"Other\" ]"
-  },
-  "10.60662/6sm3-5f44":
-{
-    "challenges":
-"[\"Soci\\u00e9taux\"]",
-    "themes":
-"[ \"Other\" ]",
-    "scientificThemes":
-"[\"G\\u00e9ographie, Territoires et Sociologie\", \"Sciences \\u00e9conomique, \\u00c9valuation des politiques publiques, Mod\\u00e8les \\u00e9conomiques\", \"Sciences juridiques, R\\u00e8glementations et Assurances\"]",
-    "mobilityTypes":
-"[ \"Other\" ]",
-    "axes":
-"[ \"Other\" ]",
-    "usages":
-"[ \"Other\" ]"
-  },
-  "10.1109/icc45041.2023.10279368":
-{
-    "challenges":
-"[\"Technologiques\"]",
-    "themes":
-"[ \"Other\" ]",
-    "scientificThemes":
-"[\"S\\u00e9curit\\u00e9, Cybers\\u00e9curit\\u00e9, R\\u00e9silience, Suret\\u00e9, Fonctionnement et Interop\\u00e9rabilit\\u00e9 des syst\\u00e8mes\", \"Base et Traitement de donn\\u00e9es, IA\", \"Communications, Infrastructures et Connectivit\\u00e9\"]",
-    "mobilityTypes":
-"[ \"Other\" ]",
-    "axes":
-"[ \"Other\" ]",
-    "usages":
-"[ \"Other\" ]"
-  },
-  "10.1016/j.buildenv.2022.108786":
-{
-    "challenges":
-"[\"Strat\\u00e9giques\", \"Technologiques\", \"Environnementaux\"]",
-    "themes":
-"[\"Urbain\", \"Logistique\", \"Plateforme\"]",
-    "scientificThemes":
-"[\"Marketing, Durabilit\\u00e9, Chaine d\\u2019approvisionnement, Logistiques, Inter & Multimodalit\\u00e9\", \"Sciences cognitives, Interfaces H/M\", \"Base et Traitement de donn\\u00e9es, IA\"]",
-    "mobilityTypes":
-"[\"Routier\"]",
-    "axes":
-"[\"Favoriser le report modal des marchandises vers le fer et le maritime et am\\u00e9liorer la logistique urbaine et rurale\"]",
-    "usages":
-"[ \"Other\" ]"
-  },
-  "10.1504/writr.2021.113482":
-{
-    "challenges":
-"[\"Strat\\u00e9giques\"]",
-    "themes":
-"[\"Logistique\", \"Transfrontalier\"]",
-    "scientificThemes":
-"[\"Marketing, Durabilit\\u00e9, Chaine d\\u2019approvisionnement, Logistiques, Inter & Multimodalit\\u00e9\", \"Sciences juridiques, R\\u00e8glementations et Assurances\", \"Sciences \\u00e9conomique, \\u00c9valuation des politiques publiques, Mod\\u00e8les \\u00e9conomiques\"]",
-    "mobilityTypes":
-"[\"Fluvial/Maritime\"]",
-    "axes":
-"[\"Favoriser le report modal des marchandises vers le fer et le maritime et am\\u00e9liorer la logistique urbaine et rurale\"]",
-    "usages":
-"[ \"Other\" ]"
-  },
-  "10.1016/j.jweia.2019.104062":
-{
-    "challenges":
-"[\"Technologiques\", \"Environnementaux\"]",
-    "themes":
-"[\"Mat\\u00e9riaux\"]",
-    "scientificThemes":
-"[\"Mat\\u00e9riaux, A\\u00e9rodynamique, Transition \\u00e9cologique, \\u00c9nerg\\u00e9tique et Mobilit\\u00e9s durables\", \"Sciences cognitives, Interfaces H/M\", \"Base et Traitement de donn\\u00e9es, IA\"]",
-    "mobilityTypes":
-"[\"A\\u00e9rien\"]",
-    "axes":
-"[\"Accompagner le d\\u00e9veloppement des syst\\u00e8mes de transports d\\u00e9carbon\\u00e9s et s\\u00fbrs\"]",
-    "usages":
-"[ \"Other\" ]"
-  },
-  "10.1049/iet-cta.2020.0167":
-{
-    "challenges":
-"[ \"Other\"]",
-    "themes":
-"[ \"Other\" ]",
-    "scientificThemes":
-"[ \"Other\" ]",
-    "mobilityTypes":
-"[ \"Other\" ]",
-    "axes":
-"[ \"Other\" ]",
-    "usages":
-"[ \"Other\" ]"
-  },
-  "10.1016/j.techsoc.2023.102298":
-{
-    "challenges":
-"[\"Strat\\u00e9giques\", \"Technologiques\"]",
-    "themes":
-"[\"Plateforme\"]",
-    "scientificThemes":
-"[\"Sciences cognitives, Interfaces H/M\", \"Marketing, Durabilit\\u00e9, Chaine d\\u2019approvisionnement, Logistiques, Inter & Multimodalit\\u00e9\", \"S\\u00e9curit\\u00e9, Cybers\\u00e9curit\\u00e9, R\\u00e9silience, Suret\\u00e9, Fonctionnement et Interop\\u00e9rabilit\\u00e9 des syst\\u00e8mes\"]",
-    "mobilityTypes":
-"[\"Routier\"]",
-    "axes":
-"[\"Accompagner le d\\u00e9veloppement des syst\\u00e8mes de transports d\\u00e9carbon\\u00e9s et s\\u00fbrs\", \"Favoriser le report modal des marchandises vers le fer et le maritime et am\\u00e9liorer la logistique urbaine et rurale\"]",
-    "usages":
-"[ \"Other\" ]"
-  },
-  "10.23919/cnsm55787.2022.9964740":
-{
-    "challenges":
-"[\"Technologiques\"]",
-    "themes":
-"[\"Communications\", \"Urbain\", \"Logistique\"]",
-    "scientificThemes":
-"[\"Marketing, Durabilit\\u00e9, Chaine d\\u2019approvisionnement, Logistiques, Inter & Multimodalit\\u00e9\", \"Communications, Infrastructures et Connectivit\\u00e9\", \"Mat\\u00e9riaux, A\\u00e9rodynamique, Transition \\u00e9cologique, \\u00c9nerg\\u00e9tique et Mobilit\\u00e9s durables\"]",
-    "mobilityTypes":
-"[\"Routier\"]",
-    "axes":
-"[\"Accompagner le d\\u00e9veloppement des syst\\u00e8mes de transports d\\u00e9carbon\\u00e9s et s\\u00fbrs\", \"Peser sur les choix de modes de transport des voyageurs\"]",
-    "usages":
-"[\"V\\u00e9hicule autonome et connect\\u00e9\"]"
-  },
-  "10.1109/access.2023.3302529":
-{
-    "challenges":
-"[\"Technologiques\"]",
-    "themes":
-"[\"Communications\"]",
-    "scientificThemes":
-"[\"S\\u00e9curit\\u00e9, Cybers\\u00e9curit\\u00e9, R\\u00e9silience, Suret\\u00e9, Fonctionnement et Interop\\u00e9rabilit\\u00e9 des syst\\u00e8mes\", \"Communications, Infrastructures et Connectivit\\u00e9\", \"Capteurs et Traitement du signal\"]",
-    "mobilityTypes":
-"[ \"Other\" ]",
-    "axes":
-"[ \"Other\" ]",
-    "usages":
-"[ \"Other\" ]"
-  },
-  "10.1093/oxfordhb/9780197501061.013.17":
-{
-    "challenges":
-"[\"Strat\\u00e9giques\"]",
-    "themes":
-"[ \"Other\" ]",
-    "scientificThemes":
-"[\"Marketing, Durabilit\\u00e9, Chaine d\\u2019approvisionnement, Logistiques, Inter & Multimodalit\\u00e9\", \"Sciences cognitives, Interfaces H/M\", \"S\\u00e9curit\\u00e9, Cybers\\u00e9curit\\u00e9, R\\u00e9silience, Suret\\u00e9, Fonctionnement et Interop\\u00e9rabilit\\u00e9 des syst\\u00e8mes\"]",
-    "mobilityTypes":
-"[ \"Other\" ]",
-    "axes":
-"[ \"Other\" ]",
-    "usages":
-"[ \"Other\" ]"
-  },
-  "10.1007/s00348-016-2120-1":
-{
-    "challenges":
-"[\"Environnementaux\"]",
-    "themes":
-"[\"Mat\\u00e9riaux\"]",
-    "scientificThemes":
-"[\"Mat\\u00e9riaux, A\\u00e9rodynamique, Transition \\u00e9cologique, \\u00c9nerg\\u00e9tique et Mobilit\\u00e9s durables\", \"Sciences \\u00e9conomique, \\u00c9valuation des politiques publiques, Mod\\u00e8les \\u00e9conomiques\", \"Marketing, Durabilit\\u00e9, Chaine d\\u2019approvisionnement, Logistiques, Inter & Multimodalit\\u00e9\"]",
-    "mobilityTypes":
-"[\"Transport par cables\"]",
-    "axes":
-"[\"Accompagner le d\\u00e9veloppement des syst\\u00e8mes de transports d\\u00e9carbon\\u00e9s et s\\u00fbrs\"]",
-    "usages":
-"[ \"Other\" ]"
-  },
-  "10.1109/sensors47125.2020.9278843":
-{
-    "challenges":
-"[\"Environnementaux\", \"Technologiques\"]",
-    "themes":
-"[\"Energie\"]",
-    "scientificThemes":
-"[ \"Other\" ]",
-    "mobilityTypes":
-"[ \"Other\" ]",
-    "axes":
-"[ \"Other\" ]",
-    "usages":
-"[ \"Other\" ]"
-  },
-  "10.1002/cpe.6038":
-{
-    "challenges":
-"[ \"Other\"]",
-    "themes":
-"[ \"Other\" ]",
-    "scientificThemes":
-"[ \"Other\" ]",
-    "mobilityTypes":
-"[ \"Other\" ]",
-    "axes":
-"[ \"Other\" ]",
-    "usages":
-"[ \"Other\" ]"
-  },
-  "10.1109/mt-its56129.2023.10241504":
-{
-    "challenges":
-"[\"Strat\\u00e9giques\", \"Technologiques\", \"Environnementaux\"]",
-    "themes":
-"[\"Urbain\"]",
-    "scientificThemes":
-"[\"Marketing, Durabilit\\u00e9, Chaine d\\u2019approvisionnement, Logistiques, Inter & Multimodalit\\u00e9\", \"Sciences \\u00e9conomique, \\u00c9valuation des politiques publiques, Mod\\u00e8les \\u00e9conomiques\", \"G\\u00e9ographie, Territoires et Sociologie\"]",
-    "mobilityTypes":
-"[\"Routier\"]",
-    "axes":
-"[\"Peser sur les choix de modes de transport des voyageurs\"]",
-    "usages":
-"[\"V\\u00e9hicule autonome et connect\\u00e9\"]"
-  },
-  "10.1108/lht-01-2021-0013":
-{
-    "challenges":
-"[\"Technologiques\"]",
-    "themes":
-"[\"Plateforme\", \"Communications\"]",
-    "scientificThemes":
-"[\"S\\u00e9curit\\u00e9, Cybers\\u00e9curit\\u00e9, R\\u00e9silience, Suret\\u00e9, Fonctionnement et Interop\\u00e9rabilit\\u00e9 des syst\\u00e8mes\", \"Communications, Infrastructures et Connectivit\\u00e9\", \"Mat\\u00e9riaux, A\\u00e9rodynamique, Transition \\u00e9cologique, \\u00c9nerg\\u00e9tique et Mobilit\\u00e9s durables\"]",
-    "mobilityTypes":
-"[\"Routier\"]",
-    "axes":
-"[\"Accompagner le d\\u00e9veloppement des syst\\u00e8mes de transports d\\u00e9carbon\\u00e9s et s\\u00fbrs\"]",
-    "usages":
-"[\"V\\u00e9hicule autonome et connect\\u00e9\"]"
-  },
-  "10.1007/978-3-031-27540-1_6":
-{
-    "challenges":
-"[\"Technologiques\"]",
-    "themes":
-"[\"Communications\", \"Logistique\"]",
-    "scientificThemes":
-"[\"Capteurs et Traitement du signal\", \"Base et Traitement de donn\\u00e9es, IA\", \"S\\u00e9curit\\u00e9, Cybers\\u00e9curit\\u00e9, R\\u00e9silience, Suret\\u00e9, Fonctionnement et Interop\\u00e9rabilit\\u00e9 des syst\\u00e8mes\"]",
-    "mobilityTypes":
-"[ \"Other\" ]",
-    "axes":
-"[ \"Other\" ]",
-    "usages":
-"[ \"Other\" ]"
-  },
-  "10.1109/ccnc49033.2022.9700610":
-{
-    "challenges":
-"[\"Technologiques\"]",
-    "themes":
-"[\"Communications\"]",
-    "scientificThemes":
-"[\"Communications, Infrastructures et Connectivit\\u00e9\", \"Marketing, Durabilit\\u00e9, Chaine d\\u2019approvisionnement, Logistiques, Inter & Multimodalit\\u00e9\", \"S\\u00e9curit\\u00e9, Cybers\\u00e9curit\\u00e9, R\\u00e9silience, Suret\\u00e9, Fonctionnement et Interop\\u00e9rabilit\\u00e9 des syst\\u00e8mes\"]",
-    "mobilityTypes":
-"[\"Routier\"]",
-    "axes":
-"[\"Accompagner le d\\u00e9veloppement des syst\\u00e8mes de transports d\\u00e9carbon\\u00e9s et s\\u00fbrs\"]",
-    "usages":
-"[\"V\\u00e9hicule autonome et connect\\u00e9\"]"
-  },
-  "10.1007/978-981-19-3359-2_26":
-{
-    "challenges":
-"[\"Strat\\u00e9giques\", \"Soci\\u00e9taux\", \"Economiques\"]",
-    "themes":
-"[\"Urbain\"]",
-    "scientificThemes":
-"[\"Sciences \\u00e9conomique, \\u00c9valuation des politiques publiques, Mod\\u00e8les \\u00e9conomiques\", \"G\\u00e9ographie, Territoires et Sociologie\", \"Marketing, Durabilit\\u00e9, Chaine d\\u2019approvisionnement, Logistiques, Inter & Multimodalit\\u00e9\"]",
-    "mobilityTypes":
-"[\"Routier\"]",
-    "axes":
-"[\"Accompagner le d\\u00e9veloppement des syst\\u00e8mes de transports d\\u00e9carbon\\u00e9s et s\\u00fbrs\"]",
-    "usages":
-"[\"V\\u00e9hicule autonome et connect\\u00e9\"]"
-  },
-  "10.1109/wcnc55385.2023.10118857":
-{
-    "challenges":
-"[\"Technologiques\"]",
-    "themes":
-"[\"Communications\", \"Logistique\"]",
-    "scientificThemes":
-"[\"Marketing, Durabilit\\u00e9, Chaine d\\u2019approvisionnement, Logistiques, Inter & Multimodalit\\u00e9\", \"Communications, Infrastructures et Connectivit\\u00e9\", \"Base et Traitement de donn\\u00e9es, IA\"]",
-    "mobilityTypes":
-"[\"Routier\"]",
-    "axes":
-"[\"Accompagner le d\\u00e9veloppement des syst\\u00e8mes de transports d\\u00e9carbon\\u00e9s et s\\u00fbrs\"]",
-    "usages":
-"[\"V\\u00e9hicule autonome et connect\\u00e9\"]"
-  },
-  "10.1016/j.trip.2023.100953":
-{
-    "challenges":
-"[\"Environnementaux\"]",
-    "themes":
-"[ \"Other\" ]",
-    "scientificThemes":
-"[\"Mat\\u00e9riaux, A\\u00e9rodynamique, Transition \\u00e9cologique, \\u00c9nerg\\u00e9tique et Mobilit\\u00e9s durables\", \"Sciences juridiques, R\\u00e8glementations et Assurances\", \"Marketing, Durabilit\\u00e9, Chaine d\\u2019approvisionnement, Logistiques, Inter & Multimodalit\\u00e9\"]",
-    "mobilityTypes":
-"[\"A\\u00e9rien\"]",
-    "axes":
-"[\"Accompagner le d\\u00e9veloppement des syst\\u00e8mes de transports d\\u00e9carbon\\u00e9s et s\\u00fbrs\"]",
-    "usages":
-"[ \"Other\" ]"
-  },
-  "10.1007/978-3-030-75078-7_34":
-{
-    "challenges":
-"[\"Technologiques\"]",
-    "themes":
-"[\"Plateforme\", \"Communications\"]",
-    "scientificThemes":
-"[\"S\\u00e9curit\\u00e9, Cybers\\u00e9curit\\u00e9, R\\u00e9silience, Suret\\u00e9, Fonctionnement et Interop\\u00e9rabilit\\u00e9 des syst\\u00e8mes\", \"Communications, Infrastructures et Connectivit\\u00e9\", \"Capteurs et Traitement du signal\"]",
-    "mobilityTypes":
-"[ \"Other\" ]",
-    "axes":
-"[ \"Other\" ]",
-    "usages":
-"[ \"Other\" ]"
-  },
-  "10.2991/ijndc.k.200829.001":
-{
-    "challenges":
-"[\"Technologiques\"]",
-    "themes":
-"[\"Urbain\", \"Logistique\", \"Rural\"]",
-    "scientificThemes":
-"[\"S\\u00e9curit\\u00e9, Cybers\\u00e9curit\\u00e9, R\\u00e9silience, Suret\\u00e9, Fonctionnement et Interop\\u00e9rabilit\\u00e9 des syst\\u00e8mes\", \"Communications, Infrastructures et Connectivit\\u00e9\", \"Marketing, Durabilit\\u00e9, Chaine d\\u2019approvisionnement, Logistiques, Inter & Multimodalit\\u00e9\"]",
-    "mobilityTypes":
-"[\"Routier\"]",
-    "axes":
-"[\"Accompagner le d\\u00e9veloppement des syst\\u00e8mes de transports d\\u00e9carbon\\u00e9s et s\\u00fbrs\"]",
-    "usages":
-"[\"V\\u00e9hicule autonome et connect\\u00e9\"]"
-  },
-  "10.1016/j.fss.2018.02.006":
-{
-    "challenges":
-"[\"Strat\\u00e9giques\", \"Economiques\"]",
-    "themes":
-"[\"Urbain\", \"Logistique\", \"Mat\\u00e9riaux\"]",
-    "scientificThemes":
-"[\"Sciences \\u00e9conomique, \\u00c9valuation des politiques publiques, Mod\\u00e8les \\u00e9conomiques\", \"Base et Traitement de donn\\u00e9es, IA\", \"Sciences cognitives, Interfaces H/M\"]",
-    "mobilityTypes":
-"[\"Fluvial/Maritime\"]",
-    "axes":
-"[\"Accompagner le d\\u00e9veloppement des syst\\u00e8mes de transports d\\u00e9carbon\\u00e9s et s\\u00fbrs\"]",
-    "usages":
-"[ \"Other\" ]"
-  },
-  "10.1016/j.jweia.2023.105366":
-{
-    "challenges":
-"[\"Environnementaux\"]",
-    "themes":
-"[\"Mat\\u00e9riaux\"]",
-    "scientificThemes":
-"[\"Mat\\u00e9riaux, A\\u00e9rodynamique, Transition \\u00e9cologique, \\u00c9nerg\\u00e9tique et Mobilit\\u00e9s durables\", \"Sciences cognitives, Interfaces H/M\", \"Marketing, Durabilit\\u00e9, Chaine d\\u2019approvisionnement, Logistiques, Inter & Multimodalit\\u00e9\"]",
-    "mobilityTypes":
-"[\"Routier\"]",
-    "axes":
-"[\"Accompagner le d\\u00e9veloppement des syst\\u00e8mes de transports d\\u00e9carbon\\u00e9s et s\\u00fbrs\"]",
-    "usages":
-"[ \"Other\" ]"
-  },
-  "10.1016/j.jweia.2018.01.040":
-{
-    "challenges":
-"[\"Environnementaux\"]",
-    "themes":
-"[\"Mat\\u00e9riaux\"]",
-    "scientificThemes":
-"[\"Mat\\u00e9riaux, A\\u00e9rodynamique, Transition \\u00e9cologique, \\u00c9nerg\\u00e9tique et Mobilit\\u00e9s durables\", \"Sciences cognitives, Interfaces H/M\", \"Marketing, Durabilit\\u00e9, Chaine d\\u2019approvisionnement, Logistiques, Inter & Multimodalit\\u00e9\"]",
-    "mobilityTypes":
-"[\"Fluvial/Maritime\"]",
-    "axes":
-"[\"Accompagner le d\\u00e9veloppement des syst\\u00e8mes de transports d\\u00e9carbon\\u00e9s et s\\u00fbrs\"]",
-    "usages":
-"[ \"Other\" ]"
-  },
-  "10.3390/s22249570":
-{
-    "challenges":
-"[\"Technologiques\", \"Environnementaux\", \"Strat\\u00e9giques\"]",
-    "themes":
-"[\"Urbain\", \"Communications\"]",
-    "scientificThemes":
-"[\"Communications, Infrastructures et Connectivit\\u00e9\", \"Marketing, Durabilit\\u00e9, Chaine d\\u2019approvisionnement, Logistiques, Inter & Multimodalit\\u00e9\", \"Mat\\u00e9riaux, A\\u00e9rodynamique, Transition \\u00e9cologique, \\u00c9nerg\\u00e9tique et Mobilit\\u00e9s durables\"]",
-    "mobilityTypes":
-"[\"Routier\"]",
-    "axes":
-"[\"Accompagner le d\\u00e9veloppement des syst\\u00e8mes de transports d\\u00e9carbon\\u00e9s et s\\u00fbrs\"]",
-    "usages":
-"[\"V\\u00e9hicule autonome et connect\\u00e9\"]"
-  },
-  "10.1109/globecom48099.2022.10000721":
-{
-    "challenges":
-"[\"Technologiques\"]",
-    "themes":
-"[\"Communications\"]",
-    "scientificThemes":
-"[\"Communications, Infrastructures et Connectivit\\u00e9\", \"G\\u00e9ographie, Territoires et Sociologie\", \"S\\u00e9curit\\u00e9, Cybers\\u00e9curit\\u00e9, R\\u00e9silience, Suret\\u00e9, Fonctionnement et Interop\\u00e9rabilit\\u00e9 des syst\\u00e8mes\"]",
-    "mobilityTypes":
-"[\"Routier\"]",
-    "axes":
-"[\"Accompagner le d\\u00e9veloppement des syst\\u00e8mes de transports d\\u00e9carbon\\u00e9s et s\\u00fbrs\", \"Peser sur les choix de modes de transport des voyageurs\", \"Favoriser le report modal des marchandises vers le fer et le maritime et am\\u00e9liorer la logistique urbaine et rurale\"]",
-    "usages":
-"[\"V\\u00e9hicule autonome et connect\\u00e9\"]"
-  },
-  "10.1016/j.ifacol.2021.08.102":
-{
-    "challenges":
-"[\"Technologiques\"]",
-    "themes":
-"[ \"Other\" ]",
-    "scientificThemes":
-"[\"Sciences cognitives, Interfaces H/M\", \"S\\u00e9curit\\u00e9, Cybers\\u00e9curit\\u00e9, R\\u00e9silience, Suret\\u00e9, Fonctionnement et Interop\\u00e9rabilit\\u00e9 des syst\\u00e8mes\", \"Marketing, Durabilit\\u00e9, Chaine d\\u2019approvisionnement, Logistiques, Inter & Multimodalit\\u00e9\"]",
-    "mobilityTypes":
-"[ \"Other\" ]",
-    "axes":
-"[ \"Other\" ]",
-    "usages":
-"[ \"Other\" ]"
-  },
-  "10.1016/j.est.2021.103273":
-{
-    "challenges":
-"[\"Environnementaux\"]",
-    "themes":
-"[\"Energie\"]",
-    "scientificThemes":
-"[\"Mat\\u00e9riaux, A\\u00e9rodynamique, Transition \\u00e9cologique, \\u00c9nerg\\u00e9tique et Mobilit\\u00e9s durables\", \"Marketing, Durabilit\\u00e9, Chaine d\\u2019approvisionnement, Logistiques, Inter & Multimodalit\\u00e9\", \"Sciences \\u00e9conomique, \\u00c9valuation des politiques publiques, Mod\\u00e8les \\u00e9conomiques\"]",
-    "mobilityTypes":
-"[\"Routier\"]",
-    "axes":
-"[\"Accompagner le d\\u00e9veloppement des syst\\u00e8mes de transports d\\u00e9carbon\\u00e9s et s\\u00fbrs\"]",
-    "usages":
-"[ \"Other\" ]"
-  },
-  "10.1017/jfm.2020.275":
-{
-    "challenges":
-"[\"Environnementaux\", \"Technologiques\"]",
-    "themes":
-"[ \"Other\" ]",
-    "scientificThemes":
-"[\"Mat\\u00e9riaux, A\\u00e9rodynamique, Transition \\u00e9cologique, \\u00c9nerg\\u00e9tique et Mobilit\\u00e9s durables\", \"Sciences cognitives, Interfaces H/M\", \"Marketing, Durabilit\\u00e9, Chaine d\\u2019approvisionnement, Logistiques, Inter & Multimodalit\\u00e9\"]",
-    "mobilityTypes":
-"[\"Transport par cables\"]",
-    "axes":
-"[\"Accompagner le d\\u00e9veloppement des syst\\u00e8mes de transports d\\u00e9carbon\\u00e9s et s\\u00fbrs\"]",
-    "usages":
-"[ \"Other\" ]"
-  },
-  "10.1016/j.ijheatfluidflow.2022.108977":
-{
-    "challenges":
-"[\"Environnementaux\"]",
-    "themes":
-"[\"Mat\\u00e9riaux\"]",
-    "scientificThemes":
-"[\"Mat\\u00e9riaux, A\\u00e9rodynamique, Transition \\u00e9cologique, \\u00c9nerg\\u00e9tique et Mobilit\\u00e9s durables\", \"Sciences cognitives, Interfaces H/M\", \"Marketing, Durabilit\\u00e9, Chaine d\\u2019approvisionnement, Logistiques, Inter & Multimodalit\\u00e9\"]",
-    "mobilityTypes":
-"[\"Fluvial/Maritime\"]",
-    "axes":
-"[\"Accompagner le d\\u00e9veloppement des syst\\u00e8mes de transports d\\u00e9carbon\\u00e9s et s\\u00fbrs\"]",
-    "usages":
-"[ \"Other\" ]"
-  },
-  "10.1109/vtc2023-spring57618.2023.10199384":
-{
-    "challenges":
-"[\"Technologiques\"]",
-    "themes":
-"[ \"Other\" ]",
-    "scientificThemes":
-"[\"Mat\\u00e9riaux, A\\u00e9rodynamique, Transition \\u00e9cologique, \\u00c9nerg\\u00e9tique et Mobilit\\u00e9s durables\", \"Sciences cognitives, Interfaces H/M\", \"Base et Traitement de donn\\u00e9es, IA\"]",
-    "mobilityTypes":
-"[\"Routier\"]",
-    "axes":
-"[\"Accompagner le d\\u00e9veloppement des syst\\u00e8mes de transports d\\u00e9carbon\\u00e9s et s\\u00fbrs\"]",
-    "usages":
-"[\"V\\u00e9hicule autonome et connect\\u00e9\"]"
-  },
-  "10.23919/wmnc56391.2022.9954293":
-{
-    "challenges":
-"[\"Technologiques\"]",
-    "themes":
-"[\"Communications\"]",
-    "scientificThemes":
-"[\"Communications, Infrastructures et Connectivit\\u00e9\", \"S\\u00e9curit\\u00e9, Cybers\\u00e9curit\\u00e9, R\\u00e9silience, Suret\\u00e9, Fonctionnement et Interop\\u00e9rabilit\\u00e9 des syst\\u00e8mes\", \"Marketing, Durabilit\\u00e9, Chaine d\\u2019approvisionnement, Logistiques, Inter & Multimodalit\\u00e9\"]",
-    "mobilityTypes":
-"[\"Routier\"]",
-    "axes":
-"[\"Accompagner le d\\u00e9veloppement des syst\\u00e8mes de transports d\\u00e9carbon\\u00e9s et s\\u00fbrs\"]",
-    "usages":
-"[\"V\\u00e9hicule autonome et connect\\u00e9\"]"
-  },
-  "10.1016/j.est.2021.103377":
-{
-    "challenges":
-"[\"Environnementaux\"]",
-    "themes":
-"[\"Energie\"]",
-    "scientificThemes":
-"[\"Mat\\u00e9riaux, A\\u00e9rodynamique, Transition \\u00e9cologique, \\u00c9nerg\\u00e9tique et Mobilit\\u00e9s durables\", \"Marketing, Durabilit\\u00e9, Chaine d\\u2019approvisionnement, Logistiques, Inter & Multimodalit\\u00e9\", \"S\\u00e9curit\\u00e9, Cybers\\u00e9curit\\u00e9, R\\u00e9silience, Suret\\u00e9, Fonctionnement et Interop\\u00e9rabilit\\u00e9 des syst\\u00e8mes\"]",
-    "mobilityTypes":
-"[ \"Other\" ]",
-    "axes":
-"[ \"Other\" ]",
-    "usages":
-"[ \"Other\" ]"
-  },
-  "10.1109/globecom42002.2020.9348056":
-{
-    "challenges":
-"[\"Environnementaux\"]",
-    "themes":
-"[\"Energie\"]",
-    "scientificThemes":
-"[\"Mat\\u00e9riaux, A\\u00e9rodynamique, Transition \\u00e9cologique, \\u00c9nerg\\u00e9tique et Mobilit\\u00e9s durables\", \"Marketing, Durabilit\\u00e9, Chaine d\\u2019approvisionnement, Logistiques, Inter & Multimodalit\\u00e9\", \"Base et Traitement de donn\\u00e9es, IA\"]",
-    "mobilityTypes":
-"[ \"Other\" ]",
-    "axes":
-"[ \"Other\" ]",
-    "usages":
-"[ \"Other\" ]"
-  },
-  "10.1016/j.tre.2020.102038":
-{
-    "challenges":
-"[\"Environnementaux\"]",
-    "themes":
-"[\"Logistique\", \"Energie\"]",
-    "scientificThemes":
-"[\"Marketing, Durabilit\\u00e9, Chaine d\\u2019approvisionnement, Logistiques, Inter & Multimodalit\\u00e9\", \"Sciences \\u00e9conomique, \\u00c9valuation des politiques publiques, Mod\\u00e8les \\u00e9conomiques\", \"Mat\\u00e9riaux, A\\u00e9rodynamique, Transition \\u00e9cologique, \\u00c9nerg\\u00e9tique et Mobilit\\u00e9s durables\"]",
-    "mobilityTypes":
-"[\"Routier\"]",
-    "axes":
-"[\"Favoriser le report modal des marchandises vers le fer et le maritime et am\\u00e9liorer la logistique urbaine et rurale\", \"Accompagner le d\\u00e9veloppement des syst\\u00e8mes de transports d\\u00e9carbon\\u00e9s et s\\u00fbrs\"]",
-    "usages":
-"[ \"Other\" ]"
-  },
-  "10.1016/j.ijthermalsci.2021.107125":
-{
-    "challenges":
-"[ \"Other\"]",
-    "themes":
-"[ \"Other\" ]",
-    "scientificThemes":
-"[\"Mat\\u00e9riaux, A\\u00e9rodynamique, Transition \\u00e9cologique, \\u00c9nerg\\u00e9tique et Mobilit\\u00e9s durables\", \"S\\u00e9curit\\u00e9, Cybers\\u00e9curit\\u00e9, R\\u00e9silience, Suret\\u00e9, Fonctionnement et Interop\\u00e9rabilit\\u00e9 des syst\\u00e8mes\", \"Communications, Infrastructures et Connectivit\\u00e9\"]",
-    "mobilityTypes":
-"[ \"Other\" ]",
-    "axes":
-"[ \"Other\" ]",
-    "usages":
-"[ \"Other\" ]"
-  },
-  "10.21203/rs.3.rs-2603145/v1":
-{
-    "challenges":
-"[\"Strat\\u00e9giques\"]",
-    "themes":
-"[\"Urbain\"]",
-    "scientificThemes":
-"[\"G\\u00e9ographie, Territoires et Sociologie\", \"Marketing, Durabilit\\u00e9, Chaine d\\u2019approvisionnement, Logistiques, Inter & Multimodalit\\u00e9\", \"Sciences \\u00e9conomique, \\u00c9valuation des politiques publiques, Mod\\u00e8les \\u00e9conomiques\"]",
-    "mobilityTypes":
-"[\"Routier\"]",
-    "axes":
-"[\"Peser sur les choix de modes de transport des voyageurs\"]",
-    "usages":
-"[\"V\\u00e9hicule autonome et connect\\u00e9\"]"
-  },
-  "10.3390/vehicles5040080":
-{
-    "challenges":
-"[\"Technologiques\"]",
-    "themes":
-"[\"Urbain\", \"Logistique\"]",
-    "scientificThemes":
-"[\"S\\u00e9curit\\u00e9, Cybers\\u00e9curit\\u00e9, R\\u00e9silience, Suret\\u00e9, Fonctionnement et Interop\\u00e9rabilit\\u00e9 des syst\\u00e8mes\", \"Marketing, Durabilit\\u00e9, Chaine d\\u2019approvisionnement, Logistiques, Inter & Multimodalit\\u00e9\", \"Capteurs et Traitement du signal\"]",
-    "mobilityTypes":
-"[\"Routier\"]",
-    "axes":
-"[\"Accompagner le d\\u00e9veloppement des syst\\u00e8mes de transports d\\u00e9carbon\\u00e9s et s\\u00fbrs\"]",
-    "usages":
-"[\"V\\u00e9hicule autonome et connect\\u00e9\"]"
-  },
-  "10.1016/j.vehcom.2022.100519":
-{
-    "challenges":
-"[\"Technologiques\", \"Strat\\u00e9giques\"]",
-    "themes":
-"[\"Urbain\"]",
-    "scientificThemes":
-"[\"S\\u00e9curit\\u00e9, Cybers\\u00e9curit\\u00e9, R\\u00e9silience, Suret\\u00e9, Fonctionnement et Interop\\u00e9rabilit\\u00e9 des syst\\u00e8mes\", \"Marketing, Durabilit\\u00e9, Chaine d\\u2019approvisionnement, Logistiques, Inter & Multimodalit\\u00e9\", \"Communications, Infrastructures et Connectivit\\u00e9\"]",
-    "mobilityTypes":
-"[\"Routier\"]",
-    "axes":
-"[\"Accompagner le d\\u00e9veloppement des syst\\u00e8mes de transports d\\u00e9carbon\\u00e9s et s\\u00fbrs\"]",
-    "usages":
-"[\"V\\u00e9hicule autonome et connect\\u00e9\"]"
-  },
-  "10.1109/tpwrs.2020.3005991":
-{
-    "challenges":
-"[\"Environnementaux\"]",
-    "themes":
-"[\"Energie\"]",
-    "scientificThemes":
-"[\"Mat\\u00e9riaux, A\\u00e9rodynamique, Transition \\u00e9cologique, \\u00c9nerg\\u00e9tique et Mobilit\\u00e9s durables\", \"S\\u00e9curit\\u00e9, Cybers\\u00e9curit\\u00e9, R\\u00e9silience, Suret\\u00e9, Fonctionnement et Interop\\u00e9rabilit\\u00e9 des syst\\u00e8mes\", \"Marketing, Durabilit\\u00e9, Chaine d\\u2019approvisionnement, Logistiques, Inter & Multimodalit\\u00e9\"]",
-    "mobilityTypes":
-"[ \"Other\" ]",
-    "axes":
-"[ \"Other\" ]",
-    "usages":
-"[ \"Other\" ]"
-  },
-  "10.1109/sin56466.2022.9970491":
-{
-    "challenges":
-"[\"Technologiques\"]",
-    "themes":
-"[\"Plateforme\", \"Communications\", \"Urbain\"]",
-    "scientificThemes":
-"[\"S\\u00e9curit\\u00e9, Cybers\\u00e9curit\\u00e9, R\\u00e9silience, Suret\\u00e9, Fonctionnement et Interop\\u00e9rabilit\\u00e9 des syst\\u00e8mes\", \"Marketing, Durabilit\\u00e9, Chaine d\\u2019approvisionnement, Logistiques, Inter & Multimodalit\\u00e9\", \"Sciences cognitives, Interfaces H/M\"]",
-    "mobilityTypes":
-"[\"Routier\"]",
-    "axes":
-"[\"Accompagner le d\\u00e9veloppement des syst\\u00e8mes de transports d\\u00e9carbon\\u00e9s et s\\u00fbrs\"]",
-    "usages":
-"[\"V\\u00e9hicule autonome et connect\\u00e9\"]"
-  },
-  "10.1145/3412841.3441888":
-{
-    "challenges":
-"[\"Technologiques\", \"Environnementaux\"]",
-    "themes":
-"[\"Plateforme\", \"Energie\"]",
-    "scientificThemes":
-"[\"Communications, Infrastructures et Connectivit\\u00e9\", \"Marketing, Durabilit\\u00e9, Chaine d\\u2019approvisionnement, Logistiques, Inter & Multimodalit\\u00e9\", \"S\\u00e9curit\\u00e9, Cybers\\u00e9curit\\u00e9, R\\u00e9silience, Suret\\u00e9, Fonctionnement et Interop\\u00e9rabilit\\u00e9 des syst\\u00e8mes\"]",
-    "mobilityTypes":
-"[\"Routier\"]",
-    "axes":
-"[\"Favoriser le report modal des marchandises vers le fer et le maritime et am\\u00e9liorer la logistique urbaine et rurale\"]",
-    "usages":
-"[ \"Other\" ]"
-  },
-  "10.3390/machines10080686":
-{
-    "challenges":
-"[ \"Other\"]",
-    "themes":
-"[ \"Other\" ]",
-    "scientificThemes":
-"[\"S\\u00e9curit\\u00e9, Cybers\\u00e9curit\\u00e9, R\\u00e9silience, Suret\\u00e9, Fonctionnement et Interop\\u00e9rabilit\\u00e9 des syst\\u00e8mes\", \"Base et Traitement de donn\\u00e9es, IA\", \"Capteurs et Traitement du signal\"]",
-    "mobilityTypes":
-"[ \"Other\" ]",
-    "axes":
-"[ \"Other\" ]",
-    "usages":
-"[ \"Other\" ]"
-  },
-  "10.1109/access.2023.3326846":
-{
-    "challenges":
-"[\"Technologiques\"]",
-    "themes":
-"[\"Communications\"]",
-    "scientificThemes":
-"[\"Communications, Infrastructures et Connectivit\\u00e9\", \"S\\u00e9curit\\u00e9, Cybers\\u00e9curit\\u00e9, R\\u00e9silience, Suret\\u00e9, Fonctionnement et Interop\\u00e9rabilit\\u00e9 des syst\\u00e8mes\", \"Sciences cognitives, Interfaces H/M\"]",
-    "mobilityTypes":
-"[\"Routier\"]",
-    "axes":
-"[\"Peser sur les choix de modes de transport des voyageurs\"]",
-    "usages":
-"[\"V\\u00e9hicule autonome et connect\\u00e9\"]"
-  },
-  "10.1051/e3sconf/202343302006":
-{
-    "challenges":
-"[\"Environnementaux\"]",
-    "themes":
-"[\"Transfrontalier\", \"Energie\", \"Logistique\"]",
-    "scientificThemes":
-"[\"Mat\\u00e9riaux, A\\u00e9rodynamique, Transition \\u00e9cologique, \\u00c9nerg\\u00e9tique et Mobilit\\u00e9s durables\", \"Marketing, Durabilit\\u00e9, Chaine d\\u2019approvisionnement, Logistiques, Inter & Multimodalit\\u00e9\", \"Sciences \\u00e9conomique, \\u00c9valuation des politiques publiques, Mod\\u00e8les \\u00e9conomiques\"]",
-    "mobilityTypes":
-"[\"Fluvial/Maritime\"]",
-    "axes":
-"[\"Accompagner le d\\u00e9veloppement des syst\\u00e8mes de transports d\\u00e9carbon\\u00e9s et s\\u00fbrs\", \"Favoriser le report modal des marchandises vers le fer et le maritime et am\\u00e9liorer la logistique urbaine et rurale\"]",
-    "usages":
-"[ \"Other\" ]"
-  },
-  "10.3390/electronics10040418":
-{
-    "challenges":
-"[ \"Other\"]",
-    "themes":
-"[ \"Other\" ]",
-    "scientificThemes":
-"[ \"Other\" ]",
-    "mobilityTypes":
-"[ \"Other\" ]",
-    "axes":
-"[ \"Other\" ]",
-    "usages":
-"[ \"Other\" ]"
-  },
-  "10.1016/j.ejor.2022.02.007":
-{
-    "challenges":
-"[\"Economiques\", \"Strat\\u00e9giques\"]",
-    "themes":
-"[\"Logistique\"]",
-    "scientificThemes":
-"[\"Marketing, Durabilit\\u00e9, Chaine d\\u2019approvisionnement, Logistiques, Inter & Multimodalit\\u00e9\", \"Sciences cognitives, Interfaces H/M\", \"Sciences juridiques, R\\u00e8glementations et Assurances\"]",
-    "mobilityTypes":
-"[\"Fluvial/Maritime\"]",
-    "axes":
-"[\"Favoriser le report modal des marchandises vers le fer et le maritime et am\\u00e9liorer la logistique urbaine et rurale\"]",
-    "usages":
-"[ \"Other\" ]"
-  },
-  "10.1002/cpe.5958":
-{
-    "challenges":
-"[\"Technologiques\", \"Strat\\u00e9giques\"]",
-    "themes":
-"[\"Communications\", \"Plateforme\"]",
-    "scientificThemes":
-"[\"Communications, Infrastructures et Connectivit\\u00e9\", \"Capteurs et Traitement du signal\", \"S\\u00e9curit\\u00e9, Cybers\\u00e9curit\\u00e9, R\\u00e9silience, Suret\\u00e9, Fonctionnement et Interop\\u00e9rabilit\\u00e9 des syst\\u00e8mes\"]",
-    "mobilityTypes":
-"[\"Routier\"]",
-    "axes":
-"[\"Peser sur les choix de modes de transport des voyageurs\", \"Favoriser le report modal des marchandises vers le fer et le maritime et am\\u00e9liorer la logistique urbaine et rurale\"]",
-    "usages":
-"[\"V\\u00e9hicule autonome et connect\\u00e9\"]"
-  },
-  "10.2139/ssrn.4913341":
-{
-    "challenges":
-"[\"Technologiques\"]",
-    "themes":
-"[\"Urbain\", \"Plateforme\", \"Communications\"]",
-    "scientificThemes":
-"[\"S\\u00e9curit\\u00e9, Cybers\\u00e9curit\\u00e9, R\\u00e9silience, Suret\\u00e9, Fonctionnement et Interop\\u00e9rabilit\\u00e9 des syst\\u00e8mes\", \"Marketing, Durabilit\\u00e9, Chaine d\\u2019approvisionnement, Logistiques, Inter & Multimodalit\\u00e9\", \"Communications, Infrastructures et Connectivit\\u00e9\"]",
-    "mobilityTypes":
-"[\"Routier\"]",
-    "axes":
-"[\"Accompagner le d\\u00e9veloppement des syst\\u00e8mes de transports d\\u00e9carbon\\u00e9s et s\\u00fbrs\"]",
-    "usages":
-"[\"V\\u00e9hicule autonome et connect\\u00e9\"]"
-  },
-  "10.1080/15435075.2023.2220052":
-{
-    "challenges":
-"[\"Environnementaux\"]",
-    "themes":
-"[\"Energie\"]",
-    "scientificThemes":
-"[\"Mat\\u00e9riaux, A\\u00e9rodynamique, Transition \\u00e9cologique, \\u00c9nerg\\u00e9tique et Mobilit\\u00e9s durables\", \"Marketing, Durabilit\\u00e9, Chaine d\\u2019approvisionnement, Logistiques, Inter & Multimodalit\\u00e9\", \"Sciences \\u00e9conomique, \\u00c9valuation des politiques publiques, Mod\\u00e8les \\u00e9conomiques\"]",
-    "mobilityTypes":
-"[\"Routier\"]",
-    "axes":
-"[\"Accompagner le d\\u00e9veloppement des syst\\u00e8mes de transports d\\u00e9carbon\\u00e9s et s\\u00fbrs\"]",
-    "usages":
-"[ \"Other\" ]"
-  },
-  "10.1109/nof55974.2022.9942580":
-{
-    "challenges":
-"[\"Environnementaux\", \"Technologiques\"]",
-    "themes":
-"[\"Communications\"]",
-    "scientificThemes":
-"[\"Communications, Infrastructures et Connectivit\\u00e9\", \"Mat\\u00e9riaux, A\\u00e9rodynamique, Transition \\u00e9cologique, \\u00c9nerg\\u00e9tique et Mobilit\\u00e9s durables\", \"Marketing, Durabilit\\u00e9, Chaine d\\u2019approvisionnement, Logistiques, Inter & Multimodalit\\u00e9\"]",
-    "mobilityTypes":
-"[\"Routier\"]",
-    "axes":
-"[\"Accompagner le d\\u00e9veloppement des syst\\u00e8mes de transports d\\u00e9carbon\\u00e9s et s\\u00fbrs\"]",
-    "usages":
-"[\"V\\u00e9hicule autonome et connect\\u00e9\"]"
-  },
-  "10.1002/cpe.5994":
-{
-    "challenges":
-"[\"Technologiques\"]",
-    "themes":
-"[\"Communications\", \"Urbain\"]",
-    "scientificThemes":
-"[\"Communications, Infrastructures et Connectivit\\u00e9\", \"S\\u00e9curit\\u00e9, Cybers\\u00e9curit\\u00e9, R\\u00e9silience, Suret\\u00e9, Fonctionnement et Interop\\u00e9rabilit\\u00e9 des syst\\u00e8mes\", \"Mat\\u00e9riaux, A\\u00e9rodynamique, Transition \\u00e9cologique, \\u00c9nerg\\u00e9tique et Mobilit\\u00e9s durables\"]",
-    "mobilityTypes":
-"[\"Routier\"]",
-    "axes":
-"[\"Accompagner le d\\u00e9veloppement des syst\\u00e8mes de transports d\\u00e9carbon\\u00e9s et s\\u00fbrs\"]",
-    "usages":
-"[\"V\\u00e9hicule autonome et connect\\u00e9\"]"
-  },
-  "10.1177/03611981221086632":
-{
-    "challenges":
-"[\"Environnementaux\"]",
-    "themes":
-"[\"Urbain\", \"Logistique\"]",
-    "scientificThemes":
-"[\"Marketing, Durabilit\\u00e9, Chaine d\\u2019approvisionnement, Logistiques, Inter & Multimodalit\\u00e9\", \"Mat\\u00e9riaux, A\\u00e9rodynamique, Transition \\u00e9cologique, \\u00c9nerg\\u00e9tique et Mobilit\\u00e9s durables\", \"Sciences \\u00e9conomique, \\u00c9valuation des politiques publiques, Mod\\u00e8les \\u00e9conomiques\"]",
-    "mobilityTypes":
-"[\"Routier\"]",
-    "axes":
-"[\"Accompagner le d\\u00e9veloppement des syst\\u00e8mes de transports d\\u00e9carbon\\u00e9s et s\\u00fbrs\"]",
-    "usages":
-"[ \"Other\" ]"
-  },
-  "10.1016/j.jnca.2021.103154":
-{
-    "challenges":
-"[\"Technologiques\"]",
-    "themes":
-"[\"Communications\"]",
-    "scientificThemes":
-"[\"Communications, Infrastructures et Connectivit\\u00e9\", \"Marketing, Durabilit\\u00e9, Chaine d\\u2019approvisionnement, Logistiques, Inter & Multimodalit\\u00e9\", \"Capteurs et Traitement du signal\"]",
-    "mobilityTypes":
-"[\"Routier\"]",
-    "axes":
-"[\"Accompagner le d\\u00e9veloppement des syst\\u00e8mes de transports d\\u00e9carbon\\u00e9s et s\\u00fbrs\"]",
-    "usages":
-"[\"V\\u00e9hicule autonome et connect\\u00e9\"]"
-  },
-  "10.1016/j.trpro.2016.05.237":
-{
-    "challenges":
-"[\"Soci\\u00e9taux\"]",
-    "themes":
-"[\"Urbain\", \"Plateforme\", \"Rural\"]",
-    "scientificThemes":
-"[\"Marketing, Durabilit\\u00e9, Chaine d\\u2019approvisionnement, Logistiques, Inter & Multimodalit\\u00e9\", \"Sciences cognitives, Interfaces H/M\", \"G\\u00e9ographie, Territoires et Sociologie\"]",
-    "mobilityTypes":
-"[\"Routier\"]",
-    "axes":
-"[\"Peser sur les choix de modes de transport des voyageurs\"]",
-    "usages":
-"[\"V\\u00e9hicule autonome et connect\\u00e9\"]"
-  },
-  "10.1002/cpe.5983":
-{
-    "challenges":
-"[\"Technologiques\"]",
-    "themes":
-"[ \"Other\" ]",
-    "scientificThemes":
-"[\"Capteurs et Traitement du signal\", \"Communications, Infrastructures et Connectivit\\u00e9\", \"Sciences \\u00e9conomique, \\u00c9valuation des politiques publiques, Mod\\u00e8les \\u00e9conomiques\"]",
-    "mobilityTypes":
-"[\"Routier\"]",
-    "axes":
-"[\"Accompagner le d\\u00e9veloppement des syst\\u00e8mes de transports d\\u00e9carbon\\u00e9s et s\\u00fbrs\"]",
-    "usages":
-"[\"V\\u00e9hicule autonome et connect\\u00e9\"]"
-  },
-  "10.3390/s22197591":
-{
-    "challenges":
-"[\"Technologiques\"]",
-    "themes":
-"[\"Communications\"]",
-    "scientificThemes":
-"[ \"Other\" ]",
-    "mobilityTypes":
-"[ \"Other\" ]",
-    "axes":
-"[ \"Other\" ]",
-    "usages":
-"[ \"Other\" ]"
-  },
-  "10.1007/978-3-030-10591-4_7":
-{
-    "challenges":
-"[\"Technologiques\"]",
-    "themes":
-"[\"Communications\"]",
-    "scientificThemes":
-"[\"S\\u00e9curit\\u00e9, Cybers\\u00e9curit\\u00e9, R\\u00e9silience, Suret\\u00e9, Fonctionnement et Interop\\u00e9rabilit\\u00e9 des syst\\u00e8mes\", \"Communications, Infrastructures et Connectivit\\u00e9\", \"Sciences cognitives, Interfaces H/M\"]",
-    "mobilityTypes":
-"[\"Routier\", \"A\\u00e9rien\"]",
-    "axes":
-"[\"Accompagner le d\\u00e9veloppement des syst\\u00e8mes de transports d\\u00e9carbon\\u00e9s et s\\u00fbrs\"]",
-    "usages":
-"[ \"Other\" ]"
-  },
-  "10.3390/s22093371":
-{
-    "challenges":
-"[ \"Other\"]",
-    "themes":
-"[ \"Other\" ]",
-    "scientificThemes":
-"[\"Capteurs et Traitement du signal\"]",
-    "mobilityTypes":
-"[ \"Other\" ]",
-    "axes":
-"[ \"Other\" ]",
-    "usages":
-"[ \"Other\" ]"
-  },
-  "10.3390/math11061483":
-{
-    "challenges":
-"[\"Economiques\", \"Strat\\u00e9giques\", \"Technologiques\"]",
-    "themes":
-"[\"Urbain\", \"Logistique\"]",
-    "scientificThemes":
-"[\"Sciences \\u00e9conomique, \\u00c9valuation des politiques publiques, Mod\\u00e8les \\u00e9conomiques\", \"Base et Traitement de donn\\u00e9es, IA\", \"Marketing, Durabilit\\u00e9, Chaine d\\u2019approvisionnement, Logistiques, Inter & Multimodalit\\u00e9\"]",
-    "mobilityTypes":
-"[\"A\\u00e9rien\"]",
-    "axes":
-"[\"Favoriser le report modal des marchandises vers le fer et le maritime et am\\u00e9liorer la logistique urbaine et rurale\"]",
-    "usages":
-"[\"V\\u00e9hicule autonome et connect\\u00e9\"]"
-  },
-  "10.1186/s13638-022-02162-y":
-{
-    "challenges":
-"[ \"Other\"]",
-    "themes":
-"[ \"Other\" ]",
-    "scientificThemes":
-"[ \"Other\" ]",
-    "mobilityTypes":
-"[ \"Other\" ]",
-    "axes":
-"[ \"Other\" ]",
-    "usages":
-"[ \"Other\" ]"
-  },
-  "10.3390/electronics11244156":
-{
-    "challenges":
-"[ \"Other\"]",
-    "themes":
-"[\"Communications\", \"Mat\\u00e9riaux\"]",
-    "scientificThemes":
-"[\"S\\u00e9curit\\u00e9, Cybers\\u00e9curit\\u00e9, R\\u00e9silience, Suret\\u00e9, Fonctionnement et Interop\\u00e9rabilit\\u00e9 des syst\\u00e8mes\", \"Communications, Infrastructures et Connectivit\\u00e9\", \"Sciences juridiques, R\\u00e8glementations et Assurances\"]",
-    "mobilityTypes":
-"[ \"Other\" ]",
-    "axes":
-"[ \"Other\" ]",
-    "usages":
-"[ \"Other\" ]"
-  },
-  "10.1007/s12243-021-00851-1":
-{
-    "challenges":
-"[\"Technologiques\", \"Strat\\u00e9giques\"]",
-    "themes":
-"[\"Urbain\"]",
-    "scientificThemes":
-"[\"G\\u00e9ographie, Territoires et Sociologie\", \"Communications, Infrastructures et Connectivit\\u00e9\", \"Sciences \\u00e9conomique, \\u00c9valuation des politiques publiques, Mod\\u00e8les \\u00e9conomiques\"]",
-    "mobilityTypes":
-"[\"Routier\"]",
-    "axes":
-"[\"Favoriser le report modal des marchandises vers le fer et le maritime et am\\u00e9liorer la logistique urbaine et rurale\", \"Accompagner le d\\u00e9veloppement des syst\\u00e8mes de transports d\\u00e9carbon\\u00e9s et s\\u00fbrs\"]",
-    "usages":
-"[\"V\\u00e9hicule autonome et connect\\u00e9\"]"
-  },
-  "10.1016/j.tre.2023.103065":
-{
-    "challenges":
-"[\"Technologiques\", \"Economiques\"]",
-    "themes":
-"[\"Urbain\"]",
-    "scientificThemes":
-"[\"Marketing, Durabilit\\u00e9, Chaine d\\u2019approvisionnement, Logistiques, Inter & Multimodalit\\u00e9\", \"Sciences \\u00e9conomique, \\u00c9valuation des politiques publiques, Mod\\u00e8les \\u00e9conomiques\", \"Mat\\u00e9riaux, A\\u00e9rodynamique, Transition \\u00e9cologique, \\u00c9nerg\\u00e9tique et Mobilit\\u00e9s durables\"]",
-    "mobilityTypes":
-"[\"Routier\"]",
-    "axes":
-"[\"Accompagner le d\\u00e9veloppement des syst\\u00e8mes de transports d\\u00e9carbon\\u00e9s et s\\u00fbrs\"]",
-    "usages":
-"[\"V\\u00e9hicule autonome et connect\\u00e9\"]"
-  },
-  "10.1109/ccnc49032.2021.9369649":
-{
-    "challenges":
-"[\"Technologiques\"]",
-    "themes":
-"[\"Communications\"]",
-    "scientificThemes":
-"[\"Communications, Infrastructures et Connectivit\\u00e9\", \"Capteurs et Traitement du signal\", \"Marketing, Durabilit\\u00e9, Chaine d\\u2019approvisionnement, Logistiques, Inter & Multimodalit\\u00e9\"]",
-    "mobilityTypes":
-"[\"Routier\"]",
-    "axes":
-"[\"Accompagner le d\\u00e9veloppement des syst\\u00e8mes de transports d\\u00e9carbon\\u00e9s et s\\u00fbrs\"]",
-    "usages":
-"[\"V\\u00e9hicule autonome et connect\\u00e9\"]"
-  },
-  "10.7202/1083579ar":
-{
-    "challenges":
-"[\"Strat\\u00e9giques\", \"Environnementaux\"]",
-    "themes":
-"[ \"Other\" ]",
-    "scientificThemes":
-"[\"Sciences \\u00e9conomique, \\u00c9valuation des politiques publiques, Mod\\u00e8les \\u00e9conomiques\", \"Marketing, Durabilit\\u00e9, Chaine d\\u2019approvisionnement, Logistiques, Inter & Multimodalit\\u00e9\", \"S\\u00e9curit\\u00e9, Cybers\\u00e9curit\\u00e9, R\\u00e9silience, Suret\\u00e9, Fonctionnement et Interop\\u00e9rabilit\\u00e9 des syst\\u00e8mes\"]",
-    "mobilityTypes":
-"[ \"Other\" ]",
-    "axes":
-"[ \"Other\" ]",
-    "usages":
-"[ \"Other\" ]"
-  },
-  "10.1017/pds.2023.357":
-{
-    "challenges":
-"[\"Technologiques\"]",
-    "themes":
-"[\"Plateforme\"]",
-    "scientificThemes":
-"[\"Sciences cognitives, Interfaces H/M\", \"Marketing, Durabilit\\u00e9, Chaine d\\u2019approvisionnement, Logistiques, Inter & Multimodalit\\u00e9\", \"S\\u00e9curit\\u00e9, Cybers\\u00e9curit\\u00e9, R\\u00e9silience, Suret\\u00e9, Fonctionnement et Interop\\u00e9rabilit\\u00e9 des syst\\u00e8mes\"]",
-    "mobilityTypes":
-"[\"A\\u00e9rien\"]",
-    "axes":
-"[\"Accompagner le d\\u00e9veloppement des syst\\u00e8mes de transports d\\u00e9carbon\\u00e9s et s\\u00fbrs\"]",
-    "usages":
-"[\"V\\u00e9hicule autonome et connect\\u00e9\"]"
-  },
-  "10.30726/esij/v8.i4.2021.84025":
-{
-    "challenges":
-"[\"Technologiques\"]",
-    "themes":
-"[\"Mat\\u00e9riaux\"]",
-    "scientificThemes":
-"[\"Sciences cognitives, Interfaces H/M\", \"Communications, Infrastructures et Connectivit\\u00e9\", \"Capteurs et Traitement du signal\"]",
-    "mobilityTypes":
-"[ \"Other\" ]",
-    "axes":
-"[ \"Other\" ]",
-    "usages":
-"[ \"Other\" ]"
-  },
-  "10.1109/icce53296.2022.9730234":
-{
-    "challenges":
-"[\"Technologiques\"]",
-    "themes":
-"[\"Communications\"]",
-    "scientificThemes":
-"[\"Communications, Infrastructures et Connectivit\\u00e9\", \"Base et Traitement de donn\\u00e9es, IA\", \"S\\u00e9curit\\u00e9, Cybers\\u00e9curit\\u00e9, R\\u00e9silience, Suret\\u00e9, Fonctionnement et Interop\\u00e9rabilit\\u00e9 des syst\\u00e8mes\"]",
-    "mobilityTypes":
-"[\"Routier\"]",
-    "axes":
-"[\"Favoriser le report modal des marchandises vers le fer et le maritime et am\\u00e9liorer la logistique urbaine et rurale\"]",
-    "usages":
-"[\"V\\u00e9hicule autonome et connect\\u00e9\"]"
-  },
-  "10.1017/jfm.2016.508":
-{
-    "challenges":
-"[ \"Other\"]",
-    "themes":
-"[ \"Other\" ]",
-    "scientificThemes":
-"[\"Mat\\u00e9riaux, A\\u00e9rodynamique, Transition \\u00e9cologique, \\u00c9nerg\\u00e9tique et Mobilit\\u00e9s durables\"]",
-    "mobilityTypes":
-"[\"A\\u00e9rien\"]",
-    "axes":
-"[ \"Other\" ]",
-    "usages":
-"[ \"Other\" ]"
-  },
-  "10.1103/physrevfluids.4.034604":
-{
-    "challenges":
-"[\"Environnementaux\"]",
-    "themes":
-"[\"Mat\\u00e9riaux\"]",
-    "scientificThemes":
-"[\"Mat\\u00e9riaux, A\\u00e9rodynamique, Transition \\u00e9cologique, \\u00c9nerg\\u00e9tique et Mobilit\\u00e9s durables\", \"Marketing, Durabilit\\u00e9, Chaine d\\u2019approvisionnement, Logistiques, Inter & Multimodalit\\u00e9\", \"Sciences cognitives, Interfaces H/M\"]",
-    "mobilityTypes":
-"[\"A\\u00e9rien\"]",
-    "axes":
-"[\"Accompagner le d\\u00e9veloppement des syst\\u00e8mes de transports d\\u00e9carbon\\u00e9s et s\\u00fbrs\"]",
-    "usages":
-"[ \"Other\" ]"
-  },
-  "10.1016/j.jtrangeo.2023.103729":
-{
-    "challenges":
-"[\"Economiques\"]",
-    "themes":
-"[\"Logistique\", \"Transfrontalier\"]",
-    "scientificThemes":
-"[\"Marketing, Durabilit\\u00e9, Chaine d\\u2019approvisionnement, Logistiques, Inter & Multimodalit\\u00e9\", \"Sciences \\u00e9conomique, \\u00c9valuation des politiques publiques, Mod\\u00e8les \\u00e9conomiques\", \"Sciences cognitives, Interfaces H/M\"]",
-    "mobilityTypes":
-"[\"Fluvial/Maritime\"]",
-    "axes":
-"[\"Favoriser le report modal des marchandises vers le fer et le maritime et am\\u00e9liorer la logistique urbaine et rurale\"]",
-    "usages":
-"[ \"Other\" ]"
-  },
-  "10.3917/dunod.verni.2022.01.0139":
-{
-    "challenges":
-"[\"Environnementaux\"]",
-    "themes":
-"[\"Energie\"]",
-    "scientificThemes":
-"[\"Mat\\u00e9riaux, A\\u00e9rodynamique, Transition \\u00e9cologique, \\u00c9nerg\\u00e9tique et Mobilit\\u00e9s durables\", \"Sciences \\u00e9conomique, \\u00c9valuation des politiques publiques, Mod\\u00e8les \\u00e9conomiques\", \"Marketing, Durabilit\\u00e9, Chaine d\\u2019approvisionnement, Logistiques, Inter & Multimodalit\\u00e9\"]",
-    "mobilityTypes":
-"[ \"Other\" ]",
-    "axes":
-"[ \"Other\" ]",
-    "usages":
-"[ \"Other\" ]"
-  },
-  "10.1109/iwcmc51323.2021.9498827":
-{
-    "challenges":
-"[\"Technologiques\"]",
-    "themes":
-"[\"Communications\"]",
-    "scientificThemes":
-"[\"Communications, Infrastructures et Connectivit\\u00e9\", \"Marketing, Durabilit\\u00e9, Chaine d\\u2019approvisionnement, Logistiques, Inter & Multimodalit\\u00e9\", \"S\\u00e9curit\\u00e9, Cybers\\u00e9curit\\u00e9, R\\u00e9silience, Suret\\u00e9, Fonctionnement et Interop\\u00e9rabilit\\u00e9 des syst\\u00e8mes\"]",
-    "mobilityTypes":
-"[\"Routier\"]",
-    "axes":
-"[\"Accompagner le d\\u00e9veloppement des syst\\u00e8mes de transports d\\u00e9carbon\\u00e9s et s\\u00fbrs\"]",
-    "usages":
-"[\"V\\u00e9hicule autonome et connect\\u00e9\"]"
-  },
-  "10.1007/978-3-030-90913-0_13":
-{
-    "challenges":
-"[\"Technologiques\", \"Strat\\u00e9giques\"]",
-    "themes":
-"[\"Urbain\", \"Logistique\", \"Rural\"]",
-    "scientificThemes":
-"[\"Sciences cognitives, Interfaces H/M\", \"G\\u00e9ographie, Territoires et Sociologie\", \"Marketing, Durabilit\\u00e9, Chaine d\\u2019approvisionnement, Logistiques, Inter & Multimodalit\\u00e9\"]",
-    "mobilityTypes":
-"[\"Fluvial/Maritime\"]",
-    "axes":
-"[\"Accompagner le d\\u00e9veloppement des syst\\u00e8mes de transports d\\u00e9carbon\\u00e9s et s\\u00fbrs\"]",
-    "usages":
-"[ \"Other\" ]"
-  },
-  "10.1016/j.ijhydene.2021.12.076":
-{
-    "challenges":
-"[\"Environnementaux\"]",
-    "themes":
-"[\"Energie\"]",
-    "scientificThemes":
-"[\"Mat\\u00e9riaux, A\\u00e9rodynamique, Transition \\u00e9cologique, \\u00c9nerg\\u00e9tique et Mobilit\\u00e9s durables\", \"Sciences \\u00e9conomique, \\u00c9valuation des politiques publiques, Mod\\u00e8les \\u00e9conomiques\", \"Marketing, Durabilit\\u00e9, Chaine d\\u2019approvisionnement, Logistiques, Inter & Multimodalit\\u00e9\"]",
-    "mobilityTypes":
-"[\"Fluvial/Maritime\"]",
-    "axes":
-"[\"Accompagner le d\\u00e9veloppement des syst\\u00e8mes de transports d\\u00e9carbon\\u00e9s et s\\u00fbrs\"]",
-    "usages":
-"[ \"Other\" ]"
-  },
-  "10.1016/b978-0-12-812993-7.00003-6":
-{
-    "challenges":
-"[\"Technologiques\", \"Strat\\u00e9giques\"]",
-    "themes":
-"[\"Urbain\"]",
-    "scientificThemes":
-"[\"Sciences \\u00e9conomique, \\u00c9valuation des politiques publiques, Mod\\u00e8les \\u00e9conomiques\", \"Sciences cognitives, Interfaces H/M\", \"Marketing, Durabilit\\u00e9, Chaine d\\u2019approvisionnement, Logistiques, Inter & Multimodalit\\u00e9\"]",
-    "mobilityTypes":
-"[\"Routier\"]",
-    "axes":
-"[\"Accompagner le d\\u00e9veloppement des syst\\u00e8mes de transports d\\u00e9carbon\\u00e9s et s\\u00fbrs\"]",
-    "usages":
-"[\"V\\u00e9hicule autonome et connect\\u00e9\"]"
-  },
-  "10.1109/isgteurope56780.2023.10407757":
-{
-    "challenges":
-"[\"Environnementaux\"]",
-    "themes":
-"[\"Energie\"]",
-    "scientificThemes":
-"[\"Mat\\u00e9riaux, A\\u00e9rodynamique, Transition \\u00e9cologique, \\u00c9nerg\\u00e9tique et Mobilit\\u00e9s durables\", \"Marketing, Durabilit\\u00e9, Chaine d\\u2019approvisionnement, Logistiques, Inter & Multimodalit\\u00e9\", \"Sciences \\u00e9conomique, \\u00c9valuation des politiques publiques, Mod\\u00e8les \\u00e9conomiques\"]",
-    "mobilityTypes":
-"[\"Fluvial/Maritime\"]",
-    "axes":
-"[\"Accompagner le d\\u00e9veloppement des syst\\u00e8mes de transports d\\u00e9carbon\\u00e9s et s\\u00fbrs\"]",
-    "usages":
-"[ \"Other\" ]"
-  },
-  "10.1080/00207543.2016.1267412":
-{
-    "challenges":
-"[\"Strat\\u00e9giques\"]",
-    "themes":
-"[\"Logistique\", \"Urbain\"]",
-    "scientificThemes":
-"[\"Marketing, Durabilit\\u00e9, Chaine d\\u2019approvisionnement, Logistiques, Inter & Multimodalit\\u00e9\", \"G\\u00e9ographie, Territoires et Sociologie\", \"Sciences \\u00e9conomique, \\u00c9valuation des politiques publiques, Mod\\u00e8les \\u00e9conomiques\"]",
-    "mobilityTypes":
-"[\"Routier\"]",
-    "axes":
-"[\"Favoriser le report modal des marchandises vers le fer et le maritime et am\\u00e9liorer la logistique urbaine et rurale\"]",
-    "usages":
-"[\"V\\u00e9hicule autonome et connect\\u00e9\"]"
-  },
-  "10.1016/j.est.2022.105293":
-{
-    "challenges":
-"[\"Environnementaux\"]",
-    "themes":
-"[\"Energie\", \"Mat\\u00e9riaux\"]",
-    "scientificThemes":
-"[\"Mat\\u00e9riaux, A\\u00e9rodynamique, Transition \\u00e9cologique, \\u00c9nerg\\u00e9tique et Mobilit\\u00e9s durables\", \"Marketing, Durabilit\\u00e9, Chaine d\\u2019approvisionnement, Logistiques, Inter & Multimodalit\\u00e9\", \"Sciences \\u00e9conomique, \\u00c9valuation des politiques publiques, Mod\\u00e8les \\u00e9conomiques\"]",
-    "mobilityTypes":
-"[\"Transport par cables\"]",
-    "axes":
-"[\"Accompagner le d\\u00e9veloppement des syst\\u00e8mes de transports d\\u00e9carbon\\u00e9s et s\\u00fbrs\"]",
-    "usages":
-"[ \"Other\" ]"
-  },
-  "10.1007/s10479-018-2882-3":
-{
-    "challenges":
-"[\"Strat\\u00e9giques\"]",
-    "themes":
-"[\"Logistique\"]",
-    "scientificThemes":
-"[\"Marketing, Durabilit\\u00e9, Chaine d\\u2019approvisionnement, Logistiques, Inter & Multimodalit\\u00e9\", \"Sciences cognitives, Interfaces H/M\", \"G\\u00e9ographie, Territoires et Sociologie\"]",
-    "mobilityTypes":
-"[\"Routier\"]",
-    "axes":
-"[\"Favoriser le report modal des marchandises vers le fer et le maritime et am\\u00e9liorer la logistique urbaine et rurale\"]",
-    "usages":
-"[ \"Other\" ]"
-  },
-  "10.1080/00207543.2020.1714090":
-{
-    "challenges":
-"[\"Technologiques\", \"Strat\\u00e9giques\"]",
-    "themes":
-"[\"Plateforme\"]",
-    "scientificThemes":
-"[\"Marketing, Durabilit\\u00e9, Chaine d\\u2019approvisionnement, Logistiques, Inter & Multimodalit\\u00e9\", \"S\\u00e9curit\\u00e9, Cybers\\u00e9curit\\u00e9, R\\u00e9silience, Suret\\u00e9, Fonctionnement et Interop\\u00e9rabilit\\u00e9 des syst\\u00e8mes\", \"Sciences cognitives, Interfaces H/M\"]",
-    "mobilityTypes":
-"[\"Routier\"]",
-    "axes":
-"[\"Favoriser le report modal des marchandises vers le fer et le maritime et am\\u00e9liorer la logistique urbaine et rurale\"]",
-    "usages":
-"[ \"Other\" ]"
-  },
-  "10.1007/978-3-031-28694-0_33":
-{
-    "challenges":
-"[\"Technologiques\"]",
-    "themes":
-"[\"Communications\", \"Logistique\", \"Urbain\"]",
-    "scientificThemes":
-"[\"Base et Traitement de donn\\u00e9es, IA\", \"Communications, Infrastructures et Connectivit\\u00e9\", \"Marketing, Durabilit\\u00e9, Chaine d\\u2019approvisionnement, Logistiques, Inter & Multimodalit\\u00e9\"]",
-    "mobilityTypes":
-"[\"Routier\"]",
-    "axes":
-"[\"Favoriser le report modal des marchandises vers le fer et le maritime et am\\u00e9liorer la logistique urbaine et rurale\"]",
-    "usages":
-"[ \"Other\" ]"
-  },
-  "10.3390/app6030061":
-{
-    "challenges":
-"[\"Technologiques\"]",
-    "themes":
-"[\"Energie\"]",
-    "scientificThemes":
-"[\"Communications, Infrastructures et Connectivit\\u00e9\", \"Capteurs et Traitement du signal\", \"S\\u00e9curit\\u00e9, Cybers\\u00e9curit\\u00e9, R\\u00e9silience, Suret\\u00e9, Fonctionnement et Interop\\u00e9rabilit\\u00e9 des syst\\u00e8mes\"]",
-    "mobilityTypes":
-"[ \"Other\" ]",
-    "axes":
-"[ \"Other\" ]",
-    "usages":
-"[ \"Other\" ]"
+  "10.1016/j.marpol.2022.105310": {
+    "challenges": "[\"Environnementaux\"]",
+    "themes": "[\"Energie\"]",
+    "scientificThemes": "[\"Marketing, Durabilit\\u00e9, Chaine d\\u2019approvisionnement, Logistiques, Inter & Multimodalit\\u00e9\", \"Mat\\u00e9riaux, A\\u00e9rodynamique, Transition \\u00e9cologique, \\u00c9nerg\\u00e9tique et Mobilit\\u00e9s durables\", \"Sciences \\u00e9conomique, \\u00c9valuation des politiques publiques, Mod\\u00e8les \\u00e9conomiques\"]",
+    "mobilityTypes": "[\"Fluvial/Maritime\"]",
+    "axes": "[\"Accompagner le d\\u00e9veloppement des syst\\u00e8mes de transports d\\u00e9carbon\\u00e9s et s\\u00fbrs\", \"Favoriser le report modal des marchandises vers le fer et le maritime et am\\u00e9liorer la logistique urbaine et rurale\"]",
+    "usages": "[ \"Other\" ]"
+  },
+  "10.1177/03611981231194630": {
+    "challenges": "[\"Strat\\u00e9giques\", \"Soci\\u00e9taux\", \"Economiques\"]",
+    "themes": "[\"Urbain\"]",
+    "scientificThemes": "[\"Sciences \\u00e9conomique, \\u00c9valuation des politiques publiques, Mod\\u00e8les \\u00e9conomiques\", \"G\\u00e9ographie, Territoires et Sociologie\", \"Marketing, Durabilit\\u00e9, Chaine d\\u2019approvisionnement, Logistiques, Inter & Multimodalit\\u00e9\"]",
+    "mobilityTypes": "[\"Routier\"]",
+    "axes": "[\"Peser sur les choix de modes de transport des voyageurs\"]",
+    "usages": "[ \"Other\" ]"
+  },
+  "10.1109/iscc58397.2023.10218018": {
+    "challenges": "[\"Technologiques\"]",
+    "themes": "[\"Urbain\", \"Communications\"]",
+    "scientificThemes": "[\"Communications, Infrastructures et Connectivit\\u00e9\", \"Mat\\u00e9riaux, A\\u00e9rodynamique, Transition \\u00e9cologique, \\u00c9nerg\\u00e9tique et Mobilit\\u00e9s durables\", \"Marketing, Durabilit\\u00e9, Chaine d\\u2019approvisionnement, Logistiques, Inter & Multimodalit\\u00e9\"]",
+    "mobilityTypes": "[\"Routier\"]",
+    "axes": "[\"Accompagner le d\\u00e9veloppement des syst\\u00e8mes de transports d\\u00e9carbon\\u00e9s et s\\u00fbrs\"]",
+    "usages": "[\"V\\u00e9hicule autonome et connect\\u00e9\"]"
+  },
+  "10.1007/978-3-319-90053-7_12": {
+    "challenges": "[\"Technologiques\"]",
+    "themes": "[\"Plateforme\"]",
+    "scientificThemes": "[\"Base et Traitement de donn\\u00e9es, IA\", \"Sciences cognitives, Interfaces H/M\", \"S\\u00e9curit\\u00e9, Cybers\\u00e9curit\\u00e9, R\\u00e9silience, Suret\\u00e9, Fonctionnement et Interop\\u00e9rabilit\\u00e9 des syst\\u00e8mes\"]",
+    "mobilityTypes": "[ \"Other\" ]",
+    "axes": "[ \"Other\" ]",
+    "usages": "[ \"Other\" ]"
+  },
+  "10.1109/icc45855.2022.9838640": {
+    "challenges": "[\"Technologiques\"]",
+    "themes": "[\"Urbain\", \"Communications\", \"Logistique\"]",
+    "scientificThemes": "[\"Communications, Infrastructures et Connectivit\\u00e9\", \"Base et Traitement de donn\\u00e9es, IA\", \"Marketing, Durabilit\\u00e9, Chaine d\\u2019approvisionnement, Logistiques, Inter & Multimodalit\\u00e9\"]",
+    "mobilityTypes": "[\"Routier\"]",
+    "axes": "[\"Accompagner le d\\u00e9veloppement des syst\\u00e8mes de transports d\\u00e9carbon\\u00e9s et s\\u00fbrs\"]",
+    "usages": "[\"V\\u00e9hicule autonome et connect\\u00e9\"]"
+  },
+  "10.1007/978-3-030-88418-5_2": {
+    "challenges": "[\"Strat\\u00e9giques\", \"Technologiques\"]",
+    "themes": "[ \"Other\" ]",
+    "scientificThemes": "[\"S\\u00e9curit\\u00e9, Cybers\\u00e9curit\\u00e9, R\\u00e9silience, Suret\\u00e9, Fonctionnement et Interop\\u00e9rabilit\\u00e9 des syst\\u00e8mes\", \"Sciences juridiques, R\\u00e8glementations et Assurances\", \"Marketing, Durabilit\\u00e9, Chaine d\\u2019approvisionnement, Logistiques, Inter & Multimodalit\\u00e9\"]",
+    "mobilityTypes": "[ \"Other\" ]",
+    "axes": "[ \"Other\" ]",
+    "usages": "[ \"Other\" ]"
+  },
+  "10.1109/tnsm.2023.3300653": {
+    "challenges": "[\"Technologiques\"]",
+    "themes": "[\"Communications\", \"Urbain\"]",
+    "scientificThemes": "[\"Communications, Infrastructures et Connectivit\\u00e9\", \"Mat\\u00e9riaux, A\\u00e9rodynamique, Transition \\u00e9cologique, \\u00c9nerg\\u00e9tique et Mobilit\\u00e9s durables\", \"Marketing, Durabilit\\u00e9, Chaine d\\u2019approvisionnement, Logistiques, Inter & Multimodalit\\u00e9\"]",
+    "mobilityTypes": "[\"Routier\"]",
+    "axes": "[\"Accompagner le d\\u00e9veloppement des syst\\u00e8mes de transports d\\u00e9carbon\\u00e9s et s\\u00fbrs\"]",
+    "usages": "[\"V\\u00e9hicule autonome et connect\\u00e9\"]"
+  },
+  "10.3934/proc.2011.2011.794": {
+    "challenges": "[ \"Other\"]",
+    "themes": "[ \"Other\" ]",
+    "scientificThemes": "[\"Mat\\u00e9riaux, A\\u00e9rodynamique, Transition \\u00e9cologique, \\u00c9nerg\\u00e9tique et Mobilit\\u00e9s durables\", \"Base et Traitement de donn\\u00e9es, IA\", \"Sciences \\u00e9conomique, \\u00c9valuation des politiques publiques, Mod\\u00e8les \\u00e9conomiques\"]",
+    "mobilityTypes": "[ \"Other\" ]",
+    "axes": "[ \"Other\" ]",
+    "usages": "[ \"Other\" ]"
+  },
+  "10.1016/j.jocm.2024.100476": {
+    "challenges": "[\"Economiques\"]",
+    "themes": "[\"Urbain\"]",
+    "scientificThemes": "[\"Sciences \\u00e9conomique, \\u00c9valuation des politiques publiques, Mod\\u00e8les \\u00e9conomiques\", \"Marketing, Durabilit\\u00e9, Chaine d\\u2019approvisionnement, Logistiques, Inter & Multimodalit\\u00e9\", \"Sciences cognitives, Interfaces H/M\"]",
+    "mobilityTypes": "[\"Routier\"]",
+    "axes": "[\"Accompagner le d\\u00e9veloppement des syst\\u00e8mes de transports d\\u00e9carbon\\u00e9s et s\\u00fbrs\", \"Peser sur les choix de modes de transport des voyageurs\"]",
+    "usages": "[ \"Other\" ]"
+  },
+  "10.1007/978-3-030-65810-6_1": {
+    "challenges": "[\"Technologiques\"]",
+    "themes": "[\"Urbain\"]",
+    "scientificThemes": "[\"Communications, Infrastructures et Connectivit\\u00e9\", \"Sciences \\u00e9conomique, \\u00c9valuation des politiques publiques, Mod\\u00e8les \\u00e9conomiques\", \"Marketing, Durabilit\\u00e9, Chaine d\\u2019approvisionnement, Logistiques, Inter & Multimodalit\\u00e9\"]",
+    "mobilityTypes": "[\"Routier\"]",
+    "axes": "[\"Accompagner le d\\u00e9veloppement des syst\\u00e8mes de transports d\\u00e9carbon\\u00e9s et s\\u00fbrs\"]",
+    "usages": "[\"V\\u00e9hicule autonome et connect\\u00e9\"]"
+  },
+  "10.1109/iwcmc51323.2021.9498980": {
+    "challenges": "[\"Soci\\u00e9taux\", \"Technologiques\"]",
+    "themes": "[ \"Other\" ]",
+    "scientificThemes": "[\"S\\u00e9curit\\u00e9, Cybers\\u00e9curit\\u00e9, R\\u00e9silience, Suret\\u00e9, Fonctionnement et Interop\\u00e9rabilit\\u00e9 des syst\\u00e8mes\", \"Communications, Infrastructures et Connectivit\\u00e9\", \"Sciences cognitives, Interfaces H/M\"]",
+    "mobilityTypes": "[\"Routier\"]",
+    "axes": "[\"Accompagner le d\\u00e9veloppement des syst\\u00e8mes de transports d\\u00e9carbon\\u00e9s et s\\u00fbrs\"]",
+    "usages": "[\"V\\u00e9hicule autonome et connect\\u00e9\"]"
+  },
+  "10.1145/3052973.3053000": {
+    "challenges": "[\"Strat\\u00e9giques\", \"Technologiques\"]",
+    "themes": "[ \"Other\" ]",
+    "scientificThemes": "[\"S\\u00e9curit\\u00e9, Cybers\\u00e9curit\\u00e9, R\\u00e9silience, Suret\\u00e9, Fonctionnement et Interop\\u00e9rabilit\\u00e9 des syst\\u00e8mes\", \"Sciences juridiques, R\\u00e8glementations et Assurances\", \"Marketing, Durabilit\\u00e9, Chaine d\\u2019approvisionnement, Logistiques, Inter & Multimodalit\\u00e9\"]",
+    "mobilityTypes": "[ \"Other\" ]",
+    "axes": "[ \"Other\" ]",
+    "usages": "[ \"Other\" ]"
+  },
+  "10.1002/smtd.201800215": {
+    "challenges": "[ \"Other\"]",
+    "themes": "[ \"Other\" ]",
+    "scientificThemes": "[\"Mat\\u00e9riaux, A\\u00e9rodynamique, Transition \\u00e9cologique, \\u00c9nerg\\u00e9tique et Mobilit\\u00e9s durables\"]",
+    "mobilityTypes": "[ \"Other\" ]",
+    "axes": "[ \"Other\" ]",
+    "usages": "[ \"Other\" ]"
+  },
+  "10.1109/vnc57357.2023.10136284": {
+    "challenges": "[\"Technologiques\"]",
+    "themes": "[\"Logistique\", \"Urbain\", \"Rural\"]",
+    "scientificThemes": "[\"Marketing, Durabilit\\u00e9, Chaine d\\u2019approvisionnement, Logistiques, Inter & Multimodalit\\u00e9\", \"Mat\\u00e9riaux, A\\u00e9rodynamique, Transition \\u00e9cologique, \\u00c9nerg\\u00e9tique et Mobilit\\u00e9s durables\", \"Sciences \\u00e9conomique, \\u00c9valuation des politiques publiques, Mod\\u00e8les \\u00e9conomiques\"]",
+    "mobilityTypes": "[\"Routier\"]",
+    "axes": "[\"Peser sur les choix de modes de transport des voyageurs\"]",
+    "usages": "[\"V\\u00e9hicule autonome et connect\\u00e9\"]"
+  },
+  "10.1145/3477314.3507202": {
+    "challenges": "[\"Technologiques\"]",
+    "themes": "[\"Communications\"]",
+    "scientificThemes": "[\"S\\u00e9curit\\u00e9, Cybers\\u00e9curit\\u00e9, R\\u00e9silience, Suret\\u00e9, Fonctionnement et Interop\\u00e9rabilit\\u00e9 des syst\\u00e8mes\", \"Communications, Infrastructures et Connectivit\\u00e9\", \"Sciences juridiques, R\\u00e8glementations et Assurances\"]",
+    "mobilityTypes": "[\"Routier\"]",
+    "axes": "[\"Accompagner le d\\u00e9veloppement des syst\\u00e8mes de transports d\\u00e9carbon\\u00e9s et s\\u00fbrs\"]",
+    "usages": "[\"V\\u00e9hicule autonome et connect\\u00e9\"]"
+  },
+  "10.1016/j.ejor.2024.05.031": {
+    "challenges": "[\"Technologiques\"]",
+    "themes": "[\"Logistique\", \"Urbain\", \"Rural\"]",
+    "scientificThemes": "[\"Mat\\u00e9riaux, A\\u00e9rodynamique, Transition \\u00e9cologique, \\u00c9nerg\\u00e9tique et Mobilit\\u00e9s durables\", \"Marketing, Durabilit\\u00e9, Chaine d\\u2019approvisionnement, Logistiques, Inter & Multimodalit\\u00e9\", \"Communications, Infrastructures et Connectivit\\u00e9\"]",
+    "mobilityTypes": "[\"A\\u00e9rien\"]",
+    "axes": "[\"Favoriser le report modal des marchandises vers le fer et le maritime et am\\u00e9liorer la logistique urbaine et rurale\"]",
+    "usages": "[\"V\\u00e9hicule autonome et connect\\u00e9\"]"
+  },
+  "10.1007/978-3-030-99587-4_29": {
+    "challenges": "[\"Technologiques\"]",
+    "themes": "[\"Communications\"]",
+    "scientificThemes": "[\"Base et Traitement de donn\\u00e9es, IA\", \"S\\u00e9curit\\u00e9, Cybers\\u00e9curit\\u00e9, R\\u00e9silience, Suret\\u00e9, Fonctionnement et Interop\\u00e9rabilit\\u00e9 des syst\\u00e8mes\", \"Marketing, Durabilit\\u00e9, Chaine d\\u2019approvisionnement, Logistiques, Inter & Multimodalit\\u00e9\"]",
+    "mobilityTypes": "[ \"Other\" ]",
+    "axes": "[ \"Other\" ]",
+    "usages": "[ \"Other\" ]"
+  },
+  "10.3233/fi-1996-263406": {
+    "challenges": "[\"Technologiques\"]",
+    "themes": "[\"Communications\", \"Logistique\", \"Mat\\u00e9riaux\"]",
+    "scientificThemes": "[\"Sciences cognitives, Interfaces H/M\", \"Base et Traitement de donn\\u00e9es, IA\", \"Marketing, Durabilit\\u00e9, Chaine d\\u2019approvisionnement, Logistiques, Inter & Multimodalit\\u00e9\"]",
+    "mobilityTypes": "[ \"Other\" ]",
+    "axes": "[ \"Other\" ]",
+    "usages": "[ \"Other\" ]"
+  },
+  "10.1007/978-3-030-75075-6_8": {
+    "challenges": "[\"Technologiques\"]",
+    "themes": "[\"Communications\"]",
+    "scientificThemes": "[\"S\\u00e9curit\\u00e9, Cybers\\u00e9curit\\u00e9, R\\u00e9silience, Suret\\u00e9, Fonctionnement et Interop\\u00e9rabilit\\u00e9 des syst\\u00e8mes\", \"Communications, Infrastructures et Connectivit\\u00e9\", \"Capteurs et Traitement du signal\"]",
+    "mobilityTypes": "[ \"Other\" ]",
+    "axes": "[ \"Other\" ]",
+    "usages": "[ \"Other\" ]"
+  },
+  "10.26904/rf-148-4826204184": {
+    "challenges": "[\"Strat\\u00e9giques\", \"Technologiques\", \"Soci\\u00e9taux\"]",
+    "themes": "[ \"Other\" ]",
+    "scientificThemes": "[\"Sciences cognitives, Interfaces H/M\", \"G\\u00e9ographie, Territoires et Sociologie\", \"Marketing, Durabilit\\u00e9, Chaine d\\u2019approvisionnement, Logistiques, Inter & Multimodalit\\u00e9\"]",
+    "mobilityTypes": "[ \"Other\" ]",
+    "axes": "[ \"Other\" ]",
+    "usages": "[ \"Other\" ]"
+  },
+  "10.4236/jemaa.2020.129011": {
+    "challenges": "[ \"Other\"]",
+    "themes": "[\"Communications\", \"Mat\\u00e9riaux\"]",
+    "scientificThemes": "[ \"Other\" ]",
+    "mobilityTypes": "[ \"Other\" ]",
+    "axes": "[ \"Other\" ]",
+    "usages": "[ \"Other\" ]"
+  },
+  "10.1016/j.trb.2022.08.007": {
+    "challenges": "[\"Strat\\u00e9giques\", \"Technologiques\", \"Economiques\"]",
+    "themes": "[\"Urbain\"]",
+    "scientificThemes": "[\"Marketing, Durabilit\\u00e9, Chaine d\\u2019approvisionnement, Logistiques, Inter & Multimodalit\\u00e9\", \"Sciences \\u00e9conomique, \\u00c9valuation des politiques publiques, Mod\\u00e8les \\u00e9conomiques\", \"Mat\\u00e9riaux, A\\u00e9rodynamique, Transition \\u00e9cologique, \\u00c9nerg\\u00e9tique et Mobilit\\u00e9s durables\"]",
+    "mobilityTypes": "[\"Routier\"]",
+    "axes": "[\"Accompagner le d\\u00e9veloppement des syst\\u00e8mes de transports d\\u00e9carbon\\u00e9s et s\\u00fbrs\"]",
+    "usages": "[\"V\\u00e9hicule autonome et connect\\u00e9\"]"
+  },
+  "10.1109/noms56928.2023.10154436": {
+    "challenges": "[\"Technologiques\"]",
+    "themes": "[\"Logistique\", \"Communications\"]",
+    "scientificThemes": "[\"Marketing, Durabilit\\u00e9, Chaine d\\u2019approvisionnement, Logistiques, Inter & Multimodalit\\u00e9\", \"Communications, Infrastructures et Connectivit\\u00e9\", \"Sciences cognitives, Interfaces H/M\"]",
+    "mobilityTypes": "[ \"Other\" ]",
+    "axes": "[ \"Other\" ]",
+    "usages": "[ \"Other\" ]"
+  },
+  "10.1016/j.ejor.2020.04.016": {
+    "challenges": "[\"Strat\\u00e9giques\", \"Technologiques\", \"Economiques\"]",
+    "themes": "[\"Logistique\"]",
+    "scientificThemes": "[\"Marketing, Durabilit\\u00e9, Chaine d\\u2019approvisionnement, Logistiques, Inter & Multimodalit\\u00e9\", \"Communications, Infrastructures et Connectivit\\u00e9\", \"Sciences \\u00e9conomique, \\u00c9valuation des politiques publiques, Mod\\u00e8les \\u00e9conomiques\"]",
+    "mobilityTypes": "[\"Routier\"]",
+    "axes": "[\"Favoriser le report modal des marchandises vers le fer et le maritime et am\\u00e9liorer la logistique urbaine et rurale\"]",
+    "usages": "[ \"Other\" ]"
+  },
+  "10.62036/isd.2022.6": {
+    "challenges": "[\"Environnementaux\"]",
+    "themes": "[\"Energie\"]",
+    "scientificThemes": "[\"Marketing, Durabilit\\u00e9, Chaine d\\u2019approvisionnement, Logistiques, Inter & Multimodalit\\u00e9\", \"Mat\\u00e9riaux, A\\u00e9rodynamique, Transition \\u00e9cologique, \\u00c9nerg\\u00e9tique et Mobilit\\u00e9s durables\", \"Sciences cognitives, Interfaces H/M\"]",
+    "mobilityTypes": "[ \"Other\" ]",
+    "axes": "[ \"Other\" ]",
+    "usages": "[ \"Other\" ]"
+  },
+  "10.60662/6sm3-5f44": {
+    "challenges": "[\"Soci\\u00e9taux\"]",
+    "themes": "[ \"Other\" ]",
+    "scientificThemes": "[\"G\\u00e9ographie, Territoires et Sociologie\", \"Sciences \\u00e9conomique, \\u00c9valuation des politiques publiques, Mod\\u00e8les \\u00e9conomiques\", \"Sciences juridiques, R\\u00e8glementations et Assurances\"]",
+    "mobilityTypes": "[ \"Other\" ]",
+    "axes": "[ \"Other\" ]",
+    "usages": "[ \"Other\" ]"
+  },
+  "10.1109/icc45041.2023.10279368": {
+    "challenges": "[\"Technologiques\"]",
+    "themes": "[ \"Other\" ]",
+    "scientificThemes": "[\"S\\u00e9curit\\u00e9, Cybers\\u00e9curit\\u00e9, R\\u00e9silience, Suret\\u00e9, Fonctionnement et Interop\\u00e9rabilit\\u00e9 des syst\\u00e8mes\", \"Base et Traitement de donn\\u00e9es, IA\", \"Communications, Infrastructures et Connectivit\\u00e9\"]",
+    "mobilityTypes": "[ \"Other\" ]",
+    "axes": "[ \"Other\" ]",
+    "usages": "[ \"Other\" ]"
+  },
+  "10.1016/j.buildenv.2022.108786": {
+    "challenges": "[\"Strat\\u00e9giques\", \"Technologiques\", \"Environnementaux\"]",
+    "themes": "[\"Urbain\", \"Logistique\", \"Plateforme\"]",
+    "scientificThemes": "[\"Marketing, Durabilit\\u00e9, Chaine d\\u2019approvisionnement, Logistiques, Inter & Multimodalit\\u00e9\", \"Sciences cognitives, Interfaces H/M\", \"Base et Traitement de donn\\u00e9es, IA\"]",
+    "mobilityTypes": "[\"Routier\"]",
+    "axes": "[\"Favoriser le report modal des marchandises vers le fer et le maritime et am\\u00e9liorer la logistique urbaine et rurale\"]",
+    "usages": "[ \"Other\" ]"
+  },
+  "10.1504/writr.2021.113482": {
+    "challenges": "[\"Strat\\u00e9giques\"]",
+    "themes": "[\"Logistique\", \"Transfrontalier\"]",
+    "scientificThemes": "[\"Marketing, Durabilit\\u00e9, Chaine d\\u2019approvisionnement, Logistiques, Inter & Multimodalit\\u00e9\", \"Sciences juridiques, R\\u00e8glementations et Assurances\", \"Sciences \\u00e9conomique, \\u00c9valuation des politiques publiques, Mod\\u00e8les \\u00e9conomiques\"]",
+    "mobilityTypes": "[\"Fluvial/Maritime\"]",
+    "axes": "[\"Favoriser le report modal des marchandises vers le fer et le maritime et am\\u00e9liorer la logistique urbaine et rurale\"]",
+    "usages": "[ \"Other\" ]"
+  },
+  "10.1016/j.jweia.2019.104062": {
+    "challenges": "[\"Technologiques\", \"Environnementaux\"]",
+    "themes": "[\"Mat\\u00e9riaux\"]",
+    "scientificThemes": "[\"Mat\\u00e9riaux, A\\u00e9rodynamique, Transition \\u00e9cologique, \\u00c9nerg\\u00e9tique et Mobilit\\u00e9s durables\", \"Sciences cognitives, Interfaces H/M\", \"Base et Traitement de donn\\u00e9es, IA\"]",
+    "mobilityTypes": "[\"A\\u00e9rien\"]",
+    "axes": "[\"Accompagner le d\\u00e9veloppement des syst\\u00e8mes de transports d\\u00e9carbon\\u00e9s et s\\u00fbrs\"]",
+    "usages": "[ \"Other\" ]"
+  },
+  "10.1049/iet-cta.2020.0167": {
+    "challenges": "[ \"Other\"]",
+    "themes": "[ \"Other\" ]",
+    "scientificThemes": "[ \"Other\" ]",
+    "mobilityTypes": "[ \"Other\" ]",
+    "axes": "[ \"Other\" ]",
+    "usages": "[ \"Other\" ]"
+  },
+  "10.1016/j.techsoc.2023.102298": {
+    "challenges": "[\"Strat\\u00e9giques\", \"Technologiques\"]",
+    "themes": "[\"Plateforme\"]",
+    "scientificThemes": "[\"Sciences cognitives, Interfaces H/M\", \"Marketing, Durabilit\\u00e9, Chaine d\\u2019approvisionnement, Logistiques, Inter & Multimodalit\\u00e9\", \"S\\u00e9curit\\u00e9, Cybers\\u00e9curit\\u00e9, R\\u00e9silience, Suret\\u00e9, Fonctionnement et Interop\\u00e9rabilit\\u00e9 des syst\\u00e8mes\"]",
+    "mobilityTypes": "[\"Routier\"]",
+    "axes": "[\"Accompagner le d\\u00e9veloppement des syst\\u00e8mes de transports d\\u00e9carbon\\u00e9s et s\\u00fbrs\", \"Favoriser le report modal des marchandises vers le fer et le maritime et am\\u00e9liorer la logistique urbaine et rurale\"]",
+    "usages": "[ \"Other\" ]"
+  },
+  "10.23919/cnsm55787.2022.9964740": {
+    "challenges": "[\"Technologiques\"]",
+    "themes": "[\"Communications\", \"Urbain\", \"Logistique\"]",
+    "scientificThemes": "[\"Marketing, Durabilit\\u00e9, Chaine d\\u2019approvisionnement, Logistiques, Inter & Multimodalit\\u00e9\", \"Communications, Infrastructures et Connectivit\\u00e9\", \"Mat\\u00e9riaux, A\\u00e9rodynamique, Transition \\u00e9cologique, \\u00c9nerg\\u00e9tique et Mobilit\\u00e9s durables\"]",
+    "mobilityTypes": "[\"Routier\"]",
+    "axes": "[\"Accompagner le d\\u00e9veloppement des syst\\u00e8mes de transports d\\u00e9carbon\\u00e9s et s\\u00fbrs\", \"Peser sur les choix de modes de transport des voyageurs\"]",
+    "usages": "[\"V\\u00e9hicule autonome et connect\\u00e9\"]"
+  },
+  "10.1109/access.2023.3302529": {
+    "challenges": "[\"Technologiques\"]",
+    "themes": "[\"Communications\"]",
+    "scientificThemes": "[\"S\\u00e9curit\\u00e9, Cybers\\u00e9curit\\u00e9, R\\u00e9silience, Suret\\u00e9, Fonctionnement et Interop\\u00e9rabilit\\u00e9 des syst\\u00e8mes\", \"Communications, Infrastructures et Connectivit\\u00e9\", \"Capteurs et Traitement du signal\"]",
+    "mobilityTypes": "[ \"Other\" ]",
+    "axes": "[ \"Other\" ]",
+    "usages": "[ \"Other\" ]"
+  },
+  "10.1093/oxfordhb/9780197501061.013.17": {
+    "challenges": "[\"Strat\\u00e9giques\"]",
+    "themes": "[ \"Other\" ]",
+    "scientificThemes": "[\"Marketing, Durabilit\\u00e9, Chaine d\\u2019approvisionnement, Logistiques, Inter & Multimodalit\\u00e9\", \"Sciences cognitives, Interfaces H/M\", \"S\\u00e9curit\\u00e9, Cybers\\u00e9curit\\u00e9, R\\u00e9silience, Suret\\u00e9, Fonctionnement et Interop\\u00e9rabilit\\u00e9 des syst\\u00e8mes\"]",
+    "mobilityTypes": "[ \"Other\" ]",
+    "axes": "[ \"Other\" ]",
+    "usages": "[ \"Other\" ]"
+  },
+  "10.1007/s00348-016-2120-1": {
+    "challenges": "[\"Environnementaux\"]",
+    "themes": "[\"Mat\\u00e9riaux\"]",
+    "scientificThemes": "[\"Mat\\u00e9riaux, A\\u00e9rodynamique, Transition \\u00e9cologique, \\u00c9nerg\\u00e9tique et Mobilit\\u00e9s durables\", \"Sciences \\u00e9conomique, \\u00c9valuation des politiques publiques, Mod\\u00e8les \\u00e9conomiques\", \"Marketing, Durabilit\\u00e9, Chaine d\\u2019approvisionnement, Logistiques, Inter & Multimodalit\\u00e9\"]",
+    "mobilityTypes": "[\"Transport par cables\"]",
+    "axes": "[\"Accompagner le d\\u00e9veloppement des syst\\u00e8mes de transports d\\u00e9carbon\\u00e9s et s\\u00fbrs\"]",
+    "usages": "[ \"Other\" ]"
+  },
+  "10.1109/sensors47125.2020.9278843": {
+    "challenges": "[\"Environnementaux\", \"Technologiques\"]",
+    "themes": "[\"Energie\"]",
+    "scientificThemes": "[ \"Other\" ]",
+    "mobilityTypes": "[ \"Other\" ]",
+    "axes": "[ \"Other\" ]",
+    "usages": "[ \"Other\" ]"
+  },
+  "10.1002/cpe.6038": {
+    "challenges": "[ \"Other\"]",
+    "themes": "[ \"Other\" ]",
+    "scientificThemes": "[ \"Other\" ]",
+    "mobilityTypes": "[ \"Other\" ]",
+    "axes": "[ \"Other\" ]",
+    "usages": "[ \"Other\" ]"
+  },
+  "10.1109/mt-its56129.2023.10241504": {
+    "challenges": "[\"Strat\\u00e9giques\", \"Technologiques\", \"Environnementaux\"]",
+    "themes": "[\"Urbain\"]",
+    "scientificThemes": "[\"Marketing, Durabilit\\u00e9, Chaine d\\u2019approvisionnement, Logistiques, Inter & Multimodalit\\u00e9\", \"Sciences \\u00e9conomique, \\u00c9valuation des politiques publiques, Mod\\u00e8les \\u00e9conomiques\", \"G\\u00e9ographie, Territoires et Sociologie\"]",
+    "mobilityTypes": "[\"Routier\"]",
+    "axes": "[\"Peser sur les choix de modes de transport des voyageurs\"]",
+    "usages": "[\"V\\u00e9hicule autonome et connect\\u00e9\"]"
+  },
+  "10.1108/lht-01-2021-0013": {
+    "challenges": "[\"Technologiques\"]",
+    "themes": "[\"Plateforme\", \"Communications\"]",
+    "scientificThemes": "[\"S\\u00e9curit\\u00e9, Cybers\\u00e9curit\\u00e9, R\\u00e9silience, Suret\\u00e9, Fonctionnement et Interop\\u00e9rabilit\\u00e9 des syst\\u00e8mes\", \"Communications, Infrastructures et Connectivit\\u00e9\", \"Mat\\u00e9riaux, A\\u00e9rodynamique, Transition \\u00e9cologique, \\u00c9nerg\\u00e9tique et Mobilit\\u00e9s durables\"]",
+    "mobilityTypes": "[\"Routier\"]",
+    "axes": "[\"Accompagner le d\\u00e9veloppement des syst\\u00e8mes de transports d\\u00e9carbon\\u00e9s et s\\u00fbrs\"]",
+    "usages": "[\"V\\u00e9hicule autonome et connect\\u00e9\"]"
+  },
+  "10.1007/978-3-031-27540-1_6": {
+    "challenges": "[\"Technologiques\"]",
+    "themes": "[\"Communications\", \"Logistique\"]",
+    "scientificThemes": "[\"Capteurs et Traitement du signal\", \"Base et Traitement de donn\\u00e9es, IA\", \"S\\u00e9curit\\u00e9, Cybers\\u00e9curit\\u00e9, R\\u00e9silience, Suret\\u00e9, Fonctionnement et Interop\\u00e9rabilit\\u00e9 des syst\\u00e8mes\"]",
+    "mobilityTypes": "[ \"Other\" ]",
+    "axes": "[ \"Other\" ]",
+    "usages": "[ \"Other\" ]"
+  },
+  "10.1109/ccnc49033.2022.9700610": {
+    "challenges": "[\"Technologiques\"]",
+    "themes": "[\"Communications\"]",
+    "scientificThemes": "[\"Communications, Infrastructures et Connectivit\\u00e9\", \"Marketing, Durabilit\\u00e9, Chaine d\\u2019approvisionnement, Logistiques, Inter & Multimodalit\\u00e9\", \"S\\u00e9curit\\u00e9, Cybers\\u00e9curit\\u00e9, R\\u00e9silience, Suret\\u00e9, Fonctionnement et Interop\\u00e9rabilit\\u00e9 des syst\\u00e8mes\"]",
+    "mobilityTypes": "[\"Routier\"]",
+    "axes": "[\"Accompagner le d\\u00e9veloppement des syst\\u00e8mes de transports d\\u00e9carbon\\u00e9s et s\\u00fbrs\"]",
+    "usages": "[\"V\\u00e9hicule autonome et connect\\u00e9\"]"
+  },
+  "10.1007/978-981-19-3359-2_26": {
+    "challenges": "[\"Strat\\u00e9giques\", \"Soci\\u00e9taux\", \"Economiques\"]",
+    "themes": "[\"Urbain\"]",
+    "scientificThemes": "[\"Sciences \\u00e9conomique, \\u00c9valuation des politiques publiques, Mod\\u00e8les \\u00e9conomiques\", \"G\\u00e9ographie, Territoires et Sociologie\", \"Marketing, Durabilit\\u00e9, Chaine d\\u2019approvisionnement, Logistiques, Inter & Multimodalit\\u00e9\"]",
+    "mobilityTypes": "[\"Routier\"]",
+    "axes": "[\"Accompagner le d\\u00e9veloppement des syst\\u00e8mes de transports d\\u00e9carbon\\u00e9s et s\\u00fbrs\"]",
+    "usages": "[\"V\\u00e9hicule autonome et connect\\u00e9\"]"
+  },
+  "10.1109/wcnc55385.2023.10118857": {
+    "challenges": "[\"Technologiques\"]",
+    "themes": "[\"Communications\", \"Logistique\"]",
+    "scientificThemes": "[\"Marketing, Durabilit\\u00e9, Chaine d\\u2019approvisionnement, Logistiques, Inter & Multimodalit\\u00e9\", \"Communications, Infrastructures et Connectivit\\u00e9\", \"Base et Traitement de donn\\u00e9es, IA\"]",
+    "mobilityTypes": "[\"Routier\"]",
+    "axes": "[\"Accompagner le d\\u00e9veloppement des syst\\u00e8mes de transports d\\u00e9carbon\\u00e9s et s\\u00fbrs\"]",
+    "usages": "[\"V\\u00e9hicule autonome et connect\\u00e9\"]"
+  },
+  "10.1016/j.trip.2023.100953": {
+    "challenges": "[\"Environnementaux\"]",
+    "themes": "[ \"Other\" ]",
+    "scientificThemes": "[\"Mat\\u00e9riaux, A\\u00e9rodynamique, Transition \\u00e9cologique, \\u00c9nerg\\u00e9tique et Mobilit\\u00e9s durables\", \"Sciences juridiques, R\\u00e8glementations et Assurances\", \"Marketing, Durabilit\\u00e9, Chaine d\\u2019approvisionnement, Logistiques, Inter & Multimodalit\\u00e9\"]",
+    "mobilityTypes": "[\"A\\u00e9rien\"]",
+    "axes": "[\"Accompagner le d\\u00e9veloppement des syst\\u00e8mes de transports d\\u00e9carbon\\u00e9s et s\\u00fbrs\"]",
+    "usages": "[ \"Other\" ]"
+  },
+  "10.1007/978-3-030-75078-7_34": {
+    "challenges": "[\"Technologiques\"]",
+    "themes": "[\"Plateforme\", \"Communications\"]",
+    "scientificThemes": "[\"S\\u00e9curit\\u00e9, Cybers\\u00e9curit\\u00e9, R\\u00e9silience, Suret\\u00e9, Fonctionnement et Interop\\u00e9rabilit\\u00e9 des syst\\u00e8mes\", \"Communications, Infrastructures et Connectivit\\u00e9\", \"Capteurs et Traitement du signal\"]",
+    "mobilityTypes": "[ \"Other\" ]",
+    "axes": "[ \"Other\" ]",
+    "usages": "[ \"Other\" ]"
+  },
+  "10.2991/ijndc.k.200829.001": {
+    "challenges": "[\"Technologiques\"]",
+    "themes": "[\"Urbain\", \"Logistique\", \"Rural\"]",
+    "scientificThemes": "[\"S\\u00e9curit\\u00e9, Cybers\\u00e9curit\\u00e9, R\\u00e9silience, Suret\\u00e9, Fonctionnement et Interop\\u00e9rabilit\\u00e9 des syst\\u00e8mes\", \"Communications, Infrastructures et Connectivit\\u00e9\", \"Marketing, Durabilit\\u00e9, Chaine d\\u2019approvisionnement, Logistiques, Inter & Multimodalit\\u00e9\"]",
+    "mobilityTypes": "[\"Routier\"]",
+    "axes": "[\"Accompagner le d\\u00e9veloppement des syst\\u00e8mes de transports d\\u00e9carbon\\u00e9s et s\\u00fbrs\"]",
+    "usages": "[\"V\\u00e9hicule autonome et connect\\u00e9\"]"
+  },
+  "10.1016/j.fss.2018.02.006": {
+    "challenges": "[\"Strat\\u00e9giques\", \"Economiques\"]",
+    "themes": "[\"Urbain\", \"Logistique\", \"Mat\\u00e9riaux\"]",
+    "scientificThemes": "[\"Sciences \\u00e9conomique, \\u00c9valuation des politiques publiques, Mod\\u00e8les \\u00e9conomiques\", \"Base et Traitement de donn\\u00e9es, IA\", \"Sciences cognitives, Interfaces H/M\"]",
+    "mobilityTypes": "[\"Fluvial/Maritime\"]",
+    "axes": "[\"Accompagner le d\\u00e9veloppement des syst\\u00e8mes de transports d\\u00e9carbon\\u00e9s et s\\u00fbrs\"]",
+    "usages": "[ \"Other\" ]"
+  },
+  "10.1016/j.jweia.2023.105366": {
+    "challenges": "[\"Environnementaux\"]",
+    "themes": "[\"Mat\\u00e9riaux\"]",
+    "scientificThemes": "[\"Mat\\u00e9riaux, A\\u00e9rodynamique, Transition \\u00e9cologique, \\u00c9nerg\\u00e9tique et Mobilit\\u00e9s durables\", \"Sciences cognitives, Interfaces H/M\", \"Marketing, Durabilit\\u00e9, Chaine d\\u2019approvisionnement, Logistiques, Inter & Multimodalit\\u00e9\"]",
+    "mobilityTypes": "[\"Routier\"]",
+    "axes": "[\"Accompagner le d\\u00e9veloppement des syst\\u00e8mes de transports d\\u00e9carbon\\u00e9s et s\\u00fbrs\"]",
+    "usages": "[ \"Other\" ]"
+  },
+  "10.1016/j.jweia.2018.01.040": {
+    "challenges": "[\"Environnementaux\"]",
+    "themes": "[\"Mat\\u00e9riaux\"]",
+    "scientificThemes": "[\"Mat\\u00e9riaux, A\\u00e9rodynamique, Transition \\u00e9cologique, \\u00c9nerg\\u00e9tique et Mobilit\\u00e9s durables\", \"Sciences cognitives, Interfaces H/M\", \"Marketing, Durabilit\\u00e9, Chaine d\\u2019approvisionnement, Logistiques, Inter & Multimodalit\\u00e9\"]",
+    "mobilityTypes": "[\"Fluvial/Maritime\"]",
+    "axes": "[\"Accompagner le d\\u00e9veloppement des syst\\u00e8mes de transports d\\u00e9carbon\\u00e9s et s\\u00fbrs\"]",
+    "usages": "[ \"Other\" ]"
+  },
+  "10.3390/s22249570": {
+    "challenges": "[\"Technologiques\", \"Environnementaux\", \"Strat\\u00e9giques\"]",
+    "themes": "[\"Urbain\", \"Communications\"]",
+    "scientificThemes": "[\"Communications, Infrastructures et Connectivit\\u00e9\", \"Marketing, Durabilit\\u00e9, Chaine d\\u2019approvisionnement, Logistiques, Inter & Multimodalit\\u00e9\", \"Mat\\u00e9riaux, A\\u00e9rodynamique, Transition \\u00e9cologique, \\u00c9nerg\\u00e9tique et Mobilit\\u00e9s durables\"]",
+    "mobilityTypes": "[\"Routier\"]",
+    "axes": "[\"Accompagner le d\\u00e9veloppement des syst\\u00e8mes de transports d\\u00e9carbon\\u00e9s et s\\u00fbrs\"]",
+    "usages": "[\"V\\u00e9hicule autonome et connect\\u00e9\"]"
+  },
+  "10.1109/globecom48099.2022.10000721": {
+    "challenges": "[\"Technologiques\"]",
+    "themes": "[\"Communications\"]",
+    "scientificThemes": "[\"Communications, Infrastructures et Connectivit\\u00e9\", \"G\\u00e9ographie, Territoires et Sociologie\", \"S\\u00e9curit\\u00e9, Cybers\\u00e9curit\\u00e9, R\\u00e9silience, Suret\\u00e9, Fonctionnement et Interop\\u00e9rabilit\\u00e9 des syst\\u00e8mes\"]",
+    "mobilityTypes": "[\"Routier\"]",
+    "axes": "[\"Accompagner le d\\u00e9veloppement des syst\\u00e8mes de transports d\\u00e9carbon\\u00e9s et s\\u00fbrs\", \"Peser sur les choix de modes de transport des voyageurs\", \"Favoriser le report modal des marchandises vers le fer et le maritime et am\\u00e9liorer la logistique urbaine et rurale\"]",
+    "usages": "[\"V\\u00e9hicule autonome et connect\\u00e9\"]"
+  },
+  "10.1016/j.ifacol.2021.08.102": {
+    "challenges": "[\"Technologiques\"]",
+    "themes": "[ \"Other\" ]",
+    "scientificThemes": "[\"Sciences cognitives, Interfaces H/M\", \"S\\u00e9curit\\u00e9, Cybers\\u00e9curit\\u00e9, R\\u00e9silience, Suret\\u00e9, Fonctionnement et Interop\\u00e9rabilit\\u00e9 des syst\\u00e8mes\", \"Marketing, Durabilit\\u00e9, Chaine d\\u2019approvisionnement, Logistiques, Inter & Multimodalit\\u00e9\"]",
+    "mobilityTypes": "[ \"Other\" ]",
+    "axes": "[ \"Other\" ]",
+    "usages": "[ \"Other\" ]"
+  },
+  "10.1016/j.est.2021.103273": {
+    "challenges": "[\"Environnementaux\"]",
+    "themes": "[\"Energie\"]",
+    "scientificThemes": "[\"Mat\\u00e9riaux, A\\u00e9rodynamique, Transition \\u00e9cologique, \\u00c9nerg\\u00e9tique et Mobilit\\u00e9s durables\", \"Marketing, Durabilit\\u00e9, Chaine d\\u2019approvisionnement, Logistiques, Inter & Multimodalit\\u00e9\", \"Sciences \\u00e9conomique, \\u00c9valuation des politiques publiques, Mod\\u00e8les \\u00e9conomiques\"]",
+    "mobilityTypes": "[\"Routier\"]",
+    "axes": "[\"Accompagner le d\\u00e9veloppement des syst\\u00e8mes de transports d\\u00e9carbon\\u00e9s et s\\u00fbrs\"]",
+    "usages": "[ \"Other\" ]"
+  },
+  "10.1017/jfm.2020.275": {
+    "challenges": "[\"Environnementaux\", \"Technologiques\"]",
+    "themes": "[ \"Other\" ]",
+    "scientificThemes": "[\"Mat\\u00e9riaux, A\\u00e9rodynamique, Transition \\u00e9cologique, \\u00c9nerg\\u00e9tique et Mobilit\\u00e9s durables\", \"Sciences cognitives, Interfaces H/M\", \"Marketing, Durabilit\\u00e9, Chaine d\\u2019approvisionnement, Logistiques, Inter & Multimodalit\\u00e9\"]",
+    "mobilityTypes": "[\"Transport par cables\"]",
+    "axes": "[\"Accompagner le d\\u00e9veloppement des syst\\u00e8mes de transports d\\u00e9carbon\\u00e9s et s\\u00fbrs\"]",
+    "usages": "[ \"Other\" ]"
+  },
+  "10.1016/j.ijheatfluidflow.2022.108977": {
+    "challenges": "[\"Environnementaux\"]",
+    "themes": "[\"Mat\\u00e9riaux\"]",
+    "scientificThemes": "[\"Mat\\u00e9riaux, A\\u00e9rodynamique, Transition \\u00e9cologique, \\u00c9nerg\\u00e9tique et Mobilit\\u00e9s durables\", \"Sciences cognitives, Interfaces H/M\", \"Marketing, Durabilit\\u00e9, Chaine d\\u2019approvisionnement, Logistiques, Inter & Multimodalit\\u00e9\"]",
+    "mobilityTypes": "[\"Fluvial/Maritime\"]",
+    "axes": "[\"Accompagner le d\\u00e9veloppement des syst\\u00e8mes de transports d\\u00e9carbon\\u00e9s et s\\u00fbrs\"]",
+    "usages": "[ \"Other\" ]"
+  },
+  "10.1109/vtc2023-spring57618.2023.10199384": {
+    "challenges": "[\"Technologiques\"]",
+    "themes": "[ \"Other\" ]",
+    "scientificThemes": "[\"Mat\\u00e9riaux, A\\u00e9rodynamique, Transition \\u00e9cologique, \\u00c9nerg\\u00e9tique et Mobilit\\u00e9s durables\", \"Sciences cognitives, Interfaces H/M\", \"Base et Traitement de donn\\u00e9es, IA\"]",
+    "mobilityTypes": "[\"Routier\"]",
+    "axes": "[\"Accompagner le d\\u00e9veloppement des syst\\u00e8mes de transports d\\u00e9carbon\\u00e9s et s\\u00fbrs\"]",
+    "usages": "[\"V\\u00e9hicule autonome et connect\\u00e9\"]"
+  },
+  "10.23919/wmnc56391.2022.9954293": {
+    "challenges": "[\"Technologiques\"]",
+    "themes": "[\"Communications\"]",
+    "scientificThemes": "[\"Communications, Infrastructures et Connectivit\\u00e9\", \"S\\u00e9curit\\u00e9, Cybers\\u00e9curit\\u00e9, R\\u00e9silience, Suret\\u00e9, Fonctionnement et Interop\\u00e9rabilit\\u00e9 des syst\\u00e8mes\", \"Marketing, Durabilit\\u00e9, Chaine d\\u2019approvisionnement, Logistiques, Inter & Multimodalit\\u00e9\"]",
+    "mobilityTypes": "[\"Routier\"]",
+    "axes": "[\"Accompagner le d\\u00e9veloppement des syst\\u00e8mes de transports d\\u00e9carbon\\u00e9s et s\\u00fbrs\"]",
+    "usages": "[\"V\\u00e9hicule autonome et connect\\u00e9\"]"
+  },
+  "10.1016/j.est.2021.103377": {
+    "challenges": "[\"Environnementaux\"]",
+    "themes": "[\"Energie\"]",
+    "scientificThemes": "[\"Mat\\u00e9riaux, A\\u00e9rodynamique, Transition \\u00e9cologique, \\u00c9nerg\\u00e9tique et Mobilit\\u00e9s durables\", \"Marketing, Durabilit\\u00e9, Chaine d\\u2019approvisionnement, Logistiques, Inter & Multimodalit\\u00e9\", \"S\\u00e9curit\\u00e9, Cybers\\u00e9curit\\u00e9, R\\u00e9silience, Suret\\u00e9, Fonctionnement et Interop\\u00e9rabilit\\u00e9 des syst\\u00e8mes\"]",
+    "mobilityTypes": "[ \"Other\" ]",
+    "axes": "[ \"Other\" ]",
+    "usages": "[ \"Other\" ]"
+  },
+  "10.1109/globecom42002.2020.9348056": {
+    "challenges": "[\"Environnementaux\"]",
+    "themes": "[\"Energie\"]",
+    "scientificThemes": "[\"Mat\\u00e9riaux, A\\u00e9rodynamique, Transition \\u00e9cologique, \\u00c9nerg\\u00e9tique et Mobilit\\u00e9s durables\", \"Marketing, Durabilit\\u00e9, Chaine d\\u2019approvisionnement, Logistiques, Inter & Multimodalit\\u00e9\", \"Base et Traitement de donn\\u00e9es, IA\"]",
+    "mobilityTypes": "[ \"Other\" ]",
+    "axes": "[ \"Other\" ]",
+    "usages": "[ \"Other\" ]"
+  },
+  "10.1016/j.tre.2020.102038": {
+    "challenges": "[\"Environnementaux\"]",
+    "themes": "[\"Logistique\", \"Energie\"]",
+    "scientificThemes": "[\"Marketing, Durabilit\\u00e9, Chaine d\\u2019approvisionnement, Logistiques, Inter & Multimodalit\\u00e9\", \"Sciences \\u00e9conomique, \\u00c9valuation des politiques publiques, Mod\\u00e8les \\u00e9conomiques\", \"Mat\\u00e9riaux, A\\u00e9rodynamique, Transition \\u00e9cologique, \\u00c9nerg\\u00e9tique et Mobilit\\u00e9s durables\"]",
+    "mobilityTypes": "[\"Routier\"]",
+    "axes": "[\"Favoriser le report modal des marchandises vers le fer et le maritime et am\\u00e9liorer la logistique urbaine et rurale\", \"Accompagner le d\\u00e9veloppement des syst\\u00e8mes de transports d\\u00e9carbon\\u00e9s et s\\u00fbrs\"]",
+    "usages": "[ \"Other\" ]"
+  },
+  "10.1016/j.ijthermalsci.2021.107125": {
+    "challenges": "[ \"Other\"]",
+    "themes": "[ \"Other\" ]",
+    "scientificThemes": "[\"Mat\\u00e9riaux, A\\u00e9rodynamique, Transition \\u00e9cologique, \\u00c9nerg\\u00e9tique et Mobilit\\u00e9s durables\", \"S\\u00e9curit\\u00e9, Cybers\\u00e9curit\\u00e9, R\\u00e9silience, Suret\\u00e9, Fonctionnement et Interop\\u00e9rabilit\\u00e9 des syst\\u00e8mes\", \"Communications, Infrastructures et Connectivit\\u00e9\"]",
+    "mobilityTypes": "[ \"Other\" ]",
+    "axes": "[ \"Other\" ]",
+    "usages": "[ \"Other\" ]"
+  },
+  "10.21203/rs.3.rs-2603145/v1": {
+    "challenges": "[\"Strat\\u00e9giques\"]",
+    "themes": "[\"Urbain\"]",
+    "scientificThemes": "[\"G\\u00e9ographie, Territoires et Sociologie\", \"Marketing, Durabilit\\u00e9, Chaine d\\u2019approvisionnement, Logistiques, Inter & Multimodalit\\u00e9\", \"Sciences \\u00e9conomique, \\u00c9valuation des politiques publiques, Mod\\u00e8les \\u00e9conomiques\"]",
+    "mobilityTypes": "[\"Routier\"]",
+    "axes": "[\"Peser sur les choix de modes de transport des voyageurs\"]",
+    "usages": "[\"V\\u00e9hicule autonome et connect\\u00e9\"]"
+  },
+  "10.3390/vehicles5040080": {
+    "challenges": "[\"Technologiques\"]",
+    "themes": "[\"Urbain\", \"Logistique\"]",
+    "scientificThemes": "[\"S\\u00e9curit\\u00e9, Cybers\\u00e9curit\\u00e9, R\\u00e9silience, Suret\\u00e9, Fonctionnement et Interop\\u00e9rabilit\\u00e9 des syst\\u00e8mes\", \"Marketing, Durabilit\\u00e9, Chaine d\\u2019approvisionnement, Logistiques, Inter & Multimodalit\\u00e9\", \"Capteurs et Traitement du signal\"]",
+    "mobilityTypes": "[\"Routier\"]",
+    "axes": "[\"Accompagner le d\\u00e9veloppement des syst\\u00e8mes de transports d\\u00e9carbon\\u00e9s et s\\u00fbrs\"]",
+    "usages": "[\"V\\u00e9hicule autonome et connect\\u00e9\"]"
+  },
+  "10.1016/j.vehcom.2022.100519": {
+    "challenges": "[\"Technologiques\", \"Strat\\u00e9giques\"]",
+    "themes": "[\"Urbain\"]",
+    "scientificThemes": "[\"S\\u00e9curit\\u00e9, Cybers\\u00e9curit\\u00e9, R\\u00e9silience, Suret\\u00e9, Fonctionnement et Interop\\u00e9rabilit\\u00e9 des syst\\u00e8mes\", \"Marketing, Durabilit\\u00e9, Chaine d\\u2019approvisionnement, Logistiques, Inter & Multimodalit\\u00e9\", \"Communications, Infrastructures et Connectivit\\u00e9\"]",
+    "mobilityTypes": "[\"Routier\"]",
+    "axes": "[\"Accompagner le d\\u00e9veloppement des syst\\u00e8mes de transports d\\u00e9carbon\\u00e9s et s\\u00fbrs\"]",
+    "usages": "[\"V\\u00e9hicule autonome et connect\\u00e9\"]"
+  },
+  "10.1109/tpwrs.2020.3005991": {
+    "challenges": "[\"Environnementaux\"]",
+    "themes": "[\"Energie\"]",
+    "scientificThemes": "[\"Mat\\u00e9riaux, A\\u00e9rodynamique, Transition \\u00e9cologique, \\u00c9nerg\\u00e9tique et Mobilit\\u00e9s durables\", \"S\\u00e9curit\\u00e9, Cybers\\u00e9curit\\u00e9, R\\u00e9silience, Suret\\u00e9, Fonctionnement et Interop\\u00e9rabilit\\u00e9 des syst\\u00e8mes\", \"Marketing, Durabilit\\u00e9, Chaine d\\u2019approvisionnement, Logistiques, Inter & Multimodalit\\u00e9\"]",
+    "mobilityTypes": "[ \"Other\" ]",
+    "axes": "[ \"Other\" ]",
+    "usages": "[ \"Other\" ]"
+  },
+  "10.1109/sin56466.2022.9970491": {
+    "challenges": "[\"Technologiques\"]",
+    "themes": "[\"Plateforme\", \"Communications\", \"Urbain\"]",
+    "scientificThemes": "[\"S\\u00e9curit\\u00e9, Cybers\\u00e9curit\\u00e9, R\\u00e9silience, Suret\\u00e9, Fonctionnement et Interop\\u00e9rabilit\\u00e9 des syst\\u00e8mes\", \"Marketing, Durabilit\\u00e9, Chaine d\\u2019approvisionnement, Logistiques, Inter & Multimodalit\\u00e9\", \"Sciences cognitives, Interfaces H/M\"]",
+    "mobilityTypes": "[\"Routier\"]",
+    "axes": "[\"Accompagner le d\\u00e9veloppement des syst\\u00e8mes de transports d\\u00e9carbon\\u00e9s et s\\u00fbrs\"]",
+    "usages": "[\"V\\u00e9hicule autonome et connect\\u00e9\"]"
+  },
+  "10.1145/3412841.3441888": {
+    "challenges": "[\"Technologiques\", \"Environnementaux\"]",
+    "themes": "[\"Plateforme\", \"Energie\"]",
+    "scientificThemes": "[\"Communications, Infrastructures et Connectivit\\u00e9\", \"Marketing, Durabilit\\u00e9, Chaine d\\u2019approvisionnement, Logistiques, Inter & Multimodalit\\u00e9\", \"S\\u00e9curit\\u00e9, Cybers\\u00e9curit\\u00e9, R\\u00e9silience, Suret\\u00e9, Fonctionnement et Interop\\u00e9rabilit\\u00e9 des syst\\u00e8mes\"]",
+    "mobilityTypes": "[\"Routier\"]",
+    "axes": "[\"Favoriser le report modal des marchandises vers le fer et le maritime et am\\u00e9liorer la logistique urbaine et rurale\"]",
+    "usages": "[ \"Other\" ]"
+  },
+  "10.3390/machines10080686": {
+    "challenges": "[ \"Other\"]",
+    "themes": "[ \"Other\" ]",
+    "scientificThemes": "[\"S\\u00e9curit\\u00e9, Cybers\\u00e9curit\\u00e9, R\\u00e9silience, Suret\\u00e9, Fonctionnement et Interop\\u00e9rabilit\\u00e9 des syst\\u00e8mes\", \"Base et Traitement de donn\\u00e9es, IA\", \"Capteurs et Traitement du signal\"]",
+    "mobilityTypes": "[ \"Other\" ]",
+    "axes": "[ \"Other\" ]",
+    "usages": "[ \"Other\" ]"
+  },
+  "10.1109/access.2023.3326846": {
+    "challenges": "[\"Technologiques\"]",
+    "themes": "[\"Communications\"]",
+    "scientificThemes": "[\"Communications, Infrastructures et Connectivit\\u00e9\", \"S\\u00e9curit\\u00e9, Cybers\\u00e9curit\\u00e9, R\\u00e9silience, Suret\\u00e9, Fonctionnement et Interop\\u00e9rabilit\\u00e9 des syst\\u00e8mes\", \"Sciences cognitives, Interfaces H/M\"]",
+    "mobilityTypes": "[\"Routier\"]",
+    "axes": "[\"Peser sur les choix de modes de transport des voyageurs\"]",
+    "usages": "[\"V\\u00e9hicule autonome et connect\\u00e9\"]"
+  },
+  "10.1051/e3sconf/202343302006": {
+    "challenges": "[\"Environnementaux\"]",
+    "themes": "[\"Transfrontalier\", \"Energie\", \"Logistique\"]",
+    "scientificThemes": "[\"Mat\\u00e9riaux, A\\u00e9rodynamique, Transition \\u00e9cologique, \\u00c9nerg\\u00e9tique et Mobilit\\u00e9s durables\", \"Marketing, Durabilit\\u00e9, Chaine d\\u2019approvisionnement, Logistiques, Inter & Multimodalit\\u00e9\", \"Sciences \\u00e9conomique, \\u00c9valuation des politiques publiques, Mod\\u00e8les \\u00e9conomiques\"]",
+    "mobilityTypes": "[\"Fluvial/Maritime\"]",
+    "axes": "[\"Accompagner le d\\u00e9veloppement des syst\\u00e8mes de transports d\\u00e9carbon\\u00e9s et s\\u00fbrs\", \"Favoriser le report modal des marchandises vers le fer et le maritime et am\\u00e9liorer la logistique urbaine et rurale\"]",
+    "usages": "[ \"Other\" ]"
+  },
+  "10.3390/electronics10040418": {
+    "challenges": "[ \"Other\"]",
+    "themes": "[ \"Other\" ]",
+    "scientificThemes": "[ \"Other\" ]",
+    "mobilityTypes": "[ \"Other\" ]",
+    "axes": "[ \"Other\" ]",
+    "usages": "[ \"Other\" ]"
+  },
+  "10.1016/j.ejor.2022.02.007": {
+    "challenges": "[\"Economiques\", \"Strat\\u00e9giques\"]",
+    "themes": "[\"Logistique\"]",
+    "scientificThemes": "[\"Marketing, Durabilit\\u00e9, Chaine d\\u2019approvisionnement, Logistiques, Inter & Multimodalit\\u00e9\", \"Sciences cognitives, Interfaces H/M\", \"Sciences juridiques, R\\u00e8glementations et Assurances\"]",
+    "mobilityTypes": "[\"Fluvial/Maritime\"]",
+    "axes": "[\"Favoriser le report modal des marchandises vers le fer et le maritime et am\\u00e9liorer la logistique urbaine et rurale\"]",
+    "usages": "[ \"Other\" ]"
+  },
+  "10.1002/cpe.5958": {
+    "challenges": "[\"Technologiques\", \"Strat\\u00e9giques\"]",
+    "themes": "[\"Communications\", \"Plateforme\"]",
+    "scientificThemes": "[\"Communications, Infrastructures et Connectivit\\u00e9\", \"Capteurs et Traitement du signal\", \"S\\u00e9curit\\u00e9, Cybers\\u00e9curit\\u00e9, R\\u00e9silience, Suret\\u00e9, Fonctionnement et Interop\\u00e9rabilit\\u00e9 des syst\\u00e8mes\"]",
+    "mobilityTypes": "[\"Routier\"]",
+    "axes": "[\"Peser sur les choix de modes de transport des voyageurs\", \"Favoriser le report modal des marchandises vers le fer et le maritime et am\\u00e9liorer la logistique urbaine et rurale\"]",
+    "usages": "[\"V\\u00e9hicule autonome et connect\\u00e9\"]"
+  },
+  "10.2139/ssrn.4913341": {
+    "challenges": "[\"Technologiques\"]",
+    "themes": "[\"Urbain\", \"Plateforme\", \"Communications\"]",
+    "scientificThemes": "[\"S\\u00e9curit\\u00e9, Cybers\\u00e9curit\\u00e9, R\\u00e9silience, Suret\\u00e9, Fonctionnement et Interop\\u00e9rabilit\\u00e9 des syst\\u00e8mes\", \"Marketing, Durabilit\\u00e9, Chaine d\\u2019approvisionnement, Logistiques, Inter & Multimodalit\\u00e9\", \"Communications, Infrastructures et Connectivit\\u00e9\"]",
+    "mobilityTypes": "[\"Routier\"]",
+    "axes": "[\"Accompagner le d\\u00e9veloppement des syst\\u00e8mes de transports d\\u00e9carbon\\u00e9s et s\\u00fbrs\"]",
+    "usages": "[\"V\\u00e9hicule autonome et connect\\u00e9\"]"
+  },
+  "10.1080/15435075.2023.2220052": {
+    "challenges": "[\"Environnementaux\"]",
+    "themes": "[\"Energie\"]",
+    "scientificThemes": "[\"Mat\\u00e9riaux, A\\u00e9rodynamique, Transition \\u00e9cologique, \\u00c9nerg\\u00e9tique et Mobilit\\u00e9s durables\", \"Marketing, Durabilit\\u00e9, Chaine d\\u2019approvisionnement, Logistiques, Inter & Multimodalit\\u00e9\", \"Sciences \\u00e9conomique, \\u00c9valuation des politiques publiques, Mod\\u00e8les \\u00e9conomiques\"]",
+    "mobilityTypes": "[\"Routier\"]",
+    "axes": "[\"Accompagner le d\\u00e9veloppement des syst\\u00e8mes de transports d\\u00e9carbon\\u00e9s et s\\u00fbrs\"]",
+    "usages": "[ \"Other\" ]"
+  },
+  "10.1109/nof55974.2022.9942580": {
+    "challenges": "[\"Environnementaux\", \"Technologiques\"]",
+    "themes": "[\"Communications\"]",
+    "scientificThemes": "[\"Communications, Infrastructures et Connectivit\\u00e9\", \"Mat\\u00e9riaux, A\\u00e9rodynamique, Transition \\u00e9cologique, \\u00c9nerg\\u00e9tique et Mobilit\\u00e9s durables\", \"Marketing, Durabilit\\u00e9, Chaine d\\u2019approvisionnement, Logistiques, Inter & Multimodalit\\u00e9\"]",
+    "mobilityTypes": "[\"Routier\"]",
+    "axes": "[\"Accompagner le d\\u00e9veloppement des syst\\u00e8mes de transports d\\u00e9carbon\\u00e9s et s\\u00fbrs\"]",
+    "usages": "[\"V\\u00e9hicule autonome et connect\\u00e9\"]"
+  },
+  "10.1002/cpe.5994": {
+    "challenges": "[\"Technologiques\"]",
+    "themes": "[\"Communications\", \"Urbain\"]",
+    "scientificThemes": "[\"Communications, Infrastructures et Connectivit\\u00e9\", \"S\\u00e9curit\\u00e9, Cybers\\u00e9curit\\u00e9, R\\u00e9silience, Suret\\u00e9, Fonctionnement et Interop\\u00e9rabilit\\u00e9 des syst\\u00e8mes\", \"Mat\\u00e9riaux, A\\u00e9rodynamique, Transition \\u00e9cologique, \\u00c9nerg\\u00e9tique et Mobilit\\u00e9s durables\"]",
+    "mobilityTypes": "[\"Routier\"]",
+    "axes": "[\"Accompagner le d\\u00e9veloppement des syst\\u00e8mes de transports d\\u00e9carbon\\u00e9s et s\\u00fbrs\"]",
+    "usages": "[\"V\\u00e9hicule autonome et connect\\u00e9\"]"
+  },
+  "10.1177/03611981221086632": {
+    "challenges": "[\"Environnementaux\"]",
+    "themes": "[\"Urbain\", \"Logistique\"]",
+    "scientificThemes": "[\"Marketing, Durabilit\\u00e9, Chaine d\\u2019approvisionnement, Logistiques, Inter & Multimodalit\\u00e9\", \"Mat\\u00e9riaux, A\\u00e9rodynamique, Transition \\u00e9cologique, \\u00c9nerg\\u00e9tique et Mobilit\\u00e9s durables\", \"Sciences \\u00e9conomique, \\u00c9valuation des politiques publiques, Mod\\u00e8les \\u00e9conomiques\"]",
+    "mobilityTypes": "[\"Routier\"]",
+    "axes": "[\"Accompagner le d\\u00e9veloppement des syst\\u00e8mes de transports d\\u00e9carbon\\u00e9s et s\\u00fbrs\"]",
+    "usages": "[ \"Other\" ]"
+  },
+  "10.1016/j.jnca.2021.103154": {
+    "challenges": "[\"Technologiques\"]",
+    "themes": "[\"Communications\"]",
+    "scientificThemes": "[\"Communications, Infrastructures et Connectivit\\u00e9\", \"Marketing, Durabilit\\u00e9, Chaine d\\u2019approvisionnement, Logistiques, Inter & Multimodalit\\u00e9\", \"Capteurs et Traitement du signal\"]",
+    "mobilityTypes": "[\"Routier\"]",
+    "axes": "[\"Accompagner le d\\u00e9veloppement des syst\\u00e8mes de transports d\\u00e9carbon\\u00e9s et s\\u00fbrs\"]",
+    "usages": "[\"V\\u00e9hicule autonome et connect\\u00e9\"]"
+  },
+  "10.1016/j.trpro.2016.05.237": {
+    "challenges": "[\"Soci\\u00e9taux\"]",
+    "themes": "[\"Urbain\", \"Plateforme\", \"Rural\"]",
+    "scientificThemes": "[\"Marketing, Durabilit\\u00e9, Chaine d\\u2019approvisionnement, Logistiques, Inter & Multimodalit\\u00e9\", \"Sciences cognitives, Interfaces H/M\", \"G\\u00e9ographie, Territoires et Sociologie\"]",
+    "mobilityTypes": "[\"Routier\"]",
+    "axes": "[\"Peser sur les choix de modes de transport des voyageurs\"]",
+    "usages": "[\"V\\u00e9hicule autonome et connect\\u00e9\"]"
+  },
+  "10.1002/cpe.5983": {
+    "challenges": "[\"Technologiques\"]",
+    "themes": "[ \"Other\" ]",
+    "scientificThemes": "[\"Capteurs et Traitement du signal\", \"Communications, Infrastructures et Connectivit\\u00e9\", \"Sciences \\u00e9conomique, \\u00c9valuation des politiques publiques, Mod\\u00e8les \\u00e9conomiques\"]",
+    "mobilityTypes": "[\"Routier\"]",
+    "axes": "[\"Accompagner le d\\u00e9veloppement des syst\\u00e8mes de transports d\\u00e9carbon\\u00e9s et s\\u00fbrs\"]",
+    "usages": "[\"V\\u00e9hicule autonome et connect\\u00e9\"]"
+  },
+  "10.3390/s22197591": {
+    "challenges": "[\"Technologiques\"]",
+    "themes": "[\"Communications\"]",
+    "scientificThemes": "[ \"Other\" ]",
+    "mobilityTypes": "[ \"Other\" ]",
+    "axes": "[ \"Other\" ]",
+    "usages": "[ \"Other\" ]"
+  },
+  "10.1007/978-3-030-10591-4_7": {
+    "challenges": "[\"Technologiques\"]",
+    "themes": "[\"Communications\"]",
+    "scientificThemes": "[\"S\\u00e9curit\\u00e9, Cybers\\u00e9curit\\u00e9, R\\u00e9silience, Suret\\u00e9, Fonctionnement et Interop\\u00e9rabilit\\u00e9 des syst\\u00e8mes\", \"Communications, Infrastructures et Connectivit\\u00e9\", \"Sciences cognitives, Interfaces H/M\"]",
+    "mobilityTypes": "[\"Routier\", \"A\\u00e9rien\"]",
+    "axes": "[\"Accompagner le d\\u00e9veloppement des syst\\u00e8mes de transports d\\u00e9carbon\\u00e9s et s\\u00fbrs\"]",
+    "usages": "[ \"Other\" ]"
+  },
+  "10.3390/s22093371": {
+    "challenges": "[ \"Other\"]",
+    "themes": "[ \"Other\" ]",
+    "scientificThemes": "[\"Capteurs et Traitement du signal\"]",
+    "mobilityTypes": "[ \"Other\" ]",
+    "axes": "[ \"Other\" ]",
+    "usages": "[ \"Other\" ]"
+  },
+  "10.3390/math11061483": {
+    "challenges": "[\"Economiques\", \"Strat\\u00e9giques\", \"Technologiques\"]",
+    "themes": "[\"Urbain\", \"Logistique\"]",
+    "scientificThemes": "[\"Sciences \\u00e9conomique, \\u00c9valuation des politiques publiques, Mod\\u00e8les \\u00e9conomiques\", \"Base et Traitement de donn\\u00e9es, IA\", \"Marketing, Durabilit\\u00e9, Chaine d\\u2019approvisionnement, Logistiques, Inter & Multimodalit\\u00e9\"]",
+    "mobilityTypes": "[\"A\\u00e9rien\"]",
+    "axes": "[\"Favoriser le report modal des marchandises vers le fer et le maritime et am\\u00e9liorer la logistique urbaine et rurale\"]",
+    "usages": "[\"V\\u00e9hicule autonome et connect\\u00e9\"]"
+  },
+  "10.1186/s13638-022-02162-y": {
+    "challenges": "[ \"Other\"]",
+    "themes": "[ \"Other\" ]",
+    "scientificThemes": "[ \"Other\" ]",
+    "mobilityTypes": "[ \"Other\" ]",
+    "axes": "[ \"Other\" ]",
+    "usages": "[ \"Other\" ]"
+  },
+  "10.3390/electronics11244156": {
+    "challenges": "[ \"Other\"]",
+    "themes": "[\"Communications\", \"Mat\\u00e9riaux\"]",
+    "scientificThemes": "[\"S\\u00e9curit\\u00e9, Cybers\\u00e9curit\\u00e9, R\\u00e9silience, Suret\\u00e9, Fonctionnement et Interop\\u00e9rabilit\\u00e9 des syst\\u00e8mes\", \"Communications, Infrastructures et Connectivit\\u00e9\", \"Sciences juridiques, R\\u00e8glementations et Assurances\"]",
+    "mobilityTypes": "[ \"Other\" ]",
+    "axes": "[ \"Other\" ]",
+    "usages": "[ \"Other\" ]"
+  },
+  "10.1007/s12243-021-00851-1": {
+    "challenges": "[\"Technologiques\", \"Strat\\u00e9giques\"]",
+    "themes": "[\"Urbain\"]",
+    "scientificThemes": "[\"G\\u00e9ographie, Territoires et Sociologie\", \"Communications, Infrastructures et Connectivit\\u00e9\", \"Sciences \\u00e9conomique, \\u00c9valuation des politiques publiques, Mod\\u00e8les \\u00e9conomiques\"]",
+    "mobilityTypes": "[\"Routier\"]",
+    "axes": "[\"Favoriser le report modal des marchandises vers le fer et le maritime et am\\u00e9liorer la logistique urbaine et rurale\", \"Accompagner le d\\u00e9veloppement des syst\\u00e8mes de transports d\\u00e9carbon\\u00e9s et s\\u00fbrs\"]",
+    "usages": "[\"V\\u00e9hicule autonome et connect\\u00e9\"]"
+  },
+  "10.1016/j.tre.2023.103065": {
+    "challenges": "[\"Technologiques\", \"Economiques\"]",
+    "themes": "[\"Urbain\"]",
+    "scientificThemes": "[\"Marketing, Durabilit\\u00e9, Chaine d\\u2019approvisionnement, Logistiques, Inter & Multimodalit\\u00e9\", \"Sciences \\u00e9conomique, \\u00c9valuation des politiques publiques, Mod\\u00e8les \\u00e9conomiques\", \"Mat\\u00e9riaux, A\\u00e9rodynamique, Transition \\u00e9cologique, \\u00c9nerg\\u00e9tique et Mobilit\\u00e9s durables\"]",
+    "mobilityTypes": "[\"Routier\"]",
+    "axes": "[\"Accompagner le d\\u00e9veloppement des syst\\u00e8mes de transports d\\u00e9carbon\\u00e9s et s\\u00fbrs\"]",
+    "usages": "[\"V\\u00e9hicule autonome et connect\\u00e9\"]"
+  },
+  "10.1109/ccnc49032.2021.9369649": {
+    "challenges": "[\"Technologiques\"]",
+    "themes": "[\"Communications\"]",
+    "scientificThemes": "[\"Communications, Infrastructures et Connectivit\\u00e9\", \"Capteurs et Traitement du signal\", \"Marketing, Durabilit\\u00e9, Chaine d\\u2019approvisionnement, Logistiques, Inter & Multimodalit\\u00e9\"]",
+    "mobilityTypes": "[\"Routier\"]",
+    "axes": "[\"Accompagner le d\\u00e9veloppement des syst\\u00e8mes de transports d\\u00e9carbon\\u00e9s et s\\u00fbrs\"]",
+    "usages": "[\"V\\u00e9hicule autonome et connect\\u00e9\"]"
+  },
+  "10.7202/1083579ar": {
+    "challenges": "[\"Strat\\u00e9giques\", \"Environnementaux\"]",
+    "themes": "[ \"Other\" ]",
+    "scientificThemes": "[\"Sciences \\u00e9conomique, \\u00c9valuation des politiques publiques, Mod\\u00e8les \\u00e9conomiques\", \"Marketing, Durabilit\\u00e9, Chaine d\\u2019approvisionnement, Logistiques, Inter & Multimodalit\\u00e9\", \"S\\u00e9curit\\u00e9, Cybers\\u00e9curit\\u00e9, R\\u00e9silience, Suret\\u00e9, Fonctionnement et Interop\\u00e9rabilit\\u00e9 des syst\\u00e8mes\"]",
+    "mobilityTypes": "[ \"Other\" ]",
+    "axes": "[ \"Other\" ]",
+    "usages": "[ \"Other\" ]"
+  },
+  "10.1017/pds.2023.357": {
+    "challenges": "[\"Technologiques\"]",
+    "themes": "[\"Plateforme\"]",
+    "scientificThemes": "[\"Sciences cognitives, Interfaces H/M\", \"Marketing, Durabilit\\u00e9, Chaine d\\u2019approvisionnement, Logistiques, Inter & Multimodalit\\u00e9\", \"S\\u00e9curit\\u00e9, Cybers\\u00e9curit\\u00e9, R\\u00e9silience, Suret\\u00e9, Fonctionnement et Interop\\u00e9rabilit\\u00e9 des syst\\u00e8mes\"]",
+    "mobilityTypes": "[\"A\\u00e9rien\"]",
+    "axes": "[\"Accompagner le d\\u00e9veloppement des syst\\u00e8mes de transports d\\u00e9carbon\\u00e9s et s\\u00fbrs\"]",
+    "usages": "[\"V\\u00e9hicule autonome et connect\\u00e9\"]"
+  },
+  "10.30726/esij/v8.i4.2021.84025": {
+    "challenges": "[\"Technologiques\"]",
+    "themes": "[\"Mat\\u00e9riaux\"]",
+    "scientificThemes": "[\"Sciences cognitives, Interfaces H/M\", \"Communications, Infrastructures et Connectivit\\u00e9\", \"Capteurs et Traitement du signal\"]",
+    "mobilityTypes": "[ \"Other\" ]",
+    "axes": "[ \"Other\" ]",
+    "usages": "[ \"Other\" ]"
+  },
+  "10.1109/icce53296.2022.9730234": {
+    "challenges": "[\"Technologiques\"]",
+    "themes": "[\"Communications\"]",
+    "scientificThemes": "[\"Communications, Infrastructures et Connectivit\\u00e9\", \"Base et Traitement de donn\\u00e9es, IA\", \"S\\u00e9curit\\u00e9, Cybers\\u00e9curit\\u00e9, R\\u00e9silience, Suret\\u00e9, Fonctionnement et Interop\\u00e9rabilit\\u00e9 des syst\\u00e8mes\"]",
+    "mobilityTypes": "[\"Routier\"]",
+    "axes": "[\"Favoriser le report modal des marchandises vers le fer et le maritime et am\\u00e9liorer la logistique urbaine et rurale\"]",
+    "usages": "[\"V\\u00e9hicule autonome et connect\\u00e9\"]"
+  },
+  "10.1017/jfm.2016.508": {
+    "challenges": "[ \"Other\"]",
+    "themes": "[ \"Other\" ]",
+    "scientificThemes": "[\"Mat\\u00e9riaux, A\\u00e9rodynamique, Transition \\u00e9cologique, \\u00c9nerg\\u00e9tique et Mobilit\\u00e9s durables\"]",
+    "mobilityTypes": "[\"A\\u00e9rien\"]",
+    "axes": "[ \"Other\" ]",
+    "usages": "[ \"Other\" ]"
+  },
+  "10.1103/physrevfluids.4.034604": {
+    "challenges": "[\"Environnementaux\"]",
+    "themes": "[\"Mat\\u00e9riaux\"]",
+    "scientificThemes": "[\"Mat\\u00e9riaux, A\\u00e9rodynamique, Transition \\u00e9cologique, \\u00c9nerg\\u00e9tique et Mobilit\\u00e9s durables\", \"Marketing, Durabilit\\u00e9, Chaine d\\u2019approvisionnement, Logistiques, Inter & Multimodalit\\u00e9\", \"Sciences cognitives, Interfaces H/M\"]",
+    "mobilityTypes": "[\"A\\u00e9rien\"]",
+    "axes": "[\"Accompagner le d\\u00e9veloppement des syst\\u00e8mes de transports d\\u00e9carbon\\u00e9s et s\\u00fbrs\"]",
+    "usages": "[ \"Other\" ]"
+  },
+  "10.1016/j.jtrangeo.2023.103729": {
+    "challenges": "[\"Economiques\"]",
+    "themes": "[\"Logistique\", \"Transfrontalier\"]",
+    "scientificThemes": "[\"Marketing, Durabilit\\u00e9, Chaine d\\u2019approvisionnement, Logistiques, Inter & Multimodalit\\u00e9\", \"Sciences \\u00e9conomique, \\u00c9valuation des politiques publiques, Mod\\u00e8les \\u00e9conomiques\", \"Sciences cognitives, Interfaces H/M\"]",
+    "mobilityTypes": "[\"Fluvial/Maritime\"]",
+    "axes": "[\"Favoriser le report modal des marchandises vers le fer et le maritime et am\\u00e9liorer la logistique urbaine et rurale\"]",
+    "usages": "[ \"Other\" ]"
+  },
+  "10.3917/dunod.verni.2022.01.0139": {
+    "challenges": "[\"Environnementaux\"]",
+    "themes": "[\"Energie\"]",
+    "scientificThemes": "[\"Mat\\u00e9riaux, A\\u00e9rodynamique, Transition \\u00e9cologique, \\u00c9nerg\\u00e9tique et Mobilit\\u00e9s durables\", \"Sciences \\u00e9conomique, \\u00c9valuation des politiques publiques, Mod\\u00e8les \\u00e9conomiques\", \"Marketing, Durabilit\\u00e9, Chaine d\\u2019approvisionnement, Logistiques, Inter & Multimodalit\\u00e9\"]",
+    "mobilityTypes": "[ \"Other\" ]",
+    "axes": "[ \"Other\" ]",
+    "usages": "[ \"Other\" ]"
+  },
+  "10.1109/iwcmc51323.2021.9498827": {
+    "challenges": "[\"Technologiques\"]",
+    "themes": "[\"Communications\"]",
+    "scientificThemes": "[\"Communications, Infrastructures et Connectivit\\u00e9\", \"Marketing, Durabilit\\u00e9, Chaine d\\u2019approvisionnement, Logistiques, Inter & Multimodalit\\u00e9\", \"S\\u00e9curit\\u00e9, Cybers\\u00e9curit\\u00e9, R\\u00e9silience, Suret\\u00e9, Fonctionnement et Interop\\u00e9rabilit\\u00e9 des syst\\u00e8mes\"]",
+    "mobilityTypes": "[\"Routier\"]",
+    "axes": "[\"Accompagner le d\\u00e9veloppement des syst\\u00e8mes de transports d\\u00e9carbon\\u00e9s et s\\u00fbrs\"]",
+    "usages": "[\"V\\u00e9hicule autonome et connect\\u00e9\"]"
+  },
+  "10.1007/978-3-030-90913-0_13": {
+    "challenges": "[\"Technologiques\", \"Strat\\u00e9giques\"]",
+    "themes": "[\"Urbain\", \"Logistique\", \"Rural\"]",
+    "scientificThemes": "[\"Sciences cognitives, Interfaces H/M\", \"G\\u00e9ographie, Territoires et Sociologie\", \"Marketing, Durabilit\\u00e9, Chaine d\\u2019approvisionnement, Logistiques, Inter & Multimodalit\\u00e9\"]",
+    "mobilityTypes": "[\"Fluvial/Maritime\"]",
+    "axes": "[\"Accompagner le d\\u00e9veloppement des syst\\u00e8mes de transports d\\u00e9carbon\\u00e9s et s\\u00fbrs\"]",
+    "usages": "[ \"Other\" ]"
+  },
+  "10.1016/j.ijhydene.2021.12.076": {
+    "challenges": "[\"Environnementaux\"]",
+    "themes": "[\"Energie\"]",
+    "scientificThemes": "[\"Mat\\u00e9riaux, A\\u00e9rodynamique, Transition \\u00e9cologique, \\u00c9nerg\\u00e9tique et Mobilit\\u00e9s durables\", \"Sciences \\u00e9conomique, \\u00c9valuation des politiques publiques, Mod\\u00e8les \\u00e9conomiques\", \"Marketing, Durabilit\\u00e9, Chaine d\\u2019approvisionnement, Logistiques, Inter & Multimodalit\\u00e9\"]",
+    "mobilityTypes": "[\"Fluvial/Maritime\"]",
+    "axes": "[\"Accompagner le d\\u00e9veloppement des syst\\u00e8mes de transports d\\u00e9carbon\\u00e9s et s\\u00fbrs\"]",
+    "usages": "[ \"Other\" ]"
+  },
+  "10.1016/b978-0-12-812993-7.00003-6": {
+    "challenges": "[\"Technologiques\", \"Strat\\u00e9giques\"]",
+    "themes": "[\"Urbain\"]",
+    "scientificThemes": "[\"Sciences \\u00e9conomique, \\u00c9valuation des politiques publiques, Mod\\u00e8les \\u00e9conomiques\", \"Sciences cognitives, Interfaces H/M\", \"Marketing, Durabilit\\u00e9, Chaine d\\u2019approvisionnement, Logistiques, Inter & Multimodalit\\u00e9\"]",
+    "mobilityTypes": "[\"Routier\"]",
+    "axes": "[\"Accompagner le d\\u00e9veloppement des syst\\u00e8mes de transports d\\u00e9carbon\\u00e9s et s\\u00fbrs\"]",
+    "usages": "[\"V\\u00e9hicule autonome et connect\\u00e9\"]"
+  },
+  "10.1109/isgteurope56780.2023.10407757": {
+    "challenges": "[\"Environnementaux\"]",
+    "themes": "[\"Energie\"]",
+    "scientificThemes": "[\"Mat\\u00e9riaux, A\\u00e9rodynamique, Transition \\u00e9cologique, \\u00c9nerg\\u00e9tique et Mobilit\\u00e9s durables\", \"Marketing, Durabilit\\u00e9, Chaine d\\u2019approvisionnement, Logistiques, Inter & Multimodalit\\u00e9\", \"Sciences \\u00e9conomique, \\u00c9valuation des politiques publiques, Mod\\u00e8les \\u00e9conomiques\"]",
+    "mobilityTypes": "[\"Fluvial/Maritime\"]",
+    "axes": "[\"Accompagner le d\\u00e9veloppement des syst\\u00e8mes de transports d\\u00e9carbon\\u00e9s et s\\u00fbrs\"]",
+    "usages": "[ \"Other\" ]"
+  },
+  "10.1080/00207543.2016.1267412": {
+    "challenges": "[\"Strat\\u00e9giques\"]",
+    "themes": "[\"Logistique\", \"Urbain\"]",
+    "scientificThemes": "[\"Marketing, Durabilit\\u00e9, Chaine d\\u2019approvisionnement, Logistiques, Inter & Multimodalit\\u00e9\", \"G\\u00e9ographie, Territoires et Sociologie\", \"Sciences \\u00e9conomique, \\u00c9valuation des politiques publiques, Mod\\u00e8les \\u00e9conomiques\"]",
+    "mobilityTypes": "[\"Routier\"]",
+    "axes": "[\"Favoriser le report modal des marchandises vers le fer et le maritime et am\\u00e9liorer la logistique urbaine et rurale\"]",
+    "usages": "[\"V\\u00e9hicule autonome et connect\\u00e9\"]"
+  },
+  "10.1016/j.est.2022.105293": {
+    "challenges": "[\"Environnementaux\"]",
+    "themes": "[\"Energie\", \"Mat\\u00e9riaux\"]",
+    "scientificThemes": "[\"Mat\\u00e9riaux, A\\u00e9rodynamique, Transition \\u00e9cologique, \\u00c9nerg\\u00e9tique et Mobilit\\u00e9s durables\", \"Marketing, Durabilit\\u00e9, Chaine d\\u2019approvisionnement, Logistiques, Inter & Multimodalit\\u00e9\", \"Sciences \\u00e9conomique, \\u00c9valuation des politiques publiques, Mod\\u00e8les \\u00e9conomiques\"]",
+    "mobilityTypes": "[\"Transport par cables\"]",
+    "axes": "[\"Accompagner le d\\u00e9veloppement des syst\\u00e8mes de transports d\\u00e9carbon\\u00e9s et s\\u00fbrs\"]",
+    "usages": "[ \"Other\" ]"
+  },
+  "10.1007/s10479-018-2882-3": {
+    "challenges": "[\"Strat\\u00e9giques\"]",
+    "themes": "[\"Logistique\"]",
+    "scientificThemes": "[\"Marketing, Durabilit\\u00e9, Chaine d\\u2019approvisionnement, Logistiques, Inter & Multimodalit\\u00e9\", \"Sciences cognitives, Interfaces H/M\", \"G\\u00e9ographie, Territoires et Sociologie\"]",
+    "mobilityTypes": "[\"Routier\"]",
+    "axes": "[\"Favoriser le report modal des marchandises vers le fer et le maritime et am\\u00e9liorer la logistique urbaine et rurale\"]",
+    "usages": "[ \"Other\" ]"
+  },
+  "10.1080/00207543.2020.1714090": {
+    "challenges": "[\"Technologiques\", \"Strat\\u00e9giques\"]",
+    "themes": "[\"Plateforme\"]",
+    "scientificThemes": "[\"Marketing, Durabilit\\u00e9, Chaine d\\u2019approvisionnement, Logistiques, Inter & Multimodalit\\u00e9\", \"S\\u00e9curit\\u00e9, Cybers\\u00e9curit\\u00e9, R\\u00e9silience, Suret\\u00e9, Fonctionnement et Interop\\u00e9rabilit\\u00e9 des syst\\u00e8mes\", \"Sciences cognitives, Interfaces H/M\"]",
+    "mobilityTypes": "[\"Routier\"]",
+    "axes": "[\"Favoriser le report modal des marchandises vers le fer et le maritime et am\\u00e9liorer la logistique urbaine et rurale\"]",
+    "usages": "[ \"Other\" ]"
+  },
+  "10.1007/978-3-031-28694-0_33": {
+    "challenges": "[\"Technologiques\"]",
+    "themes": "[\"Communications\", \"Logistique\", \"Urbain\"]",
+    "scientificThemes": "[\"Base et Traitement de donn\\u00e9es, IA\", \"Communications, Infrastructures et Connectivit\\u00e9\", \"Marketing, Durabilit\\u00e9, Chaine d\\u2019approvisionnement, Logistiques, Inter & Multimodalit\\u00e9\"]",
+    "mobilityTypes": "[\"Routier\"]",
+    "axes": "[\"Favoriser le report modal des marchandises vers le fer et le maritime et am\\u00e9liorer la logistique urbaine et rurale\"]",
+    "usages": "[ \"Other\" ]"
+  },
+  "10.3390/app6030061": {
+    "challenges": "[\"Technologiques\"]",
+    "themes": "[\"Energie\"]",
+    "scientificThemes": "[\"Communications, Infrastructures et Connectivit\\u00e9\", \"Capteurs et Traitement du signal\", \"S\\u00e9curit\\u00e9, Cybers\\u00e9curit\\u00e9, R\\u00e9silience, Suret\\u00e9, Fonctionnement et Interop\\u00e9rabilit\\u00e9 des syst\\u00e8mes\"]",
+    "mobilityTypes": "[ \"Other\" ]",
+    "axes": "[ \"Other\" ]",
+    "usages": "[ \"Other\" ]"
   }
 }
