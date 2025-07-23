@@ -19,5 +19,5 @@ RUN pip install --upgrade pip \
 
 EXPOSE 5011
 
-CMD ["python", "Server.py"]
+CMD ["python", "app.py"]
 
