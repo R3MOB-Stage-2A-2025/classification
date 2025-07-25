@@ -2,10 +2,12 @@ import httpx
 import json
 
 class Service:
-    def __init__(self, labels: dict[str, dict[str, list[str]]]):
+    def __init__(self, labels: dict[str, dict[str, list[str]]],
+                 precisions: dict[str, list[float]]):
         self.name = "GenericModel"
 
         self._labels = labels
+        self._precisions = precisions
 
     def generic_prompt(self, func_prompt, prompt: str):
         """
