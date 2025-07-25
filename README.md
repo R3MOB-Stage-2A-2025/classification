@@ -402,9 +402,6 @@ Just do this:
 ```bash
 cd classification/
 
-# Edit the environment variables in the `.env` file before this.
-vim .env
-
 # Edit the client environment variables, do nothing to get the default
 # environment variables.
 cp client/retriever/.env.example client/retriever/.env
