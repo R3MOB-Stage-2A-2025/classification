@@ -1,0 +1,4 @@
+# <Model LLM (Categorizer)>
+sentence_transformers==4.1.0
+# </Model LLM (Categorizer)>
+
