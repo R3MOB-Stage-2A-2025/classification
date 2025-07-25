@@ -13,8 +13,8 @@ FRONTEND_HOST: str = os.getenv("FRONTEND_HOST")
 # </Flask + gevent + socketio>
 
 # <LLM Labellizer>
-CLASSIFIER_LABELLIZER_USE: bool =\
-    True if os.getenv("CLASSIFIER_LABELLIZER_USE") == "TRUE" else False
+CLASSIFIER_CATEGORIZER_USE: bool =\
+    True if os.getenv("CLASSIFIER_CATEGORIZER_USE") == "TRUE" else False
 # </LLM Labellizer>
 
 # <Classification Models>
@@ -23,6 +23,13 @@ CLASSIFIER_TFIDF_USE: bool =\
 CLASSIFIER_HIERARCHICAL_USE: bool =\
     True if os.getenv("CLASSIFIER_HIERARCHICAL_USE") == "TRUE" else False
 # </Classification Models>
+
+# <Tokenizer + Embeddings>
+NLTK_DIRECTORY: str = os.getenv("NLTK_DIRECTORY")
+SPACY_MODEL: str = os.getenv("SPACY_MODEL")
+CLASSIFIER_MISCELLANEOUS_USE: bool =\
+    True if os.getenv("CLASSIFIER_MISCELLANEOUS_USE") == "TRUE" else False
+# </Tokenizer + Embeddings>
 
 # </Environment variables>
 
