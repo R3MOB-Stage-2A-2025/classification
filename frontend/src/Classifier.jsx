@@ -53,13 +53,7 @@ function Classifier() {
             //setVariablesToFalse();
         });
 
-        socket_classifier.on("text_classification_results", (data) => {
-            setLoading(false);
-            setError(null);
-            setVariablesToData(data);
-        });
-
-        socket_classifier.on("json_classification_results", (data) => {
+        socket_classifier.on("classification_results", (data) => {
             setLoading(false);
             setError(null);
             setVariablesToData(data);
@@ -67,23 +61,22 @@ function Classifier() {
 
         return () => {
             socket_classifier.off("classification_error");
-            socket_classifier.off("text_classification_results");
-            socket_classifier.off("json_classification_results");
+            socket_classifier.off("classification_results");
         };
     }, []);
 
-    const classifyText = () => {
+    const classify = () => {
         if (!loading) {
             setVariablesToFalse();
             setLoading(true);
             setError(false);
-            socket_classifier.emit("text_classification", input);
+            socket_classifier.emit("classification", input);
         }
     };
 
     const handleKeyDown = (e) => {
         if (e.key === "Enter")
-            classifyText();
+            classify();
     };
 
     // ----------------------------------------------------------------------
@@ -102,7 +95,8 @@ function Classifier() {
                 setLoading(true);
                 setError(null);
                 setVariablesToFalse();
-                socket_classifier.emit("json_classification", JSON.stringify(jsonContent));
+                socket_classifier.emit("classification",
+                    JSON.stringify(jsonContent));
             } catch (err) {
                 setError("JSON is invalid.");
             }
@@ -137,7 +131,7 @@ function Classifier() {
                         onChange={(e) => setInput(e.target.value)}
                         disabled={loading}
                     />
-                    <button type="button" onClick={classifyText}>Valider</button>
+                    <button type="button" onClick={classify}>Valider</button>
                 </form>
             </div>
 
