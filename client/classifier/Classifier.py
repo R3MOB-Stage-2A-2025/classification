@@ -40,28 +40,8 @@ if config.CLASSIFIER_HIERARCHICAL_USE:
 # <Retrieve keywords>
 from functions import load_json
 
-#   <Labels>
-labels: dict[str, dict[str, list[str]]] = {
-    'challenges': load_json('data/challenge_keywords.json'),
-    'themes': load_json('data/theme_keywords.json'),
-    'scientificThemes': load_json('data/scientificTheme_keywords.json'),
-    'mobilityTypes': load_json('data/mobilityType_keywords.json'),
-    'axes': load_json('data/axe_keywords.json'),
-    'usages': load_json('data/usage_keywords.json'),
-}
-#   </Labels>
-
-#   <Label Precisions>
-precisions: dict[str, list[float | str]] = {
-    'challenges': [ 0.05, 0.10 ],
-    'themes': [ 0.05, 0.20 ],
-    'scientificThemes': [ 0.40, 0.10 ],
-    'mobilityTypes': [ 0.002, 0.20 ],
-    'axes': [ 0.009, 0.10, "mobilityTypes" ],
-    'usages': [ 0.009, 0.25, "mobilityTypes" ],
-}
-#   </Label Precisions>
-
+labels: dict[str, dict[str, list[str]]] = load_json('data/labels.json')
+precisions: dict[str, list[float | str]] = load_json('data/precisions.json')
 # </Retrieve keywords>
 
 class Classifier:
