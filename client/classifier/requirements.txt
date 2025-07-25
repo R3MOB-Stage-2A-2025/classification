@@ -1,9 +1,25 @@
-sentence_transformers==4.1.0
-#spacy==3.8.7
-nltk==3.9.1
-#scikit-learn==1.6.1
+# <Flask + gevent + socketio>
 flask==3.1.1
 flask_socketio==5.5.1
 flask_cors==6.0.1
 gevent==25.5.1
+# </Flask + gevent + socketio>
+
+# <Miscellenaous>
 dotenv==0.9.9
+httpx==0.28.1
+# </Miscellenaous>
+
+# <Model TFIDF>
+#scikit-learn==1.6.1
+# </Model TFIDF>
+
+# <Model LLM (Categorizer)>
+sentence_transformers==4.1.0
+# </Model LLM (Categorizer)>
+
+# <Tokenizer + Embeddings>
+#spacy==3.8.7
+nltk==3.9.1
+# </Tokenizer + Embeddings>
+
