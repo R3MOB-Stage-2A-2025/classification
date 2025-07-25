@@ -55,7 +55,6 @@ function Classifier() {
 
         socket_classifier.on("classification_results", (data) => {
             setLoading(false);
-            setError(null);
             setVariablesToData(data);
         });
 
@@ -69,8 +68,8 @@ function Classifier() {
         if (!loading) {
             setVariablesToFalse();
             setLoading(true);
-            setError(false);
-            socket_classifier.emit("classification", input);
+            setError(null);
+            socket_classifier.emit("text_classification", input);
         }
     };
 
@@ -95,7 +94,7 @@ function Classifier() {
                 setLoading(true);
                 setError(null);
                 setVariablesToFalse();
-                socket_classifier.emit("classification",
+                socket_classifier.emit("json_classification",
                     JSON.stringify(jsonContent));
             } catch (err) {
                 setError("JSON is invalid.");
@@ -110,14 +109,14 @@ function Classifier() {
     return (
         <div className="Classifier">
 
+            <h1>Classification des publications</h1>
+            {loading && <span className="loading">Searching...</span>}
+
             { error &&
                 <div className="error-wrapper-classifier">
                     { error.message }
                 </div>
             }
-
-            <h1>Classification des publications</h1>
-            {loading && <span className="loading">Searching...</span>}
 
             <div id="data">
                 <form id="classificationForm" onSubmit={(e) => e.preventDefault()}>

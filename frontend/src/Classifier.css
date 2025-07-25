@@ -3,7 +3,8 @@
 }
 
 .error-wrapper-classifier {
-    padding-top: 6vh;
+    padding-top: 2vh;
+    padding-bottom: 1vh;
     width: 80%;
     margin: auto;
     display: flex;
