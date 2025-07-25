@@ -1,113 +1,22 @@
 import json
 import re
 
-import nltk
-# This one is searching in the `nltk_data/` dir.
-from nltk.corpus import stopwords, wordnet
+import config
 
-from nltk.stem import PorterStemmer
+# <Download *nltk* tools aka MISCELLANEOUS>
+if config.CLASSIFIER_MISCELLANEOUS_USE:
+    import nltk
+    from nltk.stem import PorterStemmer
+    # This one is searching in the `nltk_data/` dir.
+    from nltk.corpus import stopwords, wordnet
 
-# Retrieve environment variables.
-import os
-from dotenv import load_dotenv, dotenv_values
-
-load_dotenv()
-NLTK_DIRECTORY: str = os.getenv("NLTK_DIRECTORY")
-# </Retrieve environment variables>
-
-# Download *nltk* tools.
-nltk.download(info_or_id='wordnet', download_dir=NLTK_DIRECTORY)
-nltk.download(info_or_id='stopwords', download_dir=NLTK_DIRECTORY)
-# </Download *nltk* tools>
-
-# Transformers
-from sentence_transformers import SentenceTransformer, util
-import numpy as np
-
-model = SentenceTransformer('all-MiniLM-L6-v2')
-# </Transformers>
+    nltk.download(info_or_id='wordnet', download_dir=config.NLTK_DIRECTORY)
+    nltk.download(info_or_id='stopwords', download_dir=config.NLTK_DIRECTORY)
+# </Download *nltk* tools aka MISCELLANEOUS>
 
 def load_json(file_path: str) -> str:
     with open(file_path, 'r') as f:
         return json.load(f)
-
-##############################################################################
-## CLASSIFY WITHOUT A DATASET
-##############################################################################
-
-def unsupervised_cosine_similarity(text: str, themes_keywords: dict[str, list],
-            precision_utility: float = 0.10, precision: float = 0.08) -> list[str]:
-    """
-    If you worry about the "-" in the `np.sort()` or `np.argsort()`,
-    it is just to get a *descending order*.
-    In fact, the strongest match is the lowest score, i.e the closer to `-1`.
-    """
-    themes: list[str] = list(themes_keywords.keys())
-
-    # This one will be given to the model. It enhances, using keywords.
-    enhanced_themes: list[str] = []
-    for theme, keywords in themes_keywords.items():
-        concatenation: str = '[ ' + theme + ' ] ' +  ' '.join(keywords)
-        enhanced_themes.append(concatenation)
-
-    # <Utility Check>
-    utility_check = model.encode(', '.join(enhanced_themes))
-    publication_utility_check = model.encode(text)
-    cosine_scores_utility_check =\
-        util.cos_sim(publication_utility_check, utility_check)[0]
-    indices_utility_check: list[int] =\
-        np.argsort(-cosine_scores_utility_check)[:3].tolist()
-    scores_utility_check: list[float] =\
-        np.sort(-cosine_scores_utility_check)[:3].tolist()
-
-    # <debug>
-    print("\n")
-    print(scores_utility_check)
-    # </debug>
-
-    if -precision_utility < scores_utility_check[0]:
-        return []
-    # </Utility Check>
-
-    theme_embeddings = model.encode(enhanced_themes)
-
-    # Publication text is a concatenation of the title, the abstract and
-    # sometimes extra metadata.
-    publication_text: str = text
-    publication_embedding = model.encode(publication_text)
-
-    # Compute similarities.
-    cosine_scores = util.cos_sim(publication_embedding, theme_embeddings)[0]
-
-    # Here, I set up the max number of themes.
-    # For something like a "thematique scientifique", let's consider max=3.
-    top_indices: list[int] = np.argsort(-cosine_scores)[:3].tolist()
-
-    # Then, if there is a score gap, let's remove the last or the 2 last ones.
-    top_scores: list[float] = np.sort(-cosine_scores)[:3].tolist()
-
-    # <debug>
-    print(top_scores)
-    # </debug>
-
-    # <Threshold Check>
-    for i in range(len(top_indices) - 1, -1, -1):
-        if i == 0 and -0.10 < top_scores[i]:
-            top_indices.pop(i)
-        elif abs(top_scores[i] - top_scores[0]) > precision or\
-                -0.10 < top_scores[i]:
-            top_indices.pop(i)
-
-    top_themes: list[str] = []
-    for i in top_indices:
-        top_themes.append(themes[i])
-    # </Threshold Check>
-
-    # <debug>
-    print(top_themes)
-    # </debug>
-
-    return top_themes
 
 ###############################################################################
 ### INPUT NORMALIZATION FUNCTIONS
@@ -126,27 +35,30 @@ def preprocess_text(text: str) -> dict[str, list[str | list[str]]]:
 
     :return: something like a dataframe.
     """
-    # Cleaning and normalizing the text.
+    # <Cleaning and normalizing the text>
     lowercased_text: str = text.lower()
     remove_punctuation: str = re.sub(r'[^\w\s]', '', lowercased_text)
     remove_white_space: str = remove_punctuation.strip()
+    # </Cleaning and normalizing the text>
 
-    # Tokenization.
+    # <Tokenization>
     tokenized_text = nltk.word_tokenize(remove_white_space)
+    # </Tokenization>
 
     # `set()` builds an unordered collection of unique elements.
     stop_words: set[str] = set(stopwords.words('english'))
 
-    # Remove stopwords from the text i.e irrelevant words like "and".
+    # <Remove stopwords> from the text i.e irrelevant words like "and".
     stop_words_removed: list[str] = list(set([
         word for word in tokenized_text \
         if word not in stop_words
     ]))
+    # </Remove stopwords>
 
     # Stemming.
     ps = PorterStemmer()
-    stemmed_text: list[str] = set(list(ps.stem(word) for word in stop_words_removed))
-
+    stemmed_text: list[str] =\
+        set(list(ps.stem(word) for word in stop_words_removed))
     dataframe = {
         'DOCUMENT': [text],
         'LOWERCASE' : [lowercased_text],
@@ -240,7 +152,7 @@ def expand_and_preprocess_keywords(themes_keywords: dict[str, str]) -> dict[str,
     return expand_keywords_with_synonyms(unique_keywords)
 
 ###############################################################################
-### CLASSIFY BY KEYWORDS
+### CLASSIFICATION BY KEYWORDS (it could be a model)
 ###############################################################################
 
 def is_keyword_in_processed_text(keyword: str, processed_text: list[str]) -> bool:
@@ -272,4 +184,5 @@ def classify_abstract_by_keywords(text: str, themes_keywords: dict[str, str]) ->
 
     return abstract_themes
 
+###############################################################################
 
