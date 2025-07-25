@@ -11,101 +11,43 @@ model = SentenceTransformer('all-MiniLM-L6-v2')
 # </Transformers>
 
 class Categorizer(Service):
-    def __init__(self, labels: dict[str, dict[str, list[str]]]):
+    def __init__(self, labels: dict[str, dict[str, list[str]]],
+                 precisions: dict[str, list[float]]):
         """
         """
 
         self.name = "LLM sentence-transformers HuggingFace"
-        super().__init__(labels=labels)
+        super().__init__(labels=labels, precisions=precisions)
 
-    def prompt(self, prompt: str) -> dict[str, dict]:
+    def prompt(self, prompt: str) -> dict[str, str]:
         """
         For Live Classification.
         """
         def func_prompt(prompt):
-            return self._classification_results(prompt)
+            results: dict[str, str] = {}
+
+            for label in self._labels:
+                label_keywords: list[str] = self._labels[label]
+
+                label_precisions: list[float] = self._precisions.get(label, [])
+                label_precision: float =\
+                    label_precisions[0] if len(label_precisions) >= 1 else None
+                label_threshold: float =\
+                    label_precisions[1] if len(label_precisions) >= 2 else None
+
+                results[label] = json.dumps(
+                    unsupervised_cosine_similarity(prompt, label_keywords,\
+                        threshold=label_threshold, precision=label_precision)
+                )
+
+            return results
 
         return self.generic_prompt(func_prompt, prompt)
-
-    def _classification_results(self, data: str) -> dict[str, list[str]]:
-        """
-        :param data: It is not already parsed.
-        """
-
-        challenge_keywords: dict[str, list[str]] =\
-            self._labels.get('challenge_keywords', {})
-        theme_keywords: dict[str, list[str]] =\
-            self._labels.get('theme_keywords', {})
-        scientificTheme_keywords: dict[str, list[str]] =\
-            self._labels.get('scientificTheme_keywords', {})
-        mobilityType_keywords: dict[str, list[str]] =\
-            self._labels.get('mobilityType_keywords', {})
-        axe_keywords: dict[str, list[str]] =\
-            self._labels.get('axe_keywords', {})
-        usage_keywords: dict[str, list[str]] =\
-            self._labels.get('usage_keywords', {})
-
-        challenges: str = json.dumps(
-            unsupervised_cosine_similarity(data,
-                                           challenge_keywords,
-                                           precision_utility=0.10,
-                                           precision=0.05)
-        )
-
-        themes: str = json.dumps(
-            unsupervised_cosine_similarity(data,
-                                           theme_keywords,
-                                           precision_utility=0.20,
-                                           precision=0.05)
-        )
-
-        scientificThemes: str = json.dumps(
-            unsupervised_cosine_similarity(data,
-                                           scientificTheme_keywords,
-                                           precision_utility=0.10,
-                                           precision=0.4)
-        )
-
-        mobilityTypes: str = json.dumps(
-            unsupervised_cosine_similarity(data,
-                                           mobilityType_keywords,
-                                           precision_utility=0.20,
-                                           precision=0.002)
-        )
-
-        if mobilityTypes == "[]": # If it is not a transport, there is no axes.
-            axes: str = "[]"
-        else:
-            axes: str = json.dumps(
-                unsupervised_cosine_similarity(data,
-                                               axe_keywords,
-                                               precision_utility=0.10,
-                                               precision=0.009)
-            )
-
-        if mobilityTypes == "[]": # If not a transport, there is no usages.
-            usages: str = "[]"
-        else:
-            usages: str = json.dumps(
-                unsupervised_cosine_similarity(data,
-                                               usage_keywords,
-                                               precision_utility=0.25,
-                                               precision=0.009)
-            )
-
-        return {
-            'challenges': challenges,
-            'themes': themes,
-            'scientificThemes': scientificThemes,
-            'mobilityTypes': mobilityTypes,
-            'axes': axes,
-            'usages': usages,
-        }
 
 #############################################################################
 
 def unsupervised_cosine_similarity(text: str, themes_keywords: dict[str, list],
-            precision_utility: float = 0.10, precision: float = 0.08) -> list[str]:
+            threshold: float = 0.10, precision: float = 0.08) -> list[str]:
     """
 
     """
@@ -131,7 +73,7 @@ def unsupervised_cosine_similarity(text: str, themes_keywords: dict[str, list],
     print(scores_utility_check)
     # </debug>
 
-    if -precision_utility < scores_utility_check[0]:
+    if -threshold < scores_utility_check[0]:
         return []
     # </Utility Check>
 
