@@ -3,7 +3,7 @@ import json
 
 class Service:
     def __init__(self, labels: dict[str, dict[str, list[str]]],
-                 precisions: dict[str, list[float]]):
+                 precisions: dict[str, dict[str, float | str]]):
         self.name = "GenericModel"
 
         self._labels = labels

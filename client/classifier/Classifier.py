@@ -40,8 +40,10 @@ if config.CLASSIFIER_HIERARCHICAL_USE:
 # <Retrieve keywords>
 from functions import load_json
 
-labels: dict[str, dict[str, list[str]]] = load_json('data/labels.json')
-precisions: dict[str, list[float | str]] = load_json('data/precisions.json')
+labels: dict[str, dict[str, list[str]]] =\
+    load_json('data/labels.json')
+precisions: dict[str, dict[str, float | str]] =\
+    load_json('data/precisions.json')
 # </Retrieve keywords>
 
 class Classifier:
@@ -80,6 +82,9 @@ class Classifier:
         with concurrent.futures.ThreadPoolExecutor(max_workers=2) as executor:
             future = executor.submit(self.threaded_prompt_categorizer, prompt)
             result: dict[str, str] = future.result(timeout=25)
+
+            if 'error' in result:
+                return self.error_payload()
             return result
     # </Categorizer Model>
 

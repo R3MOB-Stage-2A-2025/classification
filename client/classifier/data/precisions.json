@@ -1,28 +1,28 @@
 {
-  "challenges": [
-    0.05,
-    0.1
-  ],
-  "themes": [
-    0.05,
-    0.2
-  ],
-  "scientificThemes": [
-    0.4,
-    0.1
-  ],
-  "mobilityTypes": [
-    0.002,
-    0.2
-  ],
-  "axes": [
-    0.009,
-    0.1,
-    "mobilityTypes"
-  ],
-  "usages": [
-    0.009,
-    0.25,
-    "mobilityTypes"
-  ]
+  "challenges": {
+    "precision": 0.05,
+    "threshold": 0.1
+  },
+  "themes": {
+    "precision": 0.05,
+    "threshold": 0.2
+  },
+  "scientificThemes": {
+    "precision": 0.4,
+    "threshold": 0.1
+  },
+  "mobilityTypes": {
+    "precision": 0.02,
+    "threshold": 0.2
+  },
+  "axes": {
+    "precision": 0.009,
+    "threshold": 0.1,
+    "parent": "mobilityTypes"
+  },
+  "usages": {
+    "precision": 0.009,
+    "threshold": 0.25,
+    "parent": "mobilityTypes"
+  }
 }

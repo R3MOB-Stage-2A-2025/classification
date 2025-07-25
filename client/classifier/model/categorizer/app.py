@@ -12,7 +12,7 @@ model = SentenceTransformer('all-MiniLM-L6-v2')
 
 class Categorizer(Service):
     def __init__(self, labels: dict[str, dict[str, list[str]]],
-                 precisions: dict[str, list[float]]):
+                 precisions: dict[str, dict[str, float | str]]):
         """
         """
 
@@ -29,18 +29,21 @@ class Categorizer(Service):
             for label in self._labels:
                 label_keywords: list[str] = self._labels[label]
 
-                label_precisions: list[float] = self._precisions.get(label, [])
+                label_precisions: dict[str, float | str] =\
+                    self._precisions.get(label, [])
+
                 label_precision: float =\
-                    label_precisions[0] if len(label_precisions) >= 1 else None
+                    label_precisions.get('precision', None)
+
                 label_threshold: float =\
-                    label_precisions[1] if len(label_precisions) >= 2 else None
+                    label_precisions.get('threshold', None)
 
                 # <Utility Check> if the parent label is not the *extra class*.
-                label_father: str =\
-                    label_precisions[2] if len(label_precisions) >= 3 else None
+                label_parent: str =\
+                    label_precisions.get('parent', None)
 
-                if label_father != None:
-                    if results.get(label_father, "[]") == "[]":
+                if label_parent != None:
+                    if results.get(label_parent, "[]") == "[]":
                         results[label] = "[]"
                         continue
                 # </Utility Check>
@@ -113,7 +116,7 @@ def unsupervised_cosine_similarity(text: str, themes_keywords: dict[str, list],
     print(f'Top scores: {top_scores}')
     print(f'Top themes: {[ themes[i] for i in top_indices ]}')
     print(f'Min absolute Score: {0.10}')
-    print(f'Min absolute Gap (precision): {precision}')
+    print(f'Max absolute Gap (precision): {precision}')
     # </debug>
 
     # <Threshold Check>
