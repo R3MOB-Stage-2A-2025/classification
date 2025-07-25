@@ -30,55 +30,58 @@ def handle_message(data):
 def handle_error(e):
     error_str: str = e.__str__()
     error_json_dict: dict[str, dict] = { 'error': { 'message': error_str } }
-    emit("classification_error", error_json_dict, to=request.sid)
 
-    emit(
-        "classification_results",
-        {
-            'challenges': '[]',
-            'themes': '[]',
-            'scientificThemes': '[]',
-            'mobilityTypes': '[]',
-            'axes': '[]',
-            'usages': '[]',
-        },
-        to=request.sid
-    )
+    emit("classification_error", error_json_dict, to=request.sid)
+    emit("classification_results", classifier.error_payload(), to=request.sid)
 
     print("ERROR:\n " + error_str + "\n/ERROR")
 
-@socketio.on('classification')
+@socketio.on('text_classification')
+def handle_text_classify(data: str) -> None:
+    print(f"Classification query received: {data}")
+    parsed_data: str = data
+
+    # <Get the prompt result>
+    results: dict[str, list[str]] =\
+        classifier.add_extra_class(classifier.prompt_categorizer(parsed_data))
+    # </Get the prompt result>
+
+    emit("classification_results", results, to=request.sid)
+
+@socketio.on('json_classification')
 def handle_json_classify(data: str) -> None:
     print(f"Classification query received: {data}")
 
-    # <Is it a *json* publication or a text?>
-    decoder = json.JSONDecoder()
-    possible_keys = decoder.memo.fromkeys(data)
-
-    if 'DOI' in possible_keys:
-        data_dict = json.loads(data)
-        doi = data_dict.get("DOI")
-    # </Is it a *json* publication or a text?>
+    data_dict: dict[str, dict] = json.loads(data)
+    doi: str = data_dict.get("DOI", "")
+    parsed_data: str = classifier.parsing_by_publication(data)
 
     # <Get the prompt result>
-    results: dict[str, list[str]] = classifier.prompt(data)
-    if classifier.classification_error(results):
-        return
+    results: dict[str, list[str]] =\
+        classifier.add_extra_class(classifier.prompt_categorizer(parsed_data))
+
+    results['DOI'] = doi
     # </Get the prompt result>
 
-    payload: dict[str, list[str]] = {
-        'challenges': results['challenges'],
-        'themes': results['themes'],
-        'scientificThemes': results['scientificThemes'],
-        'mobilityTypes': results['mobilityTypes'],
-        'axes': results['axes'],
-        'usages': results['usages'],
-    }
+    emit("classification_results", results, to=request.sid)
 
-    if 'DOI' in possible_keys:
-        payload['DOI'] = doi
+@socketio.on('dataset_classification')
+def handle_dataset_classify(data: str) -> None:
+    print(f"Classification query received: {data}")
 
-    emit("classification_results", payload, to=request.sid)
+    data_dict: dict[str, dict] = json.loads(data)
+    doi: str = data_dict.get("DOI", "")
+
+    # <Get the prompt result>
+    results: dict[str, list[str]] =\
+        classifier.add_extra_class(
+            classifier.prompt_categorizer(classifier.parsing_by_line(data))
+        )
+
+    results['DOI'] = doi
+    # </Get the prompt result>
+
+    emit("classification_results", results, to=request.sid)
 
 @socketio.on("disconnect")
 def disconnected():
