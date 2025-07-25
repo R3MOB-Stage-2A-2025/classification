@@ -35,6 +35,16 @@ class Categorizer(Service):
                 label_threshold: float =\
                     label_precisions[1] if len(label_precisions) >= 2 else None
 
+                # <Utility Check> if the parent label is not the *extra class*.
+                label_father: str =\
+                    label_precisions[2] if len(label_precisions) >= 3 else None
+
+                if label_father != None:
+                    if results.get(label_father, "[]") == "[]":
+                        results[label] = "[]"
+                        continue
+                # </Utility Check>
+
                 results[label] = json.dumps(
                     unsupervised_cosine_similarity(prompt, label_keywords,\
                         threshold=label_threshold, precision=label_precision)
@@ -53,6 +63,11 @@ def unsupervised_cosine_similarity(text: str, themes_keywords: dict[str, list],
     """
     themes: list[str] = list(themes_keywords.keys())
 
+    # <debug>
+    print("\n")
+    print(f'Possible themes: {themes}')
+    # </debug>
+
     enhanced_themes: list[str] = []
     for theme, keywords in themes_keywords.items():
         concatenation: str = '[ ' + theme + ' ] ' +  ' '.join(keywords)
@@ -69,8 +84,8 @@ def unsupervised_cosine_similarity(text: str, themes_keywords: dict[str, list],
         np.sort(-cosine_scores_utility_check)[:3].tolist()
 
     # <debug>
-    print("\n")
-    print(scores_utility_check)
+    print(f'Current Threshold: {scores_utility_check}')
+    print(f'Min absolute Threshold: {threshold}')
     # </debug>
 
     if -threshold < scores_utility_check[0]:
@@ -95,7 +110,10 @@ def unsupervised_cosine_similarity(text: str, themes_keywords: dict[str, list],
     top_scores: list[float] = np.sort(-cosine_scores)[:3].tolist()
 
     # <debug>
-    print(top_scores)
+    print(f'Top scores: {top_scores}')
+    print(f'Top themes: {[ themes[i] for i in top_indices ]}')
+    print(f'Min absolute Score: {0.10}')
+    print(f'Min absolute Gap (precision): {precision}')
     # </debug>
 
     # <Threshold Check>
@@ -112,7 +130,7 @@ def unsupervised_cosine_similarity(text: str, themes_keywords: dict[str, list],
     # </Threshold Check>
 
     # <debug>
-    print(top_themes)
+    print(f'Themes as a result: {top_themes}')
     # </debug>
 
     return top_themes

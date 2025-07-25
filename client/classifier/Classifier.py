@@ -52,13 +52,13 @@ labels: dict[str, dict[str, list[str]]] = {
 #   </Labels>
 
 #   <Label Precisions>
-precisions: dict[str, list[float]] = {
+precisions: dict[str, list[float | str]] = {
     'challenges': [ 0.05, 0.10 ],
     'themes': [ 0.05, 0.20 ],
     'scientificThemes': [ 0.40, 0.10 ],
     'mobilityTypes': [ 0.002, 0.20 ],
-    'axes': [ 0.009, 0.10 ],
-    'usages': [ 0.009, 0.25 ],
+    'axes': [ 0.009, 0.10, "mobilityTypes" ],
+    'usages': [ 0.009, 0.25, "mobilityTypes" ],
 }
 #   </Label Precisions>
 
