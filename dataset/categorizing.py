@@ -7,7 +7,7 @@ import functions
 from Labelliser import Labelliser
 
 # <file path>
-filePath: str = "temp_depth_1.json"
+filePath: str = "data.json"
 processingFilepath: str = "./processing/" + filePath
 labelledFilePath: str = "./labelled/" + filePath
 # </file path>
@@ -27,7 +27,7 @@ def connect():
 def disconnect():
     print("Disconnected.")
 
-@sio.on("dataset_classification_results")
+@sio.on("classification_results")
 def on_search_results(data):
     global responses_received
     responses_received += 1

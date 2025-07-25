@@ -6,7 +6,7 @@ def find_dois_dataset(filepath: str = './raw/data.json') -> list[str]:
     """
     :param filepath: The input file.
     :return: all the *DOI*'s, as *URL*s from `https://doi.org/`.
-    This is a regex finder, here is the regex: `r'10\.\d{4,9}/[\w.\-;()/:]+'`.
+    This is a regex finder.
 
     NB: the returned list could contain the same element multiple times.
     """
@@ -38,8 +38,7 @@ def find_openalex_dataset(filepath: str = './raw/data.json') -> list[str]:
     """
     :param filepath: The input file.
     :return: all the *OPENALEX*'s, as *URL*s from `https://openalex.org/`.
-    This is a regex finder, here is the regex:
-        `r'"https:\/\/openalex\.org\/W\d+"'`.
+    This is a regex finder.
 
     NB: the returned list could contain the same element multiple times.
     """
