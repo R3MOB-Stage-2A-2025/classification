@@ -40,6 +40,10 @@ class Categorizer(Service):
             self._labels.get('scientificTheme_keywords', {})
         mobilityType_keywords: dict[str, list[str]] =\
             self._labels.get('mobilityType_keywords', {})
+        axe_keywords: dict[str, list[str]] =\
+            self._labels.get('axe_keywords', {})
+        usage_keywords: dict[str, list[str]] =\
+            self._labels.get('usage_keywords', {})
 
         challenges: str = json.dumps(
             unsupervised_cosine_similarity(data,

@@ -33,7 +33,7 @@ def handle_error(e):
     emit("classification_error", error_json_dict, to=request.sid)
 
     emit(
-        "text_classification_results",
+        "classification_results",
         {
             'challenges': '[]',
             'themes': '[]',
@@ -47,74 +47,38 @@ def handle_error(e):
 
     print("ERROR:\n " + error_str + "\n/ERROR")
 
-@socketio.on('text_classification')
-def handle_classify(data: str) -> None:
+@socketio.on('classification')
+def handle_json_classify(data: str) -> None:
     print(f"Classification query received: {data}")
 
+    # <Is it a *json* publication or a text?>
+    decoder = json.JSONDecoder()
+    possible_keys = decoder.memo.fromkeys(data)
+
+    if 'DOI' in possible_keys:
+        data_dict = json.loads(data)
+        doi = data_dict.get("DOI")
+    # </Is it a *json* publication or a text?>
+
+    # <Get the prompt result>
     results: dict[str, list[str]] = classifier.prompt(data)
     if classifier.classification_error(results):
         return
+    # </Get the prompt result>
 
-    emit(
-        "text_classification_results",
-        {
-            'challenges': results['challenges'],
-            'themes': results['themes'],
-            'scientificThemes': results['scientificThemes'],
-            'mobilityTypes': results['mobilityTypes'],
-            'axes': results['axes'],
-            'usages': results['usages'],
-        },
-        to=request.sid
-    )
+    payload: dict[str, list[str]] = {
+        'challenges': results['challenges'],
+        'themes': results['themes'],
+        'scientificThemes': results['scientificThemes'],
+        'mobilityTypes': results['mobilityTypes'],
+        'axes': results['axes'],
+        'usages': results['usages'],
+    }
 
-@socketio.on('json_classification')
-def handle_json_classify(data: str) -> None:
-    print(f"JSON Classification query received: {data}")
-    data_dict = json.loads(data)
-    doi = data_dict.get("DOI")
+    if 'DOI' in possible_keys:
+        payload['DOI'] = doi
 
-    results: dict[str, list[str]] = classifier.prompt(data)
-    if classifier.classification_error(results):
-        return
-
-    emit(
-        "json_classification_results",
-        {
-            'DOI': doi,
-            'challenges': results['challenges'],
-            'themes': results['themes'],
-            'scientificThemes': results['scientificThemes'],
-            'mobilityTypes': results['mobilityTypes'],
-            'axes': results['axes'],
-            'usages': results['usages'],
-        },
-        to=request.sid
-    )
-
-@socketio.on('dataset_classification')
-def handle_json_classify(data: str) -> None:
-    print(f"Dataset Classification query received: {data}")
-    data_dict = json.loads(data)
-    doi = data_dict.get("DOI")
-
-    results: dict[str, list[str]] = classifier.prompt(data)
-    if classifier.classification_error(results):
-        return
-
-    emit(
-        "dataset_classification_results",
-        {
-            'DOI': doi,
-            'challenges': results['challenges'],
-            'themes': results['themes'],
-            'scientificThemes': results['scientificThemes'],
-            'mobilityTypes': results['mobilityTypes'],
-            'axes': results['axes'],
-            'usages': results['usages'],
-        },
-        to=request.sid
-    )
+    emit("classification_results", payload, to=request.sid)
 
 @socketio.on("disconnect")
 def disconnected():
