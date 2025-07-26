@@ -51,7 +51,7 @@ from the `frontend/src/components/` directory.
 
 Here is a simple react client to get the `challenges`:
 
-```javascriptreact
+```javascript
 // Simplified version of `frontend/src/Classifier.jsx`.
 
 import { useState, useEffect } from 'react';
