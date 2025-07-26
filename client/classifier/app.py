@@ -43,7 +43,7 @@ def handle_text_classify(data: str) -> None:
 
     # <Get the prompt result>
     results: dict[str, list[str]] =\
-        classifier.add_extra_class(classifier.prompt_categorizer(parsed_data))
+        classifier.add_extra_class(classifier.prompt_generic(parsed_data))
     # </Get the prompt result>
 
     emit("classification_results", results, to=request.sid)
@@ -58,7 +58,7 @@ def handle_json_classify(data: str) -> None:
 
     # <Get the prompt result>
     results: dict[str, list[str]] =\
-        classifier.add_extra_class(classifier.prompt_categorizer(parsed_data))
+        classifier.add_extra_class(classifier.prompt_generic(parsed_data))
 
     results['DOI'] = doi
     # </Get the prompt result>
@@ -75,7 +75,7 @@ def handle_dataset_classify(data: str) -> None:
     # <Get the prompt result>
     results: dict[str, list[str]] =\
         classifier.add_extra_class(
-            classifier.prompt_categorizer(classifier.parsing_by_line(data))
+            classifier.prompt_generic(classifier.parsing_by_line(data))
         )
 
     results['DOI'] = doi

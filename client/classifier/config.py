@@ -10,6 +10,7 @@ load_dotenv()
 BACKEND_PORT: int = int(os.getenv("BACKEND_PORT"))
 BACKEND_SECRETKEY: str = os.getenv("BACKEND_SECRETKEY")
 FRONTEND_HOST: str = os.getenv("FRONTEND_HOST")
+MAX_WORKERS: int = 4
 # </Flask + gevent + socketio>
 
 # <LLM Labellizer>

@@ -14,6 +14,8 @@ class Categorizer(Service):
     def __init__(self, labels: dict[str, dict[str, list[str]]],
                  precisions: dict[str, dict[str, float | str]]):
         """
+        :param labels: see `Service()`.
+        :param precisions: see `Service()`.
         """
 
         self.name = "LLM sentence-transformers HuggingFace"
@@ -21,7 +23,12 @@ class Categorizer(Service):
 
     def prompt(self, prompt: str) -> dict[str, str]:
         """
-        For Live Classification.
+        :param prompt: it is a text, see `Classifier.prompt_generic()`.
+        :return: The classification result over all the labels,
+            see `Classifier.prompt_generic()`.
+
+        It merely calls `unsupervised_cosine_similarity()`
+            for every label.
         """
         def func_prompt(prompt):
             results: dict[str, str] = {}
@@ -62,8 +69,16 @@ class Categorizer(Service):
 def unsupervised_cosine_similarity(text: str, themes_keywords: dict[str, list],
             threshold: float = 0.10, precision: float = 0.08) -> list[str]:
     """
+    :param text: a text, it is better if it is already parsed.
+        Anyway, it is given to a llm, it could understand sentences.
+    :param themes_keywords: a label set and its keywords
+        from `data/labels.json`. see `service()`.
+    :param threshold: see `Service()`.
+    :param precision: see `Service()`.
 
+    :return: the labels with a good score.
     """
+
     themes: list[str] = list(themes_keywords.keys())
 
     # <debug>
