@@ -33,6 +33,7 @@ def preprocess_text(text: str) -> dict[str, list[str | list[str]]]:
     5. remove stop words like "and".
     6. stemming: transform each token/word into its base form.
 
+    :param text: A text, everything.
     :return: something like a dataframe.
     """
     # <Cleaning and normalizing the text>
@@ -72,6 +73,7 @@ def preprocess_text(text: str) -> dict[str, list[str | list[str]]]:
 
 def get_synonyms(word: str) -> set[str]:
     """
+    :param word: a single word.
     :return: The synonyms of the given word, using *WordNet*.
     `word` is in the resulting set. However, all the words are
     in lowercase.
@@ -94,6 +96,12 @@ def get_synonyms(word: str) -> set[str]:
 
 def expand_keywords_with_synonyms(unique_keywords: dict[str, set[str]]):
     """
+    :param unique_keywords: See example.
+    :return: unique_keywords enhanced.
+
+    One keyword could not appear twice, except if there is one with an
+    upcase letter. Example: 'Law' and 'law' bot appear below.
+
     Example of execution:
 
     Input:
@@ -141,48 +149,4 @@ def expand_keywords_with_synonyms(unique_keywords: dict[str, set[str]]):
                 expanded_keywords_with_synonyms[theme].update(get_synonyms(keyword))
 
     return expanded_keywords_with_synonyms
-
-def expand_and_preprocess_keywords(themes_keywords: dict[str, str]) -> dict[str, set[str]]:
-    # `set()` builds an unordered collection of unique elements.
-    unique_keywords: dict[str, set[str]] = {
-        theme: set(keywords) \
-        for theme, keywords in themes_keywords.items()
-    }
-
-    return expand_keywords_with_synonyms(unique_keywords)
-
-###############################################################################
-### CLASSIFICATION BY KEYWORDS (it could be a model)
-###############################################################################
-
-def is_keyword_in_processed_text(keyword: str, processed_text: list[str]) -> bool:
-    """
-    dataframe['STEMMING'] i.e `processed_text` could be like that:
-
-    [['energi', 'effici', 'remain', 'key', 'issu', 'wireless', 'sensor',
-    'network', 'dutycycl', 'mechan', 'acquir', 'much', 'interest', 'due']]
-
-    The words are not well written.
-    """
-    for elt in processed_text:
-        if elt in keyword.lower():
-            return True
-    return False
-
-def classify_abstract_by_keywords(text: str, themes_keywords: dict[str, str]) -> list[str]:
-    dataframe = preprocess_text(text)
-    processed_text: list[str] = dataframe['STEMMING'][0]
-
-    themes_keywords = expand_and_preprocess_keywords(themes_keywords)
-    abstract_themes: list[str] = []
-
-    for theme, keywords in themes_keywords.items():
-        for keyword in keywords:
-            if is_keyword_in_processed_text(keyword, processed_text):
-                abstract_themes.append(theme)
-                break
-
-    return abstract_themes
-
-###############################################################################
 
