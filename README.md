@@ -459,12 +459,59 @@ due to space disk issues.
 ### Retriever
 
 This is a **Flask + gevent** server that uses **socketio**.
+To interact with it, there is an example of a *Python* client in
+the `client/retriever/README.md` file. You can also use the *Javascript*
+client from the `frontend/` directory.
 
 The events are:
+
+```
+- connect() ( automatically called )
+
+- disconnect() ( automatically called )
+
+- data(text) ( don't use it )
+
+- search_query(payload) -> search_results() | search_error()
+```
+
+where the `payload` is:
+
+```python
+payload = {
+    'query': 'DOI, ORCID, text, title, author, etc..'
+    'offset': 0 # 0 means page 1, 1 means page 2, etc..
+                # A single page gives `limit` results.
+    'limit': 10 # the max number of results.
+}
+```
+
+and `search_results()` sends:
+
+```python
+payload_results = {
+    'results': results_str # a `json` object (see `client/retriever/README.md`).
+}
+```
+
+and `search_error()` sends:
+
+```python
+payload_results = {
+    'results': None
+}
+
+payload_error = {
+    'error':  { 'message': error_str }
+}
+```
 
 ### Classifier
 
 This is a **Flask + gevent** server that uses **socketio**.
+To interact with it, there is an example of a *Python* client in
+the `client/classifier/README.md` file. You can also use the *Javascript*
+client from the `frontend/` directory.
 
 The events are:
 
@@ -473,6 +520,11 @@ The events are:
 This is just a client of both previous *Flask* servers.
 It is a sandbox service used to generate a labelled dataset.
 That is helpful to train some models for the *Classifier* module.
+
+### Frontend - Development only
+
+This is a *Javascript* client used to interact with the *Classifier* and
+*Retriever* servers.
 
 ### EOF
 
