@@ -2,6 +2,7 @@ import json
 import re
 
 from generic_app import Service
+from functions import load_json
 
 class Tfidf(Service):
     def __init__(self, labels: dict[str, dict[str, list[str]]],
@@ -27,25 +28,30 @@ class Tfidf(Service):
 
         return self.generic_prompt(func_prompt, prompt)
 
-    def train(self, output_file: str = "./model.pt", input_file: str) -> None:
+    def train(self, output_file: str, input_file: str) -> None:
         """
         A Function to train the model.
 
         :param output_file: The path of the file that will store the model.
+            This path is about to be extended with the name of the
+            vector of classification because there will be a unique
+            model for each of them. './model_tfidf' is fine.
+
         :param input_file: The path of the file with the labelled metadata.
             This one is a json file like this:
 
-            ```
-            {
-            'label_name (example: challenges, themes, etc..)': [
-                    { 'category': "tech", 'text': "Once upon a time..." },
-                    { 'category': "business", 'text': "In the Wilderness..." },
-                    { 'category': "sport", 'text': "By Hugo Montenegro..." },
-                    { 'category': "sport", 'text': "And Sergio Leone..." },
-                    { 'category': "entertainment", 'text': "And Me..." }
-                ]
-            }
-            ```
+    ```json
+    {
+        'classification_vector_name (example: challenges, themes, etc..)': [
+            { 'categories': ["tech"], 'text': "Once upon a time..." },
+            { 'categories': ["business"], 'text': "In the Wilderness..." },
+            { 'categories': ["sport"], 'text': "By Hugo Montenegro..." },
+            { 'categories': ["sport"], 'text': "And Sergio Leone..." },
+            { 'categories': ["entertainment"], 'text': "And Me..." }
+        ],
+        ...
+    }
+    ```
 
         Train data percentage: 70\%.
         Test data percentage: 30\%.
@@ -57,9 +63,45 @@ class Tfidf(Service):
             The model is a pipeline consisting of vectorization and classifier.
             3. Display the top words for each category and the precision
                 on train and test datasets, and the taken time to train.
+
+        Repeat the process for each vector of classification.
         """
 
+        dataset: dict[str, dict[str, str | list[str]]] = load_json(input_file)
 
+        for vector_of_classification in self._labels:
+
+            output_file_current: str = output_file\
+                + "_"\
+                + vector_of_classification\
+                + ".pt"
+
+            dataset_current = {
+                vector_of_classification:\
+                    dataset.get(vector_of_classification, {})
+            }
+
+            self._train_a_unique_label(output_file_current, dataset_current)
+
+    def _train_a_unique_label(self, output_file: str,
+                          dataset: dict[str, str | list[str]]) -> None:
+        """
+        :param output_file: Something like `./model_tfidf_axes.pt`.
+        :param dataset: this one is a json file like this:
+
+    ```json
+    {
+        'classification_vector_name (example: challenges, themes, etc..)': [
+            { 'categories': ["tech"], 'text': "Once upon a time..." },
+            { 'categories': ["business"], 'text': "In the Wilderness..." },
+            { 'categories': ["sport"], 'text': "By Hugo Montenegro..." },
+            { 'categories': ["sport"], 'text': "And Sergio Leone..." },
+            { 'categories': ["entertainment"], 'text': "And Me..." }
+        ]
+    }
+    ```
+        """
+        print(output_file)
 
 #############################################################################
 
