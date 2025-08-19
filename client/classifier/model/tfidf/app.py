@@ -2,7 +2,7 @@ import json
 import re
 
 from generic_app import Service
-from functions import load_json
+from functions import load_json, preprocess_text
 
 class Tfidf(Service):
     def __init__(self, labels: dict[str, dict[str, list[str]]],
@@ -53,8 +53,8 @@ class Tfidf(Service):
     }
     ```
 
-        Train data percentage: 70\%.
-        Test data percentage: 30\%.
+        Train data percentage: 70%.
+        Test data percentage: 30%.
 
         Steps:
             1. Clean the texts: add 'text_clean' to each dictionary,
@@ -67,7 +67,7 @@ class Tfidf(Service):
         Repeat the process for each vector of classification.
         """
 
-        dataset: dict[str, dict[str, str | list[str]]] = load_json(input_file)
+        dataset: dict[str, dict[str, str | list[dict]]] = load_json(input_file)
 
         for vector_of_classification in self._labels:
 
@@ -84,7 +84,7 @@ class Tfidf(Service):
             self._train_a_unique_label(output_file_current, dataset_current)
 
     def _train_a_unique_label(self, output_file: str,
-                          dataset: dict[str, str | list[str]]) -> None:
+                          dataset: dict[str, str | list[dict]]) -> None:
         """
         :param output_file: Something like `./model_tfidf_axes.pt`.
         :param dataset: this one is a json file like this:
@@ -101,9 +101,98 @@ class Tfidf(Service):
     }
     ```
         """
-        print(output_file)
+
+        classification_vector_name: str = ''.join(dataset.keys())
+        publications: list[dict[str, str | list[str]]] =\
+            dataset.get(classification_vector_name, [])
+
+        # <Split by categories>
+        pub_sorted_by_catego: dict[str, list[dict[str, str | list[str]]]] =\
+            self._get_by_categories(
+                classification_vector_name, publications).items()
+        nb_unique_categories: int =\
+            len(pub_sorted_by_catego)
+
+        split_by_categories: list[str] = [
+            catego + ": " + str(len(publications))\
+            for catego, publications in pub_sorted_by_catego
+        ]
+        # </Split by categories>
+
+        # <Display>
+        head_dataset: list[str] = []
+        for publication in publications[:5]:
+
+            catego_suffix: str =\
+                "" if len(publication['categories']) <= 20 else " ..."
+
+            text_suffix: str =\
+                "" if len(publication['text']) <= 20 else " ..."
+
+            head_dataset.append(str(json.dumps({
+                'categories': publication['categories'][:20] + catego_suffix,
+                'text': publication['text'][:20] + text_suffix
+            }))
+            )
+
+        print(f'\n\
+####################################################################\n\
+Beginning the training for TF IDF...\n\
+Vector of classification: {classification_vector_name}\n\
+Total number of publications: N={len(publications)}\n\
+####################################################################\n\
+Number of unique categories: C={nb_unique_categories}\n\
+Split by categories:\n\
+{'\n'.join(split_by_categories)}\n\
+####################################################################\n\
+head(Dataset):\n\
+{'\n'.join(head_dataset)}\n\
+####################################################################\n\
+        \
+        ')
+        # </Display>
+
+        # <Format the texts>
+        for publication in publications:
+            text: str = publication.get('text', "")
+
+            dataframe: dict[str, list[str | list[str]]] =\
+                preprocess_text(text)
+            text_clean: str = ' '.join(dataframe['STOP-WORDS'][0])
+
+            publication['text_clean'] = text_clean
+        # </Format the texts>
+
+    #########################################################################
+    ## Sort the publications by categories.
+    #########################################################################
+
+    def _get_by_categories(self, classification_vector_name: str,\
+                           publications: list[dict[str, str | list[str]]])\
+                            -> dict[str, list[dict[str, str | list[str]]]]:
+        result = {
+            catego: [] for catego\
+            in self._labels.get(classification_vector_name)
+        }
+
+        # <Manually add the extra class>
+        result['Other'] = []
+        # </Manually add the extra class>
+
+        for publication in publications:
+            for catego in result:
+                categories_in_ascii: str =\
+                    json.loads(publication.get('categories', ""))
+
+                if catego in categories_in_ascii:
+                    result[catego].append(publication)
+
+        return result
+
+    #########################################################################
 
 #############################################################################
+
 
 
 #############################################################################

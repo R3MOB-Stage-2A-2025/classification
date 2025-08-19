@@ -12,6 +12,7 @@ if config.CLASSIFIER_MISCELLANEOUS_USE:
 
     nltk.download(info_or_id='wordnet', download_dir=config.NLTK_DIRECTORY)
     nltk.download(info_or_id='stopwords', download_dir=config.NLTK_DIRECTORY)
+    nltk.download('punkt_tab')
 # </Download *nltk* tools aka MISCELLANEOUS>
 
 def load_json(file_path: str) -> str:
@@ -60,6 +61,7 @@ def preprocess_text(text: str) -> dict[str, list[str | list[str]]]:
     ps = PorterStemmer()
     stemmed_text: list[str] =\
         set(list(ps.stem(word) for word in stop_words_removed))
+
     dataframe = {
         'DOCUMENT': [text],
         'LOWERCASE' : [lowercased_text],
