@@ -128,5 +128,7 @@ python categorizing.py
 6. It is possible to get a dataset that can be used to classify using the
 `./ready_to_classify.py` script.
 
+The files are too large to be pushed.
+
 ### EOF
 
