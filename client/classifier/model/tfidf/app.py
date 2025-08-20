@@ -12,7 +12,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
 from sklearn.linear_model import LogisticRegression, SGDClassifier
 from sklearn.pipeline import Pipeline
-from sklearn.metrics import accuracy_score
+from sklearn.metrics import accuracy_score, classification_report
 from sklearn.preprocessing import LabelBinarizer
 # </Machine Learning>
 
@@ -266,7 +266,8 @@ Percentage of training data:\n\
 
         predicted_test_tfidf = model_tfidf.predict(X_test)
         accuracy_test_tfidf = accuracy_score(y_test, predicted_test_tfidf)
-        accuracy_tfidf = accuracy_test_tfidf
+        accuracy_report =\
+            classification_report(y_test, predicted_test_tfidf)
         # </Results>
 
         # <Display>
@@ -276,6 +277,9 @@ Accuracy Training data: {accuracy_train_tfidf}\n\
 Accuracy Test data: {accuracy_test_tfidf}\n\
 Training time: {training_time_tfidf}\n\
 #############################################################################\n\
+Classification Report:\n\
+======================================================\n\
+{accuracy_report}\n\
         ')
 
         print('(categories x vocabulary size): ',classifier_tfidf.coef_.shape)
