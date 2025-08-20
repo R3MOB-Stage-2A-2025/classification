@@ -4,6 +4,15 @@ import re
 from generic_app import Service
 from functions import load_json, preprocess_text
 
+# <Machine Learning>
+from sklearn.model_selection import train_test_split
+from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
+from sklearn.linear_model import LogisticRegression, SGDClassifier
+from sklearn.pipeline import Pipeline
+from sklearn.metrics import accuracy_score
+from sklearn.preprocessing import LabelBinarizer
+# </Machine Learning>
+
 class Tfidf(Service):
     def __init__(self, labels: dict[str, dict[str, list[str]]],
                  precisions: dict[str, dict[str, float | str]]):
@@ -108,14 +117,14 @@ class Tfidf(Service):
 
         # <Split by categories>
         pub_sorted_by_catego: dict[str, list[dict[str, str | list[str]]]] =\
-            self._get_by_categories(
-                classification_vector_name, publications).items()
+            self._get_by_categories(classification_vector_name, publications)
+
         nb_unique_categories: int =\
-            len(pub_sorted_by_catego)
+            len(pub_sorted_by_catego.items())
 
         split_by_categories: list[str] = [
             catego + ": " + str(len(publications))\
-            for catego, publications in pub_sorted_by_catego
+            for catego, publications in pub_sorted_by_catego.items()
         ]
         # </Split by categories>
 
@@ -136,19 +145,19 @@ class Tfidf(Service):
             )
 
         print(f'\n\
-####################################################################\n\
+#############################################################################\n\
 Beginning the training for TF IDF...\n\
 Vector of classification: {classification_vector_name}\n\
 Total number of publications: N={len(publications)}\n\
-####################################################################\n\
+#############################################################################\n\
 Number of unique categories: C={nb_unique_categories}\n\
 Split by categories:\n\
 {'\n'.join(split_by_categories)}\n\
-####################################################################\n\
+#############################################################################\n\
 head(Dataset):\n\
 {'\n'.join(head_dataset)}\n\
-####################################################################\n\
-        \
+#############################################################################\n\
+\
         ')
         # </Display>
 
@@ -162,6 +171,67 @@ head(Dataset):\n\
 
             publication['text_clean'] = text_clean
         # </Format the texts>
+
+        # <To get only 1 category per publication>
+        single_catego_pub: list[dict[str, str]] = []
+
+        for publication in publications:
+            categories: list[str] =\
+                json.loads(publication.get('categories', ""))
+
+            if 2 <= len(categories):
+                for category in categories:
+                    text: str = publication.get('text', "")
+                    text_clean: str = publication.get('text_clean', "")
+
+                    single_catego_pub.append({
+                        'categories': category,
+                        'text': text,
+                        'text_clean': text_clean
+                    })
+            else:
+                single_catego_pub.append(publication)
+        # </To get only 1 category per publication>
+
+        # <Split into Train and Test data>
+
+        # the column `text_clean`:
+        X: list[str] =\
+            [ pub.get('text_clean', "") for pub in single_catego_pub ]
+        # the column `categories`:
+        y: list[str] =\
+            [ pub.get('categories', "") for pub in single_catego_pub ]
+        # copy of y:
+        stratify: list[str] = [ elt for elt in y ]
+
+        X_train, X_test, y_train, y_test =\
+            train_test_split(X, y, test_size=0.3, random_state=42,
+                             stratify=stratify)
+
+        # <Display>
+        display_percentage_train_test_data: list[dict[str, float]] = []
+        for category in pub_sorted_by_catego.keys():
+            y_count: int = y.count(category)
+            y_train_count: int = y_train.count(category)
+
+            display_percentage_train_test_data.append({
+                category:\
+                y_train_count / y_count if y_count != 0 else -1
+            })
+
+        display_percentage_train_test_data_to_display: list[str] = {
+            str(json.dumps(dictionary))\
+            for dictionary in display_percentage_train_test_data
+        }
+
+        print(f'\
+Split into Train and Test data:\n\
+{'\n'.join(display_percentage_train_test_data_to_display)}\n\
+#############################################################################\n\
+        ')
+        # </Display>
+
+        # </Split into Train and Test data>
 
     #########################################################################
     ## Sort the publications by categories.
@@ -181,7 +251,7 @@ head(Dataset):\n\
 
         for publication in publications:
             for catego in result:
-                categories_in_ascii: str =\
+                categories_in_ascii: list[str] =\
                     json.loads(publication.get('categories', ""))
 
                 if catego in categories_in_ascii:
