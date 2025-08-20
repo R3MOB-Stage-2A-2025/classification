@@ -1,5 +1,7 @@
 import json
 import re
+from datetime import datetime
+import random
 
 from generic_app import Service
 from functions import load_json, preprocess_text
@@ -177,55 +179,44 @@ head(Dataset):\n\
         ')
         # </Display>
 
-        # <To get only 1 category per publication>
-        single_catego_pub: list[dict[str, str]] = []
-
-        for publication in publications:
-            text: str = publication.get('text', "")
-            text_clean: str = publication.get('text_clean', "")
-            categories: list[str] =\
-                json.loads(publication.get('categories', ""))
-
-            if 2 <= len(categories):
-                for category in categories:
-
-                    single_catego_pub.append({
-                        'categories': category,
-                        'text': text,
-                        'text_clean': text_clean
-                    })
-            else:
-                single_catego_pub.append({
-                        'categories': categories[0],
-                        'text': text,
-                        'text_clean': text_clean
-                })
-        # </To get only 1 category per publication>
-
         # <Split into Train and Test data>
 
         # the column `text_clean`:
         X: list[str] =\
-            [ pub.get('text_clean', "") for pub in single_catego_pub ]
+            [ pub.get('text_clean', "") for pub in publications ]
         # the column `categories`:
-        y: list[str] =\
-            [ pub.get('categories', "") for pub in single_catego_pub ]
+        y: list[list[str]] =\
+            [ pub.get('categories', "") for pub in publications ]
+
+        # <The shuffle of sklearn>, not working because it's multilabel.
         # copy of y:
-        stratify: list[str] = [ elt for elt in y ]
+        #stratify: list[str] = [ elt for elt in y ]
 
-        print(X)
-        print("TOTO")
-        print(y)
+        #X_train, X_test, y_train, y_test =\
+            #train_test_split(X, y, test_size=0.3,
+                             #random_state=42, stratify=stratify)
+        # </The shuffle of sklearn>
 
-        X_train, X_test, y_train, y_test =\
-            train_test_split(X, y, test_size=0.3, random_state=42,
-                             stratify=stratify)
+        # <My own shuffle>
+        Z = list(zip(X, y))
+        random.shuffle(Z)
+        X, y = zip(*Z)
+
+        train_pct_index = int(0.7 * len(X))
+        X_train, X_test = X[:train_pct_index], X[train_pct_index:]
+        y_train, y_test = y[:train_pct_index], y[train_pct_index:]
+        # </My own shuffle>
 
         # <Display>
         display_percentage_train_test_data: list[dict[str, float]] = []
-        for category in pub_sorted_by_catego.keys():
-            y_count: int = y.count(category)
-            y_train_count: int = y_train.count(category)
+        for category in pub_sorted_by_catego:
+            y_count: int = sum([
+                1 if category in categories else 0 for categories in y
+            ])
+
+            y_train_count: int = sum([
+                1 if category in categories else 0 for categories in y_train
+            ])
 
             display_percentage_train_test_data.append({
                 category:\
@@ -245,6 +236,45 @@ Percentage of training data:\n\
         # </Display>
 
         # </Split into Train and Test data>
+
+        # <Model Initialization>
+        corpus = X_train
+        vectorizer_tfidf =\
+            TfidfVectorizer(max_features=15000, ngram_range=(1,2))
+        vectorizer_tfidf.fit(corpus)
+        TfidfVectorizer(max_features=15000, ngram_range=(1, 2))
+        # </Model Initialization>
+
+        # <Fit to the training data>
+        classifier_tfidf = LogisticRegression()
+        model_tfidf = Pipeline([
+            ("vectorizer", vectorizer_tfidf), ("classifier", classifier_tfidf)
+        ])
+
+        start_time = datetime.now()
+        model_tfidf.fit(X_train, y_train)
+        end_time = datetime.now()
+
+        training_time_tfidf = (end_time - start_time).total_seconds()
+        # </Fit to the training data>
+
+        # <Results>
+        predicted_train_tfidf = model_tfidf.predict(X_train)
+        accuracy_train_tfidf = accuracy_score(y_train, predicted_train_tfidf)
+
+        predicted_test_tfidf = model_tfidf.predict(X_test)
+        accuracy_test_tfidf = accuracy_score(y_test, predicted_test_tfidf)
+        accuracy_tfidf = accuracy_test_tfidf
+        # </Results>
+
+        # <Display>
+        print(f'\
+Accuracy Training data: {accuracy_train_tfidf}\n\
+Accuracy Test data: {accuracy_test_tfidf}\n\
+Training time: {training_time_tfidf}\n\
+#############################################################################\n\
+        ')
+        # </Display>
 
     #########################################################################
     ## Sort the publications by categories.
