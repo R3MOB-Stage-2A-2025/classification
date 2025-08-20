@@ -78,6 +78,22 @@ class Tfidf(Service):
 
         dataset: dict[str, dict[str, str | list[dict]]] = load_json(input_file)
 
+        # <Display>
+        print("Formatting the texts, please wait...")
+        # </Display>
+
+        # <Format the texts>
+        for publications in dataset.values():
+            for publication in publications:
+                text: str = publication.get('text', "")
+
+                dataframe: dict[str, list[str | list[str]]] =\
+                    preprocess_text(text)
+                text_clean: str = ' '.join(dataframe['STOP-WORDS'][0])
+
+                publication['text_clean'] = text_clean
+        # </Format the texts>
+
         for vector_of_classification in self._labels:
 
             output_file_current: str = output_file\
@@ -161,28 +177,17 @@ head(Dataset):\n\
         ')
         # </Display>
 
-        # <Format the texts>
-        for publication in publications:
-            text: str = publication.get('text', "")
-
-            dataframe: dict[str, list[str | list[str]]] =\
-                preprocess_text(text)
-            text_clean: str = ' '.join(dataframe['STOP-WORDS'][0])
-
-            publication['text_clean'] = text_clean
-        # </Format the texts>
-
         # <To get only 1 category per publication>
         single_catego_pub: list[dict[str, str]] = []
 
         for publication in publications:
+            text: str = publication.get('text', "")
+            text_clean: str = publication.get('text_clean', "")
             categories: list[str] =\
                 json.loads(publication.get('categories', ""))
 
             if 2 <= len(categories):
                 for category in categories:
-                    text: str = publication.get('text', "")
-                    text_clean: str = publication.get('text_clean', "")
 
                     single_catego_pub.append({
                         'categories': category,
@@ -190,7 +195,11 @@ head(Dataset):\n\
                         'text_clean': text_clean
                     })
             else:
-                single_catego_pub.append(publication)
+                single_catego_pub.append({
+                        'categories': categories[0],
+                        'text': text,
+                        'text_clean': text_clean
+                })
         # </To get only 1 category per publication>
 
         # <Split into Train and Test data>
@@ -203,6 +212,10 @@ head(Dataset):\n\
             [ pub.get('categories', "") for pub in single_catego_pub ]
         # copy of y:
         stratify: list[str] = [ elt for elt in y ]
+
+        print(X)
+        print("TOTO")
+        print(y)
 
         X_train, X_test, y_train, y_test =\
             train_test_split(X, y, test_size=0.3, random_state=42,
@@ -225,7 +238,7 @@ head(Dataset):\n\
         }
 
         print(f'\
-Split into Train and Test data:\n\
+Percentage of training data:\n\
 {'\n'.join(display_percentage_train_test_data_to_display)}\n\
 #############################################################################\n\
         ')
