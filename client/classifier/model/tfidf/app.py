@@ -2,6 +2,7 @@ import json
 import re
 from datetime import datetime
 import random
+import numpy as np
 
 from generic_app import Service
 from functions import load_json, preprocess_text
@@ -174,7 +175,6 @@ Split by categories:\n\
 #############################################################################\n\
 head(Dataset):\n\
 {'\n'.join(head_dataset)}\n\
-#############################################################################\n\
 \
         ')
         # </Display>
@@ -211,11 +211,13 @@ head(Dataset):\n\
         display_percentage_train_test_data: list[dict[str, float]] = []
         for category in pub_sorted_by_catego:
             y_count: int = sum([
-                1 if category in categories else 0 for categories in y
+                1 if category in json.loads(categories) else 0\
+                for categories in y
             ])
 
             y_train_count: int = sum([
-                1 if category in categories else 0 for categories in y_train
+                1 if category in json.loads(categories) else 0\
+                for categories in y_train
             ])
 
             display_percentage_train_test_data.append({
@@ -229,9 +231,9 @@ head(Dataset):\n\
         }
 
         print(f'\
+#############################################################################\n\
 Percentage of training data:\n\
 {'\n'.join(display_percentage_train_test_data_to_display)}\n\
-#############################################################################\n\
         ')
         # </Display>
 
@@ -269,11 +271,31 @@ Percentage of training data:\n\
 
         # <Display>
         print(f'\
+#############################################################################\n\
 Accuracy Training data: {accuracy_train_tfidf}\n\
 Accuracy Test data: {accuracy_test_tfidf}\n\
 Training time: {training_time_tfidf}\n\
 #############################################################################\n\
         ')
+
+        print('(categories x vocabulary size): ',classifier_tfidf.coef_.shape)
+        print(80*'-')
+
+        NN = 10
+        top_words = np.argsort(classifier_tfidf.coef_,axis=1)[:,-NN:]
+        voc = vectorizer_tfidf.vocabulary_
+        inv_voc = {v: k for k, v in voc.items()}
+
+        for n, w in enumerate(classifier_tfidf.classes_):
+            t = w + ': '
+            for i in range(NN):
+                if n < top_words.shape[0] and i < top_words.shape[1]:
+                    t += inv_voc[top_words[n,i]]
+                    if i!=NN:
+                        t+=', '
+
+        print(t)
+        print(80*'-')
         # </Display>
 
     #########################################################################
