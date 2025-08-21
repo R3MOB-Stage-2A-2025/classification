@@ -10,18 +10,17 @@ from generic_app import Service
 from functions import load_json, preprocess_text
 
 # <Machine Learning>
-from sklearn.model_selection import train_test_split
 from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
 from sklearn.preprocessing import MultiLabelBinarizer
 from sklearn.model_selection import train_test_split
+from sklearn.multiclass import OneVsRestClassifier
 from sklearn.linear_model import LogisticRegression, SGDClassifier
 from sklearn.svm import LinearSVC
-from sklearn.multiclass import OneVsRestClassifier
-from sklearn.pipeline import Pipeline
 from sklearn.metrics import accuracy_score, classification_report
+from sklearn.metrics import hamming_loss, jaccard_score
 # </Machine Learning>
 
-# <Ignore warnings>, most of the time its useless.
+# <Ignore warnings>, most of the time it's useless.
 import warnings
 
 warnings.filterwarnings('ignore')
@@ -186,7 +185,7 @@ head(Dataset):\n\
 
         # <Model Initialization>
         vectorizer_tfidf =\
-            TfidfVectorizer(max_features=15000, ngram_range=(1,2))
+            TfidfVectorizer(max_features=10000, ngram_range=(1,2))
         X = vectorizer_tfidf.fit_transform(publications_df['text_clean'])
         # </Model Initialization>
 
@@ -210,12 +209,12 @@ head(Dataset):\n\
             y_train_count: int =\
                 sum(y_train[:, ind_catego])
 
-            ind_catego += 1
-
             display_percentage_train_test_data.append({
-                category:\
-                y_train_count / y_count if y_count != 0 else -1
+                f'({ind_catego}) ' + category:\
+                y_train_count / y_count if y_count != 0 else -1,
             })
+
+            ind_catego += 1
 
         display_percentage_train_test_data_to_display: list[str] = {
             str(json.dumps(dictionary))\
@@ -233,12 +232,12 @@ Percentage of training data:\n\
 
         # <Fit to the training data>
         algorithms: list = [
-            LogisticRegression(solver='lbfgs'),
-            SGDClassifier(),
-            LinearSVC()
+            LogisticRegression(solver='lbfgs', class_weight='balanced'),
+            SGDClassifier(class_weight='balanced'),
+            LinearSVC(class_weight='balanced')
         ]
         classifier_tfidf =\
-            OneVsRestClassifier(algorithms[1])
+            OneVsRestClassifier(algorithms[2])
 
         start_time = datetime.now()
         classifier_tfidf.fit(X_train, y_train)
@@ -255,6 +254,14 @@ Percentage of training data:\n\
         accuracy_test_tfidf = accuracy_score(y_test, predicted_test_tfidf)
         accuracy_report =\
             classification_report(y_test, predicted_test_tfidf)
+
+        hamming_train: float = hamming_loss(y_train, predicted_train_tfidf)
+        hamming_test: float = hamming_loss(y_test, predicted_test_tfidf)
+
+        jaccard_train: float =\
+            jaccard_score(y_train, predicted_train_tfidf, average='micro')
+        jaccard_test: float =\
+            jaccard_score(y_test, predicted_test_tfidf, average='micro')
         # </Results>
 
         # <Display>
@@ -262,6 +269,10 @@ Percentage of training data:\n\
 #############################################################################\n\
 Accuracy Training data: {accuracy_train_tfidf}\n\
 Accuracy Test data: {accuracy_test_tfidf}\n\
+Hamming Loss on Train data: {hamming_train}\n\
+Hamming Loss on Test data: {hamming_test}\n\
+Jaccard Score (micro) on Train data: {jaccard_train}\n\
+Jaccard Score (micro) on Test data: {jaccard_test}\n\
 Training time: {training_time_tfidf}\n\
 #############################################################################\n\
 Classification Report:\n\
