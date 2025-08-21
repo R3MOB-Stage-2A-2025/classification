@@ -1,8 +1,10 @@
 import json
 import re
+import ast
 from datetime import datetime
 import random
 import numpy as np
+import pandas as pd
 
 from generic_app import Service
 from functions import load_json, preprocess_text
@@ -10,11 +12,20 @@ from functions import load_json, preprocess_text
 # <Machine Learning>
 from sklearn.model_selection import train_test_split
 from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
+from sklearn.preprocessing import MultiLabelBinarizer
+from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression, SGDClassifier
+from sklearn.svm import LinearSVC
+from sklearn.multiclass import OneVsRestClassifier
 from sklearn.pipeline import Pipeline
 from sklearn.metrics import accuracy_score, classification_report
-from sklearn.preprocessing import LabelBinarizer
 # </Machine Learning>
+
+# <Ignore warnings>, most of the time its useless.
+import warnings
+
+warnings.filterwarnings('ignore')
+# </Ignore warnings>
 
 class Tfidf(Service):
     def __init__(self, labels: dict[str, dict[str, list[str]]],
@@ -134,12 +145,16 @@ class Tfidf(Service):
         publications: list[dict[str, str | list[str]]] =\
             dataset.get(classification_vector_name, [])
 
+        # <Transform it into a pandas dataset>
+        publications_df = pd.DataFrame(publications)
+
+        publications_df['categories'] =\
+            publications_df['categories'].apply(lambda x: ast.literal_eval(x))
+        # </Transform it into a pandas dataset>
+
         # <Split by categories>
         pub_sorted_by_catego: dict[str, list[dict[str, str | list[str]]]] =\
             self._get_by_categories(classification_vector_name, publications)
-
-        nb_unique_categories: int =\
-            len(pub_sorted_by_catego.items())
 
         split_by_categories: list[str] = [
             catego + ": " + str(len(publications))\
@@ -148,77 +163,54 @@ class Tfidf(Service):
         # </Split by categories>
 
         # <Display>
-        head_dataset: list[str] = []
-        for publication in publications[:5]:
-
-            catego_suffix: str =\
-                "" if len(publication['categories']) <= 20 else " ..."
-
-            text_suffix: str =\
-                "" if len(publication['text']) <= 20 else " ..."
-
-            head_dataset.append(str(json.dumps({
-                'categories': publication['categories'][:20] + catego_suffix,
-                'text': publication['text'][:20] + text_suffix
-            }))
-            )
+        head_dataset = publications_df.head()
+        nb_total_publications = len(publications_df)
+        nb_unique_categories: int =\
+            len(pub_sorted_by_catego.items())
 
         print(f'\n\
 #############################################################################\n\
 Beginning the training for TF IDF...\n\
 Vector of classification: {classification_vector_name}\n\
-Total number of publications: N={len(publications)}\n\
+Total number of publications: N={nb_total_publications}\n\
 #############################################################################\n\
 Number of unique categories: C={nb_unique_categories}\n\
 Split by categories:\n\
 {'\n'.join(split_by_categories)}\n\
 #############################################################################\n\
 head(Dataset):\n\
-{'\n'.join(head_dataset)}\n\
+{head_dataset}\n\
 \
         ')
         # </Display>
 
+        # <Model Initialization>
+        vectorizer_tfidf =\
+            TfidfVectorizer(max_features=15000, ngram_range=(1,2))
+        X = vectorizer_tfidf.fit_transform(publications_df['text_clean'])
+        # </Model Initialization>
+
         # <Split into Train and Test data>
+        y_numpy = publications_df['categories']
+        multilabel = MultiLabelBinarizer()
+        y = multilabel.fit_transform(y_numpy)
 
-        # the column `text_clean`:
-        X: list[str] =\
-            [ pub.get('text_clean', "") for pub in publications ]
-        # the column `categories`:
-        y: list[list[str]] =\
-            [ pub.get('categories', "") for pub in publications ]
-
-        # <The shuffle of sklearn>, not working because it's multilabel.
-        # copy of y:
-        #stratify: list[str] = [ elt for elt in y ]
-
-        #X_train, X_test, y_train, y_test =\
-            #train_test_split(X, y, test_size=0.3,
-                             #random_state=42, stratify=stratify)
+        # <The shuffle of sklearn>
+        X_train, X_test, y_train, y_test =\
+            train_test_split(X, y, test_size=0.3, random_state=42)
+                                                #, stratify=y)
         # </The shuffle of sklearn>
-
-        # <My own shuffle>
-        Z = list(zip(X, y))
-        random.shuffle(Z)
-        X, y = zip(*Z)
-
-        train_pct_index = int(0.7 * len(X))
-        X_train, X_test = X[:train_pct_index], X[train_pct_index:]
-        y_train, y_test = y[:train_pct_index], y[train_pct_index:]
-        # </My own shuffle>
 
         # <Display>
         display_percentage_train_test_data: list[dict[str, float]] = []
-        for category in pub_sorted_by_catego:
-            y_count: int = sum([
-                1 if category in json.loads(categories) else 0\
-                for categories in y
-            ])
 
-            y_train_count: int = sum([
-                1 if category in json.loads(categories) else 0\
-                for categories in y_train
-            ])
+        ind_catego: int = 0
+        for category in multilabel.classes_:
+            y_count: int = sum(y[:, ind_catego])
+            y_train_count: int =\
+                sum(y_train[:, ind_catego])
+
+            ind_catego += 1
 
             display_percentage_train_test_data.append({
                 category:\
@@ -239,32 +231,27 @@ Percentage of training data:\n\
 
         # </Split into Train and Test data>
 
-        # <Model Initialization>
-        corpus = X_train
-        vectorizer_tfidf =\
-            TfidfVectorizer(max_features=15000, ngram_range=(1,2))
-        vectorizer_tfidf.fit(corpus)
-        TfidfVectorizer(max_features=15000, ngram_range=(1, 2))
-        # </Model Initialization>
-
         # <Fit to the training data>
-        classifier_tfidf = LogisticRegression()
-        model_tfidf = Pipeline([
-            ("vectorizer", vectorizer_tfidf), ("classifier", classifier_tfidf)
-        ])
+        algorithms: list = [
+            LogisticRegression(solver='lbfgs'),
+            SGDClassifier(),
+            LinearSVC()
+        ]
+        classifier_tfidf =\
+            OneVsRestClassifier(algorithms[1])
 
         start_time = datetime.now()
-        model_tfidf.fit(X_train, y_train)
+        classifier_tfidf.fit(X_train, y_train)
         end_time = datetime.now()
 
         training_time_tfidf = (end_time - start_time).total_seconds()
         # </Fit to the training data>
 
         # <Results>
-        predicted_train_tfidf = model_tfidf.predict(X_train)
+        predicted_train_tfidf = classifier_tfidf.predict(X_train)
         accuracy_train_tfidf = accuracy_score(y_train, predicted_train_tfidf)
 
-        predicted_test_tfidf = model_tfidf.predict(X_test)
+        predicted_test_tfidf = classifier_tfidf.predict(X_test)
         accuracy_test_tfidf = accuracy_score(y_test, predicted_test_tfidf)
         accuracy_report =\
             classification_report(y_test, predicted_test_tfidf)
@@ -282,24 +269,29 @@ Classification Report:\n\
 {accuracy_report}\n\
         ')
 
-        print('(categories x vocabulary size): ',classifier_tfidf.coef_.shape)
-        print(80*'-')
+        classes = classifier_tfidf.classes_
+        estimators = classifier_tfidf.estimators_
 
-        NN = 10
-        top_words = np.argsort(classifier_tfidf.coef_,axis=1)[:,-NN:]
+        print("(categories x vocabulary size):", estimators[0].coef_.shape)
+        print(80 * "-")
+
+        NN = 20
         voc = vectorizer_tfidf.vocabulary_
         inv_voc = {v: k for k, v in voc.items()}
 
-        for n, w in enumerate(classifier_tfidf.classes_):
-            t = w + ': '
-            for i in range(NN):
-                if n < top_words.shape[0] and i < top_words.shape[1]:
-                    t += inv_voc[top_words[n,i]]
-                    if i!=NN:
-                        t+=', '
+        for n, (cls, est) in enumerate(zip(classes, estimators)):
+            coef = est.coef_[0]  # shape (1, vocab_size)
+            top_words = np.argsort(coef)[-NN:]
 
-        print(t)
-        print(80*'-')
+            t = str(cls) + ": "
+
+            for i in range(NN):
+                t += inv_voc[top_words[i]]
+
+                if i != NN - 1:
+                    t += ", "
+
+            print(t)
         # </Display>
 
     #########################################################################
@@ -319,11 +311,16 @@ Classification Report:\n\
         # </Manually add the extra class>
 
         for publication in publications:
-            for catego in result:
-                categories_in_ascii: list[str] =\
-                    json.loads(publication.get('categories', ""))
+            categories_in_ascii: list[str] =\
+                json.loads(publication.get('categories', ""))
 
-                if catego in categories_in_ascii:
+            publication['categories'] = categories_in_ascii
+
+        for publication in publications:
+            for catego in result:
+                categories_pub: list[str] = publication.get('categories', "")
+
+                if catego in categories_pub:
                     result[catego].append(publication)
 
         return result
