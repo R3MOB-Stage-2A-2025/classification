@@ -20,20 +20,6 @@ RUN pip install --upgrade pip
 RUN pip install --no-cache-dir -r requirements/flask_requirements.txt
 # </Flask + gevent + socketio>
 
-# <Model TFIDF>
-RUN variable=$(cat .env | grep "CLASSIFIER_TFIDF_USE" | cut -d '=' -f2);\
-    if [ "$variable" = "TRUE" ]; then\
-        pip install --no-cache-dir\
-            -r requirements/tfidf_requirements.txt; fi
-# </Model TFIDF>
-
-# <Model Hierarchical>
-RUN variable=$(cat .env | grep "CLASSIFIER_HIERARCHICAL_USE" | cut -d '=' -f2);\
-    if [ "$variable" = "TRUE" ]; then\
-        pip install --no-cache-dir\
-            -r requirements/hierarchical_requirements.txt; fi
-# </Model Hierarchical>
-
 # <LLM Labellizer>
 RUN variable=$(cat .env | grep "CLASSIFIER_CATEGORIZER_USE" | cut -d '=' -f2);\
     if [ "$variable" = "TRUE" ]; then\
@@ -41,13 +27,21 @@ RUN variable=$(cat .env | grep "CLASSIFIER_CATEGORIZER_USE" | cut -d '=' -f2);\
             -r requirements/categorizer_requirements.txt; fi
 # </LLM Labellizer>
 
-## <Tokenizer + Embeddings>
-#CLASSIFIER_MISCELLANEOUS_USE=FALSE
+# <Tokenizer + Embeddings>
 RUN variable=$(cat .env | grep "CLASSIFIER_MISCELLANEOUS_USE" | cut -d'=' -f2);\
     if [ "$variable" = "TRUE" ]; then\
         pip install --no-cache-dir\
             -r requirements/miscellenaous_requirements.txt; fi
-## </Tokenizer + Embeddings>
+# </Tokenizer + Embeddings>
+
+# <Model TFIDF>
+RUN variable=$(cat .env | grep "CLASSIFIER_TFIDF_USE" | cut -d '=' -f2);\
+    if [ "$variable" = "TRUE" ]; then\
+        pip install --no-cache-dir\
+            -r requirements/tfidf_requirements.txt;\
+        pip install --no-cache-dir\
+            -r requirements/miscellenaous_requirements.txt; fi
+# </Model TFIDF>
 
 EXPOSE 5011
 
