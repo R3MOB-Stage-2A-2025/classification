@@ -199,11 +199,11 @@ class Classifier:
                 return self.error_payload()
             return result
 
-    def train_tfidf(self, output_file: str, input_file: str) -> None:
+    def train_tfidf(self, input_file: str = "") -> None:
         """
         See `model/tfidf/app.py`.
         """
-        self._model_tfidf.train(output_file, input_file)
+        self._model_tfidf.train(input_file=input_file)
 
     #########################################################################
     #### Model - Hierarchical

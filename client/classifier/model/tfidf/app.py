@@ -37,6 +37,11 @@ class Tfidf(Service):
         self.name = "TFIDF"
         super().__init__(labels=labels, precisions=precisions)
 
+        _input_file_default = "data/data_depth_3.json"
+        self._input_file = _input_file_default
+
+        self.train(_input_file_default)
+
     def prompt(self, prompt: str) -> dict[str, str]:
         """
         :param prompt: it is a text, see `Classifier.prompt_generic()`.
@@ -50,14 +55,9 @@ class Tfidf(Service):
 
         return self.generic_prompt(func_prompt, prompt)
 
-    def train(self, output_file: str, input_file: str) -> None:
+    def train(self, input_file: str = "") -> None:
         """
         A Function to train the model.
-
-        :param output_file: The path of the file that will store the model.
-            This path is about to be extended with the name of the
-            vector of classification because there will be a unique
-            model for each of them. './model_tfidf' is fine.
 
         :param input_file: The path of the file with the labelled metadata.
             This one is a json file like this:
@@ -81,50 +81,30 @@ class Tfidf(Service):
         Steps:
             1. Clean the texts: add 'text_clean' to each dictionary,
                 it is text but tokenized, stemmed, lemmatisated.
-            2. Train using logistics regression.
-            The model is a pipeline consisting of vectorization and classifier.
-            3. Display the top words for each category and the precision
+            2. Train using algorithms like LinearSVC or SGDC classifier.
+            The model is a pipeline consisting of a vectorizer (TFIDF)
+            and a classifier (OneVsRestClassifier for multilabel).
+            3. Display the top words for each category and the statistics
                 on train and test datasets, and the taken time to train.
 
         Repeat the process for each vector of classification.
         """
 
-        dataset: dict[str, dict[str, str | list[dict]]] = load_json(input_file)
-
-        # <Display>
-        print("Formatting the texts, please wait...")
-        # </Display>
-
-        # <Format the texts>
-        for publications in dataset.values():
-            for publication in publications:
-                text: str = publication.get('text', "")
-
-                dataframe: dict[str, list[str | list[str]]] =\
-                    preprocess_text(text)
-                text_clean: str = ' '.join(dataframe['STOP-WORDS'][0])
-
-                publication['text_clean'] = text_clean
-        # </Format the texts>
+        dataset = _retrieve_and_format_texts(input_file)
+        if input_file != "":
+            self._input_file = input_file
 
         for vector_of_classification in self._labels:
-
-            output_file_current: str = output_file\
-                + "_"\
-                + vector_of_classification\
-                + ".pt"
-
             dataset_current = {
                 vector_of_classification:\
                     dataset.get(vector_of_classification, {})
             }
 
-            self._train_a_unique_label(output_file_current, dataset_current)
+            self._train_a_unique_vector_of_classification(dataset_current)
 
-    def _train_a_unique_label(self, output_file: str,
+    def _train_a_unique_vector_of_classification(self,
                           dataset: dict[str, str | list[dict]]) -> None:
         """
-        :param output_file: Something like `./model_tfidf_axes.pt`.
         :param dataset: this one is a json file like this:
 
     ```json
@@ -312,6 +292,47 @@ Classification Report:\n\
     def _get_by_categories(self, classification_vector_name: str,\
                            publications: list[dict[str, str | list[str]]])\
                             -> dict[str, list[dict[str, str | list[str]]]]:
+        """
+        Sort the publications by categories.
+
+        :param classification_vector_name: It is a name like 'axes',
+                                            'challenges', etc...
+
+        :return: Something like this:
+{
+  "Sciences juridiques, Règlementations et Assurances": [
+    {
+      "categories": [
+        "Sécurité, Cybersécurité, Résilience, Sureté, Fonctionnement ...",
+        "Sciences juridiques, Règlementations et Assurances",
+        "Marketing, Durabilité, Chaine d’approvisionnement, Logistiques, ..."
+      ],
+      "text": "How to (Legally) Keep Secrets from Mobile Operators, ...",
+      "text_clean": "science authentication justice physical mobile legally ..."
+    },
+    {
+      "categories": [
+        "Sécurité, Cybersécurité, Résilience, Sureté, ...",
+        "Sciences juridiques, Règlementations et Assurances",
+        "Marketing, Durabilité, Chaine d’approvisionnement, ..."
+      ],
+      "text": "A Terrorist-fraud Resistant and Extractor-free Anonymous ...",
+      "text_clean": "1 assume received justice malicious bounding resistant ..."
+    }
+  ],
+  "Matériaux, Aérodynamique, Transition écologique, Énergétique et Mobilités durables": [
+    {
+      "categories": [
+        "Marketing, Durabilité, Chaine d’approvisionnement, Logistiques, ...",
+        "Matériaux, Aérodynamique, Transition écologique, Énergétique ...",
+        "Sciences économique, Évaluation des politiques publiques, ..."
+      ],
+      "text": "Decarbonisation of the shipping sector – Time to ban  ...",
+      "text_clean": "timeline science industrial renewable maritime ..."
+    }
+   ]
+}
+        """
         result = {
             catego: [] for catego\
             in self._labels.get(classification_vector_name)
@@ -322,14 +343,15 @@ Classification Report:\n\
         # </Manually add the extra class>
 
         for publication in publications:
-            categories_in_ascii: list[str] =\
+            categories_in_utf8: list[str] =\
                 json.loads(publication.get('categories', ""))
 
-            publication['categories'] = categories_in_ascii
+            publication['categories'] = categories_in_utf8
 
         for publication in publications:
             for catego in result:
-                categories_pub: list[str] = publication.get('categories', "")
+                categories_pub: list[str] =\
+                    publication.get('categories', "")
 
                 if catego in categories_pub:
                     result[catego].append(publication)
@@ -339,8 +361,68 @@ Classification Report:\n\
     #########################################################################
 
 #############################################################################
+## Text formating.
+#############################################################################
 
+def _retrieve_and_format_texts(input_file: str)\
+                            -> dict[str, dict[str, str | list[dict]]]:
+    """
+    Merely format the texts of the dataset.
+    It saves it into the file once done.
 
+    Example:
+    'text': "Enhancement in Hybrid Vehicular Networks Using IA ..."
+    => 'text_clean': "vehicular network ia ..."
+
+    :param input_file: the file that has been created with
+    `ready_to_classify.py` from the `dataset/` directory.
+
+    :return: The dataset. Each value of it, is a publication.
+    The keys of a publication are "categories", "text", "text_clean".
+    A key of the dataset is a vector of classification
+    (ex: "axes", "challenges", etc..).
+
+    Possible way of improvment: Each vector of classification has
+    its own copy of the publication. The texts are duplicated, "text_clean"
+    is determined for each of them individually, unfortunately.
+    """
+
+    dataset: dict[str, dict[str, str | list[dict]]] =\
+        load_json(input_file)
+
+    # <Display>
+    print("Formatting the texts, please wait...")
+    # </Display>
+
+    is_there_modif: bool = False
+    for publications in dataset.values():
+        for publication in publications:
+            if not 'text_clean' in publication:
+                is_there_modif = True
+                text: str = publication.get('text', "")
+
+                dataframe: dict[str, list[str | list[str]]] =\
+                    preprocess_text(text)
+                text_clean: str = ' '.join(dataframe['STOP-WORDS'][0])
+
+                publication['text_clean'] = text_clean
+
+    # <Save the text_clean>
+    if is_there_modif:
+        output_file: str = input_file
+        pwf = open(output_file, 'w')
+
+        json.dump(dataset, fp=pwf,
+                  separators=(",", ":\n"), indent=2)
+
+        pwf.close()
+    # </Save the text_clean>
+
+    # <Display>
+    print("Texts are formatted!")
+    # </Display>
+
+    return dataset
 
 #############################################################################
 
