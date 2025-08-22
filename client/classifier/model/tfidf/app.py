@@ -56,10 +56,24 @@ class Tfidf(Service):
         self._test_size: float = config.CLASSIFIER_TFIDF_TEST_SIZE
         self._max_features: int = config.CLASSIFIER_TFIDF_MAX_FEATURES
         self._ngram_range: tuple = config.CLASSIFIER_TFIDF_NGRAM_RANGE
+
+        _multilabel_algorithm_name: str =\
+            config.CLASSIFIER_TFIDF_MULTILABEL_ALGORITHM
         self._multilabel_algorithm =\
-            algorithms[config.CLASSIFIER_TFIDF_MULTILABEL_ALGORITHM]
+            algorithms[_multilabel_algorithm_name]
+
         self._class_weight: str = class_weight
         # </Environment variables>
+
+        # <Categories for each classification vector>,
+        #                               modified by `self._get_y_wrapper()`.
+        self._classes: dict[str, list[str]] = {}
+        # </Categories for each classification vector>
+
+        # <Classifiers, the ones that will predict>, for "singlelabel",
+                                            # it is always `LogisticRegression`.
+        self._classifiers: dict = {}
+        # </Classifiers, the ones that will predict>
 
         self.train(_input_file)
 
@@ -68,11 +82,27 @@ class Tfidf(Service):
         :param prompt: it is a text, see `Classifier.prompt_generic()`.
         :return: The classification result over all the labels,
             see `Classifier.prompt_generic()`.
-
-
         """
+
         def func_prompt(prompt):
-            return {}
+            result: dict[str, str] = {}
+
+            # <Format text>
+            dataframe: dict[str, list[str | list[str]]] =\
+                preprocess_text(prompt)
+            text_clean: str = ' '.join(dataframe['STOP-WORDS'][0])
+
+            x: np.ndarray = np.array([text_clean], dtype=object)
+            # </Format text>
+
+            for classification_vector_name in self._classes:
+                current_classifier =\
+                    self._classifiers[classification_vector_name]
+
+                result[classification_vector_name] =\
+                    current_classifier.predict(x)
+
+            return result
 
         return self.generic_prompt(func_prompt, prompt)
 
@@ -144,6 +174,8 @@ class Tfidf(Service):
         """
 
         classification_vector_name: str = ''.join(dataset.keys())
+        type_of_labellisation: str =\
+            self._precisions.get(classification_vector_name, {}).get("type", "")
         publications: list[dict[str, str | list[str]]] =\
             dataset.get(classification_vector_name, [])
 
@@ -171,14 +203,22 @@ class Tfidf(Service):
             len(pub_sorted_by_catego.items())
 
         print(f'\n\
+#############################################################################\
 #############################################################################\n\
 Beginning the training for TF IDF...\n\
 Vector of classification: {classification_vector_name}\n\
 Total number of publications: N={nb_total_publications}\n\
+Number of words in the vocabulary (max_features): C={self._max_features}\n\
+Range of ngram: ngram_range={self._ngram_range}\n\
+Type of labellisation: {type_of_labellisation}\n\
+Algorithm used (only for multilabel): algo={self._multilabel_algorithm}\n\
+Algorithm used (only for singlelabel): algo={algorithms['LOGISTIC']}\n\
+#############################################################################\
 #############################################################################\n\
 Number of unique categories: C={nb_unique_categories}\n\
 Split by categories:\n\
 {'\n'.join(split_by_categories)}\n\
+#############################################################################\
 #############################################################################\n\
 head(Dataset):\n\
 {head_dataset}\n\
@@ -195,23 +235,25 @@ head(Dataset):\n\
 
         # <Split into Train and Test data>
         y_numpy = publications_df['categories']
-        multilabel = MultiLabelBinarizer()
-        y = multilabel.fit_transform(y_numpy)
+        y = self._get_y_wrapper(y_numpy, classification_vector_name)
 
         # <The shuffle of sklearn>
         X_train, X_test, y_train, y_test =\
-            train_test_split(X, y, test_size=self._test_size, random_state=42)
-                                                #, stratify=y)
+            self._train_test_split_wrapper(X, y, type_of_labellisation)
         # </The shuffle of sklearn>
 
         # <Display>
         display_percentage_train_test_data: list[dict[str, float]] = []
 
         ind_catego: int = 0
-        for category in multilabel.classes_:
-            y_count: int = sum(y[:, ind_catego])
+        for category in self._classes[classification_vector_name]:
+
+            y_count: int =\
+                self._get_y_count_wrapper(y, ind_catego, category,\
+                                          type_of_labellisation)
             y_train_count: int =\
-                sum(y_train[:, ind_catego])
+                self._get_y_count_wrapper(y_train, ind_catego, category,\
+                                          type_of_labellisation)
 
             display_percentage_train_test_data.append({
                 f'({ind_catego}) ' + category:\
@@ -226,6 +268,7 @@ head(Dataset):\n\
         }
 
         print(f'\
+#############################################################################\
 #############################################################################\n\
 Percentage of training data:\n\
 {'\n'.join(display_percentage_train_test_data_to_display)}\n\
@@ -235,9 +278,9 @@ Percentage of training data:\n\
         # </Split into Train and Test data>
 
         # <Fit to the training data>
-
-        classifier_tfidf =\
-            OneVsRestClassifier(self._multilabel_algorithm)
+        self._set_classifier_tfidf(classification_vector_name,\
+                                   type_of_labellisation)
+        classifier_tfidf = self._classifiers[classification_vector_name]
 
         start_time = datetime.now()
         classifier_tfidf.fit(X_train, y_train)
@@ -266,14 +309,16 @@ Percentage of training data:\n\
 
         # <Display>
         print(f'\
+#############################################################################\
 #############################################################################\n\
-Accuracy Training data: {accuracy_train_tfidf}\n\
-Accuracy Test data: {accuracy_test_tfidf}\n\
+Accuracy Training data (only for singlelabel): {accuracy_train_tfidf}\n\
+Accuracy Test data (only for singlelabel): {accuracy_test_tfidf}\n\
 Hamming Loss on Train data: {hamming_train}\n\
 Hamming Loss on Test data: {hamming_test}\n\
 Jaccard Score (micro) on Train data: {jaccard_train}\n\
 Jaccard Score (micro) on Test data: {jaccard_test}\n\
 Training time: {training_time_tfidf}\n\
+#############################################################################\
 #############################################################################\n\
 Classification Report:\n\
 ======================================================\n\
@@ -304,6 +349,119 @@ Classification Report:\n\
 
             print(t)
         # </Display>
+
+    #########################################################################
+    ## Code factorization between multilabel and singlelabel.
+    #########################################################################
+
+    def _train_test_split_wrapper(self, X, y, typelabel: str):
+        """
+        Just a wrapper of train_test_split().
+
+        :param stratify: y for singlelabel, None for multilabel.
+        :param typelabel: it is the type from
+                                './data/tfidf_parameters.json'.
+
+        :return: train_test_split(X, y, test_size=self._test_size,
+                        random_state=random_state, stratify=stratify)
+        """
+        random_state: int = 42
+
+        if typelabel == 'singlelabel':
+            return\
+            train_test_split(X, y, test_size=self._test_size,
+                             random_state=random_state, stratify=y)
+
+        # "multilabel".
+        return\
+        train_test_split(X, y, test_size=self._test_size,
+                         random_state=random_state)
+
+    def _get_y_wrapper(self, y_numpy: np.ndarray,
+                       classification_vector_name: str):
+        """
+        A wrapper of y determination.
+
+        :param y_numpy: the column publications_df['categories'].
+        :param classification_vector_name: ex: "challenges", "axes", etc..
+
+        :return: it returns y.
+
+        For singlelabel, it just returns `y_numpy` but with only the first
+        category for each categories. ``type(y) == np.ndarray(dtype=str)``.
+
+        For multilabel, it returns
+                    `MultiLabelBinarizer.fit_transform(y_numpy)`.
+        """
+
+        typelabel: str =\
+            self._precisions.get(classification_vector_name, {}).get("type", "")
+
+        if typelabel == "singlelabel":
+            result_list: list[str] =\
+                [ str(categories[0]) for categories in y_numpy ]
+
+            self._classes[classification_vector_name] =\
+                list(set(result_list))
+
+            return np.array(result_list)
+
+        # typelabel == "multilabel".
+        multilabel = MultiLabelBinarizer()
+        y = multilabel.fit_transform(y_numpy)
+
+        self._classes[classification_vector_name] = multilabel.classes_
+
+        return y
+
+    def _get_y_count_wrapper(self, y, ind_catego: int,\
+                             category: str | list[str], typelabel: str) -> int:
+        """
+        A wrapper of categories counting.
+
+        :param y: given by `self._get_y_wrapper()`.
+        :param typelabel: "multilabel" or "singlelabel"
+                            from the type in `self._precisions`.
+
+        :return: it returns the sum of categories.
+
+        For singlelabel, it just returns `y_numpy` but with only the first
+        category for each categories. ``type(y) == np.ndarray(dtype=str)``.
+
+        For multilabel, it returns
+                    `MultiLabelBinarizer.fit_transform(y_numpy)`.
+        """
+
+        if typelabel == "singlelabel":
+            return sum([ 1 if category == elt else 0 for elt in y ])
+
+        # typelabel == "multilabel".
+        return sum(y[:, ind_catego])
+
+    def _set_classifier_tfidf(self, classification_vector_name: str,\
+                              typelabel: str) -> None:
+        """
+        A wrapper for creating a classifier.
+
+        :param classification_vector_name: ex: "challenges", "axes", etc..
+        :param typelabel: "multilabel" or "singlelabel"
+                            from the type in `self._precisions`.
+
+        :return: the classifier.
+        `OneVsRestClassifier(self._multilabel_algorithm)` for multilabel.
+        `LinearRegression()` for singlelabel.
+
+        It stores the classifier into\
+                        ``self._classifier[classification_vector_name]``.
+        """
+
+        if typelabel == "singlelabel":
+            self._classifiers[classification_vector_name] =\
+                OneVsRestClassifier(algorithms['LOGISTIC'])
+
+        else: # typelabel == "multilabel".
+            self._classifiers[classification_vector_name] =\
+                OneVsRestClassifier(self._multilabel_algorithm)
 
     #########################################################################
     ## Sort the publications by categories.
