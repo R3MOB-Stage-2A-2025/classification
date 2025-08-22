@@ -104,15 +104,32 @@ class Tfidf(Service):
                 current_classes: list[str] =\
                     self._classes[classification_vector_name]
 
+                # <Vectorization>
                 x_vector = current_vectorizer.transform(x)
-                predicted_classes: np.ndarray =\
-                    current_classifier.predict(x_vector)[0]
+                # </Vectorization>
+
+                # <Prediction>
+                typelabel: str =\
+                    self._precisions.get(classification_vector_name, {})\
+                        .get("type", "")
+
 
                 current_result: list[str] = []
 
-                for i in range(len(predicted_classes)):
-                    if predicted_classes[i] == 1:
-                        current_result.append(current_classes[i])
+                if typelabel == "multilabel":
+                    predicted_classes: np.ndarray =\
+                        current_classifier.predict(x_vector)[0]
+
+                    for i in range(len(predicted_classes)):
+                        if predicted_classes[i] != 0:
+                            current_result.append(current_classes[i])
+
+                    print(predicted_classes)
+
+                else: # typelabel == "singlelabel"
+                    current_result: list[str] =\
+                        current_classifier.predict(x_vector).tolist()
+                # </Prediction>
 
                 result[classification_vector_name] =\
                     json.dumps(current_result)
