@@ -12,9 +12,9 @@
     "type": "singlelabel"
   },
   "axes": {
-    "type": "multilabel"
+    "type": "singlelabel"
   },
   "usages": {
-    "type": "singlelabel"
+    "type": "multilabel"
   }
 }
