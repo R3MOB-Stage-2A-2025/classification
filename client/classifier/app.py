@@ -13,9 +13,9 @@ classifier = Classifier()
 
 def create_app() -> Flask:
     app = Flask(__name__)
-    app.config['SECRET_KEY'] = config.BACKEND_SECRETKEY
+    app.config['SECRET_KEY'] = config.FLASK_BACKEND_SECRETKEY
     CORS(app, resources={r"/*": { "origins": "*" }})
-    socketio.init_app(app, cors_allowed_origins="*")
+    socketio.init_app(app, cors_allowed_origins=config.FLASK_ALLOWED_ORIGINS)
     return app
 
 @socketio.on("connect")
@@ -91,8 +91,8 @@ if __name__ == '__main__':
     app: Flask = create_app()
     socketio.run(
         app,
-        debug=True,
-        host=config.FRONTEND_HOST,
-        port=config.BACKEND_PORT
+        debug=config.FLASK_DEBUG,
+        host=config.FLASK_FRONTEND_HOST,
+        port=config.FLASK_BACKEND_PORT
     )
 
