@@ -72,6 +72,7 @@ class Tfidf(Service):
 
         # <Classifiers, the ones that will predict>, for "singlelabel",
                                             # it is always `LogisticRegression`.
+        self._vectorizers: dict = {}
         self._classifiers: dict = {}
         # </Classifiers, the ones that will predict>
 
@@ -96,11 +97,25 @@ class Tfidf(Service):
             # </Format text>
 
             for classification_vector_name in self._classes:
+                current_vectorizer =\
+                    self._vectorizers[classification_vector_name]
                 current_classifier =\
                     self._classifiers[classification_vector_name]
+                current_classes: list[str] =\
+                    self._classes[classification_vector_name]
+
+                x_vector = current_vectorizer.transform(x)
+                predicted_classes: np.ndarray =\
+                    current_classifier.predict(x_vector)[0]
+
+                current_result: list[str] = []
+
+                for i in range(len(predicted_classes)):
+                    if predicted_classes[i] == 1:
+                        current_result.append(current_classes[i])
 
                 result[classification_vector_name] =\
-                    current_classifier.predict(x)
+                    json.dumps(current_result)
 
             return result
 
@@ -227,9 +242,11 @@ head(Dataset):\n\
         # </Display>
 
         # <Model Initialization>
-        vectorizer_tfidf =\
+        self._vectorizers[classification_vector_name] =\
             TfidfVectorizer(max_features=self._max_features,\
                             ngram_range=self._ngram_range)
+
+        vectorizer_tfidf = self._vectorizers[classification_vector_name]
         X = vectorizer_tfidf.fit_transform(publications_df['text_clean'])
         # </Model Initialization>
 
