@@ -1,5 +1,6 @@
 import json
 import re
+import os
 
 import config
 
@@ -16,6 +17,9 @@ if config.CLASSIFIER_MISCELLANEOUS_USE:
 # </Download *nltk* tools aka MISCELLANEOUS>
 
 def load_json(file_path: str) -> str:
+    if not os.path.exists(file_path):
+        raise Exception(f'The file located at {file_path} does not exist!')
+
     with open(file_path, 'r') as f:
         return json.load(f)
 
