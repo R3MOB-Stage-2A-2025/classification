@@ -21,8 +21,25 @@ CLASSIFIER_CATEGORIZER_USE: bool =\
 # <Classification Models>
 CLASSIFIER_TFIDF_USE: bool =\
     True if os.getenv("CLASSIFIER_TFIDF_USE") == "TRUE" else False
-CLASSIFIER_HIERARCHICAL_USE: bool =\
-    True if os.getenv("CLASSIFIER_HIERARCHICAL_USE") == "TRUE" else False
+CLASSIFIER_TFIDF_INPUT_FILE: str=\
+    os.getenv("CLASSIFIER_TFIDF_INPUT_FILE")
+CLASSIFIER_TFIDF_TEST_SIZE: float =\
+    float(os.getenv("CLASSIFIER_TFIDF_TEST_SIZE"))
+CLASSIFIER_TFIDF_MAX_FEATURES: int =\
+    int(os.getenv("CLASSIFIER_TFIDF_MAX_FEATURES"))
+CLASSIFIER_TFIDF_NGRAM_RANGE: tuple =\
+    tuple([ int(number) for number in\
+           os.getenv("CLASSIFIER_TFIDF_NGRAM_RANGE")\
+             .replace('(', '').replace(')', '').split(',')
+    ])
+CLASSIFIER_TFIDF_MULTILABEL_ALGORITHM: str =\
+    os.getenv("CLASSIFIER_TFIDF_MULTILABEL_ALGORITHM")
+CLASSIFIER_TFIDF_CLASS_WEIGHT: str =\
+    os.getenv("CLASSIFIER_TFIDF_CLASS_WEIGHT")
+CLASSIFIER_TFIDF_IGNORE_WARNINGS: bool =\
+    True if os.getenv("CLASSIFIER_TFIDF_IGNORE_WARNINGS") == "TRUE" else False
+CLASSIFIER_TFIDF_SAVE_TEXT_CLEAN: bool =\
+    True if os.getenv("CLASSIFIER_TFIDF_SAVE_TEXT_CLEAN") == "TRUE" else False
 # </Classification Models>
 
 # <Tokenizer + Embeddings>

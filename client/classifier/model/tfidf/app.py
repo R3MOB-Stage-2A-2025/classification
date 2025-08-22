@@ -6,6 +6,7 @@ import random
 import numpy as np
 import pandas as pd
 
+import config
 from generic_app import Service
 from functions import load_json, preprocess_text
 
@@ -21,10 +22,22 @@ from sklearn.metrics import hamming_loss, jaccard_score
 # </Machine Learning>
 
 # <Ignore warnings>, most of the time it's useless.
-import warnings
+if config.CLASSIFIER_TFIDF_IGNORE_WARNINGS:
+    import warnings
 
-warnings.filterwarnings('ignore')
+    warnings.filterwarnings('ignore')
 # </Ignore warnings>
+
+# <Algorithms>, only for multilabel.
+class_weight: str = config.CLASSIFIER_TFIDF_CLASS_WEIGHT
+
+algorithms: dict[str] = {
+    "LOGISTIC":\
+        LogisticRegression(solver='lbfgs', class_weight=class_weight),
+    "SGDC": SGDClassifier(class_weight=class_weight),
+    "SVC": LinearSVC(class_weight=class_weight),
+}
+# </Algorithms>
 
 class Tfidf(Service):
     def __init__(self, labels: dict[str, dict[str, list[str]]],
@@ -37,10 +50,18 @@ class Tfidf(Service):
         self.name = "TFIDF"
         super().__init__(labels=labels, precisions=precisions)
 
-        _input_file_default = "data/data_depth_3.json"
-        self._input_file = _input_file_default
+        # <Environment variables>
+        _input_file: str = config.CLASSIFIER_TFIDF_INPUT_FILE
+        self._input_file: str = _input_file
+        self._test_size: float = config.CLASSIFIER_TFIDF_TEST_SIZE
+        self._max_features: int = config.CLASSIFIER_TFIDF_MAX_FEATURES
+        self._ngram_range: tuple = config.CLASSIFIER_TFIDF_NGRAM_RANGE
+        self._multilabel_algorithm =\
+            algorithms[config.CLASSIFIER_TFIDF_MULTILABEL_ALGORITHM]
+        self._class_weight: str = class_weight
+        # </Environment variables>
 
-        self.train(_input_file_default)
+        self.train(_input_file)
 
     def prompt(self, prompt: str) -> dict[str, str]:
         """
@@ -54,6 +75,8 @@ class Tfidf(Service):
             return {}
 
         return self.generic_prompt(func_prompt, prompt)
+
+    #########################################################################
 
     def train(self, input_file: str = "") -> None:
         """
@@ -165,7 +188,8 @@ head(Dataset):\n\
 
         # <Model Initialization>
         vectorizer_tfidf =\
-            TfidfVectorizer(max_features=10000, ngram_range=(1,2))
+            TfidfVectorizer(max_features=self._max_features,\
+                            ngram_range=self._ngram_range)
         X = vectorizer_tfidf.fit_transform(publications_df['text_clean'])
         # </Model Initialization>
 
@@ -176,7 +200,7 @@ head(Dataset):\n\
 
         # <The shuffle of sklearn>
         X_train, X_test, y_train, y_test =\
-            train_test_split(X, y, test_size=0.3, random_state=42)
+            train_test_split(X, y, test_size=self._test_size, random_state=42)
                                                 #, stratify=y)
         # </The shuffle of sklearn>
 
@@ -211,13 +235,9 @@ Percentage of training data:\n\
         # </Split into Train and Test data>
 
         # <Fit to the training data>
-        algorithms: list = [
-            LogisticRegression(solver='lbfgs', class_weight='balanced'),
-            SGDClassifier(class_weight='balanced'),
-            LinearSVC(class_weight='balanced')
-        ]
+
         classifier_tfidf =\
-            OneVsRestClassifier(algorithms[2])
+            OneVsRestClassifier(self._multilabel_algorithm)
 
         start_time = datetime.now()
         classifier_tfidf.fit(X_train, y_train)
@@ -408,7 +428,7 @@ def _retrieve_and_format_texts(input_file: str)\
                 publication['text_clean'] = text_clean
 
     # <Save the text_clean>
-    if is_there_modif:
+    if config.CLASSIFIER_TFIDF_SAVE_TEXT_CLEAN and is_there_modif:
         output_file: str = input_file
         pwf = open(output_file, 'w')
 

@@ -1,0 +1,20 @@
+{
+  "challenges": {
+    "type": "multilabel"
+  },
+  "themes": {
+    "type": "multilabel"
+  },
+  "scientificThemes": {
+    "type": "multilabel"
+  },
+  "mobilityTypes": {
+    "type": "singlelabel"
+  },
+  "axes": {
+    "type": "multilabel"
+  },
+  "usages": {
+    "type": "singlelabel"
+  }
+}

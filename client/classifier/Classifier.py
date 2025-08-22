@@ -32,9 +32,6 @@ if config.CLASSIFIER_CATEGORIZER_USE:
 
 if config.CLASSIFIER_TFIDF_USE:
     from model.tfidf.app import Tfidf
-
-if config.CLASSIFIER_HIERARCHICAL_USE:
-    from model.hierarchical.app import Hierarchical
 # </Models>
 
 # <Retrieve keywords>
@@ -42,8 +39,14 @@ from functions import load_json
 
 labels: dict[str, dict[str, list[str]]] =\
     load_json('data/labels.json')
-precisions: dict[str, dict[str, float | str]] =\
-    load_json('data/precisions.json')
+
+if config.CLASSIFIER_CATEGORIZER_USE:
+    precisions: dict[str, dict[str, float | str]] =\
+        load_json('data/sentence_transformers_parameters.json')
+
+if config.CLASSIFIER_TFIDF_USE:
+    precisions: dict[str, dict[str, str]] =\
+        load_json('data/tfidf_parameters.json')
 # </Retrieve keywords>
 
 class Classifier:
@@ -58,10 +61,6 @@ class Classifier:
         if config.CLASSIFIER_TFIDF_USE:
             self._model_tfidf =\
                 Tfidf(labels=labels, precisions=precisions)
-
-        if config.CLASSIFIER_HIERARCHICAL_USE:
-            self._model_hierarchical =\
-                Hierarchical(labels=labels, precisions=precisions)
         # </Models>
 
         self._extra_class: str = "Other"
@@ -86,8 +85,6 @@ class Classifier:
         Here is the order of which model is taken:
 
         1. TFIDF (CLASSIFIER_TFIDF_USE == TRUE).
-        2. Hierarchical (CLASSIFIER_HIERARCHICAL_USE == TRUE\
-                        && CLASSIFIER_TFIDF_USE == FALSE)
         3. Categorizer (CLASSIFIER_HIERARCHICAL_USE == FALSE\
                         && CLASSIFIER_TFIDF_USE == FALSE)
 
@@ -98,8 +95,6 @@ class Classifier:
 
         if config.CLASSIFIER_TFIDF_USE:
             return self._model_tfidf.prompt(prompt)
-        elif config.CLASSIFIER_HIERARCHICAL_USE:
-            return self._model_hierarchical.prompt(prompt)
         return self._model_categorizer.prompt(prompt)
 
     def prompt_generic(self, prompt: str) -> dict[str, str]:
@@ -204,31 +199,6 @@ class Classifier:
         See `model/tfidf/app.py`.
         """
         self._model_tfidf.train(input_file=input_file)
-
-    #########################################################################
-    #### Model - Hierarchical
-    #########################################################################
-
-    def _threaded_prompt_hierarchical(self, prompt: str) -> dict[str, str]:
-        """
-        See `self._threaded_prompt_generic()`.
-        """
-        return self._model_hierarchical.prompt(prompt)
-
-    def prompt_hierarchical(self, prompt: str) -> dict[str, str]:
-        """
-        See `self.prompt_generic()`.
-        """
-
-        with concurrent.futures.ThreadPoolExecutor(
-            max_workers=config.MAX_WORKERS) as executor:
-
-            future = executor.submit(self._threaded_prompt_hierarchical, prompt)
-            result: dict[str, str] = future.result(timeout=25)
-
-            if 'error' in result:
-                return self.error_payload()
-            return result
 
     #########################################################################
     #### Specific Payloads
