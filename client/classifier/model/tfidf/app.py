@@ -124,12 +124,15 @@ class Tfidf(Service):
                         if predicted_classes[i] != 0:
                             current_result.append(current_classes[i])
 
-                    print(predicted_classes)
-
                 else: # typelabel == "singlelabel"
                     current_result: list[str] =\
                         current_classifier.predict(x_vector).tolist()
                 # </Prediction>
+
+                # <Remove the extra_class when there are more than 1 element>
+                if 2 <= len(current_result) and "Other" in current_result:
+                    current_result.remove("Other")
+                # </Remove the extra_class when there are more than 1 element>
 
                 result[classification_vector_name] =\
                     json.dumps(current_result)
