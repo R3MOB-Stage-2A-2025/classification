@@ -91,7 +91,7 @@ class Tfidf(Service):
             # <Format text>
             dataframe: dict[str, list[str | list[str]]] =\
                 preprocess_text(prompt)
-            text_clean: str = ' '.join(dataframe['STOP-WORDS'][0])
+            text_clean: str = ' '.join(dataframe['LEMMATIZATION'][0])
 
             x: np.ndarray = np.array([text_clean], dtype=object)
             # </Format text>
@@ -618,7 +618,7 @@ def _retrieve_and_format_texts(input_file: str)\
 
                 dataframe: dict[str, list[str | list[str]]] =\
                     preprocess_text(text)
-                text_clean: str = ' '.join(dataframe['STOP-WORDS'][0])
+                text_clean: str = ' '.join(dataframe['LEMMATIZATION'][0])
 
                 publication['text_clean'] = text_clean
 

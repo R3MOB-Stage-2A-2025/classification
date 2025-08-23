@@ -7,13 +7,19 @@ import config
 # <Download *nltk* tools aka MISCELLANEOUS>
 if config.CLASSIFIER_MISCELLANEOUS_USE:
     import nltk
-    from nltk.stem import PorterStemmer
-    # This one is searching in the `nltk_data/` dir.
     from nltk.corpus import stopwords, wordnet
+    from nltk.stem import PorterStemmer, WordNetLemmatizer
 
-    nltk.download(info_or_id='wordnet', download_dir=config.NLTK_DIRECTORY)
+    # This one is searching in the `nltk_data/` dir.
+    nltk.download('punkt_tab', download_dir=config.NLTK_DIRECTORY)
     nltk.download(info_or_id='stopwords', download_dir=config.NLTK_DIRECTORY)
-    nltk.download('punkt_tab')
+    nltk.download(info_or_id='wordnet', download_dir=config.NLTK_DIRECTORY)
+    nltk.download('omw-1.4', download_dir=config.NLTK_DIRECTORY)
+    nltk.download('averaged_perceptron_tagger_eng',\
+                  download_dir=config.NLTK_DIRECTORY)
+
+    ps = PorterStemmer()
+    lemmatizer = WordNetLemmatizer()
 # </Download *nltk* tools aka MISCELLANEOUS>
 
 def load_json(file_path: str) -> str:
@@ -37,6 +43,7 @@ def preprocess_text(text: str) -> dict[str, list[str | list[str]]]:
     4. tokenize by word.
     5. remove stop words like "and".
     6. stemming: transform each token/word into its base form.
+    7. lemmatization: ex: compute compute, computer computer, computed compute.
 
     :param text: A text, everything.
     :return: something like a dataframe.
@@ -61,10 +68,15 @@ def preprocess_text(text: str) -> dict[str, list[str | list[str]]]:
     ]))
     # </Remove stopwords>
 
-    # Stemming.
-    ps = PorterStemmer()
+    # <Stemming>
     stemmed_text: list[str] =\
         set(list(ps.stem(word) for word in stop_words_removed))
+    # </Stemming>
+
+    # <Lemmatization>
+    lemmatized_text: list[str] =\
+        [ lemmatizer.lemmatize(word) for word in stop_words_removed ]
+    # </Lemmatization>
 
     dataframe = {
         'DOCUMENT': [text],
@@ -72,7 +84,8 @@ def preprocess_text(text: str) -> dict[str, list[str | list[str]]]:
         'CLEANING': [remove_white_space],
         'TOKENIZATION': [tokenized_text],
         'STOP-WORDS': [stop_words_removed],
-        'STEMMING': [stemmed_text]
+        'STEMMING': [stemmed_text],
+        'LEMMATIZATION': [lemmatized_text],
     }
 
     return dataframe
