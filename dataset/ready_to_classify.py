@@ -20,9 +20,9 @@ label_names: list[str] = [
   "usages"
 ]
 
-file_with_text: str = './processing/data_depth_2.json'
-file_with_label: str = './labelled/data_depth_2.json'
-file_output: str = './ready_to_classify/data_depth_2.json'
+file_with_text: str = './processing/data_depth_3.json'
+file_with_label: str = './labelled/data_depth_3.json'
+file_output: str = './ready_to_classify/data_depth_3.json'
 
 # <Text data loader>
 textJsonDict: dict[str, dict[str, str]] = {}

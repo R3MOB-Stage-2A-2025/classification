@@ -515,6 +515,40 @@ client from the `frontend/` directory.
 
 The events are:
 
+```
+- connect() ( automatically called )
+
+- disconnect() ( automatically called )
+
+- data(text) ( don't use it )
+
+- text_classification(text) -> classification_results() | classification_error()
+
+- json_classification(json) -> classification_results() | classification_error()
+
+- dataset_classification(partial_json) -> classification_results() | classification_error()
+```
+
+where the `text` is a text, **str**, and `search_results()` sends:
+
+```python
+payload_results = {
+    'results': results_str # a `json` object. 
+}
+```
+
+and `search_error()` sends:
+
+```python
+payload_results = {
+    'results': None
+}
+
+payload_error = {
+    'error':  { 'message': error_str }
+}
+```
+
 ### Dataset
 
 This is just a client of both previous *Flask* servers.
