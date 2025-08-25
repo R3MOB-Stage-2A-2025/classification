@@ -106,5 +106,13 @@ For all the models, it took me about 2minutes to train them
 
 Edit the `data/tfidf_parameters.json` file.
 
+### Difference between multilabel and singlelabel
+
+- multilabel: The prediction of the classifier can gather multiple categories
+at the same time, i.e `model.prompt(text)` could return multiple labels.
+
+- singlelabel: Only one category per prediction, i.e `model.prompt(text)`
+will return only one label, this label could be the *extra class* (`"Other"`).
+
 ### EOF
 
