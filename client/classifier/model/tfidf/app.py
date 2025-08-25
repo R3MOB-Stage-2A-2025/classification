@@ -96,6 +96,10 @@ class Tfidf(Service):
             x: np.ndarray = np.array([text_clean], dtype=object)
             # </Format text>
 
+            # <Debug>
+            print(f'Lemmatized text: {text_clean}')
+            # </Debug>
+
             for classification_vector_name in self._classes:
                 current_vectorizer =\
                     self._vectorizers[classification_vector_name]
