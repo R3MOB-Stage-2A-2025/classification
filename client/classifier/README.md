@@ -3,75 +3,105 @@
 The goal is to classify a text which is a concatenation of the *abstract*,
 the *title* and some other *metadata* of a given scientific publication.
 
-Example of a text to classify using the following format
-``[title][container-title][reference1-article][reference1-journal]abstract``:
+Example of a text to classify using the following format:
+
+```json
+"10.1016/s1570-6672(11)60225-0": {
+  "title": "Traffic Flow Model for Staggered Intersection without Signal Lamp",
+  "abstract": [],
+  "topics": [
+    "Traffic control and management",
+    "Control and Systems Engineering",
+    "Engineering",
+    "Physical Sciences",
+    "Transportation Planning and Optimization",
+    "Transportation",
+    "Social Sciences",
+    "Social Sciences",
+    "Traffic Prediction and Management Techniques",
+    "Building and Construction",
+    "Engineering",
+    "Physical Sciences"
+  ],
+  "keywords": [
+    "Traffic wave",
+    "Signal timing",
+    "Traffic conflict",
+    "SIGNAL (programming language)",
+    "Traffic bottleneck"
+  ],
+  "concepts": [
+    "Intersection (aeronautics)",
+    "Traffic flow (computer networking)",
+    "Cellular automaton",
+    "Traffic wave",
+    "Signal timing",
+    "Traffic congestion reconstruction with Kerner's three-phase theory",
+    "Traffic conflict",
+    "Queueing theory",
+    "Computer science",
+    "SIGNAL (programming language)",
+    "Traffic optimization",
+    "Process (computing)",
+    "Traffic bottleneck",
+    "Floating car data",
+    "Simulation",
+    "Real-time computing",
+    "Transport engineering",
+    "Traffic congestion",
+    "Traffic signal",
+    "Engineering",
+    "Algorithm",
+    "Computer network",
+    "Operating system",
+    "Programming language"
+  ],
+  "sustainable": [
+    "Sustainable cities and communities"
+  ]
+}
+```
 
 ```
-[ Context-Aware Broadcast in Duty-Cycled Wireless Sensor Networks ]
-[ Sensor Technology ]
-[ An energy-efficient MAC protocol for wireless sensor networks. ]
-[ Proceedings of the IEEE ]
-As the energy efficiency remains a key issue in wireless sensor networks,
-duty-cycled mechanisms acquired much interest due to their ability to reduce
-energy consumption by allowing sensor nodes to switch to the sleeping state
-whenever possible. The challenging task is to authorize a sensor node to
-adopt a duty-cycle mode without inflicting any negative impact on the
-performance of the network. A context-aware paradigm allows sensors to adapt
-their functional behavior according to the context in order to enhance
-network performances. In this context, the authors propose an enhanced
-version the Efficient Context-Aware Multi-hop Broadcasting (E-ECAB) protocol,
-which combines the advantages of context awareness by considering a multi
-criteria and duty-cycle technique in order to optimize resources usage and
-satisfy the application requirements. Simulation results show that E-ECAB
-achieves a significant improvement in term of throughput and end-to-end delay
-without sacrificing energy efficiency.
+Extracted DOI: 10.1016/s1570-6672(11)60225-0
 ```
 
-A reference is a publication that has been cited by the current publication.
+Extracted keywords (text labellized by the categorizer/llm model):
 
-### Current model
-
-Model based on [***sentence transformers***](https://github.com/UKPLab/sentence-transformers)
-which is a *text embedding* framework based on [***SBERT***](www.sbert.net).
-
-There are a lot a available models, however I chose the by default model
-which is `all-MiniLM-L6-v2`.
-
-So the current solution is to use an *unsupervised algorithm*. Indeed,
-there are not currently enough labelized data to use a classifier based
-on *TF IDF*.
-
-Here comes the insights based on the ``classification/backend/test.py`` file,
-the goal was to determine the *Thématique Scientifique* of the publication,
-using the themes precised in `classification/backend/data/themes_keywords.json`:
-
-```bash
-(.venv)  backend  >>  python tests.py
-Number of abstracts: 128
-Exact Match Count: 57
-
-Global Precision: 58.45%
-Global Recall: 71.18%
-Global F1-Score: 64.19%
-Global Accuracy: 89.45%
+```
+Traffic Flow Model for Staggered Intersection without Signal Lamp, ,
+Traffic control and management, Control and Systems Engineering, Engineering,
+Physical Sciences, Transportation Planning and Optimization, Transportation,
+Social Sciences, Social Sciences, Traffic Prediction and Management Techniques,
+Building and Construction, Engineering, Physical Sciences, Traffic wave,
+Signal timing, Traffic conflict, SIGNAL (programming language),
+Traffic bottleneck, Intersection (aeronautics),
+Traffic flow (computer networking), Cellular automaton, Traffic wave,
+Signal timing, Traffic congestion reconstruction with Kerner's
+three-phase theory, Traffic conflict, Queueing theory, Computer science,
+SIGNAL (programming language), Traffic optimization, Process (computing),
+Traffic bottleneck, Floating car data, Simulation, Real-time computing,
+Transport engineering, Traffic congestion, Traffic signal, Engineering,
+Algorithm, Computer network, Operating system, Programming language,
+Sustainable cities and communities
 ```
 
-### Understand the metrics
+Lemmatized text (text classified by the TFIDF model):
 
-[***This article***](https://medium.com/analytics-vidhya/confusion-matrix-accuracy-precision-recall-f1-score-ade299cf63cd)
-explains that *Accuracy*, *Precision*, *Recall* and *F1 Score* are
-commonly used to evaluate the performance of a *Machine Learning Model*.
+```
+transportation intersection floating wave building signal science
+reconstruction network bottleneck transport community computing realtime
+physical timing threephase theory networking car algorithm lamp simulation
+staggered engineering management congestion computer planning sustainable
+prediction optimization aeronautics traffic construction conflict automaton
+queueing control city model programming kerners system flow operating process
+data without social cellular science technique language system
+```
 
-- *Accuracy*: number of correctly classified data instances over the
-total number of data instances.
-
-- *Precision*: positive predictive value in classifying the data instances.
-
-- *Recall*: sensitivity of true positive rate.
-
-- *F1 Score*: takes into account both *precision* and *recall*.
-
-These values are between 0 and 1, and tend to be 1.
+The categorizer model, which is a llm, is able to understand a sentence,
+that's why I let him the whole text without preprocessing it.
+In this example, there is not the abstract, but with the abstract it makes
+more sense, because there are full sentences.
 
 ## Starting the Flask server in production mode
 
@@ -86,6 +116,9 @@ vim .env
 Then you can use the specified *Dockerfile* with the *docker-compose.yml*
 file in the root directory.
 
+To understand each environment variable, you should go and read
+the *README.md* file for each model section.
+
 ## Starting the Flask server in development mode
 
 1. Use it for **python3.13**:
@@ -94,15 +127,7 @@ file in the root directory.
 cd classification/backend/
 python3 -m venv .venv
 source .venv/bin/activate
-pip install -r requirements.txt
-```
-
-Be careful of your partition:
-
-```bash
-backend  >>  du -sch .venv/
-6.2G    .venv/
-6.2G    total
+pip install -r requirements/requirements_what_you_want.txt
 ```
 
 2. Then do in another terminal:
@@ -110,7 +135,7 @@ backend  >>  du -sch .venv/
 ```bash
 cd classification/backend/
 source .venv/bin/activate
-python Server.py
+python app.py
 ```
 
 3. Tests only, use the frontend:
@@ -122,26 +147,79 @@ npm install
 npm run dev
 ```
 
-## Launch the classification tests
+## Understand the metrics
 
-You can do this:
+[***This article***](https://medium.com/analytics-vidhya/confusion-matrix-accuracy-precision-recall-f1-score-ade299cf63cd)
+explains that *Accuracy*, *Precision*, *Recall* and *F1 Score* are
+commonly used to evaluate the performance of a *Machine Learning Model*.
 
-```bash
-cd classification/backend
-# (.venv) $
-python tests.py
+- *Accuracy*: number of correctly classified data instances over the
+total number of data instances.
+
+- *Precision*: From all the predictions, how many of them are correct?
+
+- *Recall*: from all the publications related to it (that are True),
+how many of them the model predicted it as True?
+
+- *F1 Score*: takes into account both *precision* and *recall*. It's like an
+average number between *precision* and *recall*.
+
+These values are between 0 and 1, and tend to be 1.
+
+[***This article***](https://www.kdnuggets.com/2023/01/micro-macro-weighted-averages-f1-score-clearly-explained.html)
+explains well the difference between "micro", "macro", and "weighted".
+
+- *micro*: there is no distinction of categories. It takes into account all
+*True Positive* and *False Positive* from every categories/labels to calculate
+the value of the parameter.
+
+- *macro*: it is the classic average. If there are 3 categories/labels, the
+*macro* value will be: ``( value_cat1 + value_cat2 + value_cat3 ) / 3``.
+
+- *weighted*: it is the weighted average. It takes the propotion into account.
+For 3 categories, proportion_cat1=0.3, proportion_cat2=0.5,
+proportion_cat3=0.2: ``value_average = proportion_cat1 * value_cat1
++ proportion_cat2 * value_cat2 + proportion_cat3 * value_cat3``.
+
+### What metrics should I look at?
+
+The difference between *singlelabel* and *multilabel* is discussed in the
+*TFIDF model* section.
+
+1. For *singlelabel*, you should look at the **global accuracy**.
+
+2. For *multilabel*, you should look at the **F1 score**.
+
+If the categories/labels have very different proportions, you should
+look at the **macro F1 score**. This one is a good example
+[***right here***](https://stackoverflow.com/questions/66803701/micro-vs-macro-vs-weighted-f1-score).
+Another example of mine:
+
+```
+Classification Report:
+======================================================
+                      precision    recall  f1-score   support
+
+              Aérien       0.56      0.54      0.55       134
+         Ferroviaire       0.37      0.35      0.36       105
+    Fluvial/Maritime       0.35      0.34      0.35       180
+               Other       0.90      0.83      0.86      2367
+             Routier       0.61      0.74      0.67       554
+Transport par cables       0.39      0.52      0.44       209
+
+            accuracy                           0.75      3549
+           macro avg       0.53      0.55      0.54      3549
+        weighted avg       0.77      0.75      0.75      3549
 ```
 
-### Result observations
+This is a *singlelabel* problem, so I look at the accuracy which is 75%,
+although, the proportions (*support*) are very different, so I should also
+look at the *macro F1 score* which is 54%. The labels with the most issues
+are "Ferroviaire", "Fluvial/Maritime", "Transport par cables". The reason
+is discussed in the *TFIDF model* section.
 
-In the repertory `classification/backend/results`, you will find:
-
-- **classification_results.json**: the details for each tested publication.
-
-- **comparaison_results.json**: the metrics like *precision*, *accuracy*,
-*recall* and *F1 scores*.
-
-- **theme_summary.json** the total numbers of publications for each themes.
+If the categories/labels have not very different proportions, you should look
+at the **weighted F1 score**. It happens less frequently.
 
 ### EOF
 
