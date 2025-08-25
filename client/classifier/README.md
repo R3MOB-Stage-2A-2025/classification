@@ -153,7 +153,7 @@ npm run dev
 
 - Using *Python3.13*, here is the requirements.txt:
 
-```requirements
+```python
 # <Socketio Client>
 python-engineio==4.12.2
 python-socketio==5.13.0
@@ -319,8 +319,8 @@ the value of the parameter.
 
 - *weighted*: it is the weighted average. It takes the propotion into account.
 For 3 categories, proportion_cat1=0.3, proportion_cat2=0.5,
-proportion_cat3=0.2: ``value_average = proportion_cat1 * value_cat1
-+ proportion_cat2 * value_cat2 + proportion_cat3 * value_cat3``.
+proportion_cat3=0.2:
+``value_average = proportion_cat1 * value_cat1 + proportion_cat2 * value_cat2 + proportion_cat3 * value_cat3``.
 
 ### What metrics should I look at?
 
