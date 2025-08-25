@@ -75,7 +75,7 @@ Infrastructure costs
 These keywords are needed by the *categorizer* model (llm) to understand
 what could exactly contain each category.
 
-These labels should be chosen wisely. A word that is not related to the label
+These keywords should be chosen wisely. A word that is not related to the label
 could lead to big problems. For instance, for the vector of classification
 named *"mobilityTypes"*, for the label/category named *"Fluvial/Maritime"*,
 the **chosen words** for the *categorizer* were:
@@ -87,7 +87,7 @@ Ferry, Container ship, Marine traffic, Shipyard, Oceanography
 ```
 
 and for no reason, I don't even know how this is possible, but the
-*categorizer* (TFIDF model) predicted on the training dataset these words
+*TFIDF model* predicted on the training dataset these words
 for this category (top words from the publications related to this label):
 
 ```
@@ -131,7 +131,7 @@ Transport par cables       0.39      0.52      0.44       209
 ```
 
 If we check the difference between the true numbers of publications
-related to this label, and the its "support" from the classficiation
+related to this label, and its "support" from the classficiation
 report, we can see a difference of 0.3 * 635 - 180 = 10.5
 (0.3 is because the *test dataset* is composed of 30% of the true dataset):
 
@@ -203,7 +203,7 @@ take publications from other labels related to transport (difference of +14).
 
 3. *"Fluvial/Maritime"* takes unecessary publications related to chemistry.
 
-### Duck tape to make the model more efficent
+### Duck tape to make the model more efficient
 
 The file `data/sentence_transformers_parameters.json` contains:
 
