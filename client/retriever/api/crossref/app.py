@@ -6,7 +6,7 @@ import json
 from habanero import Crossref, RequestError
 
 # <Rate limit>
-xrate_limit: str = "X-Rate-Limit-Limit: 100"
+xrate_limit: str = "X-Rate-Limit-Limit: 25"
 xrate_interval: str = "X-Rate-Limit-Interval: 1s"
 ua_string: str = xrate_limit + "; " + xrate_interval
 # </Rate limit>
@@ -37,7 +37,8 @@ class CrossrefClient(Service):
             timeout     = timeout
         )
 
-    def query(self, query: str, offset: int = 0, limit: int = 10, isRetriever: bool = False) -> dict[str, str | dict | int]:
+    def query(self, query: str, offset: int = 0, limit: int = 10,\
+              isRetriever: bool = False) -> dict[str, str | dict | int]:
         """
         :param query: `Title, author, DOI, ORCID iD, etc..`
         :param limit: The maximum number of results for this searching query.
@@ -89,6 +90,15 @@ class CrossrefClient(Service):
             #'type': 'journal-article',
         }
 
+        # <Get ORCID>
+        regex_orcid: str = r'^\d{4}-\d{4}-\d{4}-\d{3}[0-9X]$'
+        first_orcid: list[str] = re.findall(string=query, pattern=regex_orcid)
+
+        if first_orcid != [] and first_orcid != None:
+            filtering['orcid'] = first_orcid[0]
+            query = None
+        # </Get ORCID>
+
         # "Don't use *rows* and *offset* in the */works* route.
         # They are very expansive and slow. Use cursors instead."
         offset = None # offset
@@ -98,17 +108,8 @@ class CrossrefClient(Service):
         sort: str = "relevance"
         order: str = "desc"
 
-        # TODO: find a way to retrieve the publication abstract,
-        #       there are too many retrieved publications for which only
-        #       the title is public.
-        #       Need to recursively retrieve publications from references etc..
         facet: str | bool | None = None # "relation-type:5"
-        # </TODO>
 
-        # What could happen:
-        #   - the *abstract* is located in the *title* section.
-        #   - *subject* is almost never present.
-        #   - there could be A LOT of authors. (too many).
         select: list[str] | str | None = [
             "DOI",
             "type",
@@ -131,11 +132,9 @@ class CrossrefClient(Service):
                 "abstract",
             ]
 
-        # TODO: add cursors on the *frontend*.
         cursor: str = "*"
         cursor: str = None # Cursor can't be combined with *offset* or *sample*.
         cursor_max: float = 10
-        # <TODO>
 
         progress_bar: bool = False
 
