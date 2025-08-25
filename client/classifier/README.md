@@ -147,6 +147,147 @@ npm install
 npm run dev
 ```
 
+## Example of a client
+
+- Using *Javascript*, you can check the `frontend/` folder.
+
+- Using *Python3.13*, here is the requirements.txt:
+
+```requirements
+# <Socketio Client>
+python-engineio==4.12.2
+python-socketio==5.13.0
+requests==2.32.4
+# </Socketio Client>
+
+# <Miscellenaous>
+dotenv==0.9.9
+#httpx==0.28.1
+# </Miscellenaous>
+```
+
+Here is the client, from the `dataset/` folder:
+
+```python
+import socketio
+import os
+import json
+
+sio = socketio.Client()
+
+@sio.event
+def connect():
+    print("Connected.")
+
+@sio.event
+def disconnect():
+    print("Disconnected.")
+
+@sio.on("classification_results")
+def on_search_results(data):
+    print("\n")
+    print("Classification results received:")
+    results: dict = data
+
+    try:
+        metadata_str: str = json.dumps(results)
+        doi: str = results.get('DOI', "")
+
+        print("\n")
+        print(f'DOI: {doi}')
+        print(f'results: {results}')
+
+    except Exception as e:
+        print(f'{e.error}')
+
+@sio.on("classification_error")
+def on_search_error(data):
+    print("Error from server:")
+    print(data)
+
+def main():
+    sio.connect("http://localhost:5011")
+
+    # <Retrieve json file>, generated in the Crossref Style.
+    jsonfile: str = "./publication.json"
+    publication: dict[str, dict] = {}
+
+    if os.path.exists(jsonfile):
+        with open(jsonfile, 'rt') as prf:
+            publication = json.load(prf)
+
+    query_data: str = json.dumps(publication)
+    # </Retrieve json file>
+
+    # The preprocessing is done internally, if necessary.
+    # Use the `json_classification` event if you have the full
+    # publication given by the retriever module.
+
+    #sio.emit("json_classification", query_data)
+
+    # Let's use the `dataset_classification` event here because
+    # I only have the abstract, the title and the keywords:
+
+    """
+    {
+      "OPENALEX": "https://openalex.org/W4306644972",
+      "title": "Decarbonisation of the shipping sector – Time to ban fossil fuels?",
+      "abstract": [],
+      "topics": [
+        "Maritime Transport Emissions and Efficiency",
+        "Environmental Engineering",
+        "Environmental Science",
+        "Physical Sciences",
+        "Maritime Ports and Logistics",
+        "Industrial and Manufacturing Engineering",
+        "Engineering",
+        "Physical Sciences",
+        "Hybrid Renewable Energy Systems",
+        "Energy Engineering and Power Technology",
+        "Energy",
+        "Physical Sciences"
+      ],
+      "keywords": [
+        "Time line",
+        "Position (finance)"
+      ],
+      "concepts": [
+        "Greenhouse gas",
+        "Fossil fuel",
+        "Timeline",
+        "Natural resource economics",
+        "Climate change",
+        "Position (finance)",
+        "Business",
+        "Climate change mitigation",
+        "Economics",
+        "Finance",
+        "Engineering",
+        "Ecology",
+        "Geography",
+        "Archaeology",
+        "Biology",
+        "Waste management"
+      ],
+      "sustainable": [
+        "Affordable and clean energy"
+      ]
+    }
+    """
+
+    sio.emit("dataset_classification", query_data)
+
+    # If you want to classify only a text.
+    query_data: str = "Here is your text!"
+    sio.emit("text_classification", query_data)
+
+    sio.sleep(10) # Wait for the response.
+    disconnect()
+
+if __name__ == "__main__":
+    main()
+```
+
 ## Understand the metrics
 
 [***This article***](https://medium.com/analytics-vidhya/confusion-matrix-accuracy-precision-recall-f1-score-ade299cf63cd)
