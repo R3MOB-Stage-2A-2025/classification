@@ -68,7 +68,7 @@ class Retriever:
 
         # Detect if the query is actually a concatenation of *DOI*s.
         regex: str = r'10\.\d{4,9}/[\w.\-;()/:]+'
-        dois: list[str] = re.findall(regex, query)
+        dois: list[str | tuple(str)] = re.findall(regex, query)
 
         if len(dois) > 0:
             results_not_parsed: list[dict] = []
@@ -136,7 +136,8 @@ class Retriever:
 # Some functions to parse the results, need a specific json format.
 #############################################################################
 
-def parse_items(publications: list[dict[str, str | dict]], total_results: int = 0) -> str:
+def parse_items(publications: list[dict[str, str | dict]],\
+                                        total_results: int = 0) -> str:
     """
     :param publication: a list of json files, each is a publication.
     :return: a json file but parsed in the *Crossref* style.
