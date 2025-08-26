@@ -1,0 +1,26 @@
+.SearchCursorList {
+  display: flex;
+  gap: 8px;
+  margin: 20px 0;
+}
+
+.page-btn {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 6px;
+  background-color: #e5e7eb; /* light gray */
+  color: #111;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.page-btn:hover {
+  background-color: #d1d5db; /* darker gray */
+}
+
+.page-btn.active {
+  background-color: #3b82f6; /* blue */
+  color: white;
+  font-weight: bold;
+}
+
