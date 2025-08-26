@@ -64,10 +64,16 @@ class Retriever:
 
         # <Cursor Hashmap>, keys: client_id: Flask SID,
         #                   value: ith_cursor | cursor_max.
-        self._cursor_hashmap: dict[str, dict[str, str | dict]] = {}
+        self._cursor_hashmap: dict[str, list[dict[str, str | dict]]] = {}
 
         self._cursor_max_default: int = 50
         self._cursor_max_hashmap: dict[str, int] = {}
+
+        # For each element, a value of
+        #   - 0 means no metadata has been retrieved.
+        #   - 1 means Crossref metadata has been retrieved.
+        #   - 2 means both Crossref and OpenAlex metadata have been retrieved.
+        self._cursor_status: dict[str, list[int]] = {}
         # </Cursor Hashmap>
 
         print("Retriever initialized.")
@@ -98,11 +104,14 @@ class Retriever:
                                  client_id=client_id, isRetriever=True,\
                                  cursor_max=self._cursor_max_default)
 
-        self._cursor_max_hashmap[client_id] =\
-            min(self._cursor_max_default, len(crossref_results))
-
         if 'error' in crossref_results:
             return json.dumps(crossref_results)
+
+        self._cursor_hashmap[client_id] = crossref_results
+        self._cursor_status[client_id] =\
+            [ 1 for i in range(len(crossref_results)) ]
+        self._cursor_max_hashmap[client_id] =\
+            min(self._cursor_max_default, len(crossref_results))
         # </Crossref Query>
 
         # <For id_cursor=0> i.e the first page.
@@ -121,6 +130,9 @@ class Retriever:
             [ openalex_results ] + crossref_results[1:]
 
         self._cursor_hashmap[client_id] = enhanced_results_for_cursor
+
+        list_status_current: list[int] = self._cursor_status[client_id]
+        list_status_current[id_cursor] = 2
         # </Add the current query to the cache hashmap>
 
         return json.dumps(enhanced_results_for_cursor[id_cursor])
@@ -198,6 +210,15 @@ class Retriever:
             results_current: list[dict] =\
                 self._cursor_hashmap.get(client_id, [])
 
+            # <If already done>, this is cache.
+            list_status_current: list[int] =\
+                self._cursor_status.get(client_id, [])
+
+            if 0 <= id_cursor and id_cursor <= len(results_current) - 1:
+                if list_status_current[id_cursor] == 2:
+                    return json.dumps(results_current[id_cursor])
+            # </If already done>
+
             if 0 <= id_cursor and id_cursor <= len(results_current) - 1:
                 # <OpenAlex enhances metadata> for id_cursor=0
                 openalex_results: dict[str, str | dict] =\
@@ -212,6 +233,9 @@ class Retriever:
                 enhanced_results_for_cursor[id_cursor] = openalex_results
 
                 self._cursor_hashmap[client_id] = enhanced_results_for_cursor
+
+                list_status_current: list[int] = self._cursor_status[client_id]
+                list_status_current[id_cursor] = 2
                 # </Add the current query to the cache hashmap>
 
                 return json.dumps(enhanced_results_for_cursor[id_cursor])
@@ -233,6 +257,9 @@ class Retriever:
 
         if client_id in self._cursor_max_hashmap:
             self._cursor_max_hashmap.pop(client_id)
+
+        if client_id in self._cursor_status:
+            self._cursor_status.pop(client_id)
 
 #############################################################################
 # Some functions to parse the results, need a specific json format.
@@ -263,8 +290,9 @@ def parse_tag(textraw: str) -> str:
     """
     :param textraw: something that can have tags like ``<jats:p>``.
     """
-    regex_tags: str = r'</?[^>]+>'
-    return re.sub(regex_tags, '', textraw)
+    if textraw != None:
+        regex_tags: str = r'</?[^>]+>'
+        return re.sub(regex_tags, '', textraw)
 
 #############################################################################
 

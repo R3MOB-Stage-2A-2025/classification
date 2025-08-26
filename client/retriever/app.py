@@ -26,14 +26,14 @@ def connected():
 def handle_message(data):
     print("data from the front end: ", str(data))
 
-@socketio.on_error()
-def handle_error(e):
-    error_str: str = e.__str__()
-    error_json_dict: dict[str, dict] = { 'error': { 'message': error_str } }
+#@socketio.on_error()
+#def handle_error(e):
+    #error_str: str = e.__str__()
+    #error_json_dict: dict[str, dict] = { 'error': { 'message': error_str } }
 
-    emit("search_results", { 'results': None }, to=request.sid)
-    emit("search_error", error_json_dict, to=request.sid)
-    print("ERROR:\n " + error_str + "\n/ERROR")
+    #emit("search_results", { 'results': None }, to=request.sid)
+    #emit("search_error", error_json_dict, to=request.sid)
+    #print("ERROR:\n " + error_str + "\n/ERROR")
 
 @socketio.on("search_query")
 def handle_search_query(data: str) -> None:
