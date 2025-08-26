@@ -7,13 +7,21 @@ import { socket_retriever } from "../socket";
 
 export const SearchBar = ({ setResults, setError, setLoading, loading }) => {
     const [input, setInput] = useState("");
+    const [sort, setSort] = useState("");
+
+    const sortingTypes = [
+        "relevance", "score", "deposited", "indexed",
+        "published", "published-print", "published-online",
+        "issued", "is-referenced-by-count", "references-count"
+    ];
 
     const handleKeyDown = (e) => {
         if (e.key === "Enter" && !loading) {
             setLoading(true);
             setError(false);
             socket_retriever.emit("search_query", JSON.stringify({
-                query: input
+                query: input,
+                sort: sort
             }));
         }
     };
@@ -28,7 +36,22 @@ export const SearchBar = ({ setResults, setError, setLoading, loading }) => {
                 onKeyDown={handleKeyDown}
                 disabled={loading}
             />
+
             {loading && <span className="loading">Searching...</span>}
+
+            <select
+                value={sort}
+                onChange={(e) => setSort(e.target.value)}
+                style={{ padding: "8px", fontSize: "16px" }}
+            >
+                <option value="None">None</option>
+                {sortingTypes.map((label) => (
+                    <option key={label} value={label}>
+                        {label}
+                    </option>
+                ))}
+            </select>
+
         </div>
     );
 };
