@@ -84,7 +84,7 @@ def handle_dataset_classify(data: str) -> None:
     emit("classification_results", results, to=request.sid)
 
 @socketio.on("disconnect")
-def disconnected():
+def disconnected(data: str = None):
     print(f'client number {request.sid} is disconnected')
 
 if __name__ == '__main__':
