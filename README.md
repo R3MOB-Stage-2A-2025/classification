@@ -481,10 +481,14 @@ where the `payload` is:
 
 ```python
 payload = {
-    'query': 'DOI, ORCID, text, title, author, etc..'
-    'offset': 0 # 0 means page 1, 1 means page 2, etc..
-                # A single page gives `limit` results.
-    'limit': 10 # the max number of results.
+    'query': 'DOI, ORCID, text, title, author, etc..',
+    'limit': 10, # the max number of results.
+    'sort': "relevance", # It could be "relevance", "score",
+                    # "deposited", "indexed", "published", "published-print",
+                    # "published-online", "issued", "is-referenced-by-count",
+                    # "references-count".
+    'cursor_max': 100, # Max number of publication on all pages
+                       # at the same time.
 }
 ```
 
