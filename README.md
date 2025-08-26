@@ -473,6 +473,8 @@ The events are:
 - data(text) ( don't use it )
 
 - search_query(payload) -> search_results() | search_error()
+
+- search_query_cursor(id_cursor) -> search_results() | search_error()
 ```
 
 where the `payload` is:

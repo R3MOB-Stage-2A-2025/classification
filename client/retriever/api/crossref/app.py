@@ -37,12 +37,15 @@ class CrossrefClient(Service):
             timeout     = timeout
         )
 
-    def query(self, query: str, offset: int = 0, limit: int = 10,\
-              isRetriever: bool = False) -> dict[str, str | dict | int]:
+    def query(self, query: str, limit: int = 10, client_id: str = None,\
+              cursor_max: int = 100,\
+              isRetriever: bool = False) -> list[dict[str, str | dict | int]]:
         """
         :param query: `Title, author, DOI, ORCID iD, etc..`
         :param limit: The maximum number of results for this searching query.
             The default is 20, more will slow the response time.
+        :param client_id: This is needed to identify which client is asking
+            for the next cursor. It is the SID of the client given by FLASK.
         :param isRetriever: True ==> only returns DOIs and abstracts.
                             False ==> basic search, with all info.
         :return: the result of ``habanero.Crossref.works()``. It is various *json*.
@@ -92,7 +95,8 @@ class CrossrefClient(Service):
 
         # <Get ORCID>
         regex_orcid: str = r'^\d{4}-\d{4}-\d{4}-\d{3}[0-9X]$'
-        first_orcid: list[str] = re.findall(string=query, pattern=regex_orcid)
+        first_orcid: list[str] =\
+            re.findall(string=query, pattern=regex_orcid)
 
         if first_orcid != [] and first_orcid != None:
             filtering['orcid'] = first_orcid[0]
@@ -101,7 +105,8 @@ class CrossrefClient(Service):
 
         # "Don't use *rows* and *offset* in the */works* route.
         # They are very expansive and slow. Use cursors instead."
-        offset = None # offset
+        offset: float = None
+        sample: float = None
 
         limit = limit # Default is 20
 
@@ -132,18 +137,18 @@ class CrossrefClient(Service):
                 "abstract",
             ]
 
-        cursor: str = "*"
-        cursor: str = None # Cursor can't be combined with *offset* or *sample*.
-        cursor_max: float = 10
-
         progress_bar: bool = False
 
-        def func_query(query: str) -> dict[str, str | dict]:
-            return  self._cr.works(
+        cursor: str = "*"
+        cursor_max: float = cursor_max
+
+        def func_query(query: str) -> list[dict[str, str | dict]]:
+            return self._cr.works(
                 query = query,
                 filter = filtering,
                 offset = offset,
                 limit = limit,
+                sample = sample,
                 sort = sort,
                 order = order,
                 facet = facet,

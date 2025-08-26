@@ -53,10 +53,15 @@ def handle_search_query(data: str) -> None:
         results_str: str = retriever.query_openalex(query=query)
 
     else:
-        results_str: str = retriever.query(query, offset=offset, limit=limit)
+        results_str: str =\
+            retriever.query(query, limit=limit, client_id=request.sid)
     # </Send query to API cluster>
 
     # <Send the API cluster result>
+    send_api_cluster_result(results_str=results_str)
+    # </Send the API cluster result>
+
+def send_api_cluster_result(results_str: str = "") -> None:
     potential_error_in_dict: dict = json.loads(results_str)
     if "error" in potential_error_in_dict:
         emit("search_results", { 'results': None }, to=request.sid)
@@ -65,11 +70,28 @@ def handle_search_query(data: str) -> None:
     else:
         print(f"Raw results from query(): \n{results_str}")
         emit("search_results", { 'results': results_str }, to=request.sid)
+
+@socketio.on("search_query_cursor")
+def handle_search_query_cursor(data: str = None) -> None:
+    # <Parse json data>
+    data_dict: dict[str, int | str] = json.loads(data)
+    id_cursor: int = data_dict.get('id_cursor', 0)
+    print(f"Client {request.sid}: Next Cursor={id_cursor} Query received.")
+    # </Parse json data>
+
+    # <Send query to the API cluster>
+    results_str: str =\
+        retriever.query_cursor(client_id=request.sid, id_cursor=id_cursor)
+    # </Send query to API cluster>
+
+    # <Send the API cluster result>
+    send_api_cluster_result(results_str=results_str)
     # </Send the API cluster result>
 
 @socketio.on("disconnect")
-def disconnected():
+def disconnected(data: str = None) -> None:
     print(f'client number {request.sid} is disconnected')
+    retriever.clear_cache_hashmap(client_id=request.sid)
 
 if __name__ == '__main__':
     app: Flask = create_app()
