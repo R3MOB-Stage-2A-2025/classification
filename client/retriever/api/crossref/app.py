@@ -38,12 +38,19 @@ class CrossrefClient(Service):
         )
 
     def query(self, query: str, limit: int = 10, client_id: str = None,\
-              cursor_max: int = 100,\
+              cursor_max: int = 100, sort: str = "relevance",\
               isRetriever: bool = False) -> list[dict[str, str | dict | int]]:
         """
         :param query: `Title, author, DOI, ORCID iD, etc..`
         :param limit: The maximum number of results for this searching query.
             The default is 20, more will slow the response time.
+        :param cursor_max: The maximum number of publications on all pages
+            at the same time.
+        :param sort: The sorting type. It could be "relevance", "score",
+            "deposited", "indexed", "published", "published-print",
+            "published-online", "issued", "is-referenced-by-count",
+            "references-count".
+        See `https://habanero.readthedocs.io/en/latest/modules/crossref.html`.
         :param client_id: This is needed to identify which client is asking
             for the next cursor. It is the SID of the client given by FLASK.
         :param isRetriever: True ==> only returns DOIs and abstracts.
@@ -110,7 +117,7 @@ class CrossrefClient(Service):
 
         limit = limit # Default is 20
 
-        sort: str = "relevance"
+        sort: str = sort
         order: str = "desc"
 
         facet: str | bool | None = None # "relation-type:5"

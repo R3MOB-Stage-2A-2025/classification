@@ -155,8 +155,9 @@ def main():
     try:
         query_data = {
             'query' : 'Mohamed Mosbah',
-            "offset": 0,
-            "limit": 1
+            'limit': 1,
+            'sort': "relevance,
+            'cursor_max': 100,
         }
         # 'query' can also be a DOI, an Openalex ID, an ORCID.
 

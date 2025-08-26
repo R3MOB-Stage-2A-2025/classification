@@ -78,8 +78,8 @@ class Retriever:
 
         print("Retriever initialized.")
 
-    def threaded_query(self, query: str, limit: int,\
-                                        client_id: str = None) -> str:
+    def threaded_query(self, query: str, limit: int = 10, sort: str = None,\
+                       cursor_max: int = None, client_id: str = None) -> str:
 
         # Detect if the query is actually a concatenation of *DOI*s.
         regex: str = r'10\.\d{4,9}/[\w.\-;()/:]+'
@@ -99,10 +99,13 @@ class Retriever:
         # </Detect DOIs>
 
         # <Crossref Query> Just retrieve the *DOI*s and the *abstract*.
+        cursor_max =\
+            self._cursor_max_default if cursor_max == None else cursor_max
+
         crossref_results: list[dict] | dict =\
-            self._crossref.query(query=query, limit=limit,\
+            self._crossref.query(query=query, limit=limit, sort=sort,\
                                  client_id=client_id, isRetriever=True,\
-                                 cursor_max=self._cursor_max_default)
+                                 cursor_max=cursor_max)
 
         if 'error' in crossref_results:
             return json.dumps(crossref_results)
@@ -182,10 +185,12 @@ class Retriever:
         openalex_result: dict[str, str | dict] = self._openalex.query(query)
         return json.dumps(parse_items([openalex_result], total_results=1))
 
-    def query(self, query: str,limit: int, client_id: str = None) -> str:
+    def query(self, query: str, limit: int, sort: str, cursor_max: int,\
+                                                client_id: str = None) -> str:
         with concurrent.futures.ThreadPoolExecutor(max_workers=2) as executor:
             future = executor.submit(self.threaded_query, query=query,\
-                                     limit=limit, client_id=client_id)
+                             limit=limit, sort=sort, cursor_max=cursor_max,\
+                                                            client_id=client_id)
             result: str = future.result(timeout=25)
             return result
 
