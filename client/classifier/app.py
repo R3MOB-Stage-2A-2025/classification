@@ -8,7 +8,13 @@ import re
 from Classifier import Classifier
 import config
 
-socketio = SocketIO()
+# <Use the multithreading to labellize a dataset>, development mode.
+#                           Otherwise, production mode is managed by
+#                               Gunicorn.
+#socketio = SocketIO(async_mode='threading')
+# </Use the multithreading to labellize a dataset>
+
+socketio = SocketIO(async_mode='gevent')
 classifier = Classifier()
 
 def create_app() -> Flask:
@@ -119,12 +125,15 @@ def handle_dataset_classify(data: str) -> None:
 def disconnected(data: str = None):
     print(f'client number {request.sid} is disconnected')
 
+app: Flask = create_app()
+
+# <Development mode>
 if __name__ == '__main__':
-    app: Flask = create_app()
     socketio.run(
         app,
         debug=config.FLASK_DEBUG,
         host=config.FLASK_FRONTEND_HOST,
         port=config.FLASK_BACKEND_PORT
     )
+# </Development mode>
 

@@ -1,6 +1,6 @@
 FROM python:3.13-slim
 
-ENV VIRTUAL_ENV=/opt/venv
+ENV VIRTUAL_ENV=/opt/.venv
 ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 
 RUN python -m venv $VIRTUAL_ENV
@@ -45,5 +45,11 @@ RUN variable=$(cat .env | grep "CLASSIFIER_TFIDF_USE" | cut -d '=' -f2);\
 
 EXPOSE 5011
 
-CMD ["python", "app.py"]
+CMD gunicorn 'app:app' \
+    --worker-class gevent \
+    --workers 1 \
+    --bind 0.0.0.0:5011 \
+    --reload \
+    --access-logfile - \
+    --error-logfile -
 

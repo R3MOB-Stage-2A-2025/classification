@@ -5,7 +5,7 @@ import os
 import config
 
 # <Download *nltk* tools aka MISCELLANEOUS>
-if config.CLASSIFIER_MISCELLANEOUS_USE:
+if config.CLASSIFIER_MISCELLANEOUS_USE or config.CLASSIFIER_TFIDF_USE:
     import nltk
     from nltk.corpus import stopwords, wordnet
     from nltk.stem import PorterStemmer, WordNetLemmatizer
