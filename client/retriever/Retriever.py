@@ -99,8 +99,8 @@ class Retriever:
         # </Detect DOIs>
 
         # <Crossref Query> Just retrieve the *DOI*s and the *abstract*.
-        cursor_max =\
-            self._cursor_max_default if cursor_max == None else cursor_max
+        cursor_max = self._cursor_max_default\
+            if cursor_max == None or 200 < cursor_max else cursor_max
 
         crossref_results: list[dict] | dict =\
             self._crossref.query(query=query, limit=limit, sort=sort,\
