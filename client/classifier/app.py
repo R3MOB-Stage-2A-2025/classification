@@ -39,7 +39,7 @@ def handle_error(e):
 @socketio.on('text_classification')
 def handle_text_classify(data: str) -> None:
     print(f"Classification query received: {data}")
-    parsed_data: str = data
+    parsed_data: str = str(data)
 
     # <Get the prompt result>
     results: dict[str, list[str]] =\
@@ -52,9 +52,25 @@ def handle_text_classify(data: str) -> None:
 def handle_json_classify(data: str) -> None:
     print(f"Classification query received: {data}")
 
-    data_dict: dict[str, dict] = json.loads(data)
-    doi: str = data_dict.get("DOI", "")
+    # <Parse json data>
+    def safe_object_hook(obj):
+        # Only allow known keys to prevent hefty exploitations
+        allowed_keys: list[str] = [
+            "DOI", "ISSN", "OPENALEX", "TL;DR", "URL", "abstract",
+            "abstract_inverted_index", "author", "concepts", "container-title",
+            "container-url", "keywords", "publication_date", "publisher",
+            "reference", "related", "sustainable_development_goals",
+            "title", "topics", "type"
+        ]
+
+        return {key: obj[key] for key in obj if key in allowed_keys}
+
+    data_dict: dict[str, int | str] =\
+        json.loads(data, object_hook=safe_object_hook)
+
+    doi: str = data_dict.get('DOI', "")
     parsed_data: str = classifier.parsing_by_publication(data)
+    # </Parse json data>
 
     # <Get the prompt result>
     results: dict[str, list[str]] =\
@@ -69,8 +85,24 @@ def handle_json_classify(data: str) -> None:
 def handle_dataset_classify(data: str) -> None:
     print(f"Classification query received: {data}")
 
-    data_dict: dict[str, dict] = json.loads(data)
-    doi: str = data_dict.get("DOI", "")
+    # <Parse json data>
+    def safe_object_hook(obj):
+        # Only allow known keys to prevent hefty exploitations
+        allowed_keys: list[str] = [
+            "DOI", "ISSN", "OPENALEX", "TL;DR", "URL", "abstract",
+            "abstract_inverted_index", "author", "concepts", "container-title",
+            "container-url", "keywords", "publication_date", "publisher",
+            "reference", "related", "sustainable_development_goals",
+            "title", "topics", "type"
+        ]
+
+        return {key: obj[key] for key in obj if key in allowed_keys}
+
+    data_dict: dict[str, int | str] =\
+        json.loads(data, object_hook=safe_object_hook)
+
+    doi: str = str(data_dict.get('DOI', ""))
+    # </Parse json data>
 
     # <Get the prompt result>
     results: dict[str, list[str]] =\
