@@ -18,5 +18,11 @@ RUN pip install --upgrade pip \
 
 EXPOSE 5001
 
-CMD ["python", "app.py"]
+CMD gunicorn 'app:app' \
+    --worker-class gevent \
+    --workers 1 \
+    --bind 0.0.0.0:5001 \
+    --reload \
+    --access-logfile - \
+    --error-logfile -
 

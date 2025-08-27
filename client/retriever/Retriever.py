@@ -1,9 +1,36 @@
-import concurrent.futures
 from time import sleep
 import re
 import json
 
 import config
+
+# <If you want to parallelize something>
+import concurrent.futures
+
+# Example of code:
+#list_queries: list[str] = [ "Example 1", "Example 2" ]
+
+#with concurrent.futures.ThreadPoolExecutor(max_workers=2) as executor:
+#    running_tasks = [
+#        executor.submit(self.threaded_query, query=query, limit=limit,\
+#                    sort=sort, cursor_max=cursor_max, client_id=client_id)
+#        for query in list_queries
+#    ]
+
+#    # keys: index in the `list_queries` (0, 1, 2 ...).
+#    results: dict[str, str] = {}
+
+#    for i in range(len(running_tasks)):
+#        current_task = running_tasks[i]
+#        current_result: str = current_task.result()
+
+#        if 'error' in current_result:
+#            current_result = self.error_payload()
+
+#        results[str(i)] = current_result
+
+#    return results
+# </If you want to parallelize something>
 
 # <Generic API>
 import sys
@@ -78,7 +105,7 @@ class Retriever:
 
         print("Retriever initialized.")
 
-    def threaded_query(self, query: str, limit: int = 10, sort: str = None,\
+    def _threaded_query(self, query: str, limit: int = 10, sort: str = None,\
                        cursor_max: int = None, client_id: str = None) -> str:
 
         # Detect if the query is actually a concatenation of *DOI*s.
@@ -174,7 +201,7 @@ class Retriever:
 
         return parse_items(openalex_results, total_results=total_results)
 
-    def threaded_query_openalex(self, query: str) -> str:
+    def _threaded_query_openalex(self, query: str) -> str:
         """
                                 Only uses openalex.
         ! `query` must be a *DOI URL* or a *OPENALEX Work ID* (only one ID). !
@@ -182,23 +209,18 @@ class Retriever:
         example: `"https://openalex.org/W1989375655"`.
         Returns something in the crossref style (json.dumps()).
         """
+
         openalex_result: dict[str, str | dict] = self._openalex.query(query)
         return json.dumps(parse_items([openalex_result], total_results=1))
 
     def query(self, query: str, limit: int, sort: str, cursor_max: int,\
                                                 client_id: str = None) -> str:
-        with concurrent.futures.ThreadPoolExecutor(max_workers=2) as executor:
-            future = executor.submit(self.threaded_query, query=query,\
-                             limit=limit, sort=sort, cursor_max=cursor_max,\
-                                                            client_id=client_id)
-            result: str = future.result(timeout=25)
-            return result
+
+        return self._threaded_query(query=query, limit=limit, sort=sort,
+                                    cursor_max=cursor_max, client_id=client_id)
 
     def query_openalex(self, query: str) -> str:
-        with concurrent.futures.ThreadPoolExecutor(max_workers=2) as executor:
-            future = executor.submit(self.threaded_query_openalex, query)
-            result: str = future.result(timeout=25)
-            return result
+        return self._threaded_query_openalex(query)
 
     def query_cursor(self, client_id: str = None,\
                                     id_cursor: int = 0) -> str:

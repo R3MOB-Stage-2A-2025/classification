@@ -8,7 +8,7 @@ import re
 from Retriever import Retriever
 import config
 
-socketio = SocketIO()
+socketio = SocketIO(async_mode="gevent")
 retriever = Retriever()
 
 def create_app() -> Flask:
@@ -112,12 +112,16 @@ def disconnected(data: str = None) -> None:
     print(f'client number {request.sid} is disconnected')
     retriever.clear_cache_hashmap(client_id=request.sid)
 
+
+app: Flask = create_app()
+
+# <Development mode>
 if __name__ == '__main__':
-    app: Flask = create_app()
     socketio.run(
         app,
         debug=config.FLASK_DEBUG,
         host=config.FLASK_FRONTEND_HOST,
         port=config.FLASK_BACKEND_PORT
     )
+# </Development mode>
 
