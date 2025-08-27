@@ -38,11 +38,20 @@ def handle_error(e):
 @socketio.on("search_query")
 def handle_search_query(data: str) -> None:
     # <Parse json data>
-    data_dict: dict[str, int | str] = json.loads(data)
-    query: str = data_dict.get('query', "")
-    limit: int = data_dict.get('limit', 10)
-    sort: str = data_dict.get('sort', "")
-    cursor_max: int = data_dict.get('cursor_max', 100)
+
+    def safe_object_hook(obj):
+        # Only allow known keys to prevent hefty exploitations
+        allowed_keys = [ 'query', 'limit', 'sort', 'cursor_max' ]
+        return {key: obj[key] for key in obj if key in allowed_keys}
+
+    data_dict: dict[str, int | str] =\
+        json.loads(data, object_hook=safe_object_hook)
+
+    query: str = str(data_dict.get('query', ""))
+    limit: int = int(data_dict.get('limit', 10))
+    sort: str = str(data_dict.get('sort', ""))
+    cursor_max: int = int(data_dict.get('cursor_max', 100))
+
     print(f"Search query received: {query}")
     # </Parse json data>
 
@@ -76,8 +85,16 @@ def send_api_cluster_result(results_str: str = "") -> None:
 @socketio.on("search_query_cursor")
 def handle_search_query_cursor(data: str = None) -> None:
     # <Parse json data>
-    data_dict: dict[str, int | str] = json.loads(data)
-    id_cursor: int = data_dict.get('id_cursor', 0)
+
+    def safe_object_hook(obj):
+        # Only allow known keys to prevent hefty exploitations
+        allowed_keys = [ 'id_cursor' ]
+        return {key: obj[key] for key in obj if key in allowed_keys}
+
+    data_dict: dict[str, int | str] =\
+        json.loads(data, object_hook=safe_object_hook)
+
+    id_cursor: int = int(data_dict.get('id_cursor', 0))
     print(f"Client {request.sid}: Next Cursor={id_cursor} Query received.")
     # </Parse json data>
 
