@@ -136,63 +136,37 @@ class Classifier:
 
         If there is an error, it returns `self.error_payload()`.
         """
-        with concurrent.futures.ThreadPoolExecutor(
-            max_workers=config.MAX_WORKERS) as executor:
 
-            future = executor.submit(self._threaded_prompt_generic, prompt)
-            result: dict[str, str] = future.result(timeout=25)
+        result: dict[str, str] = self._threaded_prompt_generic(prompt)
 
-            if 'error' in result:
-                return self.error_payload()
-            return result
+        if 'error' in result:
+            return self.error_payload()
+        return result
 
     #########################################################################
     #### Model - Categorizer
     #########################################################################
 
-    def _threaded_prompt_categorizer(self, prompt: str) -> dict[str, str]:
-        """
-        See `self._threaded_prompt_generic()`.
-        """
-        return self._model_categorizer.prompt(prompt)
-
-    def prompt_categorizer(self, prompt: str) -> dict[str, str]:
+    def prompt_categorizer(self, list_prompts: str) -> dict[str, str]:
         """
         See `self.prompt_generic()`.
         """
-        with concurrent.futures.ThreadPoolExecutor(
-            max_workers=config.MAX_WORKERS) as executor:
-
-            future = executor.submit(self._threaded_prompt_categorizer, prompt)
-            result: dict[str, str] = future.result(timeout=25)
-
-            if 'error' in result:
-                return self.error_payload()
-            return result
+        return self._model_categorizer.prompt(prompt)
 
     #########################################################################
     #### Model - TFIDF
     #########################################################################
 
-    def _threaded_prompt_tfidf(self, prompt: str) -> dict[str, str]:
-        """
-        See `self._threaded_prompt_generic()`.
-        """
-        return self._model_tfidf.prompt(prompt)
-
     def prompt_tfidf(self, prompt: str) -> dict[str, str]:
         """
         See `self.prompt_generic()`.
         """
-        with concurrent.futures.ThreadPoolExecutor(
-            max_workers=config.MAX_WORKERS) as executor:
 
-            future = executor.submit(self._threaded_prompt_tfidf, prompt)
-            result: dict[str, str] = future.result(timeout=25)
+        result: dict[str, str] = self._model_tfidf.prompt(prompt)
 
-            if 'error' in result:
-                return self.error_payload()
-            return result
+        if 'error' in result:
+            return self.error_payload()
+        return result
 
     def train_tfidf(self, input_file: str = "") -> None:
         """
