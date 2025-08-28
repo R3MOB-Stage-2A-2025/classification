@@ -134,6 +134,7 @@ class Retriever:
                                  client_id=client_id, isRetriever=True,\
                                  cursor_max=cursor_max)
 
+        # Here, crossref_results is a dict only if there is an error.
         if 'error' in crossref_results:
             return json.dumps(crossref_results)
 
