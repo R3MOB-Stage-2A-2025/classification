@@ -26,14 +26,14 @@ def connected():
 def handle_message(data):
     print("data from the front end: ", str(data))
 
-@socketio.on_error()
-def handle_error(e):
-    error_str: str = e.__str__()
-    error_json_dict: dict[str, dict] = { 'error': { 'message': error_str } }
+#@socketio.on_error()
+#def handle_error(e):
+    #error_str: str = e.__str__()
+    #error_json_dict: dict[str, dict] = { 'error': { 'message': error_str } }
 
-    emit("search_results", { 'results': None }, to=request.sid)
-    emit("search_error", error_json_dict, to=request.sid)
-    print("ERROR:\n " + error_str + "\n/ERROR")
+    #emit("search_results", { 'results': None }, to=request.sid)
+    #emit("search_error", error_json_dict, to=request.sid)
+    #print("ERROR:\n " + error_str + "\n/ERROR")
 
 @socketio.on("search_query")
 def handle_search_query(data: str) -> None:
@@ -66,6 +66,24 @@ def handle_search_query(data: str) -> None:
         results_str: str =\
             retriever.query(query, limit=limit, sort=sort,\
                             cursor_max=cursor_max, client_id=request.sid)
+    # </Send query to API cluster>
+
+    # <Send the API cluster result>
+    send_api_cluster_result(results_str=results_str)
+    # </Send the API cluster result>
+
+@socketio.on("convert_from_openalex")
+def handle_convert_from_openalex(data: str) -> None:
+    # <Parse json data>
+    data_dict: dict[str, int | str] =\
+        json.loads(data)
+
+    print(f"Conversion query from Openalex received: {data}")
+    # </Parse json data>
+
+    # <Send query to the API cluster>
+    results_str: str =\
+        retriever.convert_from_openalex(data_dict)
     # </Send query to API cluster>
 
     # <Send the API cluster result>
@@ -111,7 +129,6 @@ def handle_search_query_cursor(data: str = None) -> None:
 def disconnected(data: str = None) -> None:
     print(f'client number {request.sid} is disconnected')
     retriever.clear_cache_hashmap(client_id=request.sid)
-
 
 app: Flask = create_app()
 

@@ -271,6 +271,17 @@ class Retriever:
         raise Exception(f'No result found for the cursor={id_cursor} !')
         return ""
 
+    def convert_from_openalex(self, openalex_item: dict[str, str | dict])\
+                                                                    -> str:
+        """
+        Just a parsing function for the Retriever module.
+        See `self._openalex.parse_single()`.
+        """
+
+        return json.dumps(parse_items(
+            [ self._openalex.parse_single(openalex_item) ], total_results=1
+        ))
+
     def clear_cache_hashmap(self, client_id: str = None) -> None:
         """
         On disconnection from the FLASK server of `client_id`,
