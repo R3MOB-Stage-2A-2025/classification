@@ -173,8 +173,6 @@ class Retriever:
         :return: More metadata in the *Crossref style*.
         """
 
-        print("here")
-
         message : dict = crossref_results.get('message', {})
         total_results: int = message.get('total-results', 0)
         items: list[dict] = message.get('items', [])
