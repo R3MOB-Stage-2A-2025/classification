@@ -31,6 +31,33 @@ function Retriever() {
         };
     }, []);
 
+    // ----------------------------------------------------------------------
+    // JSON Upload.
+    // ----------------------------------------------------------------------
+
+    const handleJsonUpload = (event) => {
+        const file = event.target.files[0];
+        if (!file) return;
+
+        const reader = new FileReader();
+
+        reader.onload = (e) => {
+            try {
+                const jsonContent = JSON.parse(e.target.result);
+                setLoading(true);
+                setError(null);
+                socket_retriever.emit("convert_from_openalex",
+                    JSON.stringify(jsonContent));
+            } catch (err) {
+                setError("JSON is invalid.");
+            }
+        };
+
+        reader.readAsText(file);
+    };
+
+    // ----------------------------------------------------------------------
+
     return (
         <div className="Retriever">
             { error &&
@@ -61,6 +88,21 @@ function Retriever() {
                     loading={loading}
                 />
             </div>
+
+            <div className="Upload">
+                <label htmlFor="jsonUpload">
+                    <strong>Importer an Openalex JSON :</strong>
+                </label>
+                <input
+                    type="file"
+                    id="jsonUpload"
+                    accept=".json"
+                    onChange={handleJsonUpload}
+                    disabled={loading}
+                    style={{ marginTop: '0.5rem', fontSize: '1rem' }}
+                />
+            </div>
+
         </div>
     );
 }
