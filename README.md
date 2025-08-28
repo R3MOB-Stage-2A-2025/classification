@@ -2,7 +2,7 @@
 
 From a given paper *DOI*, or the title of its book, or the name of one
 of its authors, this service will find related papers, keywords attached 
-to this papers (and yours), and all the non-copyrighted metadata that you will
+to this papers, and all the non-copyrighted metadata that you will
 ever need.
 
 Example:
@@ -475,6 +475,8 @@ The events are:
 - search_query(payload) -> search_results() | search_error()
 
 - search_query_cursor(id_cursor) -> search_results() | search_error()
+
+- convert_from_openalex(json_openalex) -> search_results() | search_error()
 ```
 
 where the `payload` is:
@@ -492,7 +494,7 @@ payload = {
 }
 ```
 
-and `search_results()` sends:
+and `json_openalex` is a string, and `search_results()` sends:
 
 ```python
 payload_results = {
