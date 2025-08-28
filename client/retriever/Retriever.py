@@ -110,19 +110,14 @@ class Retriever:
 
         # Detect if the query is actually a concatenation of *DOI*s.
         regex: str = r'10\.\d{4,9}/[\w.\-;()/:]+'
-        dois: list[str | tuple(str)] = re.findall(regex, query)
+        dois: list[str] = re.findall(regex, query)
 
         if len(dois) > 0:
-            results_not_parsed: list[dict] = []
+            query_filter: str = '|'.join(dois)
+            results: list[dict[str, str | dict]] =\
+                self._openalex.query_filter(query_filter)
 
-            for doi in dois:
-                single_result: dict =\
-                    self._openalex.query("https://doi.org/" + doi)
-
-                if 'error' not in single_result:
-                    results_not_parsed.append(single_result)
-
-            return json.dumps(parse_items(results_not_parsed))
+            return json.dumps(parse_items(results, total_results=len(dois)))
         # </Detect DOIs>
 
         # <Crossref Query> Just retrieve the *DOI*s and the *abstract*.
@@ -178,31 +173,47 @@ class Retriever:
         :return: More metadata in the *Crossref style*.
         """
 
+        print("here")
+
         message : dict = crossref_results.get('message', {})
         total_results: int = message.get('total-results', 0)
+        items: list[dict] = message.get('items', [])
 
-        openalex_results: list[dict[str, str | dict]] = []
-        for item in message.get('items', []): # items is a list.
-            doi_item: str = item['DOI']
-            abstract_item: str = parse_tag(item['abstract'])\
-                if 'abstract' in item else None
+        # <Retrieve all DOI's>, in the right order.
+        list_doi: list[str] =\
+            [ item.get('DOI', None) for item in items ]
+        list_abstract: list[str] = [
+            parse_tag(item['abstract']) if 'abstract' in item else None\
+            for item in items
+        ]
+        # </Retrieve all DOI's>
 
-            # <Parse the open alex query result>
-            current_crossref_results: dict[str, str | dict] =\
-                json.loads(self.query_openalex("https://doi.org/" + doi_item))
-            current_message: dict =\
-                current_crossref_results.get('message', {})
-            current_items: list[dict[str, str | dict]] =\
-                current_message.get('items', [])
-            # </Parse the open alex query result>
+        # <Enhance with openalex>
+        query_filter: str = '|'.join(list_doi)
+        openalex_results: list[dict[str, str | dict]] =\
+            self._openalex.query_filter(query_filter)
+        # </Enhance with openalex>
 
-            if 0 < len(current_items):
-                openalex_results.append(current_items[0])
-                openalex_results[-1]['abstract'] = abstract_item
+        # <Add the abstracts if necessary>
+        for i in range(len(list_abstract)):
+            if i < len(openalex_results):
+                current_result: dict[str, str | dict] =\
+                    openalex_results[i]
+
+                if current_result.get('abstract', None) == None:
+                    current_result['abstract'] =\
+                        list_abstract[i]
+        # </Add the abstracts if necessary>
 
         return parse_items(openalex_results, total_results=total_results)
 
-    def _threaded_query_openalex(self, query: str) -> str:
+    def query(self, query: str, limit: int, sort: str, cursor_max: int,\
+                                                client_id: str = None) -> str:
+
+        return self._threaded_query(query=query, limit=limit, sort=sort,
+                                    cursor_max=cursor_max, client_id=client_id)
+
+    def query_openalex(self, query: str) -> str:
         """
                                 Only uses openalex.
         ! `query` must be a *DOI URL* or a *OPENALEX Work ID* (only one ID). !
@@ -213,15 +224,6 @@ class Retriever:
 
         openalex_result: dict[str, str | dict] = self._openalex.query(query)
         return json.dumps(parse_items([openalex_result], total_results=1))
-
-    def query(self, query: str, limit: int, sort: str, cursor_max: int,\
-                                                client_id: str = None) -> str:
-
-        return self._threaded_query(query=query, limit=limit, sort=sort,
-                                    cursor_max=cursor_max, client_id=client_id)
-
-    def query_openalex(self, query: str) -> str:
-        return self._threaded_query_openalex(query)
 
     def query_cursor(self, client_id: str = None,\
                                     id_cursor: int = 0) -> str:

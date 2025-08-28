@@ -6,7 +6,7 @@ import json
 from habanero import Crossref, RequestError
 
 # <Rate limit>
-xrate_limit: str = "X-Rate-Limit-Limit: 25"
+xrate_limit: str = "X-Rate-Limit-Limit: 50"
 xrate_interval: str = "X-Rate-Limit-Interval: 1s"
 ua_string: str = xrate_limit + "; " + xrate_interval
 # </Rate limit>
