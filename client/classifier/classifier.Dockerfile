@@ -8,11 +8,17 @@ RUN python -m venv $VIRTUAL_ENV
 WORKDIR /api-flask/client/classifier/
 
 COPY parsing/ /api-flask/parsing/
+COPY dataset/ /api-flask/dataset/
 COPY client/classifier/ .
 
 # <Magic trick> to always get a `.env` file (take `.env.example`).
 RUN if [ ! -e .env ]; then cp .env.example .env; fi
 # </Magic trick>
+
+# <Initialize the labelled dataset>
+RUN cd ../../dataset/ && python ready_to_classify.py && cd - && \
+    mv ../../dataset/ready_to_classify/data_depth_3.json data/data_depth_3.json
+# </Initialize the labelled dataset>
 
 RUN pip install --upgrade pip
 
