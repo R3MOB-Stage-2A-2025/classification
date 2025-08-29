@@ -3,16 +3,16 @@ import io from 'socket.io-client';
 // require('dotenv').config();
 
 // <Retriever>
-const socket_retriever = io.connect('https://localhost:5022', {
+const socket_retriever = io.connect('wss://localhost:5022', {
     path: "/socket.io/",
-    transports: [ "websocket" ]
+    transports: [ "websocket" ],
 });
 // </Retriever>
 
 // <Classifier>
-const socket_classifier = io.connect('https://localhost:5023', {
+const socket_classifier = io.connect('wss://localhost:5023', {
     path: "/socket.io/",
-    transports: [ "websocket" ]
+    transports: [ "websocket" ],
 });
 // </Classifier>
 
