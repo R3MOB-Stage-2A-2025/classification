@@ -8,7 +8,7 @@ import re
 from Retriever import Retriever
 import config
 
-socketio = SocketIO(async_mode="gevent")
+socketio = SocketIO(async_mode="gevent", path="/socket.io/")
 retriever = Retriever()
 
 def create_app() -> Flask:
@@ -26,14 +26,14 @@ def connected():
 def handle_message(data):
     print("data from the front end: ", str(data))
 
-#@socketio.on_error()
-#def handle_error(e):
-    #error_str: str = e.__str__()
-    #error_json_dict: dict[str, dict] = { 'error': { 'message': error_str } }
+@socketio.on_error()
+def handle_error(e):
+    error_str: str = e.__str__()
+    error_json_dict: dict[str, dict] = { 'error': { 'message': error_str } }
 
-    #emit("search_results", { 'results': None }, to=request.sid)
-    #emit("search_error", error_json_dict, to=request.sid)
-    #print("ERROR:\n " + error_str + "\n/ERROR")
+    emit("search_results", { 'results': None }, to=request.sid)
+    emit("search_error", error_json_dict, to=request.sid)
+    print("ERROR:\n " + error_str + "\n/ERROR")
 
 @socketio.on("search_query")
 def handle_search_query(data: str) -> None:
@@ -52,11 +52,11 @@ def handle_search_query(data: str) -> None:
     sort: str = str(data_dict.get('sort', ""))
     cursor_max: int = int(data_dict.get('cursor_max', 100))
 
-    print(f"Search query received: {query}")
+    print(f"Search query received: {query[:100]}")
     # </Parse json data>
 
     # <Send query to the API cluster>
-    regex_openalex: str = r'"https:\/\/openalex\.org\/W\d+"'
+    regex_openalex: str = r'https:\/\/openalex\.org\/W\d+'
     OPENALEX_query: str = re.match(string=query, pattern=regex_openalex)
 
     if OPENALEX_query != None:
@@ -78,7 +78,7 @@ def handle_convert_from_openalex(data: str) -> None:
     data_dict: dict[str, int | str] =\
         json.loads(data)
 
-    print(f"Conversion query from Openalex received: {data}")
+    print(f"Conversion query from Openalex received: {data[:100]}")
     # </Parse json data>
 
     # <Send query to the API cluster>
