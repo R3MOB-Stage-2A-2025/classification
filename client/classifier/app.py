@@ -14,7 +14,7 @@ import config
 #socketio = SocketIO(async_mode='threading')
 # </Use the multithreading to labellize a dataset>
 
-socketio = SocketIO(async_mode='gevent')
+socketio = SocketIO(async_mode='gevent', path='/socket.io/')
 classifier = Classifier()
 
 def create_app() -> Flask:
@@ -44,7 +44,7 @@ def handle_error(e):
 
 @socketio.on('text_classification')
 def handle_text_classify(data: str) -> None:
-    print(f"Classification query received: {data}")
+    print(f"Text Classification query received: {data[:100]}")
     parsed_data: str = str(data)
 
     # <Get the prompt result>
@@ -56,7 +56,7 @@ def handle_text_classify(data: str) -> None:
 
 @socketio.on('json_classification')
 def handle_json_classify(data: str) -> None:
-    print(f"Classification query received: {data}")
+    print(f"Json Classification query received: {data[:100]}")
 
     # <Parse json data>
     def safe_object_hook(obj):
