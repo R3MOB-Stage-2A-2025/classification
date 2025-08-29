@@ -3,7 +3,7 @@ import "./SearchCursorList.css";
 import { socket_retriever } from "../socket";
 
 export const SearchCursorList = ({ setCursor, cursor, setLoading, loading }) => {
-    const totalPages = 5;
+    const totalPages = 10;
 
     const setCurrentPage = (cursor) => {
         if (!loading) {
