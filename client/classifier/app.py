@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask, request, abort
 from flask_socketio import SocketIO, emit
 from flask_cors import CORS
 
@@ -30,7 +30,7 @@ def connected():
 
 @socketio.on('data')
 def handle_message(data):
-    if not isinstance(data, str) or len(data) > 500:
+    if not isinstance(data, str) or len(data) > config.FLASK_MAX_INPUT_LENGTH:
         abort(400)  # Invalid input
     print("data from the front end: ", str(data))
 
@@ -47,7 +47,7 @@ def handle_error(e):
 @socketio.on('text_classification')
 def handle_text_classify(data: str) -> None:
     print(f"Text Classification query received: {data[:100]}")
-    if not isinstance(data, str) or len(data) > 500:
+    if not isinstance(data, str) or len(data) > config.FLASK_MAX_INPUT_LENGTH:
         abort(400)  # Invalid input
 
     parsed_data: str = str(data)
@@ -62,7 +62,7 @@ def handle_text_classify(data: str) -> None:
 @socketio.on('json_classification')
 def handle_json_classify(data: str) -> None:
     print(f"Json Classification query received: {data[:100]}")
-    if not isinstance(data, str) or len(data) > 500:
+    if not isinstance(data, str) or len(data) > config.FLASK_MAX_INPUT_LENGTH:
         abort(400)  # Invalid input
 
     # <Parse json data>
@@ -97,7 +97,7 @@ def handle_json_classify(data: str) -> None:
 @socketio.on('dataset_classification')
 def handle_dataset_classify(data: str) -> None:
     print(f"Classification query received: {data}")
-    if not isinstance(data, str) or len(data) > 500:
+    if not isinstance(data, str) or len(data) > config.FLASK_MAX_INPUT_LENGTH:
         abort(400)  # Invalid input
 
     # <Parse json data>

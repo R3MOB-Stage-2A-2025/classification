@@ -182,7 +182,7 @@ class Tfidf(Service):
         Repeat the process for each vector of classification.
         """
 
-        dataset = _retrieve_and_format_texts(input_file)
+        dataset = _retrieve_and_format_texts(input_file, self._labels.keys())
         if input_file != "":
             self._input_file = input_file
 
@@ -583,7 +583,7 @@ Classification Report:\n\
 ## Text formating.
 #############################################################################
 
-def _retrieve_and_format_texts(input_file: str)\
+def _retrieve_and_format_texts(input_file: str, labels: list[str])\
                             -> dict[str, dict[str, str | list[dict]]]:
     """
     Merely format the texts of the dataset.
@@ -600,13 +600,9 @@ def _retrieve_and_format_texts(input_file: str)\
     The keys of a publication are "categories", "text", "text_clean".
     A key of the dataset is a vector of classification
     (ex: "axes", "challenges", etc..).
-
-    Possible way of improvment: Each vector of classification has
-    its own copy of the publication. The texts are duplicated, "text_clean"
-    is determined for each of them individually, unfortunately.
     """
 
-    dataset: dict[str, dict[str, str | list[dict]]] =\
+    dataset: dict[str, dict[str, str | list[str]]] =\
         load_json(input_file)
 
     # <Display>
@@ -614,17 +610,16 @@ def _retrieve_and_format_texts(input_file: str)\
     # </Display>
 
     is_there_modif: bool = False
-    for publications in dataset.values():
-        for publication in publications:
-            if not 'text_clean' in publication:
-                is_there_modif = True
-                text: str = publication.get('text', "")
+    for publication in dataset.values():
+        if not 'text_clean' in publication:
+            is_there_modif = True
+            text: str = publication.get('text', "")
 
-                dataframe: dict[str, list[str | list[str]]] =\
-                    preprocess_text(text)
-                text_clean: str = ' '.join(dataframe['LEMMATIZATION'][0])
+            dataframe: dict[str, list[str | list[str]]] =\
+                preprocess_text(text)
+            text_clean: str = ' '.join(dataframe['LEMMATIZATION'][0])
 
-                publication['text_clean'] = text_clean
+            publication['text_clean'] = text_clean
 
     # <Save the text_clean>
     if config.CLASSIFIER_TFIDF_SAVE_TEXT_CLEAN and is_there_modif:
@@ -641,7 +636,44 @@ def _retrieve_and_format_texts(input_file: str)\
     print("Texts are formatted!")
     # </Display>
 
-    return dataset
+    # <Sort by categories>
+    """
+    { "axes":
+    [
+    {
+      "categories":
+        "[\"Favoriser le report modal des marchandises vers le fer  ...\"]",
+      "text":
+        "Crafting Business and Supply Chain Strategies, , Supply Chain ...",
+      "text_clean":
+        "strategy management system organization information growth ..."
+    },
+    # ...
+    """
+
+    label_names: list[str] = labels
+    resultJsonDict: dict[str, [dict[str, str | list[str]]]] = {
+        label_name: [] for label_name in label_names
+    }
+
+    for label_name in label_names:
+        for publication in dataset.values():
+            text: str =\
+                publication.get('text', "")
+
+            text_clean: str =\
+                publication.get('text_clean', "")
+
+            categories: list[str] =\
+                publication.get(label_name, [])
+
+            line_output_file: dict[str, str | list[str]] =\
+                { 'categories': categories, 'text': text, 'text_clean': text }
+
+            resultJsonDict[label_name].append(line_output_file)
+    # </Sort by categories>
+
+    return resultJsonDict
 
 #############################################################################
 
