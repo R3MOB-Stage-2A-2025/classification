@@ -1,6 +1,7 @@
 from flask import Flask, request
 from flask_socketio import SocketIO, emit
 from flask_cors import CORS
+import redis
 
 import json
 import re
@@ -14,6 +15,9 @@ retriever = Retriever()
 def create_app() -> Flask:
     app = Flask(__name__)
     app.config['SECRET_KEY'] = config.FLASK_BACKEND_SECRETKEY
+    app.config["SESSION_REDIS"] =\
+                    redis.StrictRedis('r3mobprod_retriever_redis',
+                                      port=6379, db=0)
     CORS(app, resources={r"/*": { "origins": "*" }})
     socketio.init_app(app, cors_allowed_origins=config.FLASK_ALLOWED_ORIGINS)
     return app
