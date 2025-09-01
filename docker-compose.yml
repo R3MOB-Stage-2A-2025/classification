@@ -111,7 +111,7 @@ services:
       resources:
         limits:
           cpus: '0.70'
-          memory: 600M
+          memory: 800M
     networks:
       - classification-net
     environment:
