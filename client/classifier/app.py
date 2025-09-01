@@ -30,6 +30,8 @@ def connected():
 
 @socketio.on('data')
 def handle_message(data):
+    if not isinstance(data, str) or len(data) > 500:
+        abort(400)  # Invalid input
     print("data from the front end: ", str(data))
 
 @socketio.on_error()
@@ -45,6 +47,9 @@ def handle_error(e):
 @socketio.on('text_classification')
 def handle_text_classify(data: str) -> None:
     print(f"Text Classification query received: {data[:100]}")
+    if not isinstance(data, str) or len(data) > 500:
+        abort(400)  # Invalid input
+
     parsed_data: str = str(data)
 
     # <Get the prompt result>
@@ -57,6 +62,8 @@ def handle_text_classify(data: str) -> None:
 @socketio.on('json_classification')
 def handle_json_classify(data: str) -> None:
     print(f"Json Classification query received: {data[:100]}")
+    if not isinstance(data, str) or len(data) > 500:
+        abort(400)  # Invalid input
 
     # <Parse json data>
     def safe_object_hook(obj):
@@ -90,6 +97,8 @@ def handle_json_classify(data: str) -> None:
 @socketio.on('dataset_classification')
 def handle_dataset_classify(data: str) -> None:
     print(f"Classification query received: {data}")
+    if not isinstance(data, str) or len(data) > 500:
+        abort(400)  # Invalid input
 
     # <Parse json data>
     def safe_object_hook(obj):

@@ -1,6 +1,7 @@
 from flask import Flask, request
 from flask_socketio import SocketIO, emit
 from flask_cors import CORS
+from flask import abort
 
 import json
 import re
@@ -25,6 +26,8 @@ def connected():
 @socketio.on('data')
 def handle_message(data):
     print("data from the front end: ", str(data))
+    if not isinstance(data, str) or len(data) > 500:
+        abort(400)  # Invalid input
 
 @socketio.on_error()
 def handle_error(e):
@@ -37,8 +40,10 @@ def handle_error(e):
 
 @socketio.on("search_query")
 def handle_search_query(data: str) -> None:
-    # <Parse json data>
+    if not isinstance(data, str) or len(data) > 500:
+        abort(400)  # Invalid input
 
+    # <Parse json data>
     def safe_object_hook(obj):
         # Only allow known keys to prevent hefty exploitations
         allowed_keys = [ 'query', 'limit', 'sort', 'cursor_max' ]
@@ -74,6 +79,9 @@ def handle_search_query(data: str) -> None:
 
 @socketio.on("convert_from_openalex")
 def handle_convert_from_openalex(data: str) -> None:
+    if not isinstance(data, str) or len(data) > 500:
+        abort(400)  # Invalid input
+
     # <Parse json data>
     data_dict: dict[str, int | str] =\
         json.loads(data)
@@ -102,8 +110,10 @@ def send_api_cluster_result(results_str: str = "") -> None:
 
 @socketio.on("search_query_cursor")
 def handle_search_query_cursor(data: str = None) -> None:
-    # <Parse json data>
+    if not isinstance(data, str) or len(data) > 500:
+        abort(400)  # Invalid input
 
+    # <Parse json data>
     def safe_object_hook(obj):
         # Only allow known keys to prevent hefty exploitations
         allowed_keys = [ 'id_cursor' ]
@@ -116,15 +126,16 @@ def handle_search_query_cursor(data: str = None) -> None:
     print(f"Client {request.sid}: Next Cursor={id_cursor} Query received.")
     # </Parse json data>
 
-    # <Send query to the API cluster>
-    try: 
+    try:
+        # <Send query to the API cluster>
         results_str: str =\
         retriever.query_cursor(client_id=request.sid, id_cursor=id_cursor)
-    # </Send query to API cluster>
+        # </Send query to API cluster>
 
-    # <Send the API cluster result>
+        # <Send the API cluster result>
         send_api_cluster_result(results_str=results_str)
-    # </Send the API cluster result>
+        # </Send the API cluster result>
+
     except Exception as e:
         emit("search_results", { 'results': None }, to=request.sid)
         emit("search_error", { "error": { "message": str(e) } }, to=request.sid)
