@@ -1,23 +1,5 @@
 ---
 services:
-  retriever_redis:
-    image: redis:alpine
-    container_name: r3mobprod_retriever_redis
-    logging:
-      driver: "json-file"
-      options:
-        max-size: "10m"
-        max-file: "3"
-    deploy:
-      resources:
-        limits:
-          cpus: '0.70'
-          memory: 100M
-    expose:
-      - "6379"
-    networks:
-      - classification-net
-
   retriever_1:
     build:
       context: .
@@ -95,6 +77,24 @@ services:
           memory: 25M
     networks:
       - classification-net
+
+        #retriever_redis:
+        #image: redis:alpine
+        #container_name: r3mobprod_retriever_redis
+        #logging:
+        #driver: "json-file"
+        #options:
+        #max-size: "10m"
+        #max-file: "3"
+        #deploy:
+        #resources:
+        #limits:
+        #cpus: '0.70'
+        #memory: 100M
+        #expose:
+        #- "6379"
+        #networks:
+        #- classification-net
 
   classifier:
     build:
