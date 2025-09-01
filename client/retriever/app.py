@@ -117,13 +117,18 @@ def handle_search_query_cursor(data: str = None) -> None:
     # </Parse json data>
 
     # <Send query to the API cluster>
-    results_str: str =\
+    try: 
+        results_str: str =\
         retriever.query_cursor(client_id=request.sid, id_cursor=id_cursor)
     # </Send query to API cluster>
 
     # <Send the API cluster result>
-    send_api_cluster_result(results_str=results_str)
+        send_api_cluster_result(results_str=results_str)
     # </Send the API cluster result>
+    except Exception as e:
+        emit("search_results", { 'results': None }, to=request.sid)
+        emit("search_error", { "error": { "message": str(e) } }, to=request.sid)
+        print(f"ERROR in query_cursor: {e}")
 
 @socketio.on("disconnect")
 def disconnected(data: str = None) -> None:
