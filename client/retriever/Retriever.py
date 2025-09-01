@@ -234,42 +234,36 @@ class Retriever:
             id_cursor == 0 ==> page == 1, id_cursor == 1, page == 2, etc...
         """
 
-        if id_cursor < self._cursor_max_hashmap.get(client_id, 0):
-            results_current: list[dict] =\
-                self._cursor_hashmap.get(client_id, [])
+        # <Retrieve current cached results and statuses>
+        results_current: list[dict] = self._cursor_hashmap.get(client_id, [])
+        list_status_current: list[int] = self._cursor_status.get(client_id, [])
+        # </Retrieve current cached results and statuses>
 
+        # <If id_cursor exists in cache>
+        if 0 <= id_cursor < len(results_current):
             # <If already done>, this is cache.
-            list_status_current: list[int] =\
-                self._cursor_status.get(client_id, [])
-
-            if 0 <= id_cursor and id_cursor <= len(results_current) - 1:
-                if list_status_current[id_cursor] == 2:
-                    return json.dumps(results_current[id_cursor])
+            if list_status_current[id_cursor] == 2:
+                return json.dumps(results_current[id_cursor])
             # </If already done>
 
-            if 0 <= id_cursor and id_cursor <= len(results_current) - 1:
-                # <OpenAlex enhances metadata> for id_cursor=0
-                openalex_results: dict[str, str | dict] =\
-                    self._openalex_enhance_metadata(results_current[id_cursor])
-                # </OpenAlex enhances metadata>
+            # <OpenAlex enhances metadata> for this cursor
+            openalex_results: dict[str, str | dict] = \
+                self._openalex_enhance_metadata(results_current[id_cursor])
+            # </OpenAlex enhances metadata>
 
-                # <Add the current query to the cache hashmap>
-                current_results: list[dict] =\
-                    self._cursor_hashmap.get(client_id, [])
+            # <Add the current query to the cache hashmap>
+            results_current[id_cursor] = openalex_results
+            self._cursor_hashmap[client_id] = results_current
 
-                enhanced_results_for_cursor: list[dict] = current_results
-                enhanced_results_for_cursor[id_cursor] = openalex_results
+            list_status_current[id_cursor] = 2
+            # </Add the current query to the cache hashmap>
 
-                self._cursor_hashmap[client_id] = enhanced_results_for_cursor
-
-                list_status_current: list[int] = self._cursor_status[client_id]
-                list_status_current[id_cursor] = 2
-                # </Add the current query to the cache hashmap>
-
-                return json.dumps(enhanced_results_for_cursor[id_cursor])
+            return json.dumps(openalex_results)
+        # </If id_cursor exists in cache>
 
         raise Exception(f'No result found for the cursor={id_cursor} !')
         return ""
+
 
     def convert_from_openalex(self, openalex_item: dict[str, str | dict])\
                                                                     -> str:
