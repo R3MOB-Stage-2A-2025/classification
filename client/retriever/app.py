@@ -1,7 +1,6 @@
-from flask import Flask, request
+from flask import Flask, request, abort
 from flask_socketio import SocketIO, emit
 from flask_cors import CORS
-from flask import abort
 
 import json
 import re
@@ -26,7 +25,7 @@ def connected():
 @socketio.on('data')
 def handle_message(data):
     print("data from the front end: ", str(data))
-    if not isinstance(data, str) or len(data) > 500:
+    if not isinstance(data, str) or len(data) > config.FLASK_MAX_INPUT_LENGTH:
         abort(400)  # Invalid input
 
 @socketio.on_error()
@@ -40,7 +39,7 @@ def handle_error(e):
 
 @socketio.on("search_query")
 def handle_search_query(data: str) -> None:
-    if not isinstance(data, str) or len(data) > 500:
+    if not isinstance(data, str) or len(data) > config.FLASK_MAX_INPUT_LENGTH:
         abort(400)  # Invalid input
 
     # <Parse json data>
@@ -79,7 +78,7 @@ def handle_search_query(data: str) -> None:
 
 @socketio.on("convert_from_openalex")
 def handle_convert_from_openalex(data: str) -> None:
-    if not isinstance(data, str) or len(data) > 500:
+    if not isinstance(data, str) or len(data) > config.FLASK_MAX_INPUT_LENGTH:
         abort(400)  # Invalid input
 
     # <Parse json data>
@@ -110,7 +109,7 @@ def send_api_cluster_result(results_str: str = "") -> None:
 
 @socketio.on("search_query_cursor")
 def handle_search_query_cursor(data: str = None) -> None:
-    if not isinstance(data, str) or len(data) > 500:
+    if not isinstance(data, str) or len(data) > config.FLASK_MAX_INPUT_LENGTH:
         abort(400)  # Invalid input
 
     # <Parse json data>

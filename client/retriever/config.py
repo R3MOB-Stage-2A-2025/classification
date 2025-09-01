@@ -13,6 +13,7 @@ FLASK_FRONTEND_HOST: str = os.getenv("FLASK_FRONTEND_HOST")
 FLASK_DEBUG: bool=\
     True if os.getenv("FLASK_DEBUG") == "TRUE" else False
 FLASK_ALLOWED_ORIGINS: str = os.getenv("FLASK_ALLOWED_ORIGINS")
+FLASK_MAX_INPUT_LENGTH: int = int(os.getenv("FLASK_MAX_INPUT_LENGTH"))
 MAX_WORKERS: int = 4
 # </Flask + gevent + socketio>
 
