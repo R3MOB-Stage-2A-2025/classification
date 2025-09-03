@@ -52,7 +52,6 @@ SPACY_MODEL: str = os.getenv("SPACY_MODEL")
 CLASSIFIER_MISCELLANEOUS_USE: bool =\
     True if os.getenv("CLASSIFIER_MISCELLANEOUS_USE") == "TRUE"\
     or CLASSIFIER_TFIDF_USE == True\
-    or CLASSIFIER_HIERARCHICAL_USE == True\
     else False
 # </Tokenizer + Embeddings>
 
