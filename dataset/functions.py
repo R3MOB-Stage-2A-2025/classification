@@ -85,6 +85,8 @@ class MetadataRetriever:
         """
         Given a DOI, it retrieves the specific publication metadatas
             in constant time, stored in `self.processingDataDict[doi]`.
+
+            Returns {} if not found.
         """
-        return self.processingDataDict[doi]
+        return self.processingDataDict.get(doi, {})
 

@@ -86,7 +86,6 @@ class Labelliser:
 
         # <Write> the new publication into the processing array.
         self.processingDataDict[DOI] = parsed_publication_dict
-        print(self.processingDataDict)
         # </Write>
 
     def related(self, publication: str) -> None:

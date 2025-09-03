@@ -74,7 +74,6 @@ def related_dois(inputf: str = './raw/data.csv'):
         for url_doi in url_dois:
             query_data = {
                 'query' : url_doi,
-                "offset": 0,
                 "limit": 1
             }
 
@@ -109,7 +108,6 @@ def related_openalex(inputf: str = './raw/data.csv'):
         for url_openalex in list_url_openalex:
             query_data = {
                 'query' : url_openalex,
-                "offset": 0,
                 "limit": 1
             }
 

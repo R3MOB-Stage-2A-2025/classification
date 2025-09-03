@@ -7,7 +7,7 @@ import functions
 from Labelliser import Labelliser
 
 # <file path>
-filePath: str = "data.json"
+filePath: str = "european_transport_from_2018.json"
 processingFilepath: str = "./processing/" + filePath
 labelledFilePath: str = "./labelled/" + filePath
 # </file path>
@@ -72,9 +72,11 @@ def main(inputf: str = './processing/data.csv'):
         functions.find_dois_dataset(inputf)
 
     base_url: str = "https://doi.org/"
-    list_dois: list[str] = [ url_doi.removeprefix(base_url)\
+    list_dois: list[str] = list(set([ url_doi.removeprefix(base_url)\
                             for url_doi in list_url_dois
-                            ]
+                            ]))
+    if '' in list_dois:
+        list_dois.remove('')
 
     total_queries = len(list_dois)
 
@@ -85,22 +87,21 @@ def main(inputf: str = './processing/data.csv'):
 
     try:
         for doi in list_dois:
-            if doi == '':
-                continue
-
             doi_metadata: dict = metadata.retrieve_data_from_doi(doi)
-            doi_metadata['DOI'] = doi
 
-            query_data: str = json.dumps(doi_metadata)
-            sio.emit("dataset_classification", query_data)
-            sio.sleep(4)
+            if doi_metadata != {}:
+                doi_metadata['DOI'] = doi
+
+                query_data: str = json.dumps(doi_metadata)
+                sio.emit("dataset_classification", query_data)
+                sio.sleep(5)
 
         while responses_received < total_queries:
             sio.sleep(0.1)
 
     except Exception as e:
         labellator.checkpoint_processing()
-        print(f'{e}')
+        print(f'{type(e)}: {e}')
         exit(0)
 
     labellator.checkpoint_processing()

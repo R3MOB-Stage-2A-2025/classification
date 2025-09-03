@@ -6,6 +6,7 @@ requests==2.32.4
 
 # <Miscellenaous>
 dotenv==0.9.9
+pandas==2.3.2
 #httpx==0.28.1
 # </Miscellenaous>
 
