@@ -1,6 +1,9 @@
 from time import sleep
 import re
 import json
+import uuid
+import rispy
+import datetime
 
 import config
 
@@ -275,6 +278,208 @@ class Retriever:
             [ self._openalex.parse_single(openalex_item) ], total_results=1
         ))
 
+    def convert_from_ris(self, data: str) -> dict[str, str | dict]:
+        """
+        Just a parsing function for the Retriever module.
+
+        :param data: The text retrieved with `file.readlines()`.
+        :return: The results parsed in the crossref style.
+
+        It uses RISPY.
+        """
+
+        # <Write the data in a temporary file>
+        filepath: str = config.RISPY_WORKING_FOLDER + str(uuid.uuid4())
+
+        with open(filepath, 'w') as file:
+            file.writelines(data)
+        # </Write the data in a temporary file>
+
+        # <Read this temporary file>
+        results: list[dict] = []
+        with open(filepath, 'r') as file:
+            results = rispy.load(file)
+        # </Read this temporary file>
+
+        # <Delete the temporary file>
+        os.remove(filepath)
+        # </Delete the temporary file>
+
+        # <Need to parse the Results to the Crossref Style>
+        desired_results: list[dict] = []
+        for current_result in results:
+
+            current_desired_result: dict = {
+                "title": [ current_result.get("title") ],
+                "abstract": current_result.get("abstract", None),
+                "TL;DR": None,
+                "DOI": current_result.get("doi", None),
+                "URL": current_result["urls"][0]\
+                        if current_result.get("urls") else None,
+                "OPENALEX": None,
+                "type": "journal-article"\
+                        if current_result.get("type_of_reference") == "JOUR"\
+                        else None,
+                "ISSN": [],
+                "publisher": None,
+                "publication_date": current_result.get("date", None),
+                "container-title": [ current_result.get("secondary_title") ]\
+                    if current_result.get("secondary_title", None) else [],
+                "container-url": current_result.get("urls", []),
+                "author": [],
+                "reference": [],
+                "related": [],
+                "topics": [],
+                "keywords": [
+                    {"id": None, "display_name": kw, "score": None}
+                    for kw in current_result.get("keywords", [])
+                ],
+                "concepts": [],
+                "sustainable_development_goals": [],
+                "abstract_inverted_index": None
+            }
+
+            # <Add metadatas if possible, when openalex finds it>
+            current_openalex_query: dict =\
+                json.loads(
+                    self.query_openalex(current_desired_result.get("URL", {})))
+            current_openalex_message: dict =\
+                current_openalex_query.get('message', {})
+            current_openalex_items: list[dict]=\
+                current_openalex_message.get('items', [{}])
+            current_openalex_result: dict = current_openalex_items[0]
+
+            for i, a in enumerate(current_result.get("authors", [])):
+                current_desired_result.get("author", []).append(
+                    ris_parse_author(
+                         a,
+                         current_result.get("custom1", {})\
+                             if i == 0 else None,
+                         current_desired_result.get("author", [])))
+
+            if current_desired_result.get("title", []) == []:
+                current_desired_result["title"] =\
+                    current_openalex_result.get("title", [])
+
+            if current_desired_result.get("abstract", None) == None:
+                current_desired_result["abstract"] =\
+                    current_openalex_result.get("abstract", None)
+
+            current_desired_result["TL;DR"] =\
+                current_openalex_result.get("TL;DR", None)
+
+            current_desired_result["OPENALEX"] =\
+                current_openalex_result.get("OPENALEX", None)
+
+            if current_desired_result.get("type", None) == None:
+                current_desired_result["type"] =\
+                    current_openalex_result.get("type", None)
+
+            if current_desired_result.get("ISSN", []) == []:
+                current_desired_result["ISSN"] =\
+                    current_openalex_result.get("ISSN", [])
+
+            if current_desired_result.get("publisher", None) == None:
+                current_desired_result["publisher"] =\
+                    current_openalex_result.get("publisher", None)
+
+            if current_desired_result.get("publication_date", None) == None:
+                current_desired_result["publication_date"] =\
+                    current_openalex_result.get("publication_date", None)
+
+            if current_desired_result.get("container-title", []) == []:
+                current_desired_result["container-title"] =\
+                    current_openalex_result.get("container-title", [])
+
+            if current_desired_result.get("container-url", []) == []:
+                current_desired_result["container-url"] =\
+                    current_openalex_result.get("container-url", [])
+
+            if current_desired_result.get("abstract_inverted_index",\
+                                                                None) == None:
+                current_desired_result["abstract_inverted_index"] =\
+                    current_openalex_result.get("abstract_inverted_index", None)
+
+            current_desired_result.get("reference", [])\
+                            .extend(current_openalex_result.get("reference", []))
+
+            current_desired_result.get("related", [])\
+                            .extend(current_openalex_result.get("related", []))
+
+            current_desired_result.get("topics", [])\
+                            .extend(current_openalex_result.get("topics", []))
+
+            current_desired_result.get("keywords", [])\
+                            .extend(current_openalex_result.get("reference", []))
+
+            current_desired_result.get("keywords", [])\
+                            .extend(current_openalex_result.get("keywords", []))
+
+            current_desired_result.get("concepts", [])\
+                            .extend(current_openalex_result.get("concepts", []))
+
+            current_desired_result.get("sustainable_development_goals", [])\
+                        .extend(
+            current_openalex_result.get("sustainable_development_goals", []))
+            # </Add metadatas if possible, when openalex finds it>
+
+            desired_results.append(current_desired_result)
+        # </Need to parse the Result to the Crossref Style>
+
+        return parse_items(desired_results, total_results=len(desired_results))
+
+    def convert_from_crossref_style_to_ris(self,
+                               publication: dict[str, str | dict]) -> str:
+        """
+        Just a parsing function for the Retriever module.
+
+        :param publication: A publication in the Crossref Style..
+        :return: A RIS instance.
+        """
+
+        type_map = {
+            "journal-article": "JOUR",
+            "book-chapter": "CHAP",
+            "book": "BOOK"
+        }
+        type_of_reference: str = type_map.get(publication.get("type"), "GEN")
+
+        authors: list[str] = [ f"{a['family']}, {a['given']}"\
+                   for a in publication.get("author", []) ]
+
+        pub_date = publication.get("publication_date", None)
+        year = None
+
+        if pub_date:
+            try:
+                year = datetime.strptime(pub_date, "%Y-%m-%d").strftime("%Y")
+            except Exception:
+                year = pub_date.split("-")[0]
+
+        ris_entry = {
+            "type_of_reference": type_of_reference,
+            "title": publication.get("title", [None])[0]\
+                    if publication.get("title") else None,
+            "year": year,
+            "publisher": publication.get("publisher", None),
+            "secondary_title": publication.get("container-title", [None])[0]\
+                    if publication.get("container-title") else None,
+            "date": pub_date,
+            "authors": authors,
+            "custom1": None,
+            "language": "en",
+            "keywords": [ kw.get("display_name")\
+                         for kw in publication.get("keywords", []) ],
+        }
+
+        ris_entry["doi"] = publication.get("DOI", None)
+        ris_entry["urls"] = [ publication.get("URL", None) ]
+
+        if publication.get('ISSN'):
+            ris_entry["issn"] = publication.get("ISSN")[0]
+
+        return rispy.dumps([ris_entry])
+
     def clear_cache_hashmap(self, client_id: str = None) -> None:
         """
         On disconnection from the FLASK server of `client_id`,
@@ -325,6 +530,67 @@ def parse_tag(textraw: str) -> str:
     if textraw != None:
         regex_tags: str = r'</?[^>]+>'
         return re.sub(regex_tags, '', textraw)
+
+#############################################################################
+# Functions for the RIS format.
+#############################################################################
+
+def ris_parse_author(author_str: str, affiliation: list[dict] = None,\
+        openalex_author: list[dict] = None) -> dict[str, str | list[dict]]:
+    """
+    Used by `self.convert_from_ris()`.
+
+    :param author_str: example: "Toufik, Ahmed", from the RIS file.
+    :param affiliation: "Institute of Energy Economics, Technical ...",
+                    from the RIS file.
+    :param openalex_author: The "author" from OPENALEX retriever in the
+                            Crossref Style.
+
+    :return: The publication's "author" parsed in the Crossref style.
+    """
+
+    parts = [ p.strip() for p in author_str.split(",") ]
+
+    if len(parts) == 2:
+        family, given = parts
+    else:
+        family, given = parts[0], " ".join(parts[1:])
+
+    author_openalex: dict = {}
+    for author in openalex_author:
+        if author.get('family', "") in family\
+                and author.get('given', "") in given:
+            author_openalex = author
+
+    affiliation_author: list[dict] = [
+            {
+                "name": affiliation,
+                "openalex": None,
+                "ror": None,
+                "country": "FR" if affiliation else None
+            }
+        ] if affiliation else []
+
+    affiliation_openalex: list[dict] = author_openalex.get('affiliation', [])
+    for an_affiliation in affiliation_openalex:
+        current_name: str = an_affiliation.get('name', "")
+
+        if current_name == affiliation:
+            current_openalex: str = an_affiliation.get('openalex', None)
+            current_ror: str = an_affiliation.get('ror', None)
+            current_country: str = an_affiliation.get('country', None)
+
+            affiliation_author[0]["openalex"] = current_openalex
+            affiliation_author[0]["ror"] = current_ror
+            affiliation_author[0]["country"] = current_country
+
+    return {
+        "given": given,
+        "family": family,
+        "ORCID": author_openalex.get('ORCID', None),
+        "OPENALEX": author_openalex.get('OPENALEX', None),
+        "affiliation": affiliation_author,
+    }
 
 #############################################################################
 

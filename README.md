@@ -477,6 +477,10 @@ The events are:
 - search_query_cursor(id_cursor) -> search_results() | search_error()
 
 - convert_from_openalex(json_openalex) -> search_results() | search_error()
+
+- convert_from_ris(json_crossref_style) -> search_results() | search_error()
+
+- convert_from_crossref_style_to_ris(ris_file_str) -> conversion_ris_results()
 ```
 
 where the `payload` is:
@@ -555,6 +559,63 @@ payload_results = {
 payload_error = {
     'error':  { 'message': error_str }
 }
+```
+
+Example of supported RIS file:
+
+```ris
+TY  - JOUR
+TI  - Energy efficiency and consumption — the rebound effect — a survey
+PY  - 2000
+PB  - Elsevier BV
+SN  - 0301-4215
+T2  - Energy Policy
+DO  - 10.1016/s0301-4215(00)00021-5
+UR  - https://doi.org/10.1016/s0301-4215(00)00021-5
+DA  - 2000-06-01
+AU  - Greening, Lorna
+C1  - International Resources Group, 1211 Connecticut Ave., NW Washington, DC 20036, USA
+AU  - Greene, David
+C1  - Oak Ridge National Laboratory Oak Ridge TN USA
+AU  - Difiglio, Carmen
+C1  - International Energy Agency, 9 rue de la Fédération 75739 Paris Cedex 15, France
+LA  - en
+KW  - Rebound Effect
+KW  - Consumption
+KW  - Energy accounting
+VL  - 28
+IS  - 6-7
+SP  - 389
+EP  - 401
+ER  -
+TY  - JOUR
+TI  - Six Transformations to achieve the Sustainable Development Goals
+PY  - 2019
+PB  - Nature Portfolio
+SN  - 2398-9629
+T2  - Nature Sustainability
+DO  - 10.1038/s41893-019-0352-9
+UR  - https://doi.org/10.1038/s41893-019-0352-9
+DA  - 2019-08-26
+AU  - Sachs, Jeffrey
+C1  - Columbia University, New York, NY, USA
+AU  - Schmidt‐Traub, Guido
+C1  - Sustainable Development Solutions Network, Paris, France
+AU  - Mazzucato, Mariana
+C1  - University College London, London, UK
+AU  - Messner, Dirk
+C1  - United Nations University, Bonn, Germany
+AU  - Nakićenović, Nebojša
+C1  - International Institute for Applied Systems Analysis, Laxenburg, Austria
+AU  - Rockström, Johan
+C1  - Potsdam Institute for Climate Impact Research, Potsdam, Germany
+LA  - en
+KW  - Civil Society
+VL  - 2
+IS  - 9
+SP  - 805
+EP  - 814
+ER  -
 ```
 
 ### Dataset

@@ -99,15 +99,41 @@ def handle_convert_from_openalex(data: str) -> None:
     send_api_cluster_result(results_str=results_str)
     # </Send the API cluster result>
 
-def send_api_cluster_result(results_str: str = "") -> None:
-    potential_error_in_dict: dict = json.loads(results_str)
-    if "error" in potential_error_in_dict:
-        emit("search_results", { 'results': None }, to=request.sid)
-        emit("search_error", potential_error_in_dict, to=request.sid)
-        print("ERROR:\n " + results_str + "\n/ERROR")
-    else:
-        print(f"Raw results from query(): \n{results_str}")
-        emit("search_results", { 'results': results_str }, to=request.sid)
+@socketio.on("convert_from_ris")
+def handle_convert_from_openalex(data: str) -> None:
+    if not isinstance(data, str) or len(data) > config.FLASK_MAX_INPUT_LENGTH:
+        abort(400)  # Invalid input
+
+    # <Send query to the API cluster>
+    results_str: str =\
+        json.dumps(retriever.convert_from_ris(data))
+    # </Send query to API cluster>
+
+    # <Send the API cluster result>
+    send_api_cluster_result(results_str=results_str)
+    # </Send the API cluster result>
+
+@socketio.on("convert_from_crossref_style_to_ris")
+def handle_convert_from_openalex(data: str) -> None:
+    if not isinstance(data, str) or len(data) > config.FLASK_MAX_INPUT_LENGTH:
+        abort(400)  # Invalid input
+
+    # <Parse json data>
+    data_dict: dict[str, int | str] =\
+        json.loads(data)
+
+    print(f"Conversion query from Crossref Style received: {data[:100]}")
+    # </Parse json data>
+
+    # <Send query to the API cluster>
+    results_str: str =\
+        retriever.convert_from_crossref_style_to_ris(data_dict)
+    # </Send query to API cluster>
+
+    # <Send the API cluster result>
+    print(f"Raw results from query(): \n{results_str}")
+    emit("conversion_ris_results", { 'results': results_str }, to=request.sid)
+    # </Send the API cluster result>
 
 @socketio.on("search_query_cursor")
 def handle_search_query_cursor(data: str = None) -> None:
@@ -146,6 +172,16 @@ def handle_search_query_cursor(data: str = None) -> None:
 def disconnected(data: str = None) -> None:
     print(f'client number {request.sid} is disconnected')
     retriever.clear_cache_hashmap(client_id=request.sid)
+
+def send_api_cluster_result(results_str: str = "") -> None:
+    potential_error_in_dict: dict = json.loads(results_str)
+    if "error" in potential_error_in_dict:
+        emit("search_results", { 'results': None }, to=request.sid)
+        emit("search_error", potential_error_in_dict, to=request.sid)
+        print("ERROR:\n " + results_str + "\n/ERROR")
+    else:
+        print(f"Raw results from query(): \n{results_str}")
+        emit("search_results", { 'results': results_str }, to=request.sid)
 
 app: Flask = create_app()
 

@@ -42,5 +42,9 @@ HABANERO_TIMEOUT: int = int(os.getenv("HABANERO_TIMEOUT")) # seconds
 PYBLIOMETRICS_APIKEY: str = os.getenv("PYBLIOMETRICS_APIKEY")
 # </Scopus>
 
+# <RISPY>
+RISPY_WORKING_FOLDER: str = os.getenv("RISPY_WORKING_FOLDER")
+# </RISPY>
+
 # </Environment variables>
 
