@@ -31,6 +31,12 @@ export const SearchResult = ({ item, loading, setLoading }) => {
         URL.revokeObjectURL(url);
     };
 
+
+    const handleRisClick = () => {
+        const dataStr = JSON.stringify(item, null, 2);
+        socket_retriever.emit('convert_from_crossref_style_to_ris', dataStr);
+    };
+
     const handleFilterClick = () => {
         const title = item?.['title'][0] || item?.['container-title'][0];
 
@@ -52,6 +58,7 @@ export const SearchResult = ({ item, loading, setLoading }) => {
 
             <button className="result-button" onClick={handleFilterClick}>Filter by Title</button>
             <button className="result-button" onClick={handleMetadataClick}>Metadata as JSON</button>
+            <button className="result-button" onClick={handleRisClick}>Metadata as RIS</button>
         </div>
     );
 };

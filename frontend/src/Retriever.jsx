@@ -25,9 +25,26 @@ function Retriever() {
             setResults(JSON.parse(data.results));
         });
 
+        socket_retriever.on("conversion_ris_results", (data) => {
+            setLoading(false);
+            setError(null);
+
+            const blob = new Blob([data.results],
+                { type: "application/x-research-info-systems" });
+            const url = URL.createObjectURL(blob);
+
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = `publication.ris`;
+            a.click();
+
+            URL.revokeObjectURL(url);
+        });
+
         return () => {
             socket_retriever.off("search_error");
             socket_retriever.off("search_results");
+            socket_retriever.off("conversion_ris_results");
         };
     }, []);
 
@@ -50,6 +67,31 @@ function Retriever() {
                     JSON.stringify(jsonContent));
             } catch (err) {
                 setError("JSON is invalid.");
+            }
+        };
+
+        reader.readAsText(file);
+    };
+
+    // ----------------------------------------------------------------------
+    // RIS Upload.
+    // ----------------------------------------------------------------------
+
+    const handleRisUpload = (event) => {
+        const file = event.target.files[0];
+        if (!file) return;
+
+        const reader = new FileReader();
+
+        reader.onload = (e) => {
+            try {
+                const risContent = e.target.result;
+                setLoading(true);
+                setError(null);
+                socket_retriever.emit("convert_from_ris",
+                    risContent);
+            } catch (err) {
+                setError("RIS is invalid.");
             }
         };
 
@@ -98,6 +140,20 @@ function Retriever() {
                     id="jsonUpload"
                     accept=".json"
                     onChange={handleJsonUpload}
+                    disabled={loading}
+                    style={{ marginTop: '0.5rem', fontSize: '1rem' }}
+                />
+            </div>
+
+            <div className="Upload">
+                <label htmlFor="jsonUpload">
+                    <strong>Import a RIS publication :</strong>
+                </label>
+                <input
+                    type="file"
+                    id="jsonUpload"
+                    accept=".json"
+                    onChange={handleRisUpload}
                     disabled={loading}
                     style={{ marginTop: '0.5rem', fontSize: '1rem' }}
                 />
