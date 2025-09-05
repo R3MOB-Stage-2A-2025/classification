@@ -339,6 +339,13 @@ class Retriever:
                 "abstract_inverted_index": None
             }
 
+            if current_desired_result["DOI"] == None:
+                current_desired_result["DOI"] = current_result.get("id", None)
+
+                if current_desired_result["DOI"] != None:
+                    current_desired_result["URL"] =\
+                        "https://doi.org/" + current_desired_result["DOI"]
+
             # <Add metadatas if possible, when openalex finds it>
             current_openalex_query: dict =\
                 json.loads(
