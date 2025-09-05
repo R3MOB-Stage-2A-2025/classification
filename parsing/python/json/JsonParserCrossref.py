@@ -509,7 +509,8 @@ class JsonParserCrossref:
         line_json_dict: dict[str, str | list[str]] = line_json
 
         concatenation: str = ""
-        concatenation += line_json_dict['title']
+        concatenation +=\
+            line_json_dict['title'] if line_json_dict.get('title') else ""
         concatenation += ", "
         concatenation += ', '.join(line_json_dict['abstract'])
         concatenation += ", "
