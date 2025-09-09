@@ -44,6 +44,8 @@ CLASSIFIER_TFIDF_IGNORE_WARNINGS: bool =\
     True if os.getenv("CLASSIFIER_TFIDF_IGNORE_WARNINGS") == "TRUE" else False
 CLASSIFIER_TFIDF_SAVE_TEXT_CLEAN: bool =\
     True if os.getenv("CLASSIFIER_TFIDF_SAVE_TEXT_CLEAN") == "TRUE" else False
+CLASSIFIER_TFIDF_DISPLAY_CROSSVALIDATION: bool =\
+    True if os.getenv("CLASSIFIER_TFIDF_DISPLAY_CROSSVALIDATION") == "TRUE" else False
 # </Classification Models>
 
 # <Tokenizer + Embeddings>

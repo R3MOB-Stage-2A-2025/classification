@@ -19,6 +19,11 @@ from sklearn.linear_model import LogisticRegression, SGDClassifier
 from sklearn.svm import LinearSVC
 from sklearn.metrics import accuracy_score, classification_report
 from sklearn.metrics import hamming_loss, jaccard_score
+
+if config.CLASSIFIER_TFIDF_DISPLAY_CROSSVALIDATION:
+    import matplotlib.pyplot as plt
+    from sklearn.model_selection import learning_curve
+    from sklearn.metrics import make_scorer, accuracy_score, f1_score
 # </Machine Learning>
 
 # <Ignore warnings>, most of the time it's useless.
@@ -329,6 +334,40 @@ Percentage of training data:\n\
 
         training_time_tfidf = (end_time - start_time).total_seconds()
         # </Fit to the training data>
+
+        # <CrossValidation Display>
+        if config.CLASSIFIER_TFIDF_DISPLAY_CROSSVALIDATION:
+            score_func = f1_score if type_of_labellisation == "multilabel"\
+                                  else accuracy_score
+            score_func_str: str = "F1" if type_of_labellisation == "multilabel"\
+                                  else "accuracy"
+
+            scorer = make_scorer(score_func, average="micro")
+                                            # or "macro", or accuracy_score
+
+            train_sizes, train_scores, test_scores = learning_curve(
+                estimator=classifier_tfidf,
+                X=X, y=y,
+                train_sizes=np.linspace(0.1, 1.0, 5),
+                scoring=scorer,
+                cv=5,
+                n_jobs=None, # `-1` for parallelism.
+                #shuffle=False,
+                verbose=1
+            )
+
+            train_mean = np.mean(train_scores, axis=1)
+            test_mean = np.mean(test_scores, axis=1)
+
+            plt.plot(train_sizes, train_mean, label="Train")
+            plt.plot(train_sizes, test_mean, label="Cross-validation")
+            plt.xlabel("Training set size")
+            plt.ylabel(f'Score ({score_func_str} micro)')
+            plt.title("Learning curve")
+            plt.legend()
+            plt.grid(True)
+            plt.show()
+        # </CrossValidation Display>
 
         # <Results>
         predicted_train_tfidf = classifier_tfidf.predict(X_train)
