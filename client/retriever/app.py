@@ -100,21 +100,22 @@ def handle_convert_from_openalex(data: str) -> None:
     # </Send the API cluster result>
 
 @socketio.on("convert_from_ris")
-def handle_convert_from_openalex(data: str) -> None:
+def handle_convert_from_ris(data: str) -> None:
     if not isinstance(data, str) or len(data) > config.FLASK_MAX_INPUT_LENGTH:
-        abort(400)  # Invalid input
+        abort(400)
 
-    # <Send query to the API cluster>
-    results_str: str =\
-        json.dumps(retriever.convert_from_ris(data))
-    # </Send query to API cluster>
+    print(f"Conversion RIS reçue (100 premiers chars): {data[:100]}")
 
-    # <Send the API cluster result>
-    send_api_cluster_result(results_str=results_str)
-    # </Send the API cluster result>
+    try:
+        results_dict: dict[str, str | dict] = retriever.convert_from_ris(data)
+        emit("conversion_ris_results", { "results": results_dict }, to=request.sid)
+    except Exception as e:
+        error_json_dict = { 'error': { 'message': f'Erreur conversion RIS: {str(e)}' } }
+        emit("search_error", error_json_dict, to=request.sid)
+        print(f"Erreur conversion RIS: {e}")
 
 @socketio.on("convert_from_crossref_style_to_ris")
-def handle_convert_from_openalex(data: str) -> None:
+def handle_convert_from_crossref_style_to_ris(data: str) -> None:
     if not isinstance(data, str) or len(data) > config.FLASK_MAX_INPUT_LENGTH:
         abort(400)  # Invalid input
 
