@@ -34,15 +34,15 @@ def handle_message(data):
         abort(400)  # Invalid input
     print("data from the front end: ", str(data))
 
-#@socketio.on_error()
-#def handle_error(e):
-    #error_str: str = e.__str__()
-    #error_json_dict: dict[str, dict] = { 'error': { 'message': error_str } }
+@socketio.on_error()
+def handle_error(e):
+    error_str: str = e.__str__()
+    error_json_dict: dict[str, dict] = { 'error': { 'message': error_str } }
 
-    #emit("classification_error", error_json_dict, to=request.sid)
-    #emit("classification_results", classifier.error_payload(), to=request.sid)
+    emit("classification_error", error_json_dict, to=request.sid)
+    emit("classification_results", classifier.error_payload(), to=request.sid)
 
-    #print("ERROR:\n " + error_str + "\n/ERROR")
+    print("ERROR:\n " + error_str + "\n/ERROR")
 
 @socketio.on('text_classification')
 def handle_text_classify(data: str) -> None:
