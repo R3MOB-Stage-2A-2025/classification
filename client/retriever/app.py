@@ -28,7 +28,7 @@ def handle_message(data):
     if not isinstance(data, str) or len(data) > config.FLASK_MAX_INPUT_LENGTH:
         abort(400)  # Invalid input
 
-#@socketio.on_error()
+@socketio.on_error()
 def handle_error(e):
     error_str: str = e.__str__()
     error_json_dict: dict[str, dict] = { 'error': { 'message': error_str } }
