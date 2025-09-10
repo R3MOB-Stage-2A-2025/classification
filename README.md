@@ -390,6 +390,13 @@ You will need:
 
 - *docker compose*
 
+```bash
+ classification  >>  docker --version
+Docker version 28.3.3, build 980b856816
+ classification  >>  docker compose version
+Docker Compose version 2.39.2
+```
+
 ### Launching
 
 Each client contains a *Dockerfile*,
