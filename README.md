@@ -372,7 +372,8 @@ To explain what is going on:
 2. *Openalex* enhances what *Crossref* can give with its own metadata,
 
 3. The *llm* called **sentence-transformers** from *HuggingFace* labellizes
-a generated dataset that is close to your searching query,
+a generated dataset that is close to your searching query
+(this part has to be done manually),
 
 4. The current classification model, trained on that dataset, classifies the
 searched paper amongst the given themes (here, the categories given by
@@ -418,13 +419,13 @@ cp client/classifier/.env.example client/classifier/.env
 vim client/classifier/.env
 
 # Launch.
-docker compose -f docker-compose.yml up -d
+docker compose -f docker-compose.yml up -d --build
 
 # If you want to remove the containers.
 docker compose -f docker-compose.yml down
 
-# If you want to remove the docker images ( not done by `docker compose down` ),
-# because you forgot to edit the `.env` files in the client directories:
+# If you want to remove the docker images ( not done by `docker compose down` )
+# `--build` recreates the image anyway.
 docker images
 docker rmi <image-name>
 
