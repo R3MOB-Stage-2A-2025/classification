@@ -15,7 +15,7 @@ services:
       resources:
         limits:
           cpus: '0.70'
-          memory: 100M
+          memory: 300M
     networks:
       - classification-net
     environment:
@@ -41,7 +41,7 @@ services:
       resources:
         limits:
           cpus: '0.70'
-          memory: 100M
+          memory: 300M
     networks:
       - classification-net
     environment:
@@ -147,27 +147,27 @@ services:
     networks:
       - classification-net
 
-      #frontend_dev:
-      #build:
-      #context: .
-      #dockerfile: frontend/frontend_dev.Dockerfile
-      #container_name: r3mobdev_frontend
-      #restart: unless-stopped
-      #deploy:
-      #resources:
-      #limits:
-      #cpus: '0.70'
-      #memory: 200M
-      #network_mode: "host"
-      ##networks:
-      ##- classification-net
-      #environment:
-      #- PUID=1000
-      #- PGID=1000
-      #ports:
-      #- "5180:5180"
-      ##volumes:
-      ##- ./config_frontend_dev:/api
+  frontend_dev:
+    build:
+      context: .
+      dockerfile: frontend/frontend_dev.Dockerfile
+    container_name: r3mobdev_frontend
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: '0.70'
+          memory: 200M
+    network_mode: "host"
+      #networks:
+      #- classification-net
+    environment:
+      - PUID=1000
+      - PGID=1000
+    ports:
+      - "5180:5180"
+        #volumes:
+        #- ./config_frontend_dev:/api
 
 networks:
   classification-net:

@@ -20,7 +20,7 @@ EXPOSE 5001
 
 CMD gunicorn 'app:app' \
     --worker-class gevent \
-    --workers 1 \
+    --workers 4 \
     --bind 0.0.0.0:5001 \
     --reload \
     --access-logfile - \
