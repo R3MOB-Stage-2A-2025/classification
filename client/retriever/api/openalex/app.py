@@ -178,7 +178,8 @@ class OpenAlexClient(Service):
 
         return self.generic_query(func_query, query)
 
-    def query_filter(self, query_filter: str) -> list[dict[str, str | dict]]:
+    def query_filter_doi(self, query_filter: str)\
+                                                -> list[dict[str, str | dict]]:
         """
         :param query: A concatenation of DOI such as `"DOI1|DOI2|DOI3"`.
             see the official doc of *pyalex* on Work filters.
@@ -193,6 +194,39 @@ class OpenAlexClient(Service):
             w = Works()
             publications: list[dict] =\
                 w.filter(doi=query_filter).get()
+
+            results: list[dict[str, str | dict]] = []
+
+            for publication in publications:
+
+                # ! Do not consider if they <don't have DOI's>...
+                if publication.get('doi', None) != None:
+                    current_result: dict =\
+                        self.parse_single(publication, publication['abstract'])
+                    results.append(current_result)
+
+            if results == {}:
+                return self.parse_single(None, None)
+            return results
+
+        return self.generic_query(func_query, query_filter)
+
+    def query_filter_orcid(self, query_filter: str)\
+                                                -> list[dict[str, str | dict]]:
+        """
+        :param query: A concatenation of ORCID IDs such as `"ORCID1|ORCID2|ORCID3"`.
+            see the official doc of *pyalex* on Work filters.
+
+        :return: the result of ``pyalex.Works().filter(query_filter).get()``,
+            but parsed to in the *Crossref Style*.
+                 It can retrieve various publications at a time.
+
+        """
+
+        def func_query(query_filter: str) -> list[dict[str, str | dict]]:
+            w = Works()
+            publications: list[dict] =\
+                w.filter(**{"authorships.author.orcid": query_filter}).get()
 
             results: list[dict[str, str | dict]] = []
 

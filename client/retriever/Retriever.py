@@ -1,4 +1,4 @@
-from time import sleep
+from time import sleep, time
 import re
 import json
 import uuid
@@ -112,16 +112,51 @@ class Retriever:
                        cursor_max: int = None, client_id: str = None) -> str:
 
         # Detect if the query is actually a concatenation of *DOI*s.
-        regex: str = r'10\.\d{4,9}/[\w.\-;()/:]+'
-        dois: list[str] = re.findall(regex, query)
+        regex_doi: str = r'10\.\d{4,9}/[\w.\-;()/:]+'
+        dois: list[str] = re.findall(regex_doi, query)
 
         if len(dois) > 0:
             query_filter: str = '|'.join(dois)
             results: list[dict[str, str | dict]] =\
-                self._openalex.query_filter(query_filter)
+                self._openalex.query_filter_doi(query_filter)
 
             return json.dumps(parse_items(results, total_results=len(dois)))
         # </Detect DOIs>
+
+        # Detect if the query is actually a concatenation of *ORCID* IDs.
+        regex_orcid: str = r'^\d{4}-\d{4}-\d{4}-\d{3}[0-9X]$'
+        orcids: list[str] = re.findall(regex_orcid, query)
+
+        if len(orcids) > 0:
+            query_filter: str = '|'.join(orcids)
+            results_openalex: list[dict[str, str | dict]] =\
+                self._openalex.query_filter_orcid(query_filter)
+
+            # <The list of N elements> will be a list of NB_PAGE elts.
+            nblimit: int = min(limit, len(results_openalex))
+
+            results: list[dict[str, str | dict]] = []
+            factor: list[int] = [
+                nblimit * (i + 1)
+                for i in range(len(results_openalex)//nblimit)
+            ]
+
+            results.append(parse_items(results_openalex[:factor[0]],\
+                        total_results=len(results_openalex[:factor[0]])))
+            for i in range(1, len(factor)):
+                results.append(
+                    parse_items(results_openalex[factor[i-1]:factor[i]],\
+                    total_results=len(results_openalex[factor[i-1]:factor[i]])))
+            # <The list of N elements>
+
+            self._cursor_hashmap[client_id] = results
+            self._cursor_status[client_id] =\
+                [ 2 for i in range(len(results)) ]
+            self._cursor_max_hashmap[client_id] =\
+                           min(self._cursor_max_default, len(results))
+
+            return json.dumps(results[0])
+        # </Detect ORCID IDs>
 
         # <Crossref Query> Just retrieve the *DOI*s and the *abstract*.
         cursor_max = self._cursor_max_default\
@@ -131,6 +166,7 @@ class Retriever:
             self._crossref.query(query=query, limit=limit, sort=sort,\
                                  client_id=client_id, isRetriever=True,\
                                  cursor_max=cursor_max)
+        print(f'Crossref finished its job at {time()}')
 
         # Here, crossref_results is a dict only if there is an error.
         if 'error' in crossref_results:
@@ -152,6 +188,7 @@ class Retriever:
         # <OpenAlex enhances metadata> for id_cursor=0
         openalex_results: dict[str, str | dict] =\
             self._openalex_enhance_metadata(crossref_results_cursor)
+        print(f'Openalex finished its job at {time()}')
         # </OpenAlex enhances metadata>
 
         # <Add the current query to the cache hashmap>
@@ -192,7 +229,7 @@ class Retriever:
         # <Enhance with openalex>
         query_filter: str = '|'.join(list_doi)
         openalex_results: list[dict[str, str | dict]] =\
-            self._openalex.query_filter(query_filter)
+            self._openalex.query_filter_doi(query_filter)
         # </Enhance with openalex>
 
         # <Add the abstracts if necessary>
