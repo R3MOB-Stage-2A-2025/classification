@@ -14,6 +14,8 @@ FLASK_DEBUG: bool=\
     True if os.getenv("FLASK_DEBUG") == "TRUE" else False
 FLASK_ALLOWED_ORIGINS: str = os.getenv("FLASK_ALLOWED_ORIGINS")
 FLASK_MAX_INPUT_LENGTH: int = int(os.getenv("FLASK_MAX_INPUT_LENGTH"))
+RETRIEVER_DEBUG: bool =\
+    True if os.getenv("RETRIEVER_DEBUG") == "TRUE" else False
 MAX_WORKERS: int = 4
 # </Flask + gevent + socketio>
 
@@ -47,4 +49,18 @@ RISPY_WORKING_FOLDER: str = os.getenv("RISPY_WORKING_FOLDER")
 # </RISPY>
 
 # </Environment variables>
+
+# <Debug functions>
+
+def debug_wrapper(**kwargs) -> None:
+    result: str = ""
+
+    if not RETRIEVER_DEBUG:
+        print(result)
+
+    for k, val in kwargs.items():
+        result += f'[{str(k)}={str(val)}]'
+
+    print(result)
+# </Debug functions>
 

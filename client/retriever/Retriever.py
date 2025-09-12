@@ -334,6 +334,7 @@ class Retriever:
 
         # <Read this temporary file>
         results: list[dict] = []
+
         with open(filepath, 'r') as file:
             results = rispy.load(file)
         # </Read this temporary file>
@@ -347,7 +348,8 @@ class Retriever:
         for current_result in results:
 
             current_desired_result: dict = {
-                "title": [ current_result.get("title") ],
+                "title": [ current_result.get("title",\
+                              current_result.get("primary_title")) ],
                 "abstract": current_result.get("abstract", None),
                 "TL;DR": None,
                 "DOI": current_result.get("doi", None),
@@ -377,16 +379,22 @@ class Retriever:
             }
 
             if current_desired_result["DOI"] == None:
-                current_desired_result["DOI"] = current_result.get("id", None)
+                if current_result.get("id"):
+                    current_desired_result["DOI"] =\
+                        current_result.get("id", None)
 
-                if current_desired_result["DOI"] != None:
-                    current_desired_result["URL"] =\
-                        "https://doi.org/" + current_desired_result["DOI"]
+            if current_desired_result["DOI"] != None:
+                current_desired_result["URL"] =\
+                    "https://doi.org/" + current_desired_result["DOI"]
 
             # <Add metadatas if possible, when openalex finds it>
+            query_for_openalex: str =\
+                current_desired_result.get("URL", None)
+
             current_openalex_query: dict =\
-                json.loads(
-                    self.query_openalex(current_desired_result.get("URL", {})))
+                json.loads(self.query_openalex(query_for_openalex))\
+                if query_for_openalex != None else {}
+
             current_openalex_message: dict =\
                 current_openalex_query.get('message', {})
             current_openalex_items: list[dict]=\
