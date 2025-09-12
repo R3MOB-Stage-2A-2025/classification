@@ -21,7 +21,9 @@ export const SearchBar = ({ setResults, setError, setLoading, loading }) => {
             setError(false);
             socket_retriever.emit("search_query", JSON.stringify({
                 query: input,
-                sort: sort
+                sort: sort,
+                limit: 100,
+                cursor_max: -1
             }));
         }
     };
