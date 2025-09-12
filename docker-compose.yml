@@ -15,7 +15,7 @@ services:
       resources:
         limits:
           cpus: '0.70'
-          memory: 300M
+          memory: 200M
     networks:
       - classification-net
     environment:
@@ -41,7 +41,7 @@ services:
       resources:
         limits:
           cpus: '0.70'
-          memory: 300M
+          memory: 200M
     networks:
       - classification-net
     environment:
