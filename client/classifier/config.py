@@ -14,6 +14,8 @@ FLASK_DEBUG: bool=\
     True if os.getenv("FLASK_DEBUG") == "TRUE" else False
 FLASK_ALLOWED_ORIGINS: str = os.getenv("FLASK_ALLOWED_ORIGINS")
 FLASK_MAX_INPUT_LENGTH: int = int(os.getenv("FLASK_MAX_INPUT_LENGTH"))
+CLASSIFIER_DEBUG: bool =\
+    True if os.getenv("CLASSIFIER_DEBUG") == "TRUE" else False
 MAX_WORKERS: int = 4
 # </Flask + gevent + socketio>
 
@@ -58,4 +60,17 @@ CLASSIFIER_MISCELLANEOUS_USE: bool =\
 # </Tokenizer + Embeddings>
 
 # </Environment variables>
+
+# <Debug functions>
+def debug_wrapper(**kwargs) -> None:
+    result: str = ""
+
+    if not CLASSIFIER_DEBUG:
+        print(result)
+
+    else:
+        for k, val in kwargs.items():
+            result += f'[{str(k)}={str(val)}]'
+        print(result)
+# </Debug functions>
 
