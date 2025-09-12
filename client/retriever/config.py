@@ -51,7 +51,6 @@ RISPY_WORKING_FOLDER: str = os.getenv("RISPY_WORKING_FOLDER")
 # </Environment variables>
 
 # <Debug functions>
-
 def debug_wrapper(**kwargs) -> None:
     result: str = ""
 
