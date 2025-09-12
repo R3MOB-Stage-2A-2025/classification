@@ -58,9 +58,9 @@ def debug_wrapper(**kwargs) -> None:
     if not RETRIEVER_DEBUG:
         print(result)
 
-    for k, val in kwargs.items():
-        result += f'[{str(k)}={str(val)}]'
-
-    print(result)
+    else:
+        for k, val in kwargs.items():
+            result += f'[{str(k)}={str(val)}]'
+        print(result)
 # </Debug functions>
 

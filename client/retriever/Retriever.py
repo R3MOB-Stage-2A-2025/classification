@@ -8,7 +8,7 @@ import datetime
 import config
 
 # <If you want to parallelize something>
-import concurrent.futures
+#import concurrent.futures
 
 # Example of code:
 #list_queries: list[str] = [ "Example 1", "Example 2" ]
@@ -51,7 +51,8 @@ from api.scopus.app import ScopusClient
 
 class Retriever:
     def __init__(self):
-        print("Retriever initializing...")
+        config.debug_wrapper(timestamp=time(),\
+                         message="Retriever initializing...")
 
         self._openalex = OpenAlexClient(
             apiurl  = None,
@@ -106,7 +107,8 @@ class Retriever:
         self._cursor_status: dict[str, list[int]] = {}
         # </Cursor Hashmap>
 
-        print("Retriever initialized.")
+        config.debug_wrapper(timestamp=time(),\
+                         message="Retriever Initialized")
 
     def _threaded_query(self, query: str, limit: int = 10, sort: str = None,\
                        cursor_max: int = None, client_id: str = None) -> str:
@@ -160,13 +162,15 @@ class Retriever:
 
         # <Crossref Query> Just retrieve the *DOI*s and the *abstract*.
         cursor_max = self._cursor_max_default\
-            if cursor_max == None or 2000 < cursor_max else cursor_max
+            if cursor_max == None or 500 < cursor_max else cursor_max
 
         crossref_results: list[dict] | dict =\
             self._crossref.query(query=query, limit=limit, sort=sort,\
                                  client_id=client_id, isRetriever=True,\
                                  cursor_max=cursor_max)
-        print(f'Crossref finished its job at {time()}')
+
+        config.debug_wrapper(timestamp=time(),\
+                             message="Crossref finished its job.")
 
         # Here, crossref_results is a dict only if there is an error.
         if 'error' in crossref_results:
@@ -188,7 +192,9 @@ class Retriever:
         # <OpenAlex enhances metadata> for id_cursor=0
         openalex_results: dict[str, str | dict] =\
             self._openalex_enhance_metadata(crossref_results_cursor)
-        print(f'Openalex finished its job at {time()}')
+
+        config.debug_wrapper(timestamp=time(),\
+                             message="Openalex finished its job.")
         # </OpenAlex enhances metadata>
 
         # <Add the current query to the cache hashmap>
@@ -403,11 +409,8 @@ class Retriever:
 
             for i, a in enumerate(current_result.get("authors", [])):
                 current_desired_result.get("author", []).append(
-                    ris_parse_author(
-                         a,
-                         current_result.get("custom1", {})\
-                             if i == 0 else None,
-                         current_desired_result.get("author", [])))
+                    ris_parse_author(a,\
+                         current_openalex_result.get("author", [])))
 
             if current_desired_result.get("title", []) == []:
                 current_desired_result["title"] =\
@@ -587,14 +590,12 @@ def parse_tag(textraw: str) -> str:
 # Functions for the RIS format.
 #############################################################################
 
-def ris_parse_author(author_str: str, affiliation: list[dict] = None,\
+def ris_parse_author(author_str: str,\
         openalex_author: list[dict] = None) -> dict[str, str | list[dict]]:
     """
     Used by `self.convert_from_ris()`.
 
     :param author_str: example: "Toufik, Ahmed", from the RIS file.
-    :param affiliation: "Institute of Energy Economics, Technical ...",
-                    from the RIS file.
     :param openalex_author: The "author" from OPENALEX retriever in the
                             Crossref Style.
 
@@ -614,34 +615,15 @@ def ris_parse_author(author_str: str, affiliation: list[dict] = None,\
                 and author.get('given', "") in given:
             author_openalex = author
 
-    affiliation_author: list[dict] = [
-            {
-                "name": affiliation,
-                "openalex": None,
-                "ror": None,
-                "country": "FR" if affiliation else None
-            }
-        ] if affiliation else []
-
-    affiliation_openalex: list[dict] = author_openalex.get('affiliation', [])
-    for an_affiliation in affiliation_openalex:
-        current_name: str = an_affiliation.get('name', "")
-
-        if current_name == affiliation:
-            current_openalex: str = an_affiliation.get('openalex', None)
-            current_ror: str = an_affiliation.get('ror', None)
-            current_country: str = an_affiliation.get('country', None)
-
-            affiliation_author[0]["openalex"] = current_openalex
-            affiliation_author[0]["ror"] = current_ror
-            affiliation_author[0]["country"] = current_country
+    affiliation_openalex: list[dict] =\
+        author_openalex.get('affiliation', [])
 
     return {
         "given": given,
         "family": family,
         "ORCID": author_openalex.get('ORCID', None),
         "OPENALEX": author_openalex.get('OPENALEX', None),
-        "affiliation": affiliation_author,
+        "affiliation": affiliation_openalex,
     }
 
 #############################################################################

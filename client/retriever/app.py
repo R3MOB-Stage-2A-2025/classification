@@ -158,7 +158,8 @@ def handle_convert_from_ris(data: str) -> None:
 
         config.debug_wrapper(event="convert_from_ris", timestamp=time(),\
                          clientid=request.sid, message="emit to the client.")
-        emit("conversion_ris_results", { "results": results_dict }, to=request.sid)
+        emit("conversion_ris_results", { "results": json.dumps(results_dict) },\
+                                                                to=request.sid)
 
     except Exception as e:
         error_json_dict = { 'error': { 'message': f'Error conversion RIS: {str(e)}' } }
