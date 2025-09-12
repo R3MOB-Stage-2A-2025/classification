@@ -126,8 +126,11 @@ class Retriever:
         # </Detect DOIs>
 
         # Detect if the query is actually a concatenation of *ORCID* IDs.
-        regex_orcid: str = r'^\d{4}-\d{4}-\d{4}-\d{3}[0-9X]$'
+        regex_orcid: str =\
+        r"[0-9]{4}-[0-9]{4}-[0-9]{4}-[0-9]{3}[0-9X]{1}"
+
         orcids: list[str] = re.findall(regex_orcid, query)
+        print(orcids)
 
         if len(orcids) > 0:
             query_filter: str = '|'.join(orcids)
