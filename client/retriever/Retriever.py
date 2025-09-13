@@ -118,9 +118,14 @@ class Retriever:
         dois: list[str] = re.findall(regex_doi, query)
 
         if len(dois) > 0:
+            config.debug_wrapper(timestamp=time(), nbdois=len(dois), dois=dois)
+
             query_filter: str = '|'.join(dois)
             results: list[dict[str, str | dict]] =\
                 self._openalex.query_filter_doi(query_filter)
+
+            config.debug_wrapper(timestamp=time(), dois=dois,\
+                             nbfound=len(results))
 
             return json.dumps(parse_items(results, total_results=len(dois)))
         # </Detect DOIs>
@@ -130,29 +135,35 @@ class Retriever:
         r"[0-9]{4}-[0-9]{4}-[0-9]{4}-[0-9]{3}[0-9X]{1}"
 
         orcids: list[str] = re.findall(regex_orcid, query)
-        print(orcids)
 
         if len(orcids) > 0:
+            config.debug_wrapper(timestamp=time(),\
+                                 nborcids=len(orcids), orcids=orcids)
+
             query_filter: str = '|'.join(orcids)
             results_openalex: list[dict[str, str | dict]] =\
                 self._openalex.query_filter_orcid(query_filter)
 
+            config.debug_wrapper(timestamp=time(), orcids=orcids,\
+                             nbfound=len(results_openalex))
+
             # <The list of N elements> will be a list of NB_PAGE elts.
-            nblimit: int = min(limit, len(results_openalex))
-
             results: list[dict[str, str | dict]] = []
-            factor: list[int] = [
-                nblimit * (i + 1)
-                for i in range(len(results_openalex)//nblimit)
-            ]
 
-            results.append(parse_items(results_openalex[:factor[0]],\
-                        total_results=len(results_openalex[:factor[0]])))
-            for i in range(1, len(factor)):
-                results.append(
-                    parse_items(results_openalex[factor[i-1]:factor[i]],\
-                    total_results=len(results_openalex[factor[i-1]:factor[i]])))
-            # <The list of N elements>
+            if len(results_openalex) == 0:
+                results = results_openalex
+
+            else:
+                chunk_size = 10
+
+                for i in range(0, len(results_openalex), chunk_size):
+                    chunk: list[dict] = results_openalex[i:i+chunk_size]
+
+                    new_page: list[dict] =\
+                        parse_items(chunk, total_results=len(chunk))
+
+                    results.append(new_page)
+            # </The list of N elements>
 
             self._cursor_hashmap[client_id] = results
             self._cursor_status[client_id] =\
@@ -163,6 +174,49 @@ class Retriever:
             return json.dumps(results[0])
         # </Detect ORCID IDs>
 
+        # <Detect ROR IDs>
+        regex_ror: str =\
+            r"\bhttps?://(?:www\.)?ror\.org/[0-9a-z]{9}/?\b"
+
+        rors: list[str] = re.findall(regex_ror, query)
+
+        if len(rors) > 0:
+            config.debug_wrapper(timestamp=time(), nbrors=len(rors), rors=rors)
+
+            query_filter: str = '|'.join(rors)
+            results_openalex: list[dict[str, str | dict]] =\
+                self._openalex.query_filter_ror(query_filter)
+
+            config.debug_wrapper(timestamp=time(), rors=rors,\
+                             nbfound=len(results_openalex))
+
+            # <The list of N elements> will be a list of NB_PAGE elts.
+            results: list[dict[str, str | dict]] = []
+
+            if len(results_openalex) == 0:
+                results = results_openalex
+
+            else:
+                chunk_size = 10
+
+                for i in range(0, len(results_openalex), chunk_size):
+                    chunk: list[dict] = results_openalex[i:i+chunk_size]
+
+                    new_page: list[dict] =\
+                        parse_items(chunk, total_results=len(chunk))
+
+                    results.append(new_page)
+            # </The list of N elements>
+
+            self._cursor_hashmap[client_id] = results
+            self._cursor_status[client_id] =\
+                [ 2 for i in range(len(results)) ]
+            self._cursor_max_hashmap[client_id] =\
+                           min(self._cursor_max_default, len(results))
+
+            return json.dumps(results[0])
+        # </Detect ROR IDs>
+
         # <Crossref Query> Just retrieve the *DOI*s and the *abstract*.
         cursor_max = self._cursor_max_default\
             if cursor_max == None or 500 < cursor_max else cursor_max
@@ -172,7 +226,7 @@ class Retriever:
                                  client_id=client_id, isRetriever=True,\
                                  cursor_max=cursor_max)
 
-        config.debug_wrapper(timestamp=time(),\
+        config.debug_wrapper(timestamp=time(), query=query,\
                              message="Crossref finished its job.")
 
         # Here, crossref_results is a dict only if there is an error.
@@ -196,7 +250,7 @@ class Retriever:
         openalex_results: dict[str, str | dict] =\
             self._openalex_enhance_metadata(crossref_results_cursor)
 
-        config.debug_wrapper(timestamp=time(),\
+        config.debug_wrapper(timestamp=time(), query=query,\
                              message="Openalex finished its job.")
         # </OpenAlex enhances metadata>
 

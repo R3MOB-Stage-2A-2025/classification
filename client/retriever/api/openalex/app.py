@@ -226,7 +226,8 @@ class OpenAlexClient(Service):
         def func_query(query_filter: str) -> list[dict[str, str | dict]]:
             w = Works()
             publications: list[dict] =\
-                w.filter(**{"authorships.author.orcid": query_filter}).get()
+                w.filter(**{"authorships.author.orcid": query_filter})\
+                 .get(per_page=104)
 
             results: list[dict[str, str | dict]] = []
 
@@ -243,6 +244,40 @@ class OpenAlexClient(Service):
             return results
 
         return self.generic_query(func_query, query_filter)
+
+    def query_filter_ror(self, query_filter: str)\
+                                                -> list[dict[str, str | dict]]:
+        """
+        :param query: A concatenation of ROR IDs such as `"ROR1|ROR2|ROR3"`.
+            see the official doc of *pyalex* on Work filters.
+
+        :return: the result of ``pyalex.Works().filter(query_filter).get()``,
+            but parsed to in the *Crossref Style*.
+                 It can retrieve various publications at a time.
+
+        """
+
+        def func_query(query_filter: str) -> list[dict[str, str | dict]]:
+            w = Works()
+            publications: list[dict] =\
+                w.filter(**{"institutions.ror": query_filter}).get(per_page=104)
+
+            results: list[dict[str, str | dict]] = []
+
+            for publication in publications:
+
+                # ! Do not consider if they <don't have DOI's>...
+                if publication.get('doi', None) != None:
+                    current_result: dict =\
+                        self.parse_single(publication, publication['abstract'])
+                    results.append(current_result)
+
+            if results == {}:
+                return self.parse_single(None, None)
+            return results
+
+        return self.generic_query(func_query, query_filter)
+
 
     def parse_single(self, publication: dict, TLDR: str = "")\
                                                     -> dict[str, str | dict]:
