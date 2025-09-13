@@ -2,7 +2,7 @@
 
 From a given paper *DOI*, or the title of its book, or the name of one
 of its authors, this service will find related papers, keywords attached 
-to this papers, and all the non-copyrighted metadata that you will
+to these papers, and all the non-copyrighted metadata that you will
 ever need.
 
 Example:
@@ -502,7 +502,7 @@ payload = {
                     # "published-online", "issued", "is-referenced-by-count",
                     # "references-count".
     'cursor_max': 100, # Max number of publication on all pages
-                       # at the same time.
+                       # at the same time. if negative (-1), it is faster.
 }
 ```
 
