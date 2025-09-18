@@ -158,6 +158,7 @@ def handle_convert_from_ris(data: str) -> None:
 
         config.debug_wrapper(event="convert_from_ris", timestamp=time(),\
                          clientid=request.sid, message="emit to the client.")
+
         emit("conversion_ris_results", { "results": json.dumps(results_dict) },\
                                                                 to=request.sid)
 
@@ -207,7 +208,8 @@ def handle_convert_from_crossref_style_to_ris(data: str) -> None:
                              timestamp=time(),\
                          clientid=request.sid, message="emit to the client.")
 
-        emit("conversion_ris_results", { 'results': results_str }, to=request.sid)
+        emit("conversion_from_crossref_style_to_ris_results",\
+             { 'results': results_str }, to=request.sid)
         # </Send the API cluster result>
 
     except Exception as e:

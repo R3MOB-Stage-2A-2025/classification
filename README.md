@@ -486,9 +486,9 @@ The events are:
 
 - convert_from_openalex(json_openalex) -> search_results() | search_error()
 
-- convert_from_ris(json_crossref_style) -> search_results() | search_error()
+- convert_from_ris(json_crossref_style) -> conversion_ris_results() | search_error()
 
-- convert_from_crossref_style_to_ris(ris_file_str) -> conversion_ris_results()
+- convert_from_crossref_style_to_ris(ris_file_str) -> conversion_from_crossref_style_to_ris_results()
 ```
 
 where the `payload` is:
