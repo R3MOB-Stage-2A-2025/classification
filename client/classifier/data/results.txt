@@ -1,0 +1,374 @@
+[2025-10-08 11:30:14 +0000] [7] [INFO] Starting gunicorn 23.0.0
+[2025-10-08 11:30:14 +0000] [7] [INFO] Listening at: http://0.0.0.0:5011 (7)
+[2025-10-08 11:30:14 +0000] [7] [INFO] Using worker: gevent
+[2025-10-08 11:30:14 +0000] [8] [INFO] Booting worker with pid: 8
+[nltk_data] Downloading package punkt_tab to /opt/.venv/nltk_data...
+[nltk_data]   Unzipping tokenizers/punkt_tab.zip.
+[nltk_data] Downloading package stopwords to /opt/.venv/nltk_data...
+[nltk_data]   Unzipping corpora/stopwords.zip.
+[nltk_data] Downloading package wordnet to /opt/.venv/nltk_data...
+[nltk_data] Downloading package omw-1.4 to /opt/.venv/nltk_data...
+[nltk_data] Downloading package averaged_perceptron_tagger_eng to
+[nltk_data]     /opt/.venv/nltk_data...
+[nltk_data]   Unzipping taggers/averaged_perceptron_tagger_eng.zip.
+Classifier initializing...
+Formatting the texts, please wait...
+Texts are formatted!
+
+##########################################################################################################################################################
+Beginning the training for TF IDF...
+Vector of classification: challenges
+Total number of publications: N=20677
+Number of words in the vocabulary (max_features): C=10000
+Range of ngram: ngram_range=(1, 2)
+Type of labellisation: multilabel
+Algorithm used (only for multilabel): algo=LinearSVC(class_weight='balanced')
+Algorithm used (only for singlelabel): algo=LogisticRegression(class_weight='balanced')
+##########################################################################################################################################################
+Number of unique categories: C=6
+Split by categories:
+Economiques: 4556
+Environnementaux: 5978
+Sociétaux: 3106
+Stratégiques: 6262
+Technologiques: 7464
+Other: 2816
+##########################################################################################################################################################
+head(Dataset):
+                    categories  ...                                         text_clean
+0  [Stratégiques, Economiques]  ...  Crafting Business and Supply Chain Strategies,...
+1           [Environnementaux]  ...  Conduction Heat Transfer in Electronic Equipme...
+2           [Environnementaux]  ...  Fossil Fuels Pollution and Air Quality Modelin...
+3             [Technologiques]  ...  Digital Neurocomputer VLSI-Systems with Parall...
+4                      [Other]  ...  Normality and Abnormality in Adolescence, (197...
+
+[5 rows x 3 columns]
+
+##########################################################################################################################################################
+Percentage of training data:
+{"(0) Economiques": 0.7001755926251098}
+{"(3) Soci\u00e9taux": 0.7095943335479716}
+{"(1) Environnementaux": 0.701739712278354}
+{"(5) Technologiques": 0.7010986066452305}
+{"(2) Other": 0.6924715909090909}
+{"(4) Strat\u00e9giques": 0.6919514532098371}
+
+##########################################################################################################################################################
+Accuracy Training data (only for singlelabel): 0.7428314793062945
+Accuracy Test data (only for singlelabel): 0.44294003868471954
+Hamming Loss on Train data: 0.04860775236647551
+Hamming Loss on Test data: 0.13964109176875134
+Jaccard Score (micro) on Train data: 0.8307062928648778
+Jaccard Score (micro) on Test data: 0.5807050092764379
+Training time: 161.50925
+##########################################################################################################################################################
+Classification Report:
+======================================================
+              precision    recall  f1-score   support
+
+           0       0.60      0.74      0.66      1366
+           1       0.76      0.80      0.78      1783
+           2       0.63      0.81      0.71       866
+           3       0.58      0.81      0.68       902
+           4       0.68      0.77      0.73      1929
+           5       0.76      0.82      0.79      2231
+
+   micro avg       0.68      0.79      0.73      9077
+   macro avg       0.67      0.79      0.72      9077
+weighted avg       0.69      0.79      0.74      9077
+ samples avg       0.73      0.84      0.75      9077
+
+
+(categories x vocabulary size): (1, 10000)
+--------------------------------------------------------------------------------
+0: enterprises, investment, analysis in, commerce, impact, berlin, macroeconomics, coefficient, customers, analyse, index, demand, financial, model, price, cost, economics, prices, costs, pricing
+1: disturbance, co2, resources, fuel, combustion, emission, ecology, africa, waste, climate, carsharing, ecological, sustainability, green, ridesharing, carbon, emissions, environmental, energy, sustainable
+2: acoustic, workspace, observer, induced, hoc network, algorithm for, parameter, cancer, 65, multiuser, progress, calibration, experimental results, coordinated, by, experimental, we propose, wiley, patients, we
+3: urban, las, mobility in, ridesharing, matching, social network, mixed, fairness, drivers, disabilities, communities, safety, settlement, passengers, social, community, public, ride, accessibility, mobility
+4: requirements, fleet, scenarios, flood, spatial, tariff, game, africa, japan, transportation, mission, planning, safety, spain, countries, construction, policy, strategy, epistemology, infrastructure
+5: deliver, drones, innovation, monitoring, large scale, algorithm, ai, digital, signal, technology, robots, artificial, intelligent, computer, computer science, buses, smart, autonomous, automation, automated
+
+##########################################################################################################################################################
+Beginning the training for TF IDF...
+Vector of classification: themes
+Total number of publications: N=20677
+Number of words in the vocabulary (max_features): C=10000
+Range of ngram: ngram_range=(1, 2)
+Type of labellisation: multilabel
+Algorithm used (only for multilabel): algo=LinearSVC(class_weight='balanced')
+Algorithm used (only for singlelabel): algo=LogisticRegression(class_weight='balanced')
+##########################################################################################################################################################
+Number of unique categories: C=9
+Split by categories:
+Communications: 2090
+Energie: 3694
+Logistique: 4175
+Matériaux: 1611
+Plateforme: 2404
+Rural: 1547
+Transfrontalier: 808
+Urbain: 6307
+Other: 6290
+##########################################################################################################################################################
+head(Dataset):
+          categories  ...                                         text_clean
+0       [Logistique]  ...  Crafting Business and Supply Chain Strategies,...
+1        [Matériaux]  ...  Conduction Heat Transfer in Electronic Equipme...
+2  [Energie, Urbain]  ...  Fossil Fuels Pollution and Air Quality Modelin...
+3   [Communications]  ...  Digital Neurocomputer VLSI-Systems with Parall...
+4            [Other]  ...  Normality and Abnormality in Adolescence, (197...
+
+[5 rows x 3 columns]
+
+##########################################################################################################################################################
+Percentage of training data:
+{"(3) Mat\u00e9riaux": 0.7014276846679082}
+{"(8) Urbain": 0.6998573014111305}
+{"(7) Transfrontalier": 0.7116336633663366}
+{"(5) Plateforme": 0.6967554076539102}
+{"(1) Energie": 0.6992420140768815}
+{"(0) Communications": 0.7133971291866029}
+{"(4) Other": 0.7028616852146264}
+{"(2) Logistique": 0.6948502994011976}
+{"(6) Rural": 0.7000646412411118}
+
+##########################################################################################################################################################
+Accuracy Training data (only for singlelabel): 0.7395149588889657
+Accuracy Test data (only for singlelabel): 0.46518375241779497
+Hamming Loss on Train data: 0.03451637915812586
+Hamming Loss on Test data: 0.09932659932659933
+Jaccard Score (micro) on Train data: 0.8171242627618467
+Jaccard Score (micro) on Test data: 0.5502392344497608
+Training time: 168.700891
+##########################################################################################################################################################
+Classification Report:
+======================================================
+              precision    recall  f1-score   support
+
+           0       0.58      0.82      0.68       599
+           1       0.74      0.82      0.78      1111
+           2       0.64      0.77      0.70      1274
+           3       0.47      0.71      0.57       481
+           4       0.77      0.85      0.80      1869
+           5       0.54      0.73      0.62       729
+           6       0.35      0.51      0.42       464
+           7       0.32      0.48      0.39       233
+           8       0.78      0.84      0.81      1893
+
+   micro avg       0.65      0.78      0.71      8653
+   macro avg       0.58      0.73      0.64      8653
+weighted avg       0.66      0.78      0.72      8653
+ samples avg       0.72      0.84      0.74      8653
+
+
+(categories x vocabulary size): (1, 10000)
+--------------------------------------------------------------------------------
+0: satellite, lead, vector, string, evaluates, internet, learning computer, gsm, information, solution, spatial, generalization, graph theory, sociology computer, failure, networks, distributed, telecommunications, 5g, network
+1: regime, computing, system, optimization computer, solids, important, evs, conversion, ev, formal methods, combustion, ce, resource, charging, grid, power, battery, microprocessor, electric, energy
+2: distributed, retrieval, aviation, et, network theory, aggregation, dialogue, truck, parcel, distribution, campus, retail, fleet, mile logistics, multimodal, um, supply, deliveries, logistics, freight
+3: se, serial, engineering, system mathematical, aeronautics engineering, auto, weights, de, decades, wearable, subspace, classification, electronics, combination, building, thermodynamics, modular, materials, formal, design
+4: propensity, 2019, association, voltage, classical, detection, pre, improves, da, circuits, significantly, fairness, wake, par, induced, medicine, correction, einer, by, in
+5: vehicles, engineering biology, evaluation, slicing, devices, mathematical economics, marketing, ride, contexts, systems, governance, based, framework, aggregation, hierarchical, vrp, service, services, platforms, platform
+6: small, countries, intention, micromobility, di, mobility on, incorporating, gap, platooning, microeconomics, redistribution, asia, private, commuting, mobility, household, in, pareto, accessibility, rural
+7: regulatory, sciences political, german, italy, emissions trading, branch, safety, in germany, mission, humanities art, demand response, sciences digital, spain, italian, international, eu, germany, slicing, europe, european
+8: engineering, results of, highway, sustainable, commuting, waste, transport, travel, vehicle, good, smart, city, traffic, vehicles, road, automobile, cities, mobility, transportation, urban
+
+##########################################################################################################################################################
+Beginning the training for TF IDF...
+Vector of classification: scientificThemes
+Total number of publications: N=20677
+Number of words in the vocabulary (max_features): C=10000
+Range of ngram: ngram_range=(1, 2)
+Type of labellisation: multilabel
+Algorithm used (only for multilabel): algo=LinearSVC(class_weight='balanced')
+Algorithm used (only for singlelabel): algo=LogisticRegression(class_weight='balanced')
+##########################################################################################################################################################
+Number of unique categories: C=11
+Split by categories:
+Sciences juridiques, Règlementations et Assurances: 1484
+Matériaux, Aérodynamique, Transition écologique, Énergétique et Mobilités durables: 8405
+Sciences économique, Évaluation des politiques publiques, Modèles économiques: 9624
+Marketing, Durabilité, Chaine d’approvisionnement, Logistiques, Inter & Multimodalité: 13855
+Sciences cognitives, Interfaces H/M: 5838
+Géographie, Territoires et Sociologie: 4962
+Capteurs et Traitement du signal: 1135
+Base et Traitement de données, IA: 3557
+Communications, Infrastructures et Connectivité: 2801
+Sécurité, Cybersécurité, Résilience, Sureté, Fonctionnement et Interopérabilité des systèmes: 5057
+Other: 1446
+##########################################################################################################################################################
+head(Dataset):
+                                          categories  ...                                         text_clean
+0  [Marketing, Durabilité, Chaine d’approvisionne...  ...  Crafting Business and Supply Chain Strategies,...
+1  [Matériaux, Aérodynamique, Transition écologiq...  ...  Conduction Heat Transfer in Electronic Equipme...
+2  [Matériaux, Aérodynamique, Transition écologiq...  ...  Fossil Fuels Pollution and Air Quality Modelin...
+3  [Sciences cognitives, Interfaces H/M, Base et ...  ...  Digital Neurocomputer VLSI-Systems with Parall...
+4                                            [Other]  ...  Normality and Abnormality in Adolescence, (197...
+
+[5 rows x 3 columns]
+
+##########################################################################################################################################################
+Percentage of training data:
+{"(4) Marketing, Durabilit\u00e9, Chaine d\u2019approvisionnement, Logistiques, Inter & Multimodalit\u00e9": 0.6970768675568387}
+{"(7) Sciences cognitives, Interfaces H/M": 0.7055498458376156}
+{"(8) Sciences juridiques, R\u00e8glementations et Assurances": 0.6940700808625337}
+{"(9) Sciences \u00e9conomique, \u00c9valuation des politiques publiques, Mod\u00e8les \u00e9conomiques": 0.7007481296758105}
+{"(1) Capteurs et Traitement du signal": 0.7083700440528634}
+{"(10) S\u00e9curit\u00e9, Cybers\u00e9curit\u00e9, R\u00e9silience, Suret\u00e9, Fonctionnement et Interop\u00e9rabilit\u00e9 des syst\u00e8mes": 0.7041724342495551}
+{"(0) Base et Traitement de donn\u00e9es, IA": 0.7107112735451223}
+{"(2) Communications, Infrastructures et Connectivit\u00e9": 0.6954659050339165}
+{"(6) Other": 0.6867219917012448}
+{"(5) Mat\u00e9riaux, A\u00e9rodynamique, Transition \u00e9cologique, \u00c9nerg\u00e9tique et Mobilit\u00e9s durables": 0.7081499107674003}
+{"(3) G\u00e9ographie, Territoires et Sociologie": 0.6902458686013704}
+
+##########################################################################################################################################################
+Accuracy Training data (only for singlelabel): 0.6282733365577282
+Accuracy Test data (only for singlelabel): 0.29029658284977433
+Hamming Loss on Train data: 0.04580943826435432
+Hamming Loss on Test data: 0.12764492116523063
+Jaccard Score (micro) on Train data: 0.8438697523067372
+Jaccard Score (micro) on Test data: 0.6182399859759838
+Training time: 201.864277
+##########################################################################################################################################################
+Classification Report:
+======================================================
+              precision    recall  f1-score   support
+
+           0       0.55      0.76      0.64      1029
+           1       0.41      0.69      0.51       331
+           2       0.61      0.80      0.69       853
+           3       0.66      0.77      0.71      1537
+           4       0.91      0.86      0.88      4197
+           5       0.79      0.83      0.81      2453
+           6       0.49      0.70      0.57       453
+           7       0.67      0.79      0.73      1719
+           8       0.39      0.60      0.47       454
+           9       0.85      0.86      0.85      2880
+          10       0.64      0.78      0.70      1496
+
+   micro avg       0.72      0.81      0.76     17402
+   macro avg       0.63      0.77      0.69     17402
+weighted avg       0.74      0.81      0.77     17402
+ samples avg       0.74      0.81      0.75     17402
+
+
+(categories x vocabulary size): (1, 10000)
+--------------------------------------------------------------------------------
+0: topic, knowledge, prediction of, computation, artificial, services, information, language, is, engine, deep reinforcement, intelligence, machine learning, nursing, data, ein, learning, neural, prediction, ai
+1: sound, maas, massive, neural, performance of, imaging, conductor, sensors, signature, inference, measurement, haptic, sensor, detection, detect, sensing, network wireless, synchronizer, measurements, monitoring
+2: average, in vehicle, signal programming, satellite, switching, money, aerial, utilization, converters, mobile, gsm, network design, capacity, vehicle to, speed, codes, telecommunications, networks, vehicular, network
+3: zones, street, and services, localization, city, sociology, countries, planning for, cities, social, regions, poverty, communities, geography, rural, taxi, location, urban, mobility, spatial
+4: chain, three, operations, crosswind, marine propulsion, production, multimodal, revenue, rebound, laboratory, products, bodies, industry, logistics, transport, multi, business, management, pricing, transportation
+5: generator, bicycles, carpooling, ridepooling, simulation, carsharing, bottleneck, emissions, ridesharing, transportation theory, workload, car, vehicle, sustainable, design, energy, cars, green, mobility, vehicles
+6: pose, gaussian, wavelength, scattering, bits, we propose, distance, speaker, cylinder, is proposed, synchronous, observer, propose, glass, patients, image, of, in, novel, we
+7: micromobility, automated, autonomous, electrolysis, cognitive, sciences urban, interactive, hospital, robots, ethics, interaction, workstation, drive, computer science, automation, user, computer, wird, ai, human
+8: accounting, here, idle, ticket, support for, laws, business, case, audit, maritime, insurance, under, mais, angle, sea, protection, surge, regulatory, law, risk
+9: of urban, income, fuel, groundwater, cities, accessibility, perspective, environmental science, forecasting, value, continuation, fleet, pricing, public, demand, costs, city, transportation, optimal, economics
+10: parcel lockers, payment, ceramic, airfoil, robust, consistency, failure, elderly, safety, computer security, resilience, platooning, da, mobilität, protection, stable, emergency, risk, privacy, lockers
+
+##########################################################################################################################################################
+Beginning the training for TF IDF...
+Vector of classification: mobilityTypes
+Total number of publications: N=20677
+Number of words in the vocabulary (max_features): C=10000
+Range of ngram: ngram_range=(1, 2)
+Type of labellisation: singlelabel
+Algorithm used (only for multilabel): algo=LinearSVC(class_weight='balanced')
+Algorithm used (only for singlelabel): algo=LogisticRegression(class_weight='balanced')
+##########################################################################################################################################################
+Number of unique categories: C=6
+Split by categories:
+Aérien: 650
+Ferroviaire: 858
+Fluvial/Maritime: 1386
+Routier: 8170
+Transport par cables: 1103
+Other: 9681
+##########################################################################################################################################################
+head(Dataset):
+               categories  ...                                         text_clean
+0      [Fluvial/Maritime]  ...  Crafting Business and Supply Chain Strategies,...
+1                 [Other]  ...  Conduction Heat Transfer in Electronic Equipme...
+2               [Routier]  ...  Fossil Fuels Pollution and Air Quality Modelin...
+3  [Transport par cables]  ...  Digital Neurocomputer VLSI-Systems with Parall...
+4                 [Other]  ...  Normality and Abnormality in Adolescence, (197...
+
+[5 rows x 3 columns]
+
+##########################################################################################################################################################
+Percentage of training data:
+{"(4) Fluvial/Maritime": 0.699724517906336}
+{"(5) Transport par cables": 0.700228832951945}
+{"(3) Routier": 0.6999743128692525}
+{"(2) Other": 0.6999276934201012}
+{"(1) A\u00e9rien": 0.7006688963210702}
+{"(0) Ferroviaire": 0.699537750385208}
+
+##########################################################################################################################################################
+Accuracy Training data (only for singlelabel): 0.8626407793822981
+Accuracy Test data (only for singlelabel): 0.7872340425531915
+Hamming Loss on Train data: 0.13735922061770192
+Hamming Loss on Test data: 0.2127659574468085
+Jaccard Score (micro) on Train data: 0.758459388858514
+Jaccard Score (micro) on Test data: 0.6491228070175439
+Training time: 38.640581
+##########################################################################################################################################################
+Classification Report:
+======================================================
+                      precision    recall  f1-score   support
+
+              Aérien       0.52      0.54      0.53       179
+         Ferroviaire       0.41      0.43      0.42       195
+    Fluvial/Maritime       0.36      0.50      0.42       327
+               Other       0.86      0.86      0.86      2905
+             Routier       0.89      0.82      0.85      2336
+Transport par cables       0.43      0.52      0.47       262
+
+            accuracy                           0.79      6204
+           macro avg       0.58      0.61      0.59      6204
+        weighted avg       0.80      0.79      0.79      6204
+
+
+(categories x vocabulary size): (1, 10000)
+--------------------------------------------------------------------------------
+Aérien: robot, optimization, propulsion, adversarial, training, simulation, aerial, aeronautics, control, drones, military, uav, airport, flight, aerospace engineering, aircraft, aerospace, air, aviation, drone
+Ferroviaire: inventory, trains, linear, metro, base, im, omnichannel, el, market, stock, traction, fuel, retail, stations, coal, fuzzy, station, train, railway, rail
+Fluvial/Maritime: life below, below water, flow, humanitarian, sea, ocean engineering, underwater, engineering, inventory, freight, ocean, containerization, container, ports, maas, ship, tourism, marine, logistics, maritime
+Other: rate, learning, from, server, distributed, this paper, authentication, estimation, studies, materials, performance, consumption, memory, resource, water, temperature, thermal, in, cloud, heat
+Routier: innovations automotive, mobility innovations, sector, bus, urban, transportation and, network, service, business, automotive engineering, driving, engineering, automotive, road, traffic, transport, vehicles, mobility, transportation, vehicle
+Transport par cables: cable, altitude, hierarchical, paratransit, toroidal field, people, elasticity, china, robot, slicing, satellite, multipath, rebound, toroidal, rebound effect, engineering, crosswind, effect, shielding, optimization
+
+##########################################################################################################################################################
+Beginning the training for TF IDF...
+Vector of classification: axes
+Total number of publications: N=20677
+Number of words in the vocabulary (max_features): C=10000
+Range of ngram: ngram_range=(1, 2)
+Type of labellisation: singlelabel
+Algorithm used (only for multilabel): algo=LinearSVC(class_weight='balanced')
+Algorithm used (only for singlelabel): algo=LogisticRegression(class_weight='balanced')
+##########################################################################################################################################################
+Number of unique categories: C=4
+Split by categories:
+Accompagner le développement des systèmes de transports décarbonés et sûrs: 4881
+Peser sur les choix de modes de transport des voyageurs: 2925
+Favoriser le report modal des marchandises vers le fer et le maritime et améliorer la logistique urbaine et rurale: 3938
+Other: 9951
+##########################################################################################################################################################
+head(Dataset):
+                                          categories  ...                                         text_clean
+0  [Favoriser le report modal des marchandises ve...  ...  Crafting Business and Supply Chain Strategies,...
+1                                            [Other]  ...  Conduction Heat Transfer in Electronic Equipme...
+2  [Accompagner le développement des systèmes de ...  ...  Fossil Fuels Pollution and Air Quality Modelin...
+3  [Accompagner le développement des systèmes de ...  ...  Digital Neurocomputer VLSI-Systems with Parall...
+4                                            [Other]  ...  Normality and Abnormality in Adolescence, (197...
+
+[5 rows x 3 columns]
+
+##########################################################################################################################################################
+Percentage of training data:
+{"(2) Peser sur les choix de modes de transport des voyageurs": 0.7001499250374813}
+{"(1) Favoriser le report modal des marchandises vers le fer et le maritime et am\u00e9liorer la logistique urbaine et rurale": 0.6999719337636823}
+{"(0) Other": 0.699929655311024}
+{"(3) Accompagner le d\u00e9veloppement des syst\u00e8mes de transports d\u00e9carbon\u00e9s et s\u00fbrs": 0.699888765294772}
+
