@@ -1,7 +1,7 @@
-[2025-10-08 11:30:14 +0000] [7] [INFO] Starting gunicorn 23.0.0
-[2025-10-08 11:30:14 +0000] [7] [INFO] Listening at: http://0.0.0.0:5011 (7)
-[2025-10-08 11:30:14 +0000] [7] [INFO] Using worker: gevent
-[2025-10-08 11:30:14 +0000] [8] [INFO] Booting worker with pid: 8
+[2025-09-05 07:18:21 +0000] [6] [INFO] Starting gunicorn 23.0.0
+[2025-09-05 07:18:21 +0000] [6] [INFO] Listening at: http://0.0.0.0:5011 (6)
+[2025-09-05 07:18:21 +0000] [6] [INFO] Using worker: gevent
+[2025-09-05 07:18:21 +0000] [7] [INFO] Booting worker with pid: 7
 [nltk_data] Downloading package punkt_tab to /opt/.venv/nltk_data...
 [nltk_data]   Unzipping tokenizers/punkt_tab.zip.
 [nltk_data] Downloading package stopwords to /opt/.venv/nltk_data...
@@ -46,12 +46,12 @@ head(Dataset):
 
 ##########################################################################################################################################################
 Percentage of training data:
-{"(0) Economiques": 0.7001755926251098}
+{"(4) Strat\u00e9giques": 0.6919514532098371}
 {"(3) Soci\u00e9taux": 0.7095943335479716}
 {"(1) Environnementaux": 0.701739712278354}
-{"(5) Technologiques": 0.7010986066452305}
 {"(2) Other": 0.6924715909090909}
-{"(4) Strat\u00e9giques": 0.6919514532098371}
+{"(0) Economiques": 0.7001755926251098}
+{"(5) Technologiques": 0.7010986066452305}
 
 ##########################################################################################################################################################
 Accuracy Training data (only for singlelabel): 0.7428314793062945
@@ -60,7 +60,7 @@ Hamming Loss on Train data: 0.04860775236647551
 Hamming Loss on Test data: 0.13964109176875134
 Jaccard Score (micro) on Train data: 0.8307062928648778
 Jaccard Score (micro) on Test data: 0.5807050092764379
-Training time: 161.50925
+Training time: 34.63942
 ##########################################################################################################################################################
 Classification Report:
 ======================================================
@@ -122,15 +122,15 @@ head(Dataset):
 
 ##########################################################################################################################################################
 Percentage of training data:
-{"(3) Mat\u00e9riaux": 0.7014276846679082}
-{"(8) Urbain": 0.6998573014111305}
-{"(7) Transfrontalier": 0.7116336633663366}
-{"(5) Plateforme": 0.6967554076539102}
-{"(1) Energie": 0.6992420140768815}
-{"(0) Communications": 0.7133971291866029}
-{"(4) Other": 0.7028616852146264}
-{"(2) Logistique": 0.6948502994011976}
 {"(6) Rural": 0.7000646412411118}
+{"(5) Plateforme": 0.6967554076539102}
+{"(7) Transfrontalier": 0.7116336633663366}
+{"(8) Urbain": 0.6998573014111305}
+{"(0) Communications": 0.7133971291866029}
+{"(2) Logistique": 0.6948502994011976}
+{"(1) Energie": 0.6992420140768815}
+{"(4) Other": 0.7028616852146264}
+{"(3) Mat\u00e9riaux": 0.7014276846679082}
 
 ##########################################################################################################################################################
 Accuracy Training data (only for singlelabel): 0.7395149588889657
@@ -139,7 +139,7 @@ Hamming Loss on Train data: 0.03451637915812586
 Hamming Loss on Test data: 0.09932659932659933
 Jaccard Score (micro) on Train data: 0.8171242627618467
 Jaccard Score (micro) on Test data: 0.5502392344497608
-Training time: 168.700891
+Training time: 47.273331
 ##########################################################################################################################################################
 Classification Report:
 ======================================================
@@ -210,16 +210,16 @@ head(Dataset):
 ##########################################################################################################################################################
 Percentage of training data:
 {"(4) Marketing, Durabilit\u00e9, Chaine d\u2019approvisionnement, Logistiques, Inter & Multimodalit\u00e9": 0.6970768675568387}
-{"(7) Sciences cognitives, Interfaces H/M": 0.7055498458376156}
-{"(8) Sciences juridiques, R\u00e8glementations et Assurances": 0.6940700808625337}
-{"(9) Sciences \u00e9conomique, \u00c9valuation des politiques publiques, Mod\u00e8les \u00e9conomiques": 0.7007481296758105}
-{"(1) Capteurs et Traitement du signal": 0.7083700440528634}
-{"(10) S\u00e9curit\u00e9, Cybers\u00e9curit\u00e9, R\u00e9silience, Suret\u00e9, Fonctionnement et Interop\u00e9rabilit\u00e9 des syst\u00e8mes": 0.7041724342495551}
 {"(0) Base et Traitement de donn\u00e9es, IA": 0.7107112735451223}
+{"(1) Capteurs et Traitement du signal": 0.7083700440528634}
+{"(3) G\u00e9ographie, Territoires et Sociologie": 0.6902458686013704}
+{"(10) S\u00e9curit\u00e9, Cybers\u00e9curit\u00e9, R\u00e9silience, Suret\u00e9, Fonctionnement et Interop\u00e9rabilit\u00e9 des syst\u00e8mes": 0.7041724342495551}
+{"(7) Sciences cognitives, Interfaces H/M": 0.7055498458376156}
+{"(5) Mat\u00e9riaux, A\u00e9rodynamique, Transition \u00e9cologique, \u00c9nerg\u00e9tique et Mobilit\u00e9s durables": 0.7081499107674003}
 {"(2) Communications, Infrastructures et Connectivit\u00e9": 0.6954659050339165}
 {"(6) Other": 0.6867219917012448}
-{"(5) Mat\u00e9riaux, A\u00e9rodynamique, Transition \u00e9cologique, \u00c9nerg\u00e9tique et Mobilit\u00e9s durables": 0.7081499107674003}
-{"(3) G\u00e9ographie, Territoires et Sociologie": 0.6902458686013704}
+{"(8) Sciences juridiques, R\u00e8glementations et Assurances": 0.6940700808625337}
+{"(9) Sciences \u00e9conomique, \u00c9valuation des politiques publiques, Mod\u00e8les \u00e9conomiques": 0.7007481296758105}
 
 ##########################################################################################################################################################
 Accuracy Training data (only for singlelabel): 0.6282733365577282
@@ -228,7 +228,7 @@ Hamming Loss on Train data: 0.04580943826435432
 Hamming Loss on Test data: 0.12764492116523063
 Jaccard Score (micro) on Train data: 0.8438697523067372
 Jaccard Score (micro) on Test data: 0.6182399859759838
-Training time: 201.864277
+Training time: 60.109849
 ##########################################################################################################################################################
 Classification Report:
 ======================================================
@@ -263,7 +263,7 @@ weighted avg       0.74      0.81      0.77     17402
 6: pose, gaussian, wavelength, scattering, bits, we propose, distance, speaker, cylinder, is proposed, synchronous, observer, propose, glass, patients, image, of, in, novel, we
 7: micromobility, automated, autonomous, electrolysis, cognitive, sciences urban, interactive, hospital, robots, ethics, interaction, workstation, drive, computer science, automation, user, computer, wird, ai, human
 8: accounting, here, idle, ticket, support for, laws, business, case, audit, maritime, insurance, under, mais, angle, sea, protection, surge, regulatory, law, risk
-9: of urban, income, fuel, groundwater, cities, accessibility, perspective, environmental science, forecasting, value, continuation, fleet, pricing, public, demand, costs, city, transportation, optimal, economics
+9: of urban, income, fuel, groundwater, cities, perspective, accessibility, environmental science, forecasting, value, continuation, fleet, pricing, public, demand, costs, city, transportation, optimal, economics
 10: parcel lockers, payment, ceramic, airfoil, robust, consistency, failure, elderly, safety, computer security, resilience, platooning, da, mobilität, protection, stable, emergency, risk, privacy, lockers
 
 ##########################################################################################################################################################
@@ -297,12 +297,12 @@ head(Dataset):
 
 ##########################################################################################################################################################
 Percentage of training data:
-{"(4) Fluvial/Maritime": 0.699724517906336}
-{"(5) Transport par cables": 0.700228832951945}
-{"(3) Routier": 0.6999743128692525}
-{"(2) Other": 0.6999276934201012}
-{"(1) A\u00e9rien": 0.7006688963210702}
+{"(2) Routier": 0.6999743128692525}
+{"(5) Fluvial/Maritime": 0.699724517906336}
+{"(1) Other": 0.6999276934201012}
 {"(0) Ferroviaire": 0.699537750385208}
+{"(3) Transport par cables": 0.700228832951945}
+{"(4) A\u00e9rien": 0.7006688963210702}
 
 ##########################################################################################################################################################
 Accuracy Training data (only for singlelabel): 0.8626407793822981
@@ -311,7 +311,7 @@ Hamming Loss on Train data: 0.13735922061770192
 Hamming Loss on Test data: 0.2127659574468085
 Jaccard Score (micro) on Train data: 0.758459388858514
 Jaccard Score (micro) on Test data: 0.6491228070175439
-Training time: 38.640581
+Training time: 14.167928
 ##########################################################################################################################################################
 Classification Report:
 ======================================================
@@ -367,8 +367,95 @@ head(Dataset):
 
 ##########################################################################################################################################################
 Percentage of training data:
+{"(3) Accompagner le d\u00e9veloppement des syst\u00e8mes de transports d\u00e9carbon\u00e9s et s\u00fbrs": 0.699888765294772}
+{"(0) Other": 0.699929655311024}
 {"(2) Peser sur les choix de modes de transport des voyageurs": 0.7001499250374813}
 {"(1) Favoriser le report modal des marchandises vers le fer et le maritime et am\u00e9liorer la logistique urbaine et rurale": 0.6999719337636823}
-{"(0) Other": 0.699929655311024}
-{"(3) Accompagner le d\u00e9veloppement des syst\u00e8mes de transports d\u00e9carbon\u00e9s et s\u00fbrs": 0.699888765294772}
 
+##########################################################################################################################################################
+Accuracy Training data (only for singlelabel): 0.8497201685897878
+Accuracy Test data (only for singlelabel): 0.7875564152159897
+Hamming Loss on Train data: 0.15027983141021212
+Hamming Loss on Test data: 0.21244358478401032
+Jaccard Score (micro) on Train data: 0.7387073522345027
+Jaccard Score (micro) on Test data: 0.649561286891784
+Training time: 9.196581
+##########################################################################################################################################################
+Classification Report:
+======================================================
+                                                                                                                    precision    recall  f1-score   support
+
+                                        Accompagner le développement des systèmes de transports décarbonés et sûrs       0.71      0.65      0.68      1349
+Favoriser le report modal des marchandises vers le fer et le maritime et améliorer la logistique urbaine et rurale       0.70      0.73      0.72      1069
+                                                                                                             Other       0.86      0.87      0.87      2986
+                                                           Peser sur les choix de modes de transport des voyageurs       0.74      0.77      0.75       800
+
+                                                                                                          accuracy                           0.79      6204
+                                                                                                         macro avg       0.75      0.76      0.75      6204
+                                                                                                      weighted avg       0.79      0.79      0.79      6204
+
+
+(categories x vocabulary size): (1, 10000)
+--------------------------------------------------------------------------------
+Accompagner le développement des systèmes de transports décarbonés et sûrs: risk, sector, slicing, propulsion, system, bus, infrastructure, automotive engineering, transportation, road, driving, fuel, automotive, autonomous, traffic, safety, electric, engineering, vehicle, vehicles
+Favoriser le report modal des marchandises vers le fer et le maritime et améliorer la logistique urbaine et rurale: construction, container, supply chain, industry, orchestration, ship, fuzzy, railway, multipath, rural, management, network, routing, industrial, engineering, rail, freight transport, operations, freight, logistics
+Other: vulnerability, error, consumption, spectrum, the, photovoltaic, an, memory, des, heat, studies, psychology, of, temperature, materials, resource, in, cloud, water, thermal
+Peser sur les choix de modes de transport des voyageurs: choice, services, trip, cities, ridesharing, navigation, service, pricing, marketing, shopping, economics, shared, tourism, public, demand, transportation, ride, trips, travel, mobility
+
+##########################################################################################################################################################
+Beginning the training for TF IDF...
+Vector of classification: usages
+Total number of publications: N=20677
+Number of words in the vocabulary (max_features): C=10000
+Range of ngram: ngram_range=(1, 2)
+Type of labellisation: multilabel
+Algorithm used (only for multilabel): algo=LinearSVC(class_weight='balanced')
+Algorithm used (only for singlelabel): algo=LogisticRegression(class_weight='balanced')
+##########################################################################################################################################################
+Number of unique categories: C=2
+Split by categories:
+Véhicule autonome et connecté: 4386
+Other: 16291
+##########################################################################################################################################################
+head(Dataset):
+  categories  ...                                         text_clean
+0    [Other]  ...  Crafting Business and Supply Chain Strategies,...
+1    [Other]  ...  Conduction Heat Transfer in Electronic Equipme...
+2    [Other]  ...  Fossil Fuels Pollution and Air Quality Modelin...
+3    [Other]  ...  Digital Neurocomputer VLSI-Systems with Parall...
+4    [Other]  ...  Normality and Abnormality in Adolescence, (197...
+
+[5 rows x 3 columns]
+
+##########################################################################################################################################################
+Percentage of training data:
+{"(1) V\u00e9hicule autonome et connect\u00e9": 0.7029183766529867}
+{"(0) Other": 0.6991590448714013}
+
+##########################################################################################################################################################
+Accuracy Training data (only for singlelabel): 0.971602293926622
+Accuracy Test data (only for singlelabel): 0.9198903932946486
+Hamming Loss on Train data: 0.028397706073378014
+Hamming Loss on Test data: 0.08010960670535139
+Jaccard Score (micro) on Train data: 0.944772910507928
+Jaccard Score (micro) on Test data: 0.8516639307566035
+Training time: 7.465491
+##########################################################################################################################################################
+Classification Report:
+======================================================
+              precision    recall  f1-score   support
+
+           0       0.96      0.93      0.95      4901
+           1       0.77      0.87      0.82      1303
+
+   micro avg       0.92      0.92      0.92      6204
+   macro avg       0.87      0.90      0.88      6204
+weighted avg       0.92      0.92      0.92      6204
+ samples avg       0.92      0.92      0.92      6204
+
+
+(categories x vocabulary size): (1, 10000)
+--------------------------------------------------------------------------------
+0: mit, positive, shopping, environmental science, this study, highlights, shop, humanities, its, intelligence computer, chinese, germany, likely, geometry, rail, network computer, table, multimodality, case, die
+1: transportation theory, smart, mobility in, urban, driving, driver, road, taxi, carpooling, vehicular, cars, uav, transportation, automated, automation, vehicle, traffic, autonomous, mobility, vehicles
+Classifier initialized.
